@@ -1,12 +1,23 @@
-*This branch is used for all development henceforth.*
-
 # Introduction
 
-Note that this package is not a Mastodon client.
-Instead, it aims to facilitate the collection of public data that requires no authentication.
+This project seeks to make retrieving data from across different mastodon servers easier for the purposes of research.
 
-# Useful links
+# Project Structure
 
-- [Mastodon.py](https://github.com/halcy/Mastodon.py): a Python client for Mastodon
-- [Mastodon instances and network API](https://instances.social/api/doc/)
-- [awesome-mastodon](https://github.com/tleb/awesome-mastodon): a list of useful resources related to Mastodon
+- Backend: A [flask](https://flask.palletsprojects.com/en/2.3.x/) application that leverages the official [mastodon api](https://docs.joinmastodon.org/api/) to get user, status and hashtag data for a given mastodon instance.
+- Frontend: A [vue.js](https://vuejs.org/guide/introduction.html) app that makes it easier for a user to perform a search query and observe the results.
+
+# Saving instance information
+
+We leverage the [instances.social](https://instances.social/api/doc/) api to capture list of mastodon instances and sort them based on highest number of users. You may generate an api key [here](https://instances.social/api/token) and update it accordingly in `/backend/mastoapp/keys.json`.
+
+# Running the app
+- Backend:
+1. Check your terminal into the backend folder.
+2. Install necessary pip packages. Run `pip install -r requirements.txt`.
+3. Run your flask app by running `flask run --port <desired_port_number>`.
+
+- Frontend:
+1. Check your terminal into the frontend folder.
+2. Install necessary npm packages. Run `npm i`.
+3. Serve your vue app by running `npm run serve`.

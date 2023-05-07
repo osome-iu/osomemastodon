@@ -1,3 +1,5 @@
+*This branch is used for all development henceforth.*
+
 # Introduction
 
 Note that this package is not a Mastodon client.

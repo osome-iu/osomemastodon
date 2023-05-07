@@ -7,6 +7,10 @@ This project seeks to make retrieving data from across different mastodon server
 - Backend: A [flask](https://flask.palletsprojects.com/en/2.3.x/) application that leverages the official [mastodon api](https://docs.joinmastodon.org/api/) to get user, status and hashtag data for a given mastodon instance.
 - Frontend: A [vue.js](https://vuejs.org/guide/introduction.html) app that makes it easier for a user to perform a search query and observe the results.
 
+# Saving instance information
+
+We leverage the [instances.social](https://instances.social/api/doc/) api to capture list of mastodon instances and sort them based on highest number of users. You may generate an api key [here](https://instances.social/api/token) and update it accordingly in `/backend/mastoapp/keys.json`.
+
 # Running the app
 - Backend:
 1. Check your terminal into the backend folder.

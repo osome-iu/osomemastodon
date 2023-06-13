@@ -1,4 +1,13 @@
-################################### This file saves a list of mastodon instances along with their characteristics ###################################
+"""
+Purpose:
+    This script is used to store the mastodon script details along with each instance's characteristics
+Inputs:
+    None
+Output:
+    Save the details on a txt file.
+Authors: Rishab Ravi and Pasan Kamburugamuwa
+"""
+
 
 import requests
 import pandas as pd

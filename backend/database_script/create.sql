@@ -13,3 +13,14 @@ create table users(
 	statuses_count INTEGER,
 	last_status_at DATE
 );
+
+-- create table posts
+create table posts(
+	id VARCHAR(255) PRIMARY KEY,
+	instance VARCHAR(255) NOT NULL,
+	user_id VARCHAR(255) NOT NULL,
+	user_name VARCHAR(255) NOT NULL,
+	is_bot BOOLEAN NOT NULL,
+	post VARCHAR(255) NOT NULL,
+	url VARCHAR(255) NOT NULL
+)

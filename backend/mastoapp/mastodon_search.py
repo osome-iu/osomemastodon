@@ -5,7 +5,7 @@ from urllib3.util.retry import Retry
 import httplib2
 import urllib.parse
 import os, sys
-from database_functions import users
+from database_functions import users, posts
 from flask import Flask, request, jsonify, Response
 
 app = Flask(__name__)
@@ -147,7 +147,6 @@ class MastodonSearch:
                         user_data['last_status_at']
                         )
                 users_data_retrieved = users.get_user_data(user_data['id'])
-                print("IN HERE??????")
                 print(users_data_retrieved)
         return users_data_retrieved
 
@@ -236,6 +235,7 @@ class MastodonSearch:
                 status_id = item['id']
                 entry = [instance, user_id, user_name, is_bot, post, url, status_id]
                 search_data.append(entry)
+                add_post = posts.add_posts(status_id, instance, user_id, user_name, is_bot,post,url)
         except:
             print('no results found for ' + endpoint_url)
         return search_data

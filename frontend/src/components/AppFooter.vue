@@ -12,9 +12,6 @@
         </div>
         <div class="row justify-content-center">
             <div class="column">
-                <a href="https://iuni.iu.edu/" target="_blank">IUNI</a>
-            </div>
-            <div class="column">
                 <a href="https://cnets.indiana.edu/" target="_blank">CNetS</a>
             </div>
             <div class="column">

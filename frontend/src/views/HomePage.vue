@@ -1,45 +1,52 @@
 <template>
     <AppNavBar/>
-        <div id="app" style="margin-top: 100px">
-            <div>
-                <label for="instance">Instance:</label>
-                <select id="instance" v-model="selectedInstance">
-                    <option v-for="instance in instances" :key="instance" :value="instance">{{ instance }}</option>
-                </select>
+    <div id="app" style="margin-top: 100px">
+        <div class="container">
+            <div class="inner-div">
+                <div>
+                    <label for="instance">Instance:</label>
+                    <select id="instance" v-model="selectedInstance">
+                        <option v-for="instance in instances" :key="instance" :value="instance">{{ instance }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="search_type">Search Type:</label>
+                    <select id="search_type" v-model="searchType">
+                        <option value="user">User</option>
+                        <option value="post">Post</option>
+                        <option value="hashtag">Hashtag</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="search_string">Search</label>
+                    <input id="search_string" v-model="searchString" placeholder="Enter search string">
+                </div>
+                <div>
+                    <button @click="submitSearch" class="btn btn-success" style="margin-top: 30px">Search</button>
+                </div>
             </div>
-            <div>
-                <label for="search_type">Search Type:</label>
-                <select id="search_type" v-model="searchType">
-                    <option value="user">User</option>
-                    <option value="post">Post</option>
-                    <option value="hashtag">Hashtag</option>
-                </select>
-            </div>
-            <div>
-                <label for="search_string">Search String:</label>
-                <input id="search_string" v-model="searchString" placeholder="Enter search string">
-            </div>
-            <button @click="submitSearch">Search</button>
             <div v-if="loading" class="loading-icon">Loading...</div>
-            <div v-if="searchResults.length > 0">
-                <table class="results-table">
+
+            <div v-if="searchResults.length > 0" style="margin-top: 40px">
+                <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th v-for="(value, key) in searchResults[0]" :key="key">{{ key }}</th>
+                        <th v-for="(value, key) in searchResults[0]" :key="key">{{ key }}</th>-->
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(result, index) in searchResults" :key="index">
-                        <td v-for="(value, key) in result" :key="key">
-                            <div v-if="key === 'post'" v-html="value"></div>
-                            <a v-else-if="key === 'url'" :href="value" target="_blank">{{ value }}</a>
-                            <div v-else>{{ value }}</div>
-                        </td>
-                    </tr>
+                       <tr v-for="(result, index) in searchResults" :key="index">
+                           <td v-for="(value, key) in result" :key="key">
+                               <div v-if="key === 'post'" v-html="value"></div>
+                               <a v-else-if="key === 'url'" :href="value" target="_blank">{{ value }}</a>
+                               <div v-else>{{ value }}</div>
+                           </td>
+                       </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
     <AppFooter/>
 </template>
 
@@ -77,6 +84,7 @@ export default {
                 });
                 if (response.data) {
                     this.searchResults = response.data;
+                    console.log(this.searchResults)
                 } else {
                     this.searchResults = [];
                     alert('Error: Could not fetch search results.');
@@ -191,5 +199,10 @@ td {
 
 th {
     background-color: #f2f2f2;
+}
+
+.inner-div {
+    width: 60%;
+    margin: 0 auto;
 }
 </style>

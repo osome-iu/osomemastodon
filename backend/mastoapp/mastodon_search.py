@@ -63,9 +63,7 @@ class MastodonSearch:
         else:
             endpoint_url = f'{instance}/api/v2/search?'
             params=urllib.parse.urlencode({'q': search_string,'type': 'accounts'})
-            headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',
-            }
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.246',}
             http = httplib2.Http()
             url = endpoint_url + params
             response, content = http.request(url, "GET", headers=headers)

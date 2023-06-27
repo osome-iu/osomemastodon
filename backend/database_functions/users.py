@@ -143,11 +143,27 @@ def get_user_data(user_id):
     """
     with backend_util.get_db_cursor() as cur:
         try:
+            user_fetch_data = []
             get_user = "select * from users where id = %s"
             cur.execute(get_user, (user_id,))
             if cur.rowcount>0:
-                return cur.fetchone()
-            else:
-                return {}
+                user_data = cur.fetchone()
+                user_data_json = {
+                    "user_id": user_data[0],
+                    "instance": user_data[1],
+                    "username": user_data[2],
+                    "acct": user_data[3],
+                    "display_name": user_data[4],
+                    "locked": user_data[5],
+                    "bot": user_data[6],
+                    "created_at": user_data[7],
+                    "avatar": user_data[8],
+                    "followers_count": user_data[9],
+                    "following_count": user_data[10],
+                    "status_count": user_data[11],
+                    "last_status_at": user_data[12],
+                }
+                user_fetch_data.append(user_data_json)
+                return user_fetch_data
         except Exception as ex:
             raise Exception(ex)

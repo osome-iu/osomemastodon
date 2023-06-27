@@ -27,11 +27,11 @@
             </div>
             <div v-if="loading" class="loading-icon">Loading...</div>
 
-            <div v-if="searchResults.length > 0" style="margin-top: 40px">
+            <div v-if="searchResults.length > 0" style="margin-top: 40px" id="home_table">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th v-for="(value, key) in searchResults[0]" :key="key">{{ key }}</th>-->
+                        <th v-for="(value, key) in searchResults[0]" :key="key">{{ key }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -204,5 +204,9 @@ th {
 .inner-div {
     width: 60%;
     margin: 0 auto;
+}
+
+#home_table{
+    font-size: 10px;
 }
 </style>

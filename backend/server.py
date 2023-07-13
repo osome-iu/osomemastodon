@@ -24,12 +24,16 @@ PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(PARENT_DIR, "mastoapp"))
 from mastodon_search import MastodonSearch
 from capture_instances import CaptureMastodonInstances
+from streamer import StreamListener
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 ms = MastodonSearch()
 ci = CaptureMastodonInstances()
+msl = MyStreamListener()
+
 @app.route('/instances', methods=['GET'])
 @cross_origin()
 def get_domains():
@@ -59,4 +63,6 @@ if __name__ == '__main__':
     logger.info("-" * 50)
     logger.info(f"Begin script: {__file__}")
     ci.fetch_instance_data()
+    #call the streamer function.
+    msl.on_update()
     app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()),debug=backend_util.get_flask_debug_mode())

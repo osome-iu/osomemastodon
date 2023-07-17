@@ -17,7 +17,7 @@ from mastodon import Mastodon, StreamListener
 import psycopg2
 
 # Log file location and the file
-LOG_DIR = "./log"
+LOG_DIR = "/home/pkamburu/mastodon/log"
 LOG_FNAME = "mastodon_logging.log"
 
 # Add mastodon app to path

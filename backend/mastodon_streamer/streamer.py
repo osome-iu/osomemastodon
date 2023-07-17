@@ -19,7 +19,7 @@ import time
 from mastodon import Mastodon, StreamListener
 from library import backend_util
 
-LOG_DIR = "/Users/pkamburu/iuni/mastodon/osomemastodon/backend/log"
+LOG_DIR = "/home/pkamburu/mastodon/log"
 
 # Create a logger
 LOG_FNAME = "mastodon_logging.log"

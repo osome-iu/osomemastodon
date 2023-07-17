@@ -139,10 +139,3 @@ class MastodonStreamListener(StreamListener):
         self.current_hour_posts = 0
         self.file_name = f"mastdonsocial_{self.current_date}.json"
         self.current_file = None
-
-
-# # Create a stream listener object
-# listener = MastodonStreamListener()
-#
-# # Start streaming for new toots
-# mastodon.stream_public(listener)

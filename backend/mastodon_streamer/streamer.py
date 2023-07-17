@@ -112,9 +112,6 @@ class MastodonStreamListener(StreamListener):
         logger.info(f"Hour {previous_hour}: {self.current_hour_posts} posts, "
               f"File size: {file_size} bytes")
 
-        # Create a new JSON file for the current hour
-        self.current_date = datetime.datetime.now().date()
-        self.file_name = f"mastdonsocial_{self.current_date}.json"
 
     def end_of_day(self):
         """

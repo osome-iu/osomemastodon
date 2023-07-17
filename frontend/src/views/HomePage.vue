@@ -27,18 +27,19 @@
             </div>
             <div v-if="loading" class="loading-icon">Loading...</div>
 
-            <div v-if="searchResults.length > 0" style="margin-top: 40px">
+            <div v-if="searchResults.length > 0" style="margin-top: 40px" id="home_table">
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th v-for="(value, key) in searchResults[0]" :key="key">{{ key }}</th>-->
+                        <th v-for="(value, key) in searchResults[0]" :key="key">{{ key }}</th>
                     </tr>
                     </thead>
                     <tbody>
                        <tr v-for="(result, index) in searchResults" :key="index">
                            <td v-for="(value, key) in result" :key="key">
                                <div v-if="key === 'post'" v-html="value"></div>
-                               <a v-else-if="key === 'url'" :href="value" target="_blank">{{ value }}</a>
+                               <a v-else-if="key === 'avatar'" :href="value" target="_blank">AVATAR</a>
+                               <a v-else-if="key === 'url'" :href="value" target="_blank">POST URL</a>
                                <div v-else>{{ value }}</div>
                            </td>
                        </tr>
@@ -84,7 +85,6 @@ export default {
                 });
                 if (response.data) {
                     this.searchResults = response.data;
-                    console.log(this.searchResults)
                 } else {
                     this.searchResults = [];
                     alert('Error: Could not fetch search results.');
@@ -204,5 +204,9 @@ th {
 .inner-div {
     width: 60%;
     margin: 0 auto;
+}
+
+#home_table{
+    font-size: 14px;
 }
 </style>

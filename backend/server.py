@@ -13,6 +13,7 @@ from flask_cors import CORS, cross_origin
 import os, sys
 from library import backend_util
 from mastoapp import capture_instances
+from mastodon import Mastodon, StreamListener
 import psycopg2
 
 # Log file location and the file
@@ -24,12 +25,22 @@ PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(PARENT_DIR, "mastoapp"))
 from mastodon_search import MastodonSearch
 from capture_instances import CaptureMastodonInstances
+from mastodon_streamer import streamer
+import threading
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 ms = MastodonSearch()
 ci = CaptureMastodonInstances()
+
+
+# Create a Mastodon client instance
+mastodon = Mastodon(
+    access_token='LDqotkJzIDexTZ56ASuz23kO50YmMYhI5Ojt2cuapcE',
+    api_base_url='https://mastodon.social'
+)
+
 @app.route('/instances', methods=['GET'])
 @cross_origin()
 def get_domains():
@@ -49,7 +60,6 @@ def search():
     instance = data.get('instance')
     search_string = data.get('search_string')
     search_type = data.get('search_type')
-
     data = ms.search_instance_data(instance, search_string, search_type)
     return jsonify(data)
 
@@ -58,5 +68,8 @@ if __name__ == '__main__':
     logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
     logger.info("-" * 50)
     logger.info(f"Begin script: {__file__}")
+    listener = streamer.MastodonStreamListener();
+    mastodon.stream_public(listener)
+
     ci.fetch_instance_data()
     app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()),debug=backend_util.get_flask_debug_mode())

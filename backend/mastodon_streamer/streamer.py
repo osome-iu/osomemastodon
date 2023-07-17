@@ -19,6 +19,9 @@ import time
 from mastodon import Mastodon, StreamListener
 from library import backend_util
 
+# Specify the directory path where the files will be stored
+DATA_DERIVED_DIR = "/home/pkamburu/mastodon/data_derived"
+#DATA_DERIVED_DIR = "/Users/pkamburu/IUNI/data_derived"
 LOG_DIR = "/home/pkamburu/mastodon/log"
 
 # Create a logger
@@ -41,7 +44,10 @@ class MastodonStreamListener(StreamListener):
         # Get the current month and date for the filename
         current_month = datetime.datetime.now().strftime("%Y-%m")
         current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-        return f"mastdonsocial_{current_month}/{current_date}.json"
+
+        # Create the directory if it doesn't exist
+        os.makedirs(os.path.join(DATA_DERIVED_DIR, current_month), exist_ok=True)
+        return os.path.join(DATA_DERIVED_DIR, current_month, f"mastdonsocial_{current_date}.json")
 
     def on_update(self, status):
         """

@@ -34,10 +34,12 @@ logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, al
 class MastodonStreamListener(StreamListener):
     def __init__(self):
         super().__init__()
-        self.posts_count = 0
-        self.current_date = datetime.datetime.now().date()
-        self.current_hour = datetime.datetime.now().hour
         self.current_hour_posts = 0
+        self.posts_count_per_day = 0
+        # Get the current date
+        self.current_date = datetime.datetime.now().date()
+        # Get the current hour
+        self.current_hour = datetime.datetime.now().hour
         self.file_name = self.get_file_name()
 
     def get_file_name(self):
@@ -60,7 +62,7 @@ class MastodonStreamListener(StreamListener):
         .gz file create and remove the mastodon_{current_date}.json file.
         """
         # Increment the post count for each received toot
-        self.posts_count += 1
+        self.posts_count_per_day += 1
         self.current_hour_posts += 1
 
         #In this function is used to check if there is a new date started.
@@ -136,9 +138,18 @@ class MastodonStreamListener(StreamListener):
             # Remove the original JSON file
             os.remove(self.file_name)
 
+        logger.info("-" * 50)
+        logger.info(f"End of the Day: {__file__}")
+
+        logger.info(f"Date {self.current_date}: {self.posts_count_per_day} posts, "
+              f"File size: {file_size} bytes")
+        logger.info("-" * 50)
+
+
         # Reset counters and file info for the new day
         self.current_date = datetime.datetime.now().date()
         self.current_hour = datetime.datetime.now().hour
         self.current_hour_posts = 0
+
         self.file_name = f"mastdonsocial_{self.current_date}.json"
         self.current_file = None

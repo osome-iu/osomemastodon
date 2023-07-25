@@ -74,7 +74,12 @@ if __name__ == '__main__':
     # Create threads and start streaming for each instance and stream method
     threads = []
     for instance_info in instances_and_streams:
-        thread = threading.Thread(target=mastodonStreamer.stream_data, args=(instance_info,))
+        if instance_info['stream_method'] == 'local':
+            thread = threading.Thread(target=mastodonStreamer.stream_local_data, args=(instance_info,))
+        elif instance_info['stream_method'] == 'public':
+            thread = threading.Thread(target=mastodonStreamer.stream_public_data, args=(instance_info,))
+        else:
+            continue
         threads.append(thread)
 
     try:

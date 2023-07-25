@@ -172,7 +172,7 @@ class MastodonStreamListener(StreamListener):
         self.current_file = None
 
 
-def stream_data(instance_info):
+def stream_public_data(instance_info):
     # Create a Mastodon client
     mastodon_stream = Mastodon(
         access_token=instance_info['access_token'],
@@ -184,3 +184,17 @@ def stream_data(instance_info):
 
     stream_listener = MastodonStreamListener(instance_info['instance_name'], instance_info['stream_method'])
     mastodon_stream.stream_public(stream_listener)
+
+
+def stream_local_data(instance_info):
+    # Create a Mastodon client
+    mastodon_stream = Mastodon(
+        access_token=instance_info['access_token'],
+        api_base_url=instance_info['instance_name']
+    )
+
+    # Use the access token for user streaming
+    mastodon_stream.access_token = instance_info['access_token']
+
+    stream_listener = MastodonStreamListener(instance_info['instance_name'], instance_info['stream_method'])
+    mastodon_stream.stream_local(stream_listener)

@@ -20,7 +20,6 @@ from mastodon import Mastodon, StreamListener
 from library import backend_util
 
 # Specify the directory path where the files will be stored
-#DATA_DERIVED_DIR = "/home/pkamburu/mastodon/data_derived"
 DATA_DERIVED_DIR = "/home/data/apps/mastodon/data_derived"
 LOG_DIR = "/home/data/apps/mastodon/log"
 
@@ -54,7 +53,8 @@ class MastodonStreamListener(StreamListener):
 
         # Create the directory if it doesn't exist
         os.makedirs(os.path.join(DATA_DERIVED_DIR, current_month), exist_ok=True)
-        return os.path.join(DATA_DERIVED_DIR, current_month, f"{self.instance_name}_{self.stream_method}_{current_date}.json")
+        instance_name = self.instance_name[len("https://"):]
+        return os.path.join(DATA_DERIVED_DIR, current_month, f"{instance_name}_{self.stream_method}_{current_date}.json")
 
     def on_update(self, status):
         """

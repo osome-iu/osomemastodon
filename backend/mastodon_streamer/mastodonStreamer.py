@@ -22,7 +22,7 @@ from library import backend_util
 # Specify the directory path where the files will be stored
 #DATA_DERIVED_DIR = "/home/pkamburu/mastodon/data_derived"
 DATA_DERIVED_DIR = "/home/data/apps/mastodon/data_derived"
-LOG_DIR = "/Users/pkamburu/IUNI/mastodon/osomemastodon/backend/log"
+LOG_DIR = "/home/data/apps/mastodon/log"
 
 # Create a logger
 LOG_FNAME = "mastodon_logging.log"

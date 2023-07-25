@@ -20,9 +20,9 @@ from mastodon import Mastodon, StreamListener
 from library import backend_util
 
 # Specify the directory path where the files will be stored
-DATA_DERIVED_DIR = "/home/pkamburu/mastodon/data_derived"
-#DATA_DERIVED_DIR = "/Users/pkamburu/IUNI/data_derived"
-LOG_DIR = "/home/pkamburu/mastodon/log"
+#DATA_DERIVED_DIR = "/home/pkamburu/mastodon/data_derived"
+DATA_DERIVED_DIR = "/Users/pkamburu/IUNI/data_derived"
+LOG_DIR = "/Users/pkamburu/IUNI/mastodon/osomemastodon/backend/log"
 
 # Create a logger
 LOG_FNAME = "mastodon_logging.log"
@@ -32,10 +32,15 @@ logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, al
 
 # Define a custom stream listener
 class MastodonStreamListener(StreamListener):
-    def __init__(self):
+    def __init__(self, instance_name, stream_method):
         super().__init__()
+
+        self.instance_name = instance_name
+        self.stream_method = stream_method
+
         self.current_hour_posts = 0
         self.posts_count_per_day = 0
+
         # Get the current date
         self.current_date = datetime.datetime.now().date()
         # Get the current hour
@@ -49,7 +54,7 @@ class MastodonStreamListener(StreamListener):
 
         # Create the directory if it doesn't exist
         os.makedirs(os.path.join(DATA_DERIVED_DIR, current_month), exist_ok=True)
-        return os.path.join(DATA_DERIVED_DIR, current_month, f"mastdonsocial_{current_date}.json")
+        return os.path.join(DATA_DERIVED_DIR, current_month, f"{self.instance_name}_{self.stream_method}_{current_date}.json")
 
     def on_update(self, status):
         """
@@ -77,6 +82,16 @@ class MastodonStreamListener(StreamListener):
             self.current_hour_posts = 1
             self.current_hour = current_hour
 
+
+        # Check if the status is a reply
+        is_reply = 'in_reply_to_id' in status and status['in_reply_to_id'] is not None
+
+        # Get the replied post URL
+        replied_post_url = None
+        if is_reply:
+            replied_post_id = status['in_reply_to_id']
+            replied_post_url = f"{status['account']['url']}status/{replied_post_id}"
+
         # Write toot info to JSON file
         toot_info = {
             'content': status['content'],
@@ -84,7 +99,9 @@ class MastodonStreamListener(StreamListener):
             'status_id': status['id'],
             'created_at': status['created_at'],
             'visibility': status['visibility'],
-            'post_url': status['url']
+            'post_url': status['url'],
+            'is_reply': is_reply,
+            'replied_post_url': replied_post_url  # Add the replied_post_url field
         }
 
         # Create directories for the current month and date if they don't exist
@@ -151,5 +168,19 @@ class MastodonStreamListener(StreamListener):
         self.current_hour = datetime.datetime.now().hour
         self.current_hour_posts = 0
 
-        self.file_name = f"mastdonsocial_{self.current_date}.json"
+        self.file_name = f"{self.instance_name}_{self.stream_method}_{self.current_date}.json"
         self.current_file = None
+
+
+def stream_data(instance_info):
+    # Create a Mastodon client
+    mastodon_stream = Mastodon(
+        access_token=instance_info['access_token'],
+        api_base_url=instance_info['instance_name']
+    )
+
+    # Use the access token for user streaming
+    mastodon_stream.access_token = instance_info['access_token']
+
+    stream_listener = MastodonStreamListener(instance_info['instance_name'], instance_info['stream_method'])
+    mastodon_stream.stream_public(stream_listener)

@@ -17,7 +17,7 @@ from mastodon import Mastodon, StreamListener
 import psycopg2
 
 # Log file location and the file
-LOG_DIR = "/home/pkamburu/mastodon/log"
+LOG_DIR = "/Users/pkamburu/IUNI/mastodon/osomemastodon/backend/log"
 LOG_FNAME = "mastodon_logging.log"
 
 # Add mastodon app to path
@@ -25,7 +25,7 @@ PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(PARENT_DIR, "mastoapp"))
 from mastodon_search import MastodonSearch
 from capture_instances import CaptureMastodonInstances
-from mastodon_streamer import streamer
+from mastodon_streamer import mastodonStreamer
 import threading
 
 app = Flask(__name__)
@@ -33,13 +33,6 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 ms = MastodonSearch()
 ci = CaptureMastodonInstances()
-
-
-# Create a Mastodon client instance
-mastodon = Mastodon(
-    access_token='LDqotkJzIDexTZ56ASuz23kO50YmMYhI5Ojt2cuapcE',
-    api_base_url='https://mastodon.social'
-)
 
 @app.route('/instances', methods=['GET'])
 @cross_origin()
@@ -64,12 +57,46 @@ def search():
     return jsonify(data)
 
 if __name__ == '__main__':
+    LOG_DIR = "/Users/pkamburu/IUNI/mastodon/osomemastodon/backend/log"
+    LOG_FNAME = "mastodon_logging.log"
+
+    # Create logger
     script_name = os.path.basename(__file__)
     logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
     logger.info("-" * 50)
     logger.info(f"Begin script: {__file__}")
-    listener = streamer.MastodonStreamListener();
-    mastodon.stream_public(listener)
 
-    ci.fetch_instance_data()
-    app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()),debug=backend_util.get_flask_debug_mode())
+    # Define the instance names and stream methods for public and local streams
+    instances_and_streams = [
+        {'instance_name': 'https://mastodon.social', 'stream_method': 'public', 'access_token' : 'LDqotkJzIDexTZ56ASuz23kO50YmMYhI5Ojt2cuapcE'},
+        {'instance_name': 'https://mastodon.cloud', 'stream_method': 'public', 'access_token' : 'Jo4ykUA2i56eBWuk0J_sHJ7_TVVU0_4JmzUQimXwokk'},
+        {'instance_name': 'https://mastodon.social', 'stream_method': 'local', 'access_token' : 'LDqotkJzIDexTZ56ASuz23kO50YmMYhI5Ojt2cuapcE'},
+        {'instance_name': 'https://mastodon.cloud', 'stream_method': 'local', 'access_token' : 'Jo4ykUA2i56eBWuk0J_sHJ7_TVVU0_4JmzUQimXwokk'}
+    ]
+
+    # Create threads and start streaming for each instance and stream method
+    threads = []
+    for instance_info in instances_and_streams:
+        thread = threading.Thread(target=mastodonStreamer.stream_data, args=(instance_info,))
+        threads.append(thread)
+
+    try:
+        # Start all threads
+        for thread in threads:
+            thread.start()
+
+        # Wait for all threads to finish
+        for thread in threads:
+            thread.join()
+
+    except KeyboardInterrupt:
+        # Handle Ctrl+C gracefully
+        logger.info("Keyboard interrupt detected. Stopping threads...")
+        for thread in threads:
+            thread.join()
+
+    finally:
+        # Fetch instance data after the threads are finished or interrupted
+        ci.fetch_instance_data()
+
+    app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()), debug=backend_util.get_flask_debug_mode())

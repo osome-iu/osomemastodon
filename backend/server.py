@@ -57,9 +57,6 @@ def search():
     return jsonify(data)
 
 if __name__ == '__main__':
-    LOG_DIR = "/Users/pkamburu/IUNI/mastodon/osomemastodon/backend/log"
-    LOG_FNAME = "mastodon_logging.log"
-
     # Create logger
     script_name = os.path.basename(__file__)
     logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)

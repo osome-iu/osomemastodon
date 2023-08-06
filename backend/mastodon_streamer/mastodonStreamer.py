@@ -82,26 +82,30 @@ class MastodonStreamListener(StreamListener):
             self.current_hour_posts = 1
             self.current_hour = current_hour
 
-
-        # Check if the status is a reply
-        is_reply = 'in_reply_to_id' in status and status['in_reply_to_id'] is not None
-
-        # Get the replied post URL
-        replied_post_url = None
-        if is_reply:
-            replied_post_id = status['in_reply_to_id']
-            replied_post_url = f"{status['account']['url']}status/{replied_post_id}"
-
         # Write toot info to JSON file
         toot_info = {
-            'content': status['content'],
-            'username': status['account']['username'],
-            'status_id': status['id'],
-            'created_at': status['created_at'],
-            'visibility': status['visibility'],
-            'post_url': status['url'],
-            'is_reply': is_reply,
-            'replied_post_url': replied_post_url  # Add the replied_post_url field
+            'id': status['id'],  # ID of the status in the database.
+            'uri': status['uri'],  # URI of the status used for federation
+            'created_at': status['created_at'],  # The date when this status was created
+            'account': status['account'],  # The account that authored this status.
+            'content': status['content'],  # HTML-encoded status content.
+            'visibility': status['visibility'],  # Toot visibility ('public', 'unlisted', 'private', or 'direct')
+            'sensitive': status['sensitive'],  # Is this status marked as sensitive content?
+            'spoiler_text': status['spoiler_text'],# Subject or summary line, below which status content is collapsed until expanded.
+            'media_attachments': status['media_attachments'],  # Media that is attached to this status.
+            'mentions': status['mentions'],  # Mentions of users within the status content.
+            'tags': status['tags'],  # Hashtags used within the status content.
+            'emojis': status['emojis'],  # Custom emoji to be used when rendering status content.
+            'favourites_count': status['favourites_count'],  # How many favourites this status has received.
+            'replies_count': status['replies_count'],  # How many replies this status has received.
+            'url': status['url'],  # A link to the status’s HTML representation.
+            'in_reply_to_id': status['in_reply_to_id'],  # ID of the status being replied to.
+            'in_reply_to_account_id': status['in_reply_to_account_id'], # ID of the account that authored the status being replied to.
+            'reblog': status['reblog'],  # The status being reblogged.
+            'poll': status['poll'],  # The poll attached to the status.
+            'card': status['card'],  # Preview card for links included within status content.
+            'language': status['language'],  # Primary language of this status.
+            'edited_at': status['edited_at'],  # Timestamp of when the status was last edited.
         }
 
         # Create directories for the current month and date if they don't exist
@@ -127,7 +131,7 @@ class MastodonStreamListener(StreamListener):
         # Get file size in bytes
         file_size = os.path.getsize(self.file_name)
 
-        # Print the result
+        # log the result
         logger.info(f"Hour {previous_hour}: {self.current_hour_posts} posts, "
               f"File size: {file_size} bytes")
 

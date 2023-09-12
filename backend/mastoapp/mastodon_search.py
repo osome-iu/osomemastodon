@@ -17,7 +17,6 @@ class MastodonSearch:
         self.session.mount('http://', adapter)
         self.session.mount('https://', adapter)
         self.session.timeout = 5
-
     def make_endpoint_request(self, endpoint_url, headers=None):
         try:
             # start_time = time.time()
@@ -190,10 +189,6 @@ class MastodonSearch:
 
         return user
 
-    # api_url = f'{instance_url}/api/v2/search?q={keyword}'
-    # headers = {'Authorization': f'Bearer {access_token}'}
-    # response = requests.get(api_url, headers=headers)
-
     ## Post Search ##
     def request_status_endpoint(self, instance, search_string, auth=None):
         """
@@ -365,3 +360,46 @@ class MastodonSearch:
         elif type == 'hashtag':
             data =self.get_hashtag_data(instances=instances, hashtag=search_string)
         return data
+
+
+def mastodon_search(access_token, search_keyword, search_type):
+    """
+    This method is used to get the accounts,statuses and hashtags.
+
+    Parameters passing
+    -----------
+    - access_token - Bearer token to retrieve statuses
+    - q - query_search
+
+    Returns
+    - JSON object
+          "accounts": [
+            ...
+          ],
+          "statuses":[
+            ...
+          ],
+          "hashtags":[
+            ...
+          ],
+    -----------
+    Note: here is the reference : https://docs.joinmastodon.org/methods/search/
+    """
+    if search_type == 'all':
+        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}'
+    else:
+        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}&type={search_type}'
+
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    response = requests.get(search_endpoint_url, headers=headers)
+
+    # Check the response status code
+    if response.status_code == 200:
+        status = response.json()
+        return status
+    else:
+        # Handle the errors occur with API method calling.
+        print(f"Error: {response.status_code} - {response.text}")

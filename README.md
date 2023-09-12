@@ -1,6 +1,9 @@
 # Introduction
 
-This project seeks to make retrieving data from across different mastodon servers easier for the purposes of research.
+This Dashboard seeks to make retrieving data from across different mastodon servers easier for the purposes of research.
+The dashboard currently processing these API's and visualize them in the frontend.
+
+- 
 
 # Project Structure
 

@@ -1,29 +1,21 @@
-import { createWebHistory, createRouter } from "vue-router";
-import AboutPage  from "@/views/AboutPage.vue";
-import DocumentationPage from "@/views/DocumentationPage.vue";
-import HomePage from '../views/HomePage'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-    {
-        path: "/",
-        name: "Home",
-        component: HomePage,
-    },
-    {
-        path: "/about",
-        name: "About",
-        component: AboutPage,
-    },
-    {
-        path: "/documentation",
-        name: "Documentation",
-        component: DocumentationPage,
-    }
-];
+  {
+    path: '/instances',
+    name: 'MastodonInstances',
+    component: () => import(/* webpackChunkName: "about" */ '../components/InstanceData.vue')
+  },
+  {
+    path: '/',
+    name: 'SingleStatus',
+    component: () => import(/* webpackChunkName: "about" */ '../components/SingleStatus.vue')
+  }
+]
 
 const router = createRouter({
-    history: createWebHistory('/tools/mastodon/'),
-    routes: routes,
+  history: createWebHistory('/tools/mastodon/instances'),
+  routes: routes,
 });
 
-export default router;
+export default router

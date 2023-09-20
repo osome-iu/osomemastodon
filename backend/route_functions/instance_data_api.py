@@ -17,13 +17,12 @@ from mastoapp import capture_instances
 blueprint = Blueprint('data_api', __name__, url_prefix='/api')
 
 @blueprint.route('/get-instance-data', methods= ['GET'])
-def get_fib_indices():
+def get_instance_data():
     """
     Fetches all the mastodon instance data
     """
     try:
         mastodon_instances = capture_instances.fetch_instance_data()
-        print(mastodon_instances)
     except:
         return "Bad request", 400
     else:

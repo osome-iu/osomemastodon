@@ -1,10 +1,29 @@
-import { createApp } from 'vue'
+import Vue, { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Vuex, {createStore} from 'vuex';
 
-const app = createApp(App);
-app.use(router);
+const store = createStore({
+    state: {
+        bearerToken: null,
+    },
+    mutations: {
+        setBearerToken(state, token) {
+            state.bearerToken = token;
+        },
+    },
+    actions: {
+        updateBearerToken({ commit }, token) {
+            commit('setBearerToken', token);
+        },
+    },
+    getters: {
+        getBearerToken(state) {
+            return state.bearerToken;
+        },
+    },
+})
 
-app.mount('#app')
+createApp(App).use(store).use(router).use(Vuex).mount('#app')

@@ -1,8 +1,0 @@
-[program:mastodon]
-directory=/home/data/apps/mastodon/osomemastodon/backend
-command=/home/data/apps/mastodon/osomemastodon/backend/venv/bin/python server.py
-stopasgroup=true
-autostart=true
-autorestart=true
-stderr_logfile=/var/log/supervisor/mastodon.err.log
-stdout_logfile=/var/log/supervisor/mastodon.out.log

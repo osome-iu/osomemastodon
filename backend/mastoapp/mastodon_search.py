@@ -108,43 +108,7 @@ class MastodonSearch:
         for instance in instances:
             formated_lookup_string = '@'+user_lookup_string+'@'+instance.replace("https://", "")
             user_data = self.user_lookup(instance, formated_lookup_string)
-            if(user_data == None):
-                return users_data_retrieved
-            else:
-                if users.check_user_already_exist(user_data['id']):
-                    users.update_existing_user(
-                        instance,
-                        user_data['username'],
-                        user_data['acct'],
-                        user_data['display_name'],
-                        user_data['locked'],
-                        user_data['bot'],
-                        user_data['created_at'],
-                        user_data['avatar'],
-                        user_data['followers_count'],
-                        user_data['following_count'],
-                        user_data['statuses_count'],
-                        user_data['last_status_at'],
-                        user_data['id']
-                    )
-                else:
-                    users.add_users(
-                        user_data['id'],
-                        instance,
-                        user_data['username'],
-                        user_data['acct'],
-                        user_data['display_name'],
-                        user_data['locked'],
-                        user_data['bot'],
-                        user_data['created_at'],
-                        user_data['avatar'],
-                        user_data['followers_count'],
-                        user_data['following_count'],
-                        user_data['statuses_count'],
-                        user_data['last_status_at']
-                        )
-                users_data_retrieved = users.get_user_data(user_data['id'])
-                print(users_data_retrieved)
+            return users_data_retrieved
         return users_data_retrieved
 
 

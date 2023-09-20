@@ -1,17 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true
+  transpileDependencies: true,
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/tools/mastodon/',
+  outputDir: './dist',
+  assetsDir: 'static'
 })
-
-module.exports = {
-  devServer: {
-    port: 4040,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:7000',
-        pathRewrite: { '^/api': '' },
-        changeOrigin: true,
-      },
-    },
-  },
-};

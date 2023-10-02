@@ -13,6 +13,14 @@ import pandas as pd
 import os, json
 from library import backend_util
 
+# Log file location and the file
+LOG_DIR = "/Users/pkamburu/iuni/mastodon/logs"
+LOG_FNAME = "mastodon_logging.log"
+
+FILE = "/Users/pkamburu/IUNI/mastodon/untitledfolder2/osomemastodon/backend/data/mastodon_instance.json"
+
+script_name = os.path.basename(__file__)
+logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
 def save_instance_data(data):
     """
     Save the data on txt file and csv file.
@@ -61,6 +69,48 @@ def fetch_instance_data():
         'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()
     }
     response = requests.request("GET", url, headers=headers, data=payload)
-    data = response.json()
-    return data
+
+    if response.status_code == 200:
+        data = response.json()
+        instance_list = []
+        for instance in data.get("instances", []):
+
+            instance_name = instance.get("name")
+            active_users = instance.get("active_users")
+            all_users = instance.get("users")
+
+            #This function is used to write the collected instance_name in to a json file.
+            if instance_name:
+                # Create a dictionary with only the "name" field
+                instance_list.append({"name": instance_name, "active_users": active_users, "all_users": all_users})
+
+                with open(FILE, 'w') as json_file:
+                    json.dump(instance_list, json_file, indent=2)
+        return data
+    else:
+        print(f"Failed to retrieve data. Status code: {response.status_code}")
+
+
+def get_all_instance_from_saved_file():
+    """
+    This will grab all the instances from the saved json file.
+
+    Parameters
+    -----------
+    - Pass the instance social media key (get from here - https://instances.social/api/doc/)
+
+    Returns
+    - name - name of the instance
+    - short_description - short description of the instance
+    - thumbnail - thumbnail
+    - users - no of users
+    - active_users - no of activate users
+    -----------
+    """
+    with open(FILE, 'r') as file:
+        data = json.load(file)
+
+    json_data = json.dumps(data, indent=2)
+    return json_data
+
 

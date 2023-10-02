@@ -27,3 +27,15 @@ def get_instance_data():
         return "Bad request", 400
     else:
         return mastodon_instances
+
+@blueprint.route('/get-instance-data-saved', methods= ['GET'])
+def read_instance_data_saved():
+    """
+    Fetches all the mastodon instance data saved.
+    """
+    try:
+        mastodon_instances = capture_instances.get_all_instance_from_saved_file()
+    except:
+        return "Bad request", 400
+    else:
+        return mastodon_instances

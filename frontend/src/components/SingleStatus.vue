@@ -13,22 +13,23 @@
                             <div class="row align-items-center">
                                 <div class="col-xl-3">
                                     <label>Mastodon Instance</label>
-                                    <input class="form-control" type="password" placeholder="Client Key" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="clientKey" @keyup.enter="getBearerTokenResearchAPI"/>
+                                    <select v-model="instanceId"
+                                            label="Instance"
+                                            class="form-control">
+                                        <option disabled
+                                                value="">Choose an instance
+                                        </option>
+                                        <option v-for="item in instanceData"
+                                                v-text="item.name"
+                                                :value="item.name"></option>
+                                    </select>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label> Client Secret</label>
-                                    <input class="form-control" type="password" placeholder="Client Secret" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="clientSecret" @keyup.enter="getBearerTokenResearchAPI"/>
+                                    <label> Status Id</label>
+                                    <input class="form-control" type="text" placeholder="Status ID" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="statusId"/>
                                 </div>
-                                <div class="col-xl-3">
-                                    <label> &nbsp;Search Keyword</label>
-                                    <input class="form-control" type="password" placeholder="Client Secret" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="clientSecret" @keyup.enter="getBearerTokenResearchAPI"/>
-                                </div>
-                                <div class="col-xl-2">
-                                    <label> &nbsp;Search Type</label>
-                                    <input class="form-control" type="password" placeholder="Client Secret" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="clientSecret" @keyup.enter="getBearerTokenResearchAPI"/>
-                                </div>
-                                <div class="col-xl-3" style="margin-top: 23px;">
-                                    <button type="button" class="btn btn-success" :onclick="getBearerTokenResearchAPI">Search</button>
+                                <div class="col-xl-4" style="margin-top: 23px;">
+                                    <button type="button" class="btn btn-success" :onclick="submitSingleStatus">Search</button>
                                 </div>
                             </div>
                         </div>
@@ -42,36 +43,43 @@
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
-import {mapActions, mapGetters} from 'vuex';
 
 export default {
-    name: 'VideoAccountInfo',
+    name: 'singleStatus',
     data() {
         return {
             clientKey: null,
             clientSecret: null,
             token: null,
+            instanceData:[],
+            instanceId: null,
+            statusId: null,
+            singleStatusData:[],
         }
     },
     methods: {
-        ...mapActions(['updateBearerToken']),
-        getBearerTokenResearchAPI() {
-            let dataUrl = constants.url + '/getbearertoken?client_key=' + this.clientKey + '&client_secret=' + this.clientSecret;
+        fetchAllInstanceData(){
+            let dataUrl = constants.url + '/api/get-instance-data-saved'
             axios.get(dataUrl)
                 .then(res => {
-                    let response = res.data.bearer_token
-                    this.updateBearerToken(response);
-                    this.token = response
+                    this.instanceData = res.data;
                 }).catch(error => {
-                    console.log(error);
+                console.log(error);
+            });
+        },
+        submitSingleStatus(){
+            let dataUrl = constants.url + '/api/search-status-by-id?status_id='+this.statusId+'&mastodon_instance='+'https://'+this.instanceId;
+            axios.get(dataUrl)
+                .then(res => {
+                    this.singleStatusData = res;
+                    console.log(this.singleStatusData)
+                }).catch(error => {
+                console.log(error);
             });
         }
     },
     mounted() {
-        this.token = this.getBearerToken;
-    },
-    computed: {
-        ...mapGetters(['getBearerToken']),
+        this.fetchAllInstanceData();
     },
 }
 </script>

@@ -17,7 +17,7 @@
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'SingleStatus'}" >
                                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                        Single Status
+                                        Status
                                     </router-link>
                                 </nav>
                             </div>
@@ -39,10 +39,23 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                         Mastodon Instances
                     </router-link>
-                    <router-link class="nav-item nav-link" :to="{name: 'SingleStatus'}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                        Single Status
-                    </router-link>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Status
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                                Search by keyword
+                            </router-link>
+                            <router-link class="nav-item nav-link" :to="{name: 'SingleStatus'}" >
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                                Search by status ID
+                            </router-link>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </nav>

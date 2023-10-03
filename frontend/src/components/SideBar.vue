@@ -46,7 +46,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" >
+                            <router-link class="nav-item nav-link" :to="{name: 'SearchByKeyword'}" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                 Search by keyword
                             </router-link>
@@ -56,6 +56,10 @@
                             </router-link>
                         </nav>
                     </div>
+                    <router-link class="nav-item nav-link" :to="{name: 'Streamer'}" >
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                        Streamer
+                    </router-link>
                 </div>
             </div>
         </nav>

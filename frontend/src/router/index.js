@@ -7,9 +7,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/InstanceData.vue')
   },
   {
-    path: '/',
+    path: '/searchbyid',
     name: 'SingleStatus',
     component: () => import(/* webpackChunkName: "about" */ '../components/SingleStatus.vue')
+  },
+  {
+    path: '/searchbykeyword',
+    name: 'SearchByKeyword',
+    component: () => import(/* webpackChunkName: "about" */ '../components/SearchByKeyword.vue')
+  },
+  {
+    path: '/streamer',
+    name: 'Streamer',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Streamer.vue')
   }
 ]
 

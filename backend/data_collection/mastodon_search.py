@@ -1,6 +1,6 @@
 import requests
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
@@ -27,11 +27,12 @@ def mastodon_search(access_token, search_keyword, search_type):
           ],
     -----------
     Note: here is the reference : https://docs.joinmastodon.org/methods/search/
+    https://docs.joinmastodon.org/methods/search/
     """
     if search_type == 'all':
-        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}&limit=1000'
+        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}&limit=10000'
     else:
-        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}&type={search_type}'
+        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}&type={search_type}&limit=10000'
 
     headers = {
         'Authorization': f'Bearer {access_token}'
@@ -47,7 +48,6 @@ def mastodon_search(access_token, search_keyword, search_type):
         # Handle the errors occur with API method calling.
         print(f"Error: {response.status_code} - {response.text}")
 
-
 #Search the status from a keyword
 @app.route('/searchstatus', methods=['GET'])
 @cross_origin()
@@ -59,4 +59,4 @@ def search_status():
     return jsonify(json_data)
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8092,debug=True)
+    app.run(host='localhost', port=8093,debug=True)

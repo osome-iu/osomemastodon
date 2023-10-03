@@ -2,37 +2,37 @@
   {
     "name": "mastodon.gamedev.place",
     "active_users": 5877,
-    "all_users": "29006"
+    "all_users": "29026"
   },
   {
     "name": "pawoo.net",
-    "active_users": 26027,
-    "all_users": "922296"
+    "active_users": 25815,
+    "all_users": "922458"
   },
   {
     "name": "mstdn.jp",
-    "active_users": 23083,
-    "all_users": "401250"
+    "active_users": 23118,
+    "all_users": "401359"
   },
   {
     "name": "mastodon.social",
-    "active_users": 156272,
-    "all_users": "1611182"
+    "active_users": 155777,
+    "all_users": "1613377"
   },
   {
     "name": "mastodon.online",
-    "active_users": 14220,
-    "all_users": "189872"
+    "active_users": 14195,
+    "all_users": "189971"
   },
   {
     "name": "mas.to",
-    "active_users": 13395,
-    "all_users": "166240"
+    "active_users": 13282,
+    "all_users": "166272"
   },
   {
     "name": "chaos.social",
     "active_users": 5193,
-    "all_users": "11343"
+    "all_users": "11342"
   },
   {
     "name": "daystorm.netz.org",
@@ -41,62 +41,62 @@
   },
   {
     "name": "m.cmx.im",
-    "active_users": 7160,
-    "all_users": "41262"
+    "active_users": 7071,
+    "all_users": "41271"
   },
   {
     "name": "mastodon.world",
-    "active_users": 13892,
-    "all_users": "177953"
+    "active_users": 13746,
+    "all_users": "178024"
   },
   {
     "name": "troet.cafe",
     "active_users": 7828,
-    "all_users": "42239"
+    "all_users": "42249"
   },
   {
     "name": "planet.moe",
     "active_users": 5818,
-    "all_users": "22920"
+    "all_users": "22983"
   },
   {
     "name": "fosstodon.org",
-    "active_users": 10702,
-    "all_users": "61426"
+    "active_users": 10674,
+    "all_users": "61432"
   },
   {
     "name": "mastodonapp.uk",
     "active_users": 5217,
-    "all_users": "74551"
+    "all_users": "74598"
   },
   {
     "name": "infosec.exchange",
     "active_users": 11420,
-    "all_users": "60288"
+    "all_users": "60318"
   },
   {
     "name": "hachyderm.io",
     "active_users": 9791,
-    "all_users": "49771"
+    "all_users": "49796"
   },
   {
     "name": "piaille.fr",
     "active_users": 6362,
-    "all_users": "27691"
+    "all_users": "27706"
   },
   {
     "name": "mstdn.social",
-    "active_users": 17615,
-    "all_users": "213663"
+    "active_users": 17459,
+    "all_users": "213786"
   },
   {
     "name": "mastodon.uno",
     "active_users": 5750,
-    "all_users": "69671"
+    "all_users": "69753"
   },
   {
     "name": "pravda.me",
-    "active_users": 23697,
+    "active_users": 16870,
     "all_users": "215524"
   }
 ]

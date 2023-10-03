@@ -10,7 +10,7 @@ from flask import Flask, request, jsonify, Response
 app = Flask(__name__)
 
 
-def status_search(mastodon_instance, status_id):
+def status_search_by_id(mastodon_instance, status_id):
     """
     This method is used to search the statuses from status's id
 
@@ -42,7 +42,7 @@ def status_search(mastodon_instance, status_id):
     return status
 
 
-def mastodon_search(access_token, search_keyword, search_type):
+def mastodon_search_by_keyword(access_token, search_keyword, search_type, mastodon_instance):
     """
     This method is used to get the accounts,statuses and hashtags.
 
@@ -66,9 +66,10 @@ def mastodon_search(access_token, search_keyword, search_type):
     Note: here is the reference : https://docs.joinmastodon.org/methods/search/
     """
     if search_type == 'all':
-        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}'
+        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}'
+        print(search_endpoint_url)
     else:
-        search_endpoint_url = f'https://mastodon.social/api/v2/search?q={search_keyword}&type={search_type}'
+        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type={search_type}'
 
     headers = {
         'Authorization': f'Bearer {access_token}'

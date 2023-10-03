@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Status - Search By Id</h1>
+            <h1 class="mt-4">Status - Search By Keyword</h1>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
@@ -25,11 +25,11 @@
                                     </select>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label> Status Id</label>
-                                    <input class="form-control" type="text" placeholder="Status ID" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="statusId"/>
+                                    <label> Keyword</label>
+                                    <input class="form-control" type="text" placeholder="Keyword" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="searchKeyword"/>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
-                                    <button type="button" class="btn btn-success" :onclick="submitSingleStatus" >Search</button>
+                                    <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
                                 </div>
                             </div>
                         </div>
@@ -58,10 +58,8 @@ export default {
             token: null,
             instanceData:[],
             instanceId: "",
-            statusId: null,
-            singleStatusData:[],
-            survey_json: "",
-            show_json:false,
+            searchKeyword: "",
+            show_json: false
         }
     },
     methods: {
@@ -74,8 +72,8 @@ export default {
                 console.log(error);
             });
         },
-        submitSingleStatus(){
-            let dataUrl = constants.url + '/api/search-status-by-id?status_id='+this.statusId+'&mastodon_instance='+'https://'+this.instanceId;
+        submitStatusSearch(){
+            let dataUrl = constants.url + '/api/search-status-by-keyword?keyword='+this.searchKeyword+'&mastodon_instance='+this.instanceId;
             axios.get(dataUrl)
                 .then(res => {
                     this.singleStatusData = res;

@@ -7,7 +7,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search a single status - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documetation</a>
                         </div>
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -27,6 +27,19 @@
                                 <div class="col-xl-3">
                                     <label> Keyword</label>
                                     <input class="form-control" type="text" placeholder="Keyword" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="searchKeyword"/>
+                                </div>
+                                <div class="col-xl-3">
+                                    <label> Type</label>
+                                    <select v-model="searchType"
+                                            label="searchType"
+                                            class="form-control">
+                                        <option disabled value="">Choose the type
+                                        </option>
+                                        <option value="all">All</option>
+                                        <option value="hashtags">Hashtags</option>
+                                        <option value="statuses">Statuses</option>
+                                        <option value="accounts">Accounts</option>
+                                    </select>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
@@ -59,7 +72,9 @@ export default {
             instanceData:[],
             instanceId: "",
             searchKeyword: "",
-            show_json: false
+            show_json: false,
+            searchType: "",
+            survey_json: ""
         }
     },
     methods: {
@@ -73,7 +88,8 @@ export default {
             });
         },
         submitStatusSearch(){
-            let dataUrl = constants.url + '/api/search-status-by-keyword?keyword='+this.searchKeyword+'&mastodon_instance='+this.instanceId;
+            this.survey_json = ""
+            let dataUrl = constants.url + '/api/search-status-by-keyword?keyword='+this.searchKeyword+'&mastodon_instance='+this.instanceId+'&type='+this.searchType;
             axios.get(dataUrl)
                 .then(res => {
                     this.singleStatusData = res;

@@ -2,6 +2,11 @@
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Streamer</h1>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <p>This is the mastodon aggregated streamer. Here is how to setup.</p>
+                </div>
+            </div>
         </div>
     </main>
 </template>

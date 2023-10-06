@@ -63,7 +63,7 @@ def fetch_instance_data():
     - active_users - no of activate users
     -----------
     """
-    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=desc"
+    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc"
     payload={}
     headers = {
         'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()

@@ -1,38 +1,68 @@
 [
   {
-    "name": "mastodon.gamedev.place",
-    "active_users": 5877,
-    "all_users": "29026"
+    "name": "techhub.social",
+    "active_users": 6133,
+    "all_users": "78703"
   },
   {
-    "name": "pawoo.net",
-    "active_users": 25815,
-    "all_users": "922458"
+    "name": "fedibird.com",
+    "active_users": 11278,
+    "all_users": "37187"
   },
   {
-    "name": "mstdn.jp",
-    "active_users": 23118,
-    "all_users": "401359"
+    "name": "mastodon.uno",
+    "active_users": 5706,
+    "all_users": "69799"
   },
   {
-    "name": "mastodon.social",
-    "active_users": 155777,
-    "all_users": "1613377"
+    "name": "mstdn.social",
+    "active_users": 17212,
+    "all_users": "214053"
   },
   {
-    "name": "mastodon.online",
-    "active_users": 14195,
-    "all_users": "189971"
+    "name": "piaille.fr",
+    "active_users": 6301,
+    "all_users": "27734"
   },
   {
-    "name": "mas.to",
-    "active_users": 13282,
-    "all_users": "166272"
+    "name": "hachyderm.io",
+    "active_users": 9830,
+    "all_users": "49826"
   },
   {
-    "name": "chaos.social",
-    "active_users": 5193,
-    "all_users": "11342"
+    "name": "infosec.exchange",
+    "active_users": 11420,
+    "all_users": "60422"
+  },
+  {
+    "name": "mastodonapp.uk",
+    "active_users": 5160,
+    "all_users": "74721"
+  },
+  {
+    "name": "fosstodon.org",
+    "active_users": 10549,
+    "all_users": "61443"
+  },
+  {
+    "name": "planet.moe",
+    "active_users": 5818,
+    "all_users": "23050"
+  },
+  {
+    "name": "troet.cafe",
+    "active_users": 7479,
+    "all_users": "42291"
+  },
+  {
+    "name": "mastodon.world",
+    "active_users": 12779,
+    "all_users": "178202"
+  },
+  {
+    "name": "m.cmx.im",
+    "active_users": 7024,
+    "all_users": "41312"
   },
   {
     "name": "daystorm.netz.org",
@@ -40,63 +70,33 @@
     "all_users": "479023"
   },
   {
-    "name": "m.cmx.im",
-    "active_users": 7071,
-    "all_users": "41271"
+    "name": "chaos.social",
+    "active_users": 5193,
+    "all_users": "11346"
   },
   {
-    "name": "mastodon.world",
-    "active_users": 13746,
-    "all_users": "178024"
+    "name": "mas.to",
+    "active_users": 13244,
+    "all_users": "166319"
   },
   {
-    "name": "troet.cafe",
-    "active_users": 7828,
-    "all_users": "42249"
+    "name": "mastodon.online",
+    "active_users": 14131,
+    "all_users": "190133"
   },
   {
-    "name": "planet.moe",
-    "active_users": 5818,
-    "all_users": "22983"
+    "name": "mastodon.social",
+    "active_users": 154500,
+    "all_users": "1619178"
   },
   {
-    "name": "fosstodon.org",
-    "active_users": 10674,
-    "all_users": "61432"
+    "name": "mstdn.jp",
+    "active_users": 22650,
+    "all_users": "401625"
   },
   {
-    "name": "mastodonapp.uk",
-    "active_users": 5217,
-    "all_users": "74598"
-  },
-  {
-    "name": "infosec.exchange",
-    "active_users": 11420,
-    "all_users": "60318"
-  },
-  {
-    "name": "hachyderm.io",
-    "active_users": 9791,
-    "all_users": "49796"
-  },
-  {
-    "name": "piaille.fr",
-    "active_users": 6362,
-    "all_users": "27706"
-  },
-  {
-    "name": "mstdn.social",
-    "active_users": 17459,
-    "all_users": "213786"
-  },
-  {
-    "name": "mastodon.uno",
-    "active_users": 5750,
-    "all_users": "69753"
-  },
-  {
-    "name": "pravda.me",
-    "active_users": 16870,
-    "all_users": "215524"
+    "name": "pawoo.net",
+    "active_users": 25180,
+    "all_users": "923302"
   }
 ]

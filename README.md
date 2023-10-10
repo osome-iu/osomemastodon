@@ -3,8 +3,10 @@
 This Dashboard seeks to make retrieving data from across different mastodon servers easier for the purposes of research.
 The dashboard currently processing these API's and visualize them in the frontend.
 
-- 
-
+- Search Keyword API - [search-keyword](https://docs.joinmastodon.org/methods/search/)
+- Search By Id - [search-by-id](https://docs.joinmastodon.org/methods/statuses/#get)
+- Account Search API - [account-search](https://docs.joinmastodon.org/methods/accounts/#get)
+  
 # Project Structure
 
 - Backend: A [flask](https://flask.palletsprojects.com/en/2.3.x/) application that leverages the official [mastodon api](https://docs.joinmastodon.org/api/) to get user, status and hashtag data for a given mastodon instance.

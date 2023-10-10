@@ -162,6 +162,7 @@ export default {
         submitAccountSearch(){
             this.survey_json = ""
             let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance='+this.instanceId+'&account_id='+this.accountId;
+            this.clearAllFields()
             axios.get(dataUrl)
                 .then(res => {
                     this.accountData = res.data;
@@ -197,6 +198,16 @@ export default {
 
             // Remove the link from the document
             document.body.removeChild(a);
+        },
+        clearAllFields(){
+            this.note = null,
+            this.username = null,
+            this.statusCount = null,
+            this.followersCount= null,
+            this.followingCount = null,
+            this.bot = null,
+            this.avatarLink = null,
+            this.displayName = null
         }
     },
     mounted() {

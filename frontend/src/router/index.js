@@ -25,6 +25,11 @@ const routes = [
     path: '/accounts',
     name: 'Accounts',
     component: () => import(/* webpackChunkName: "about" */ '../components/Accounts.vue')
+  },
+  {
+    path: '/hashtag',
+    name: 'HashtagSearch',
+    component: () => import(/* webpackChunkName: "about" */ '../components/HashtagSearch.vue')
   }
 ]
 

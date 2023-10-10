@@ -2,12 +2,12 @@
   {
     "name": "techhub.social",
     "active_users": 6133,
-    "all_users": "78740"
+    "all_users": "78743"
   },
   {
     "name": "mastodon.uno",
     "active_users": 5706,
-    "all_users": "69857"
+    "all_users": "69861"
   },
   {
     "name": "fedibird.com",
@@ -17,32 +17,32 @@
   {
     "name": "mstdn.social",
     "active_users": 17107,
-    "all_users": "214336"
+    "all_users": "214352"
   },
   {
     "name": "piaille.fr",
     "active_users": 6301,
-    "all_users": "27789"
+    "all_users": "27794"
   },
   {
     "name": "hachyderm.io",
     "active_users": 9728,
-    "all_users": "49895"
+    "all_users": "49898"
   },
   {
     "name": "infosec.exchange",
     "active_users": 11616,
-    "all_users": "60546"
+    "all_users": "60555"
   },
   {
     "name": "mastodonapp.uk",
-    "active_users": 5099,
-    "all_users": "74858"
+    "active_users": 5116,
+    "all_users": "74865"
   },
   {
     "name": "fosstodon.org",
     "active_users": 10589,
-    "all_users": "61452"
+    "all_users": "61451"
   },
   {
     "name": "planet.moe",
@@ -52,17 +52,17 @@
   {
     "name": "troet.cafe",
     "active_users": 7479,
-    "all_users": "42339"
+    "all_users": "42338"
   },
   {
     "name": "mastodon.world",
     "active_users": 12900,
-    "all_users": "178477"
+    "all_users": "178486"
   },
   {
     "name": "m.cmx.im",
     "active_users": 7091,
-    "all_users": "41370"
+    "all_users": "41371"
   },
   {
     "name": "daystorm.netz.org",
@@ -77,26 +77,26 @@
   {
     "name": "mas.to",
     "active_users": 13244,
-    "all_users": "166374"
+    "all_users": "166378"
   },
   {
     "name": "mastodon.online",
     "active_users": 14298,
-    "all_users": "190509"
+    "all_users": "190516"
   },
   {
     "name": "mastodon.social",
     "active_users": 153507,
-    "all_users": "1626541"
+    "all_users": "1626960"
   },
   {
     "name": "pawoo.net",
     "active_users": 24991,
-    "all_users": "924290"
+    "all_users": "924315"
   },
   {
     "name": "mstdn.jp",
     "active_users": 21199,
-    "all_users": "401708"
+    "all_users": "401710"
   }
 ]

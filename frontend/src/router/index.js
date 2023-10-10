@@ -8,8 +8,8 @@ const routes = [
   },
   {
     path: '/searchbyid',
-    name: 'SingleStatus',
-    component: () => import(/* webpackChunkName: "about" */ '../components/SingleStatus.vue')
+    name: 'SearchByIdStatus',
+    component: () => import(/* webpackChunkName: "about" */ '../components/SearchByIdStatus.vue')
   },
   {
     path: '/searchbykeyword',
@@ -20,6 +20,11 @@ const routes = [
     path: '/streamer',
     name: 'Streamer',
     component: () => import(/* webpackChunkName: "about" */ '../components/Streamer.vue')
+  },
+  {
+    path: '/accounts',
+    name: 'Accounts',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Accounts.vue')
   }
 ]
 

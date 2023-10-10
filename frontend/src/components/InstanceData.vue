@@ -4,7 +4,7 @@
             <h1 class="mt-4">Mastodon Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>To get the mastodon instance, call <a href="">here</a>. This will grab the top 20 mastodon instances and with minimum 5000 active users in each instance and order in statuses descending.</p>
+                    <p>To get the mastodon instance, call <a href="https://instances.social/api/doc/" target="_blank">here</a>. This will grab the top 20 mastodon instances and with minimum 5000 active users in each instance and order in statuses descending.</p>
                 </div>
             </div>
             <div class="row">
@@ -23,7 +23,15 @@
                     Instances
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
+                        <hollow-dots-spinner
+                            :animation-duration="1000"
+                            :dot-size="15"
+                            :dots-num="3"
+                            color="#ff1d5e"
+                        />
+                    </div>
+                    <div class="table-responsive" v-if="!loading">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -55,7 +63,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="alert alert-warning" v-if="instanceData.length === 0">
+                    <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
                         <fa icon="exclamation-triangle" /> No data available.
                     </div>
                 </div>
@@ -67,12 +75,17 @@
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
+import { HollowDotsSpinner } from 'epic-spinners'
 
 export default {
     name: 'InstanceData',
+    components: {
+        HollowDotsSpinner,
+    },
     data() {
         return {
            instanceData : [],
+           loading: true,
         }
     },
     methods: {
@@ -87,7 +100,8 @@ export default {
         let dataUrl = constants.url + '/api/get-instance-data';
         axios.get(dataUrl)
             .then(res => {
-                this.instanceData = res.data.instances
+                this.instanceData = res.data.instances;
+                this.loading = false
             }).catch(error => {
             console.log(error);
         });

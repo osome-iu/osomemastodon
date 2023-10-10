@@ -2,67 +2,67 @@
   {
     "name": "techhub.social",
     "active_users": 6133,
-    "all_users": "78703"
-  },
-  {
-    "name": "fedibird.com",
-    "active_users": 11278,
-    "all_users": "37187"
+    "all_users": "78740"
   },
   {
     "name": "mastodon.uno",
     "active_users": 5706,
-    "all_users": "69799"
+    "all_users": "69857"
+  },
+  {
+    "name": "fedibird.com",
+    "active_users": 10989,
+    "all_users": "37251"
   },
   {
     "name": "mstdn.social",
-    "active_users": 17212,
-    "all_users": "214053"
+    "active_users": 17107,
+    "all_users": "214336"
   },
   {
     "name": "piaille.fr",
     "active_users": 6301,
-    "all_users": "27734"
+    "all_users": "27789"
   },
   {
     "name": "hachyderm.io",
-    "active_users": 9830,
-    "all_users": "49826"
+    "active_users": 9728,
+    "all_users": "49895"
   },
   {
     "name": "infosec.exchange",
-    "active_users": 11420,
-    "all_users": "60422"
+    "active_users": 11616,
+    "all_users": "60546"
   },
   {
     "name": "mastodonapp.uk",
-    "active_users": 5160,
-    "all_users": "74721"
+    "active_users": 5099,
+    "all_users": "74858"
   },
   {
     "name": "fosstodon.org",
-    "active_users": 10549,
-    "all_users": "61443"
+    "active_users": 10589,
+    "all_users": "61452"
   },
   {
     "name": "planet.moe",
-    "active_users": 5818,
-    "all_users": "23050"
+    "active_users": 5641,
+    "all_users": "23148"
   },
   {
     "name": "troet.cafe",
     "active_users": 7479,
-    "all_users": "42291"
+    "all_users": "42339"
   },
   {
     "name": "mastodon.world",
-    "active_users": 12779,
-    "all_users": "178202"
+    "active_users": 12900,
+    "all_users": "178477"
   },
   {
     "name": "m.cmx.im",
-    "active_users": 7024,
-    "all_users": "41312"
+    "active_users": 7091,
+    "all_users": "41370"
   },
   {
     "name": "daystorm.netz.org",
@@ -72,31 +72,31 @@
   {
     "name": "chaos.social",
     "active_users": 5193,
-    "all_users": "11346"
+    "all_users": "11353"
   },
   {
     "name": "mas.to",
     "active_users": 13244,
-    "all_users": "166319"
+    "all_users": "166374"
   },
   {
     "name": "mastodon.online",
-    "active_users": 14131,
-    "all_users": "190133"
+    "active_users": 14298,
+    "all_users": "190509"
   },
   {
     "name": "mastodon.social",
-    "active_users": 154500,
-    "all_users": "1619178"
-  },
-  {
-    "name": "mstdn.jp",
-    "active_users": 22650,
-    "all_users": "401625"
+    "active_users": 153507,
+    "all_users": "1626541"
   },
   {
     "name": "pawoo.net",
-    "active_users": 25180,
-    "all_users": "923302"
+    "active_users": 24991,
+    "all_users": "924290"
+  },
+  {
+    "name": "mstdn.jp",
+    "active_users": 21199,
+    "all_users": "401708"
   }
 ]

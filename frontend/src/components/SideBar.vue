@@ -1,5 +1,5 @@
 <template>
-    <div id="layoutSidenav_nav">
+    <div id="layoutSidenav_nav" class="fixed">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
@@ -15,7 +15,7 @@
                                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                         Mastodon Instances
                                     </router-link>
-                                    <router-link class="nav-item nav-link" :to="{name: 'SingleStatus'}" >
+                                    <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
                                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                         Status
                                     </router-link>
@@ -50,15 +50,15 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                                 Search by keyword
                             </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'SingleStatus'}" >
+                            <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                                Search by status ID
+                                Search by status Id
                             </router-link>
                         </nav>
                     </div>
-                    <router-link class="nav-item nav-link" :to="{name: 'Streamer'}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                        Streamer
+                    <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                        Accounts
                     </router-link>
                 </div>
             </div>

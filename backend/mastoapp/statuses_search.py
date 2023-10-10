@@ -67,7 +67,6 @@ def mastodon_search_by_keyword(access_token, search_keyword, search_type, mastod
     """
     if search_type == 'all':
         search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}'
-        print(search_endpoint_url)
     else:
         search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type={search_type}'
 

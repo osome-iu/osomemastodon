@@ -13,7 +13,7 @@ from flask_cors import CORS, cross_origin
 import os, sys
 from library import backend_util
 import psycopg2
-from route_functions import instance_data_api, status_search_api
+from route_functions import instance_data_api, status_search_api,account_search_api
 
 # Log file location and the file
 LOG_DIR = "/Users/pkamburu/iuni/mastodon/logs"
@@ -29,6 +29,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 # register blueprints
 app.register_blueprint(instance_data_api.blueprint)
 app.register_blueprint(status_search_api.blueprint)
+app.register_blueprint(account_search_api.blueprint)
 
 if __name__ == '__main__':
     script_name = os.path.basename(__file__)

@@ -1,13 +1,18 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Hashtag </h1>
+            <h1 class="mt-4">Timeline Hashtag </h1>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <p>View public/local statuses containing the given hashtag. This allows you to fetch statuses in a chronological order, based on the hashtag you are searching.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank">Documetation</a>
                         </div>
                         <div class="card-body">
                             <div class="row align-items-center">
@@ -34,8 +39,8 @@
                                             label="Data Get"
                                             class="form-control">
                                         <option disabled value="">Choose Data</option>
-                                        <option value="public">Public</option>
-                                        <option value="local">Local</option>
+                                        <option value="false">Public</option>
+                                        <option value="true">Local</option>
                                     </select>
                                 </div>
                                 <div class="col-xl-2">
@@ -68,28 +73,44 @@
                                     color="#ff1d5e"
                                 />
                             </div>
-                            <div class="table-responsive" v-if="!loading">
+                            <div class="table-responsive" v-if="!loading" style="font-size: 8px;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col">ID</th>
+                                        <th scope="col">Instance</th>
                                         <th scope="col" style="width: 10px;">Content</th>
                                         <th scope="col">In reply</th>
                                         <th scope="col">In reply Id </th>
                                         <th scope="col">Created At </th>
                                         <th scope="col">Mentions </th>
                                         <th scope="col">Tags </th>
+                                        <th scope="col">Profile </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr v-for="hashtag in hashtagArray" :key="key">
                                         <td>{{hashtag.id}}</td>
-                                        <td>{{hashtag.content}}</td>
+                                        <td>{{extractURLtoGetInstanceName(hashtag.url)}}</td>
+                                        <td><div v-html="hashtag.content" style="font-size: 10px;"></div></td>
                                         <td>{{hashtag.in_reply_to_account_id}}</td>
                                         <td>{{hashtag.in_reply_to_id}}</td>
                                         <td>{{hashtag.created_at}}</td>
-                                        <td>{{hashtag.mentions}}</td>
-                                        <td>{{hashtag.tags}}</td>
+                                        <td>
+                                            <div style="font-size: 8px;">
+                                                <span v-for="(mention, index) in hashtag.mentions" :key="index">
+                                                      <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
+                                                      <span v-if="index < hashtag.mentions.length - 1">, </span>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                          <span v-for="(extractedURL, index) in hashtag.tags" :key="index">
+                                              <a :href="extractedURL.url" target="_blank" style="text-underline: #0a53be">{{extractedURL.name}}</a>
+                                              <span v-if="index < hashtag.tags.length - 1">, </span>
+                                          </span>
+                                        </td>
+                                        <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(hashtag.id)">view</button></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -118,6 +139,7 @@ export default {
     name: 'singleStatus',
     data() {
         return {
+            instanceId: "",
             clientKey: null,
             clientSecret: null,
             instanceData:[],
@@ -138,11 +160,12 @@ export default {
             });
         },
         submitHashtagSearch(){
-            let dataUrl = constants.url + '/api/hashtag-search?mastodon_instance='+this.instanceId+'&hashtag='+this.hash +'&limit='+this.limitNo +'&data_type='+this.dataType;
+            this.hashtagArray = []
+            let dataUrl = constants.url + '/api/hashtag-search?mastodon_instance='+this.instanceId+'&hashtag='+this.hashtagSearch +'&limit='+this.limitNo +'&data_type='+this.dataType;
             this.clearAllFields()
             axios.get(dataUrl)
                 .then(res => {
-                    this.hashtagArray = res.data.hashtag
+                    this.hashtagArray = res.data.hashtag;
                 }).catch(error => {
                 console.log(error);
             });
@@ -178,6 +201,17 @@ export default {
                 this.avatarLink = null,
                 this.displayName = null
         },
+        viewAccountInfo(accountId){
+            this.$router.push({
+                name: 'Accounts',
+                params: { accountId: accountId, instanceId: this.instanceId},
+            });
+        },
+        extractURLtoGetInstanceName(mentionUrl) {
+            // Assuming the mention URL format is like "https://www.tiktok.com/@mentionName"
+            const parts = mentionUrl.split('/');
+            return parts[2];
+        }
     },
     mounted() {
         this.fetchAllInstanceData();

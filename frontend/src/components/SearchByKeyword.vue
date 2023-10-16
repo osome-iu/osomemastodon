@@ -2,6 +2,11 @@
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Status - Search By Keyword</h1>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <p>Search for content in accounts, statuses and hashtags.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
@@ -172,8 +177,6 @@ export default {
     },
     methods: {
         viewAccountInfo(accountId){
-            console.log(accountId)
-            console.log(this.instanceId)
             this.$router.push({
                 name: 'Accounts',  // Assuming you have a route name
                 params: { accountId: accountId, instanceId: this.instanceId},

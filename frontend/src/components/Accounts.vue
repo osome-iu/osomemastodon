@@ -2,6 +2,11 @@
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Accounts</h1>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <p>View information about a profile by Account Id.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
@@ -101,7 +106,7 @@
                                     Note :
                                 </div>
                                 <div class="col-xl-5">
-                                    <textarea class="form-control" placeholder="Note" v-model="this.note" readonly></textarea>
+                                    <div class="form-control" v-html="this.note" style="font-size: 10px;" id="readonly-textbox"></div>
                                 </div>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 10px"> <!-- Center the first row -->
@@ -225,3 +230,13 @@ export default {
     },
 }
 </script>
+
+<style>
+#readonly-textbox {
+    background-color: #f2f2f2; /* Light gray background */
+    border: 1px solid #ccc;   /* Light gray border */
+    padding: 8px;             /* Some padding for better appearance */
+    font-size: 14px;          /* Adjust font size */
+    color: #333;              /* Text color */
+}
+</style>

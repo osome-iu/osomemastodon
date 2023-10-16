@@ -41,7 +41,6 @@ def search_status_data_by_keyword():
         search_keyword = request.args.get('keyword')
         search_type = request.args.get('type')
         client_key = request.args.get('client_key')
-        # access_token = 'FUmbJ4X2H9W9asbpBWspQDd1B5iJUPOgp9fXlgW0mMM'
         status = statuses_search.mastodon_search_by_keyword(client_key, search_keyword, search_type, mastodon_instance)
     except:
         return "Bad request", 400

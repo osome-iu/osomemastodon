@@ -27,9 +27,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/Accounts.vue')
   },
   {
-    path: '/hashtag',
-    name: 'HashtagSearch',
-    component: () => import(/* webpackChunkName: "about" */ '../components/HashtagSearch.vue')
+    path: '/timelinehashtag',
+    name: 'TimelineHashtag',
+    component: () => import(/* webpackChunkName: "about" */ '../components/TimelineHashtag.vue')
+  },
+  {
+    path: '/timelinestatus',
+    name: 'TimelineStatus',
+    component: () => import(/* webpackChunkName: "about" */ '../components/TimelineStatus.vue')
+  },
+  {
+    path: '/faq',
+    name: 'FAQ',
+    component: () => import(/* webpackChunkName: "about" */ '../components/faq.vue')
   }
 ]
 

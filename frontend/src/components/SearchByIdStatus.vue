@@ -2,6 +2,11 @@
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Status - Search By Id</h1>
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <p>Obtain information about a status by status Id.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
@@ -25,7 +30,7 @@
                                     </select>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label> Status Id  - 111183638295160932</label>
+                                    <label> Status Id</label>
                                     <input class="form-control" type="text" placeholder="Status ID" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="statusId"/>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
@@ -49,16 +54,24 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 10px">
-                                <div class="col-xl-2">
-                                    Status Content :
+                                <div class="col-xl-2" >
+                                    Instance  :
                                 </div>
                                 <div class="col-xl-5">
-                                    <textarea class="form-control" placeholder="Content" v-model="this.statusContent" readonly style="'height': '200px'"></textarea>
+                                    <input class="form-control" type="text" placeholder="Instance Name" v-model="this.statusReceivedId" aria-label="Search for..." aria-describedby="btnNavbarSearch" readonly/>
                                 </div>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 10px">
                                 <div class="col-xl-2">
-                                    In reply to account Id :
+                                    Status Content :
+                                </div>
+                                <div class="col-xl-5">
+                                    <div class="form-control" v-html="this.statusContent" style="font-size: 10px;" id="readonly-textbox"></div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center" style="margin-top: 10px">
+                                <div class="col-xl-2">
+                                    Reply to account Id :
                                 </div>
                                 <div class="col-xl-5">
                                     <input class="form-control" type="text" placeholder="In reply to account Id" v-model="this.inReplyToAccountId" aria-describedby="btnNavbarSearch" readonly/>

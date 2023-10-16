@@ -41,29 +41,37 @@
                     </router-link>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Search
+                        Search Statuses
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <router-link class="nav-item nav-link" :to="{name: 'SearchByKeyword'}" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                Search by keyword
+                                By Keyword (Search)
                             </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                                Search by status Id
+                            <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}" >
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>
+                                Hashtag (Timeline)
                             </router-link>
                         </nav>
                     </div>
-                    <router-link class="nav-item nav-link" :to="{name: 'HashtagSearch'}" >
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>
-                        Hashtag
-                    </router-link>
-                    <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                        Accounts
-                    </router-link>
+                        <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" >
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-table-list"></i></div>
+                            Timeline Statuses
+                        </router-link>
+                        <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
+                            By Status Id
+                        </router-link>
+                        <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                            Accounts
+                        </router-link>
+                        <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-question-circle"></i></div>
+                            FAQ
+                        </router-link>
                 </div>
             </div>
         </nav>

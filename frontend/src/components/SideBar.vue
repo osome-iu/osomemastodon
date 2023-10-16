@@ -68,7 +68,7 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                             Accounts
                         </router-link>
-                        <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
+                        <router-link class="nav-item nav-link" :to="{name: 'FAQ'}" >
                             <div class="sb-nav-link-icon"><i class="fa fa-question-circle"></i></div>
                             FAQ
                         </router-link>

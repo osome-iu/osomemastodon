@@ -35,8 +35,8 @@
                                             label="Data Get"
                                             class="form-control">
                                         <option disabled value="">Choose Data</option>
-                                        <option value="public">Public</option>
-                                        <option value="local">Local</option>
+                                        <option value="false">Public</option>
+                                        <option value="true">Local</option>
                                     </select>
                                 </div>
                                 <div class="col-xl-2">
@@ -76,6 +76,7 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">ID</th>
+                                        <th scope="col">Instance</th>
                                         <th scope="col" style="width: 10px;">Content</th>
                                         <th scope="col">In reply</th>
                                         <th scope="col">In reply Id </th>
@@ -89,6 +90,7 @@
                                     <tbody>
                                     <tr v-for="status in statusesArray" :key="key">
                                         <td>{{status.id}}</td>
+                                        <td>{{extractURLtoGetInstanceName(status.url)}}</td>
                                         <td><div v-html="status.content" style="font-size: 10px;"></div></td>
                                         <td>{{status.in_reply_to_account_id}}</td>
                                         <td>{{status.in_reply_to_id}}</td>
@@ -209,6 +211,10 @@ export default {
                 name: 'Accounts',
                 params: { accountId: accountId, instanceId: this.instanceId},
             });
+        },
+        extractURLtoGetInstanceName(acct) {
+            const parts = acct.split('/');
+            return parts[2];
         }
     },
     mounted() {

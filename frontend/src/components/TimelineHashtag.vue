@@ -85,6 +85,7 @@
                                         <th scope="col">Created At </th>
                                         <th scope="col">Mentions </th>
                                         <th scope="col">Tags </th>
+                                        <th scope="col">View Status </th>
                                         <th scope="col">Profile </th>
                                     </tr>
                                     </thead>
@@ -110,6 +111,7 @@
                                               <span v-if="index < hashtag.tags.length - 1">, </span>
                                           </span>
                                         </td>
+                                        <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Status</a></td>
                                         <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(hashtag.id)">view</button></td>
                                     </tr>
                                     </tbody>
@@ -146,7 +148,8 @@ export default {
             limitNo: "",
             dataType: "",
             hashtagSearch: "",
-            hashtagArray: []
+            hashtagArray: [],
+            loading: false,
         }
     },
     methods: {
@@ -161,11 +164,13 @@ export default {
         },
         submitHashtagSearch(){
             this.hashtagArray = []
+            this.loading = true;
             let dataUrl = constants.url + '/api/hashtag-search?mastodon_instance='+this.instanceId+'&hashtag='+this.hashtagSearch +'&limit='+this.limitNo +'&data_type='+this.dataType;
             this.clearAllFields()
             axios.get(dataUrl)
                 .then(res => {
                     this.hashtagArray = res.data.hashtag;
+                    this.loading = false;
                 }).catch(error => {
                 console.log(error);
             });

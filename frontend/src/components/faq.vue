@@ -35,6 +35,10 @@
             <p>
                 Search for content in accounts, statuses and hashtags.
             </p>
+            <h4 class="mt-4">Mastodon Timeline API</h4>
+            <p>
+                Search for content in accounts, statuses and hashtags.
+            </p>
         </div>
     </main>
 </template>

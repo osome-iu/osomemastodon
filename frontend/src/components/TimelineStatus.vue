@@ -4,7 +4,7 @@
             <h1 class="mt-4">Timeline Statuses </h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>View public/local statuses in a chronological order for a given mastodon instance.</p>
+                    <p>A chronological list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
                 </div>
             </div>
             <div class="row">
@@ -65,7 +65,7 @@
                         <div class="card-body">
                             <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
                                 <hollow-dots-spinner
-                                        :animation-duration="1000"
+                                        :animation-duration="10000"
                                         :dot-size="15"
                                         :dots-num="3"
                                         color="#ff1d5e"
@@ -82,6 +82,7 @@
                                         <th scope="col">Created At </th>
                                         <th scope="col">Mentions </th>
                                         <th scope="col">Tags </th>
+                                        <th scope="col">View Status </th>
                                         <th scope="col">Profile </th>
                                     </tr>
                                     </thead>
@@ -105,6 +106,9 @@
                                               <a :href="extractedURL.url" target="_blank" style="text-underline: #0a53be">{{extractedURL.name}}</a>
                                               <span v-if="index < status.tags.length - 1">, </span>
                                           </span>
+                                        </td>
+                                        <td>
+                                            <a :href="status.url" target="_blank" style="text-underline: #0a53be">Status</a>
                                         </td>
                                         <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(status.id)">view</button></td>
                                     </tr>
@@ -130,6 +134,7 @@
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
+import { HollowDotsSpinner } from 'epic-spinners'
 
 export default {
     name: 'singleStatus',
@@ -141,7 +146,8 @@ export default {
             instanceData:[],
             limitNo: "",
             dataType: "",
-            statusesArray: []
+            statusesArray: [],
+            loading: false,
         }
     },
     methods: {
@@ -156,11 +162,13 @@ export default {
         },
         submitStatusesSearch(){
             this.statusesArray = []
+            this.loading = true;
             let dataUrl = constants.url + '/api/hashtag-search?mastodon_instance='+this.instanceId+'&limit='+this.limitNo +'&data_type='+this.dataType;
             this.clearAllFields()
             axios.get(dataUrl)
                 .then(res => {
-                    this.statusesArray = res.data.hashtag
+                    this.statusesArray = res.data.hashtag;
+                    this.loading = false;
                 }).catch(error => {
                 console.log(error);
             });

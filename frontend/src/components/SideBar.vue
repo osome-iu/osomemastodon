@@ -62,11 +62,11 @@
                         </router-link>
                         <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
-                            By Status Id
+                            Status by Id
                         </router-link>
                         <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                            Accounts
+                            Account by Id
                         </router-link>
                         <router-link class="nav-item nav-link" :to="{name: 'FAQ'}" >
                             <div class="sb-nav-link-icon"><i class="fa fa-question-circle"></i></div>

@@ -183,7 +183,7 @@ export default {
             hashtagData: [],
             statusData: [],
             showDownloadBtn: "",
-            isLoading: false,
+            loading: false,
             downloadData: [],
         }
     },
@@ -205,8 +205,7 @@ export default {
         },
         submitStatusSearch(){
             this.survey_json = ""
-            // this.clearAllFields();
-            this.isLoading=true;
+            this.loading=true;
             let dataUrl = constants.url + '/api/search-status-by-keyword?keyword='+this.searchKeyword+'&mastodon_instance='+this.instanceId+'&type='+this.searchType+'&client_key='+this.clientKey;
             axios.get(dataUrl)
                 .then(res => {
@@ -221,7 +220,6 @@ export default {
                     }
                     if(this.searchType == 'hashtags'){
                         this.hashtagData = res.data.hashtags;
-                        console.log(this.hashtagData)
                         this.accountsData = []
                         this.statusData = []
                         this.downloadData = this.hashtagData
@@ -232,7 +230,7 @@ export default {
                         this.accountsData = []
                         this.downloadData = this.statusData
                     }
-                    this.isLoading = false;
+                    this.loading = false;
                 }).catch(error => {
                 console.log(error);
             });

@@ -59,6 +59,8 @@
                                     <button type="button" class="btn btn-success" :onclick="submitStatusesSearch" >Search</button>
                                 </div>
                             </div>
+                            <div class="row align-items-center">
+                            </div>
                         </div>
                         <div class="card-body">
                             <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">

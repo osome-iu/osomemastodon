@@ -17,7 +17,7 @@ from library import backend_util
 LOG_DIR = "/Users/pkamburu/iuni/mastodon/logs"
 LOG_FNAME = "mastodon_logging.log"
 
-FILE = "/Users/pkamburu/IUNI/mastodon/untitledfolder2/osomemastodon/backend/data/mastodon_instance.json"
+FILE = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/osomemastodon/backend/data/mastodon_instance.json"
 
 script_name = os.path.basename(__file__)
 logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)

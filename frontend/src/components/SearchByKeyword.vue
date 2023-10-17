@@ -62,7 +62,7 @@
                                     color="#ff1d5e"
                                 />
                             </div>
-                            <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 10px;">
+                            <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 12px;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -104,7 +104,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="table-responsive" v-if="!loading && statusData.length>0" style="font-size: 10px;">
+                            <div class="table-responsive" v-if="!loading && statusData.length>0" style="font-size: 12px;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>

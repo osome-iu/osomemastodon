@@ -207,9 +207,8 @@ export default {
                 params: { accountId: accountId, instanceId: this.instanceId},
             });
         },
-        extractURLtoGetInstanceName(mentionUrl) {
-            // Assuming the mention URL format is like "https://www.tiktok.com/@mentionName"
-            const parts = mentionUrl.split('/');
+        extractURLtoGetInstanceName(acct) {
+            const parts = acct.split('/');
             return parts[2];
         }
     },

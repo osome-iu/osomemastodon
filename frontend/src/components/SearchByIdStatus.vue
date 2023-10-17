@@ -58,7 +58,7 @@
                                     Instance  :
                                 </div>
                                 <div class="col-xl-5">
-                                    <input class="form-control" type="text" placeholder="Instance Name" v-model="this.statusReceivedId" aria-label="Search for..." aria-describedby="btnNavbarSearch" readonly/>
+                                    <input class="form-control" type="text" placeholder="Instance Name" v-model="this.instanceName" aria-label="Search for..." aria-describedby="btnNavbarSearch" readonly/>
                                 </div>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 10px">
@@ -183,7 +183,8 @@ export default {
             statusSensitiveData: "",
             statusPoll: "",
             statusCreatedAt: "",
-            statusEditedAt: ""
+            statusEditedAt: "",
+            instanceName: "",
         }
     },
     methods: {
@@ -211,6 +212,7 @@ export default {
                     this.statusVisibility = res.data.visibility;
                     this.statusCreatedAt = res.data.created_at;
                     this.statusEditedAt = res.data.edited_at;
+                    this.instanceName = this.extractURLtoGetInstanceName(res.data.url);
                 }).catch(error => {
                 console.log(error);
             });
@@ -235,6 +237,10 @@ export default {
 
             // Remove the link from the document
             document.body.removeChild(a);
+        },
+        extractURLtoGetInstanceName(acct) {
+            const parts = acct.split('/');
+            return parts[2];
         }
     },
     mounted() {

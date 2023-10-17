@@ -38,16 +38,14 @@
                                     <select v-model="searchType"
                                             label="searchType"
                                             class="form-control">
-                                        <option disabled value="">Choose the type
-                                        </option>
-<!--                                        <option value="all">All</option>-->
+                                        <option disabled value="">Choose the type</option>
                                         <option value="hashtags">Hashtags</option>
                                         <option value="statuses">Statuses</option>
                                         <option value="accounts">Accounts</option>
                                     </select>
                                 </div>
                                 <div class="col-xl-3" v-if="searchType == 'all' || searchType== 'statuses'">
-                                    <label> Access Token <i class="bi-info-circle"></i></label>
+                                    <label> Access Token <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></label>
                                     <input class="form-control" type="text" placeholder="Keyword" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="clientKey"/>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
@@ -64,12 +62,13 @@
                                     color="#ff1d5e"
                                 />
                             </div>
-                            <div class="table-responsive" v-if="!loading && accountsData.length>0">
+                            <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 10px;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col">Display Name</th>
                                         <th scope="col">Username</th>
+                                        <th scope="col">Instance</th>
                                         <th scope="col">Followers Count</th>
                                         <th scope="col">Following Count</th>
                                         <th scope="col">Status Count </th>
@@ -80,6 +79,7 @@
                                     <tr v-for="account in accountsData" :key="key">
                                         <td>{{account.display_name}}</td>
                                         <td>{{account.username}}</td>
+                                        <td>{{this.extractInstanceName(account.acct)}}</td>
                                         <td>{{account.followers_count}}</td>
                                         <td>{{account.following_count}}</td>
                                         <td>{{account.statuses_count}}</td>
@@ -88,7 +88,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="table-responsive" v-if="!loading && hashtagData.length>0">
+                            <div class="table-responsive" v-if="!loading && hashtagData.length>0" style="font-size: 10px;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
@@ -104,13 +104,14 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="table-responsive" v-if="!loading && statusData.length>0">
+                            <div class="table-responsive" v-if="!loading && statusData.length>0" style="font-size: 10px;">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col" style="width: 10px;">Content</th>
-                                        <th scope="col">In reply to Account Id</th>
+                                        <th scope="col">Instance Name</th>
+                                        <th scope="col">Content</th>
+                                        <th scope="col">In reply to Acc Id</th>
                                         <th scope="col">In reply to Id</th>
                                         <th scope="col">Created At </th>
                                         <th scope="col">Mentions </th>
@@ -120,19 +121,30 @@
                                     <tbody>
                                     <tr v-for="status in statusData" :key="key">
                                         <td>{{status.id}}</td>
-                                        <td>{{status.content}}</td>
+                                        <td>{{extractURLtoGetInstanceName(status.url)}}</td>
+                                        <td><div v-html="status.content"></div></td>
                                         <td>{{status.in_reply_to_account_id}}</td>
                                         <td>{{status.in_reply_to_id}}</td>
                                         <td>{{status.created_at}}</td>
-                                        <td>{{status.mentions}}</td>
-                                        <td>{{status.tags}}</td>
+                                        <td>
+                                          <span v-for="(mention, index) in status.mentions" :key="index">
+                                              <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
+                                              <span v-if="index < status.mentions.length - 1">, </span>
+                                          </span>
+                                        </td>
+                                        <td>
+                                          <span v-for="(tag, index) in status.tags" :key="index">
+                                              <a :href="tag.url" target="_blank" style="text-underline: #0a53be">{{tag.name}}</a>
+                                              <span v-if="index < status.tags.length - 1">, </span>
+                                          </span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row" style="margin-top: 23px; float: right;" v-if="!loading && downloadData.length">
                                 <div class="col-md-12 text-right">
-                                    <button type="button" class="btn btn-primary" @click="downloadAccountCSV">Download JSON</button>
+                                    <button type="button" class="btn btn-primary" @click="downloadAccountJSON">Download JSON</button>
                                 </div>
                             </div>
                             <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
@@ -230,7 +242,7 @@ export default {
                 return value;
             }, 4);
         },
-        downloadAccountCSV(){
+        downloadAccountJSON(){
             // Create a Blob containing the JSON data
             const blob = new Blob([JSON.stringify(this.downloadData)], { type: 'application/json' });
 
@@ -253,14 +265,14 @@ export default {
             // Remove the link from the document
             document.body.removeChild(a);
         },
-        // clearAllFields(){
-        //     this.instanceId = null,
-        //     this.searchKeyword = null,
-        //     this.searchType = null,
-        //     this.accountsData= [],
-        //     this.hashtagData= [],
-        //     this.statusData= []
-        // }
+        extractInstanceName(acct){
+            const parts = acct.split('@');
+            return parts[1];
+        },
+        extractURLtoGetInstanceName(acct) {
+            const parts = acct.split('/');
+            return parts[2];
+        }
     },
     mounted() {
         this.fetchAllInstanceData();

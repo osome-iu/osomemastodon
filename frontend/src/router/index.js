@@ -54,7 +54,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/tools/mastodon/instances'),
+  history: createWebHistory('/tools/mastodon/'),
   routes: routes,
 });
 

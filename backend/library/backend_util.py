@@ -16,7 +16,6 @@ import argparse
 import os
 import sys
 import json
-from psycopg2 import pool
 from contextlib import contextmanager
 
 def get_mastodon_conf():

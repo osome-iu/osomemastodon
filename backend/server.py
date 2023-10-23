@@ -8,23 +8,36 @@ Outputs:
     - JSON object
 Authors: Rishab Ravi and Pasan Kamburugamuwa
 """
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify, Response, render_template
 from flask_cors import CORS, cross_origin
 import os, sys
 from library import backend_util
-import psycopg2
 from route_functions import instance_data_api, status_search_api,account_search_api,timeline_api
 
 # Log file location and the file
-LOG_DIR = "/Users/pkamburu/iuni/mastodon/logs"
+LOG_DIR = "/home/data/apps/mastodon/log"
 LOG_FNAME = "mastodon_logging.log"
 
 # Add mastodon app to path
-PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(PARENT_DIR, "mastoapp"))
+#PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
+#sys.path.append(os.path.join(PARENT_DIR, "mastoapp"))
 
-app = Flask(__name__)
+#app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+#render the frontend
+@app.route('/')
+@cross_origin()
+def index():
+    resp = render_template("/index.html")
+    return resp
+
+@app.route('/<path:fallback>')
+@cross_origin()
+def index_fallback(fallback):
+    resp = render_template("/index.html")
+    return resp
 
 # register blueprints
 app.register_blueprint(instance_data_api.blueprint)
@@ -37,4 +50,5 @@ if __name__ == '__main__':
     logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
     logger.info("-" * 50)
     logger.info(f"Begin script: {__file__}")
+    logger.info("Test")
     app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()), debug=backend_util.get_flask_debug_mode())

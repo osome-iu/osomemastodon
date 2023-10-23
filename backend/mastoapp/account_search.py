@@ -14,7 +14,7 @@ import os, json
 from library import backend_util
 
 # Log file location and the file
-LOG_DIR = "/Users/pkamburu/iuni/mastodon/logs"
+LOG_DIR = "/home/data/apps/mastodon/log"
 LOG_FNAME = "mastodon_logging.log"
 
 script_name = os.path.basename(__file__)

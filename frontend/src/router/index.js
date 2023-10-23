@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/searchbykeyword',
     name: 'SearchByKeyword',
-    component: () => import(/* webpackChunkName: "about" */ '../components/SearchByKeyword.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/SearchStatuses.vue')
   },
   {
     path: '/streamer',
@@ -40,7 +40,17 @@ const routes = [
     path: '/faq',
     name: 'FAQ',
     component: () => import(/* webpackChunkName: "about" */ '../components/faq.vue')
-  }
+  },
+  {
+    path: '/searchaccounts',
+    name: 'SearchAccounts',
+    component: () => import(/* webpackChunkName: "about" */ '../components/SearchAccounts.vue')
+  },
+  {
+    path: '/searchhashtags',
+    name: 'SearchHashtags',
+    component: () => import(/* webpackChunkName: "about" */ '../components/SearchHashtag.vue')
+  },
 ]
 
 const router = createRouter({

@@ -15,23 +15,29 @@
                             Search by keyword - <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank">Documetation</a>
                         </div>
                         <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-xl-3">
+                            <div class="row">
+                                <div class="col-xl-4">
                                     <label>Mastodon Instance</label>
-                                    <select v-model="instanceId"
-                                            label="Instance"
-                                            class="form-control">
-                                        <option disabled
-                                                value="">Choose an instance
-                                        </option>
-                                        <option v-for="item in instanceData"
-                                                v-text="item.name"
-                                                :value="item.name"></option>
+                                    <select
+                                        v-model="instanceId"
+                                        class="form-control"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
+                                        v-on:blur="instanceIdBlurred = true"
+                                    >
+                                        <option disabled value="">Choose an instance</option>
+                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
                                     </select>
+                                    <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
                                     <label> Account Id</label>
-                                    <input class="form-control" type="text" placeholder="Account Id" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="accountId"/>
+                                    <input
+                                        v-model="accountId"
+                                        v-bind:class="{'form-control': true, 'is-invalid': searchAccountIdError !== ''}"
+                                        placeholder="Account Id"
+                                        v-on:blur="searchAccountIdBlurred = true"
+                                    />
+                                    <div v-if="searchAccountIdError !== ''" class="invalid-feedback">{{ searchAccountIdError }}</div>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitAccountSearch" >Search</button>
@@ -137,12 +143,10 @@ export default {
             clientSecret: null,
             token: null,
             instanceData:[],
-            accountData:[],
             instanceId: "",
             accountId: "",
             show_json: false,
             searchType: "",
-            survey_json: "",
             displayName: "",
             followersCount: "",
             followingCount: "",
@@ -152,9 +156,20 @@ export default {
             bot: "",
             avatarLink: "",
             note: "",
+            searchAccountId: false,
+            searchAccountIdBlurred: false,
+            instanceIdBlurred: false,
+            searchAccountIdError: "",
+            instanceIdError: ""
         }
     },
     methods: {
+        isValidAccountId(accountId) {
+            return accountId.trim() !== '';
+        },
+        isValidInstance(instanceId) {
+            return instanceId.trim() !== '';
+        },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'
             axios.get(dataUrl)
@@ -165,23 +180,35 @@ export default {
             });
         },
         submitAccountSearch(){
-            this.survey_json = ""
-            let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance='+this.instanceId+'&account_id='+this.accountId;
-            this.clearAllFields()
-            axios.get(dataUrl)
-                .then(res => {
-                    this.accountData = res.data;
-                    this.username = res.data.username;
-                    this.displayName = res.data.display_name;
-                    this.followersCount = res.data.followers_count;
-                    this.followingCount = res.data.following_count;
-                    this.statusCount = res.data.statuses_count;
-                    this.bot = res.data.bot;
-                    this.avatarLink = res.data.avatar;
-                    this.note = res.data.note;
-                }).catch(error => {
-                console.log(error);
-            });
+            this.searchAccountIdError = "";
+            this.instanceIdError = "";
+
+            if (!this.isValidInstance(this.instanceId)) {
+                this.instanceIdError = "Please choose a valid Mastodon instance.";
+            }
+
+            if (!this.isValidAccountId(this.accountId)) {
+                this.searchAccountIdError = "Account Id is required.";
+            }
+
+            if(this.isValidInstance(this.instanceId) && this.isValidAccountId(this.accountId)) {
+                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.instanceId + '&account_id=' + this.accountId;
+                this.clearAllFields()
+                axios.get(dataUrl)
+                    .then(res => {
+                        this.accountData = res.data;
+                        this.username = res.data.username;
+                        this.displayName = res.data.display_name;
+                        this.followersCount = res.data.followers_count;
+                        this.followingCount = res.data.following_count;
+                        this.statusCount = res.data.statuses_count;
+                        this.bot = res.data.bot;
+                        this.avatarLink = res.data.avatar;
+                        this.note = res.data.note;
+                    }).catch(error => {
+                    console.log(error);
+                });
+            }
         },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {
@@ -223,6 +250,7 @@ export default {
         this.instanceId = this.$route.params.instanceId;
         if(!this.instanceId){
             this.instanceId = ""
+            this.accountId = ""
         }
         else{
             this.submitAccountSearch();

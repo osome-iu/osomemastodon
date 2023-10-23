@@ -15,23 +15,29 @@
                             Search a single status - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank">Documetation</a>
                         </div>
                         <div class="card-body">
-                            <div class="row align-items-center">
+                            <div class="row">
                                 <div class="col-xl-3">
                                     <label>Mastodon Instance</label>
-                                    <select v-model="instanceId"
-                                            label="Instance"
-                                            class="form-control">
-                                        <option disabled
-                                                value="">Choose an instance
-                                        </option>
-                                        <option v-for="item in instanceData"
-                                                v-text="item.name"
-                                                :value="item.name"></option>
+                                    <select
+                                        v-model="instanceId"
+                                        class="form-control"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
+                                        v-on:blur="instanceIdBlurred = true"
+                                    >
+                                        <option disabled value="">Choose an instance</option>
+                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
                                     </select>
+                                    <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
                                     <label> Status Id</label>
-                                    <input class="form-control" type="text" placeholder="Status ID" aria-label="Search for..." aria-describedby="btnNavbarSearch" v-model="statusId"/>
+                                    <input
+                                        v-model="statusId"
+                                        v-bind:class="{'form-control': true, 'is-invalid': searchStatusIdError !== ''}"
+                                        v-on:blur="searchStatusIdBlurred = true"
+                                        placeholder="Status ID"
+                                    />
+                                    <div v-if="searchStatusIdError !== ''" class="invalid-feedback">{{ searchStatusIdError }}</div>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitSingleStatus" >Search</button>
@@ -167,7 +173,7 @@ export default {
             token: null,
             instanceData:[],
             instanceId: "",
-            statusId: null,
+            statusId: "",
             statusReceivedId: "",
             statusContent: "",
             inReplyToAccountId: "",
@@ -185,9 +191,20 @@ export default {
             statusCreatedAt: "",
             statusEditedAt: "",
             instanceName: "",
+            searchStatusId: false,
+            searchStatusIdBlurred: false,
+            instanceIdBlurred: false,
+            searchStatusIdError: "",
+            instanceIdError: ""
         }
     },
     methods: {
+        isValidStatusId(statusId) {
+            return statusId.trim() !== '';
+        },
+        isValidInstance(instanceId) {
+            return instanceId.trim() !== '';
+        },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'
             axios.get(dataUrl)
@@ -198,24 +215,37 @@ export default {
             });
         },
         submitSingleStatus(){
-            let dataUrl = constants.url + '/api/search-status-by-id?status_id='+this.statusId+'&mastodon_instance='+'https://'+this.instanceId;
-            axios.get(dataUrl)
-                .then(res => {
-                    this.singleStatusData = res;
-                    this.statusReceivedId = res.data.id;
-                    this.statusContent = res.data.content;
-                    this.inReplyToAccountId = res.data.in_reply_to_account_id;
-                    this.statusReblog = res.data.reblog;
-                    this.statusReblogCount = res.data.reblogs_count;
-                    this.statusReplyCount = res.data.replies_count;
-                    this.statusSensitiveData = res.data.sensitive;
-                    this.statusVisibility = res.data.visibility;
-                    this.statusCreatedAt = res.data.created_at;
-                    this.statusEditedAt = res.data.edited_at;
-                    this.instanceName = this.extractURLtoGetInstanceName(res.data.url);
-                }).catch(error => {
-                console.log(error);
-            });
+            this.searchStatusIdError = "";
+            this.instanceIdError = "";
+
+            if (!this.isValidInstance(this.instanceId)) {
+                this.instanceIdError = "Please choose a valid Mastodon instance";
+            }
+
+            if (!this.isValidStatusId(this.statusId)) {
+                this.searchStatusIdError = "A keyword is required";
+            }
+
+            if(this.isValidInstance(this.instanceId) && this.isValidStatusId(this.statusId)) {
+                let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + 'https://' + this.instanceId;
+                axios.get(dataUrl)
+                    .then(res => {
+                        this.singleStatusData = res;
+                        this.statusReceivedId = res.data.id;
+                        this.statusContent = res.data.content;
+                        this.inReplyToAccountId = res.data.in_reply_to_account_id;
+                        this.statusReblog = res.data.reblog;
+                        this.statusReblogCount = res.data.reblogs_count;
+                        this.statusReplyCount = res.data.replies_count;
+                        this.statusSensitiveData = res.data.sensitive;
+                        this.statusVisibility = res.data.visibility;
+                        this.statusCreatedAt = res.data.created_at;
+                        this.statusEditedAt = res.data.edited_at;
+                        this.instanceName = this.extractURLtoGetInstanceName(res.data.url);
+                    }).catch(error => {
+                    console.log(error);
+                });
+            }
         },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {

@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Timeline Statuses </h1>
+            <h1 class="mt-4">Timeline Status</h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>A chronological list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
@@ -63,14 +63,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
-                                <hollow-dots-spinner
-                                        :animation-duration="10000"
-                                        :dot-size="15"
-                                        :dots-num="3"
-                                        color="#ff1d5e"
-                                />
-                            </div>
                             <div class="table-responsive" v-if="!loading" style="font-size: 8px;">
                                 <table class="table table-bordered">
                                     <thead>

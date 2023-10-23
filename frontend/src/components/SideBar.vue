@@ -34,32 +34,49 @@
                             </div>
                         </nav>
                     </div>
-                    <div class="sb-sidenav-menu-heading">SEARCH</div>
+                    <div class="sb-sidenav-menu-heading"></div>
                     <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" >
                         <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                         Mastodon Instances
                     </router-link>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Search Statuses
+                        Search
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionOne">
                         <nav class="sb-sidenav-menu-nested nav">
                             <router-link class="nav-item nav-link" :to="{name: 'SearchByKeyword'}" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                By Keyword (Search)
+                                Statuses
                             </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}" >
+                            <router-link class="nav-item nav-link" :to="{name: 'SearchHashtags'}" >
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>
-                                Hashtag (Timeline)
+                                Hashtags
+                            </router-link>
+                            <router-link class="nav-item nav-link" :to="{name: 'SearchAccounts'}" >
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                                Accounts
                             </router-link>
                         </nav>
                     </div>
-                        <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" >
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-table-list"></i></div>
-                            Timeline Statuses
-                        </router-link>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Timeline
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordionTwo">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}" >
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>
+                                Hashtag
+                            </router-link>
+                            <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" >
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-table-list"></i></div>
+                                Statuses
+                            </router-link>
+                        </nav>
+                    </div>
                         <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
                             Status by Id

@@ -5,6 +5,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Vuex, {createStore} from 'vuex';
 
+
 const store = createStore({
     state: {
         bearerToken: null,

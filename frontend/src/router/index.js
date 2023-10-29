@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/instances',
+    path: '/',
     name: 'MastodonInstances',
     component: () => import(/* webpackChunkName: "about" */ '../components/InstanceData.vue')
   },
@@ -17,14 +17,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/SearchStatuses.vue')
   },
   {
-    path: '/streamer',
-    name: 'Streamer',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Streamer.vue')
-  },
-  {
-    path: '/accounts',
-    name: 'Accounts',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Accounts.vue')
+    path: '/accountsbyId',
+    name: 'AccountsById',
+    component: () => import(/* webpackChunkName: "about" */ '../components/AccountById.vue')
   },
   {
     path: '/timelinehashtag',
@@ -54,7 +49,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/tools/mastodon/'),
+  history: createWebHistory('/tools/mastodon'),
   routes: routes,
 });
 

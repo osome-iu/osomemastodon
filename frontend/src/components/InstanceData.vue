@@ -31,7 +31,7 @@
                             color="#ff1d5e"
                         />
                     </div>
-                    <div class="table-responsive" v-if="!loading">
+                    <div class="table-responsive" v-if="!loading" style="font-size: 10px">
                         <table class="table table-bordered">
                             <thead>
                             <tr>

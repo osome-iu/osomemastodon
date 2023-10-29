@@ -4,7 +4,7 @@
             <h1 class="mt-4">Accounts</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>View information about a profile by Account Id.</p>
+                    <p>View information about a profile.</p>
                 </div>
             </div>
             <div class="row">
@@ -12,10 +12,20 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/accounts/AccountById.vue" target="_blank">Documetation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                <div>
+                                    <input
+                                        v-model="selectedOrEnteredOption"
+                                        placeholder="Select or type and press Enter"
+                                        @keyup.enter="addOption"
+                                    />
+                                    <select v-if="options.length > 0" v-model="selectedOption">
+                                        <option v-for="option in options" :key="option" :value="option">{{ option }}</option>
+                                    </select>
+                                </div>
                                 <div class="col-xl-4">
                                     <label>Mastodon Instance</label>
                                     <select
@@ -23,6 +33,7 @@
                                         class="form-control"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         v-on:blur="instanceIdBlurred = true"
+                                        @input="instanceInputChanged"
                                     >
                                         <option disabled value="">Choose an instance</option>
                                         <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
@@ -36,6 +47,7 @@
                                         v-bind:class="{'form-control': true, 'is-invalid': searchAccountIdError !== ''}"
                                         placeholder="Account Id"
                                         v-on:blur="searchAccountIdBlurred = true"
+                                        @input="keywordInputChanged"
                                     />
                                     <div v-if="searchAccountIdError !== ''" class="invalid-feedback">{{ searchAccountIdError }}</div>
                                 </div>
@@ -98,6 +110,7 @@
                                 <div class="col-xl-5">
                                     <input class="form-control" type="text" placeholder="Bot" v-model="this.bot" aria-describedby="btnNavbarSearch" readonly/>
                                 </div>
+                                <Modal :isOpen="modalIsOpen" @cancel="closeModal"/>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 10px"> <!-- Center the first row -->
                                 <div class="col-xl-2" >
@@ -134,9 +147,11 @@
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css'
 
 export default {
-    name: 'singleStatus',
+    name: 'AccountsById',
     data() {
         return {
             clientKey: null,
@@ -160,10 +175,31 @@ export default {
             searchAccountIdBlurred: false,
             instanceIdBlurred: false,
             searchAccountIdError: "",
-            instanceIdError: ""
+            instanceIdError: "",
+            modalIsOpen: true,
+            modalTitle: 'Info',
+
+            options: ['Option 1', 'Option 2', 'Option 3'], // Your initial dropdown options
+            selectedOption: '',
+            selectedOrEnteredOption: ''
         }
     },
     methods: {
+        addOption() {
+            // Add the entered option to the options list
+            const enteredOption = this.selectedOrEnteredOption.trim();
+            if (enteredOption !== '' && !this.options.includes(enteredOption)) {
+                this.options.push(enteredOption);
+                this.selectedOption = enteredOption;
+                this.selectedOrEnteredOption = '';
+
+            }
+        },
+        successShowToast(message){
+            toast.success(message, {
+                autoClose: 3000,
+            })
+        },
         isValidAccountId(accountId) {
             return accountId.trim() !== '';
         },
@@ -192,6 +228,7 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidAccountId(this.accountId)) {
+                this.showModal();
                 let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.instanceId + '&account_id=' + this.accountId;
                 this.clearAllFields()
                 axios.get(dataUrl)
@@ -205,6 +242,8 @@ export default {
                         this.bot = res.data.bot;
                         this.avatarLink = res.data.avatar;
                         this.note = res.data.note;
+                        let message = this.displayName+ " retrieved successfully"
+                        this.successShowToast(message)
                     }).catch(error => {
                     console.log(error);
                 });
@@ -240,6 +279,21 @@ export default {
             this.bot = null,
             this.avatarLink = null,
             this.displayName = null
+        },
+        keywordInputChanged(e){
+            let valueReceived = e.target.value;
+            if(valueReceived){
+                this.searchKeywordError = ""
+                this.searchKeywordBlurred = false;
+            }
+        },
+        instanceInputChanged(e){
+            this.instanceId = e.target.value;
+            let valueReceived = e.target.value;
+            if(valueReceived){
+                this.instanceIdError = ""
+                this.instanceIdBlurred = false;
+            }
         }
     },
     mounted() {

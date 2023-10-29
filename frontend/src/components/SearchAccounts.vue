@@ -1,5 +1,6 @@
 <template>
-    <main>
+    <div>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal"/>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Accounts</h1>
             <div class="col-12">
@@ -17,17 +18,20 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instance</label>
+                                    <label>Mastodon Instance</label><button id="button_text" :onclick="applymanuallyClick"></button>
+                                    <button id="button_text" :onclick="applymanuallyClick" v-if="applymanually"> choose</button>
                                     <select
                                         v-model="instanceId"
                                         class="form-control"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         v-on:blur="instanceIdBlurred = true"
+                                        v-if="!applymanually"
+                                        @input="instanceInputChanged"
                                     >
                                         <option disabled value="">Choose an instance</option>
                                         <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
                                     </select>
-                                    <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
+                                    <div v-if="instanceIdError !== ''" class="invalid-feedback" >{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-4">
                                     <label for="keyword">Keyword</label>
@@ -36,11 +40,18 @@
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         v-on:blur="searchKeywordBlurred = true"
                                         placeholder="Keyword"
+                                        @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
-                                <div class="col-xl-4" style="margin-top: 23px;">
+                                <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitAccountSearch" >Search</button>
+                                </div>
+                                <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
+                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,31 +91,29 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row" style="margin-top: 23px; float: right;" v-if="!loading && downloadData.length">
-                                <div class="col-md-12 text-right">
-                                    <button type="button" class="btn btn-primary" @click="downloadAccountJSON">Download JSON</button>
-                                </div>
-                            </div>
                             <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
-                                <fa icon="exclamation-triangle" /> No data available.
+                                No data available.
                             </div>
                         </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </template>
 
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
-import { HollowDotsSpinner } from 'epic-spinners'
-
+import { HollowDotsSpinner } from 'epic-spinners';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css'
+import Modal from "../components/Modal.vue";
 
 export default {
     name: 'accounts',
     components: {
         HollowDotsSpinner,
+        Modal
     },
     data() {
         return {
@@ -122,10 +131,23 @@ export default {
             searchKeywordBlurred: false,
             instanceIdBlurred: false,
             searchKeywordError: "",
-            instanceIdError: ""
+            instanceIdError: "",
+            applymanually: false,
+            mastodonsearchManual : "",
+            modalIsOpen: false,
         }
     },
     methods: {
+        successShowToast(message){
+            toast.success(message, {
+                autoClose: 3000,
+            })
+        },
+        errorShowToast(){
+            toast.error('Error in retrieving data!', {
+                autoClose: 3000,
+            })
+        },
         isValidKeyword(keyword) {
             return keyword.trim() !== '';
         },
@@ -137,6 +159,29 @@ export default {
                 name: 'Accounts',  // Assuming you have a route name
                 params: { accountId: accountId, instanceId: this.instanceId},
             });
+        },
+        keywordInputChanged(e){
+            let valueReceived = e.target.value;
+            if(valueReceived){
+                this.searchKeywordError = ""
+                this.searchKeywordBlurred = false;
+            }
+        },
+        instanceInputChanged(e){
+            this.instanceId = e.target.value;
+            let valueReceived = e.target.value;
+            if(valueReceived){
+                this.instanceIdError = ""
+                this.instanceIdBlurred = false;
+            }
+        },
+        applymanuallyClick(){
+            this.instanceId = "";
+            if(this.applymanually){
+                this.applymanually = false;
+                return
+            }
+            this.applymanually = true
         },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'
@@ -152,7 +197,7 @@ export default {
             this.instanceIdError = "";
 
             if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please choose a valid Mastodon instance";
+                this.instanceIdError = "Please apply a valid Mastodon instance";
             }
 
             if (!this.isValidKeyword(this.searchKeyword)) {
@@ -161,18 +206,23 @@ export default {
 
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
                 this.loading = true;
+                this.singleStatusData = []
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=accounts';
                 axios.get(dataUrl)
                     .then(res => {
                         this.singleStatusData = res;
                         this.accountsData = res.data.accounts;
-                        console.log(this.accountsData)
-                        this.downloadData = this.accountsData
+                        this.downloadData = this.accountsData;
                         this.loading = false;
+                        let message = this.accountsData.length +" data retrieved"
+                        this.successShowToast(message)
                     }).catch(error => {
-                    console.log(error);
+                    this.errorShowToast();
+                    this.loading = false;
                 });
             }
+            this.accountsData = []
+            this.downloadData = []
         },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {
@@ -189,12 +239,8 @@ export default {
             if(this.accountsData.length > 0){
                 a.download = 'Account_details-'+this.searchKeyword+'.json';
             }
-            else if(this.hashtagData.length > 0){
-                a.download = 'hashtag_details-'+this.searchKeyword+'.json';
-            }
-            else if(this.statusData.length > 0){
-                a.download = 'status_details-'+this.searchKeyword+'.json';
-            }
+            let message = "Data downloaded successfully!"
+            this.successShowToast(message)
             // Append the link to the document and trigger the click event
             document.body.appendChild(a);
             a.click();
@@ -209,6 +255,13 @@ export default {
         extractURLtoGetInstanceName(acct) {
             const parts = acct.split('/');
             return parts[2];
+        },
+        closeModal() {
+            console.log("This is good...")
+            this.modalIsOpen = false;
+        },
+        showModal() {
+            this.modalIsOpen = true;
         }
     },
     mounted() {
@@ -216,3 +269,17 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+/* Add some basic styles to remove default button styles */
+#button_text {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: underline; /* Add underline to text */
+    color: blue; /* Set the color of the text */
+}
+
+</style>

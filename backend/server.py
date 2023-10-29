@@ -18,11 +18,6 @@ from route_functions import instance_data_api, status_search_api,account_search_
 LOG_DIR = "/home/data/apps/mastodon/log"
 LOG_FNAME = "mastodon_logging.log"
 
-# Add mastodon app to path
-#PARENT_DIR = os.path.dirname(os.path.abspath(__file__))
-#sys.path.append(os.path.join(PARENT_DIR, "mastoapp"))
-
-#app = Flask(__name__)
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 

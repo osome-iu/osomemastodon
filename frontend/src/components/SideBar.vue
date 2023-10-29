@@ -81,7 +81,7 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
                             Status by Id
                         </router-link>
-                        <router-link class="nav-item nav-link" :to="{name: 'Accounts'}" >
+                        <router-link class="nav-item nav-link" :to="{name: 'AccountsById'}" >
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                             Account by Id
                         </router-link>
@@ -94,5 +94,3 @@
         </nav>
     </div>
 </template>
-<script setup>
-</script>

@@ -14,10 +14,10 @@ import os, json
 from library import backend_util
 
 # Log file location and the file
-LOG_DIR = "/home/data/apps/mastodon/log"
+LOG_DIR = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/log"
 LOG_FNAME = "mastodon_logging.log"
 
-FILE = "/home/data/apps/mastodon/osomemastodon/backend/data/mastodon_instance.json"
+FILE = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/osomemastodon/backend/data/mastodon_instance.json"
 
 script_name = os.path.basename(__file__)
 logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)

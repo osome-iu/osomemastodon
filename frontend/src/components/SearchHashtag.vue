@@ -1,5 +1,6 @@
 <template>
     <main>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" />
         <div class="container-fluid px-4">
             <h1 class="mt-4">Hashtags</h1>
             <div class="col-12">
@@ -44,9 +45,10 @@
                                 <div class="col-xl-3" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" @click="submitStatusSearch">Search</button>
                                 </div>
-                                <div class="row" style="margin-top: 23px; float: right;" v-if="!loading && downloadData.length">
+                                <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
                                     <div class="col-md-12 text-right">
-                                        <button type="button" class="btn btn-warning" @click="downloadAccountJSON">Download JSON</button>
+                                        <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
+                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
                                     </div>
                                 </div>
                             </div>
@@ -93,11 +95,13 @@ import * as constants from "@/shared/Constants";
 import { HollowDotsSpinner } from 'epic-spinners';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
+import Modal from "../components/Modal.vue";
 
 export default {
-    name: 'singleStatus',
+    name: 'searchHashtags',
     components: {
         HollowDotsSpinner,
+        Modal
     },
     data() {
         return {
@@ -116,7 +120,9 @@ export default {
             searchKeywordBlurred: false,
             instanceIdBlurred: false,
             searchKeywordError: "",
-            instanceIdError: ""
+            instanceIdError: "",
+            modalIsOpen: false,
+            api_call: "",
         }
     },
     methods: {
@@ -179,6 +185,7 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
+                this.api_call = "https://mastodon.social/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=hashtags';
                 axios.get(dataUrl)
@@ -225,6 +232,12 @@ export default {
         extractURLtoGetInstanceName(acct) {
             const parts = acct.split('/');
             return parts[2];
+        },
+        closeModal() {
+            this.modalIsOpen = false;
+        },
+        showModal() {
+            this.modalIsOpen = true;
         }
     },
     mounted() {

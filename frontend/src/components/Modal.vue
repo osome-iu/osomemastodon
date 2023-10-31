@@ -18,7 +18,7 @@
 
                     <div class="row" style="margin-left:1px; margin-right: 1px">
                         <input
-                            v-model="this.showURL" ref="showURLvalue"
+                            v-model="this.url" ref="showURLvalue"
                         />
                     </div>
                 </div>
@@ -49,12 +49,15 @@ export default {
             type: Boolean,
             required: true,
         },
+        url: {
+            type: String,
+            default: 'API URL',
+        },
     },
     data() {
         return {
             linkcopied: false,
             inputValue: '',
-            showURL: "https://mastodon.social/api/v2/search?q=helloworld&type=Accounts"
         };
     },
     methods: {

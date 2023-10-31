@@ -1,5 +1,6 @@
 <template>
     <main>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" />
         <div class="container-fluid px-4">
             <h1 class="mt-4">Statuses</h1>
             <div class="col-12">
@@ -16,7 +17,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-3">
+                                <div class="col-xl-2">
                                     <label>Mastodon Instance</label>
                                     <select
                                         v-model="instanceId"
@@ -55,9 +56,10 @@
                                 <div class="col-xl-3" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
                                 </div>
-                                <div class="row" style="margin-top: 23px; float: right;" v-if="!loading && downloadData.length">
+                                <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
                                     <div class="col-md-12 text-right">
-                                        <button type="button" class="btn btn-warning" @click="downloadAccountJSON">Download JSON</button>
+                                        <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
+                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
                                     </div>
                                 </div>
                             </div>
@@ -124,12 +126,14 @@ import * as constants from "@/shared/Constants";
 import { HollowDotsSpinner } from 'epic-spinners';
 import DOMPurify from 'dompurify';
 import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css'
+import 'vue3-toastify/dist/index.css';
+import Modal from "../components/Modal.vue";
 
 export default {
     name: 'searchStatus',
     components: {
         HollowDotsSpinner,
+        Modal
     },
     data() {
         return {
@@ -149,7 +153,9 @@ export default {
             searchKeywordError: "",
             instanceIdError: "",
             accessTokenBlurred: false,
-            accessTokenError: ""
+            accessTokenError: "",
+            modalIsOpen: false,
+            api_call: "",
         }
     },
     methods: {
@@ -229,6 +235,7 @@ export default {
                 this.accessTokenError = "Access token is required";
             }
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword) && this.isValidAccessToken(this.accessToken)) {
+                this.api_call = "curl --location 'https://mastodon.social/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=statuses&client_key=' + this.accessToken;
                 axios.get(dataUrl)
@@ -278,6 +285,12 @@ export default {
         extractURLtoGetInstanceName(acct) {
             const parts = acct.split('/');
             return parts[2];
+        },
+        closeModal() {
+            this.modalIsOpen = false;
+        },
+        showModal() {
+            this.modalIsOpen = true;
         }
     },
     mounted() {

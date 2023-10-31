@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal"/>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" />
         <div class="container-fluid px-4">
             <h1 class="mt-4">Accounts</h1>
             <div class="col-12">
@@ -56,45 +56,45 @@
                             </div>
                         </div>
                     </div>
-                        <div class="card-body">
-                            <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
-                                <hollow-dots-spinner
-                                        :animation-duration="1000"
-                                        :dot-size="15"
-                                        :dots-num="3"
-                                        color="#ff1d5e"
-                                />
-                            </div>
-                            <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 12px;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Display Name</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Instance</th>
-                                        <th scope="col">Followers Count</th>
-                                        <th scope="col">Following Count</th>
-                                        <th scope="col">Status Count </th>
-                                        <th scope="col">Profile Info </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="account in accountsData" :key="key">
-                                        <td>{{account.display_name}}</td>
-                                        <td>{{account.username}}</td>
-                                        <td>{{this.extractInstanceName(account.acct)}}</td>
-                                        <td>{{account.followers_count}}</td>
-                                        <td>{{account.following_count}}</td>
-                                        <td>{{account.statuses_count}}</td>
-                                        <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id)">view</button></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
-                                No data available.
-                            </div>
+                    <div class="card-body">
+                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
+                            <hollow-dots-spinner
+                                :animation-duration="1000"
+                                :dot-size="15"
+                                :dots-num="3"
+                                color="#ff1d5e"
+                            />
                         </div>
+                        <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 12px;">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Display Name</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Instance</th>
+                                    <th scope="col">Followers Count</th>
+                                    <th scope="col">Following Count</th>
+                                    <th scope="col">Status Count </th>
+                                    <th scope="col">Profile Info </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="account in accountsData" :key="key">
+                                    <td>{{account.display_name}}</td>
+                                    <td>{{account.username}}</td>
+                                    <td>{{this.extractInstanceName(account.acct)}}</td>
+                                    <td>{{account.followers_count}}</td>
+                                    <td>{{account.following_count}}</td>
+                                    <td>{{account.statuses_count}}</td>
+                                    <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id)">view</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
+                            No data available.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,6 +135,7 @@ export default {
             applymanually: false,
             mastodonsearchManual : "",
             modalIsOpen: false,
+            api_call: "",
         }
     },
     methods: {
@@ -205,6 +206,7 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
+                this.api_call = "https://mastodon.social/api/v2/search?q="+this.searchKeyword+"&type=accounts"
                 this.loading = true;
                 this.singleStatusData = []
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=accounts';
@@ -257,7 +259,6 @@ export default {
             return parts[2];
         },
         closeModal() {
-            console.log("This is good...")
             this.modalIsOpen = false;
         },
         showModal() {

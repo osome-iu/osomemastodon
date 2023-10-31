@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Accounts</h1>
+            <h1 class="mt-4">Accounts by Id</h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>View information about a profile.</p>
@@ -16,16 +16,6 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div>
-                                    <input
-                                        v-model="selectedOrEnteredOption"
-                                        placeholder="Select or type and press Enter"
-                                        @keyup.enter="addOption"
-                                    />
-                                    <select v-if="options.length > 0" v-model="selectedOption">
-                                        <option v-for="option in options" :key="option" :value="option">{{ option }}</option>
-                                    </select>
-                                </div>
                                 <div class="col-xl-4">
                                     <label>Mastodon Instance</label>
                                     <select

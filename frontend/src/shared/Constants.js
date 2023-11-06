@@ -1,1 +1,1 @@
-export const url = 'https://osome.iu.edu/tools/mastodon';
+export const url = 'http://localhost:8323';

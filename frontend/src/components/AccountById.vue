@@ -1,5 +1,6 @@
 <template>
     <main>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Accounts by Id</h1>
             <div class="col-12">
@@ -12,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/accounts/AccountById.vue" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/accounts/AccountById.vue" target="_blank">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -139,9 +140,11 @@ import axios from "axios";
 import * as constants from "@/shared/Constants";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
+import Modal from "@/components/Modal.vue";
 
 export default {
     name: 'AccountsById',
+    components: {Modal},
     data() {
         return {
             clientKey: null,
@@ -166,25 +169,13 @@ export default {
             instanceIdBlurred: false,
             searchAccountIdError: "",
             instanceIdError: "",
-            modalIsOpen: true,
+            modalIsOpen: false,
             modalTitle: 'Info',
-
-            options: ['Option 1', 'Option 2', 'Option 3'], // Your initial dropdown options
-            selectedOption: '',
-            selectedOrEnteredOption: ''
+            api_call: "",
+            header_text: ""
         }
     },
     methods: {
-        addOption() {
-            // Add the entered option to the options list
-            const enteredOption = this.selectedOrEnteredOption.trim();
-            if (enteredOption !== '' && !this.options.includes(enteredOption)) {
-                this.options.push(enteredOption);
-                this.selectedOption = enteredOption;
-                this.selectedOrEnteredOption = '';
-
-            }
-        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 3000,
@@ -210,7 +201,7 @@ export default {
             this.instanceIdError = "";
 
             if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please choose a valid Mastodon instance.";
+                this.instanceIdError = "Please choose a Mastodon instance.";
             }
 
             if (!this.isValidAccountId(this.accountId)) {
@@ -218,7 +209,6 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidAccountId(this.accountId)) {
-                this.showModal();
                 let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.instanceId + '&account_id=' + this.accountId;
                 this.clearAllFields()
                 axios.get(dataUrl)
@@ -236,6 +226,8 @@ export default {
                         this.successShowToast(message)
                     }).catch(error => {
                     console.log(error);
+                    let message = this.displayName+ " retrieved successfully"
+                    this.error(message)
                 });
             }
         },
@@ -284,6 +276,12 @@ export default {
                 this.instanceIdError = ""
                 this.instanceIdBlurred = false;
             }
+        },
+        closeModal() {
+            this.modalIsOpen = false;
+        },
+        showModal() {
+            this.modalIsOpen = true;
         }
     },
     mounted() {
@@ -292,6 +290,8 @@ export default {
     created() {
         this.accountId = this.$route.params.accountId;
         this.instanceId = this.$route.params.instanceId;
+        console.log(this.instanceId)
+        console.log(this.accountId)
         if(!this.instanceId){
             this.instanceId = ""
             this.accountId = ""

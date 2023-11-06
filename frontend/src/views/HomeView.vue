@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
+    <div class="sb-nav-fixed">
         <NavBar/>
-        <div id="layoutSidenav">s
+        <div id="layoutSidenav">
             <SideBar/>
             <div id="layoutSidenav_content">
                 <router-view/>
@@ -38,8 +38,12 @@ body, html, #app {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     background-color: #fff;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
+}
+
+#layoutSidenav_content{
+    padding-top: -10px;
 }
 @import'~bootstrap/dist/css/bootstrap.css';
 

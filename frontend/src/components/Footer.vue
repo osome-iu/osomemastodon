@@ -6,7 +6,7 @@
                     <div class="text-muted"><a href="https://www.iu.edu/copyright/index.html" target="_blank">Copyright </a> &copy; {{ getcurrentYear }} the
                         Trustees of <a href="http://indiana.edu/" target="_blank">Indiana University</a></div>
                     <div>
-                        <a href="https://cnets.indiana.edu/" target="_blank">CNetS</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="https://cnets.indiana.edu/" target="_blank">CNetS</a>&nbsp;&nbsp;&middot;
                         <a href="https://luddy.indiana.edu/" target="_blank">Luddy</a>
                     </div>
                 </div>

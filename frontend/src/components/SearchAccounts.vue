@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" />
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text" />
         <div class="container-fluid px-4">
             <h1 class="mt-4">Accounts</h1>
             <div class="col-12">
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -69,6 +69,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Display Name</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">Instance</th>
@@ -80,6 +81,7 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="account in accountsData" :key="key">
+                                    <td>{{account.id}}</td>
                                     <td>{{account.display_name}}</td>
                                     <td>{{account.username}}</td>
                                     <td>{{this.extractInstanceName(account.acct)}}</td>
@@ -101,6 +103,7 @@
     </div>
 </template>
 
+
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
@@ -108,12 +111,16 @@ import { HollowDotsSpinner } from 'epic-spinners';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 import Modal from "../components/Modal.vue";
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+
 
 export default {
     name: 'accounts',
     components: {
         HollowDotsSpinner,
-        Modal
+        Modal,
+        vSelect
     },
     data() {
         return {
@@ -136,9 +143,24 @@ export default {
             mastodonsearchManual : "",
             modalIsOpen: false,
             api_call: "",
+            selectedItem: null,
+            options: [
+                { label: 'Option 1', value: 'option1' },
+                { label: 'Option 2', value: 'option2' },
+                { label: 'Option 3', value: 'option3' },
+            ],
+            header_text: ""
         }
     },
     methods: {
+        addNewItem() {
+            const trimmedItem = this.newItem.trim();
+            if (trimmedItem && !this.options.includes(trimmedItem)) {
+                this.options.push(trimmedItem);
+                this.selectedItem = trimmedItem;
+                this.newItem = ''; // Clear the input field
+            }
+        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 3000,
@@ -157,7 +179,7 @@ export default {
         },
         viewAccountInfo(accountId){
             this.$router.push({
-                name: 'Accounts',  // Assuming you have a route name
+                name: 'Accounts', // Assuming you have a route name
                 params: { accountId: accountId, instanceId: this.instanceId},
             });
         },
@@ -206,7 +228,8 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
-                this.api_call = "https://mastodon.social/api/v2/search?q="+this.searchKeyword+"&type=accounts"
+                this.api_call = "https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=accounts"
+                this.header_text = "Search Account URL"
                 this.loading = true;
                 this.singleStatusData = []
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=accounts';
@@ -232,10 +255,11 @@ export default {
             }, 4);
         },
         downloadAccountJSON(){
-            // Create a Blob containing the JSON data
+// Create a Blob containing the JSON data
             const blob = new Blob([JSON.stringify(this.downloadData)], { type: 'application/json' });
 
-            // Create a download link
+
+// Create a download link
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             if(this.accountsData.length > 0){
@@ -243,11 +267,12 @@ export default {
             }
             let message = "Data downloaded successfully!"
             this.successShowToast(message)
-            // Append the link to the document and trigger the click event
+// Append the link to the document and trigger the click event
             document.body.appendChild(a);
             a.click();
 
-            // Remove the link from the document
+
+// Remove the link from the document
             document.body.removeChild(a);
         },
         extractInstanceName(acct){
@@ -271,6 +296,7 @@ export default {
 }
 </script>
 
+
 <style scoped>
 /* Add some basic styles to remove default button styles */
 #button_text {
@@ -282,5 +308,8 @@ export default {
     text-decoration: underline; /* Add underline to text */
     color: blue; /* Set the color of the text */
 }
+
+
+
 
 </style>

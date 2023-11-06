@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" />
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text" />
         <div class="container-fluid px-4">
             <h1 class="mt-4">Hashtags</h1>
             <div class="col-12">
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -123,6 +123,7 @@ export default {
             instanceIdError: "",
             modalIsOpen: false,
             api_call: "",
+            header_text: ""
         }
     },
     methods: {
@@ -185,7 +186,8 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
-                this.api_call = "https://mastodon.social/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
+                this.api_call = "https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
+                this.header_text = "Search Statuses URL"
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=hashtags';
                 axios.get(dataUrl)

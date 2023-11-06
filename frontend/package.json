@@ -21,7 +21,9 @@
     "primevue": "^3.37.0",
     "tom-select": "^2.3.0",
     "vue": "^3.3.7",
+    "vue-multiselect": "^2.1.8",
     "vue-router": "^4.0.3",
+    "vue-select": "^4.0.0-beta.6",
     "vue3-toastify": "^0.1.14",
     "vuelidate": "^0.7.7",
     "vuex": "^4.0.0"
@@ -35,7 +37,9 @@
     "@vue/test-utils": "^2.0.0-0",
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
-    "jest": "^27.0.5"
+    "jest": "^27.0.5",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^13.3.2"
   },
   "browserslist": [
     "> 1%",

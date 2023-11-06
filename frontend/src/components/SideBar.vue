@@ -1,96 +1,68 @@
 <template>
-    <div id="layoutSidenav_nav" class="fixed">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-            <div class="sb-sidenav-menu">
-                <div class="nav">
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Authenticate
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" >
-                                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                        Mastodon Instances
-                                    </router-link>
-                                    <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
-                                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                        Status
-                                    </router-link>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Error
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="401.html">401 Page</a>
-                                    <a class="nav-link" href="404.html">404 Page</a>
-                                    <a class="nav-link" href="500.html">500 Page</a>
-                                </nav>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="sb-sidenav-menu-heading"></div>
-                    <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" >
-                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                        Mastodon Instances
-                    </router-link>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Search
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionOne">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <router-link class="nav-item nav-link" :to="{name: 'SearchByKeyword'}" >
-                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                Statuses
-                            </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'SearchHashtags'}" >
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>
-                                Hashtags
-                            </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'SearchAccounts'}" >
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                                Accounts
-                            </router-link>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Timeline
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordionTwo">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}" >
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>
-                                Hashtag
-                            </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" >
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-table-list"></i></div>
-                                Statuses
-                            </router-link>
-                        </nav>
-                    </div>
-                        <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
-                            Status by Id
+    <div>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">INSTANCES</div>
+                        <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" >
+                            <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>Mastodon Instances
                         </router-link>
-                        <router-link class="nav-item nav-link" :to="{name: 'AccountsById'}" >
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                            Account by Id
+                        <div class="sb-sidenav-menu-heading">SEARCH</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Get Statuses
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <router-link class="nav-item nav-link" :to="{name: 'SearchByKeyword'}" >
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>Search by keyword
+                                </router-link>
+                                <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}" >
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>Most recent by hashtag
+                                </router-link>
+                                <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" >
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                                    Most recent for instance
+                                </router-link>
+                                <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" >
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
+                                    Single Status by ID
+                                </router-link>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Get Accounts
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <router-link class="nav-item nav-link" :to="{name: 'SearchAccounts'}" >
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>Search by keyword
+                                </router-link>
+                                <router-link class="nav-item nav-link" :to="{name: 'AccountsById'}" >
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-hashtag"></i></div>Single Account by ID
+                                </router-link>
+                            </nav>
+                        </div>
+                        <router-link class="nav-item nav-link" :to="{name: 'SearchHashtags'}" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-question-circle"></i></div>
+                            Get Hashtag metadata
                         </router-link>
+                        <div class="sb-sidenav-menu-heading">DOCUMENTATION</div>
                         <router-link class="nav-item nav-link" :to="{name: 'FAQ'}" >
                             <div class="sb-nav-link-icon"><i class="fa fa-question-circle"></i></div>
                             FAQ
                         </router-link>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+    </div>
     </div>
 </template>
+<script setup>
+</script>

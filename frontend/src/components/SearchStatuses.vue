@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" />
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Statuses</h1>
             <div class="col-12">
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documetation</a>
+                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -156,6 +156,7 @@ export default {
             accessTokenError: "",
             modalIsOpen: false,
             api_call: "",
+            header_text: ""
         }
     },
     methods: {
@@ -235,7 +236,8 @@ export default {
                 this.accessTokenError = "Access token is required";
             }
             if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword) && this.isValidAccessToken(this.accessToken)) {
-                this.api_call = "curl --location 'https://mastodon.social/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
+                this.api_call = "curl --location 'https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
+                this.header_text = "Search Statuses URL"
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=statuses&client_key=' + this.accessToken;
                 axios.get(dataUrl)
@@ -266,9 +268,9 @@ export default {
             // Create a download link
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            if(this.statusData.length > 0){
-                a.download = 'status_data-'+this.searchKeyword+'.json';
-            }
+
+            a.download = 'status_data-'+this.searchKeyword+'.json';
+
             let message = "Data downloaded successfully!"
             this.successShowToast(message)
             // Append the link to the document and trigger the click event

@@ -32,7 +32,7 @@ def get_statuses_timeline_data():
         return timeline_status
 
 @blueprint.route('/hashtag-search', methods= ['GET'])
-def search_account_data_by_id():
+def search_hashtag_by_id():
     """
     Search the statuses through hashtag search.
     """

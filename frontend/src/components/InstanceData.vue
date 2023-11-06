@@ -12,7 +12,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Get the instance data <a href="https://instances.social/api/doc/" target="_blank">Documetation</a>
+                            Get the instance data <a href="https://instances.social/api/doc/" target="_blank">Documentation</a>
                         </div>
                     </div>
                 </div>

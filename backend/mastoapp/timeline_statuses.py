@@ -38,7 +38,6 @@ def fetch_timeline_status_data(mastodon_instance, limit, data_type):
     # Check the response status code
     if response.status_code == 200:
         timeline_data = response.json()
-        print(timeline_data)
         timeline_statuses = {"timeline_statuses": timeline_data}
         return timeline_statuses
     else:

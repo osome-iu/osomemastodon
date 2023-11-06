@@ -1,5 +1,6 @@
 <template>
     <main>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Status - Search By Id</h1>
             <div class="col-12">
@@ -12,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search a single status - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank">Documetation</a>
+                            Search a single status - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -40,7 +41,8 @@
                                     <div v-if="searchStatusIdError !== ''" class="invalid-feedback">{{ searchStatusIdError }}</div>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
-                                    <button type="button" class="btn btn-success" :onclick="submitSingleStatus" >Search</button>
+                                    <button type="button" class="btn btn-success" :onclick="submitSingleStatus" style="margin-right: 20px">Search</button>
+                                    <button type="button" class="btn btn-primary" :onclick="showModal" v-if="this.statusReceivedId">Show URL</button>
                                 </div>
                             </div>
                         </div>
@@ -163,12 +165,14 @@
 <script>
 import axios from "axios";
 import * as constants from "@/shared/Constants";
+import Modal from "@/components/Modal.vue";
 
 export default {
     name: 'SearchByIdStatus',
+    components: {Modal},
     data() {
         return {
-            clientKey: null,
+            singleStatusData: [],
             clientSecret: null,
             token: null,
             instanceData:[],
@@ -195,7 +199,8 @@ export default {
             searchStatusIdBlurred: false,
             instanceIdBlurred: false,
             searchStatusIdError: "",
-            instanceIdError: ""
+            instanceIdError: "",
+            modalIsOpen: false,
         }
     },
     methods: {
@@ -219,7 +224,7 @@ export default {
             this.instanceIdError = "";
 
             if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please choose a valid Mastodon instance";
+                this.instanceIdError = "Please choose a Mastodon instance";
             }
 
             if (!this.isValidStatusId(this.statusId)) {
@@ -227,6 +232,9 @@ export default {
             }
 
             if(this.isValidInstance(this.instanceId) && this.isValidStatusId(this.statusId)) {
+                this.api_call = "https://"+this.instanceId+"/api/v1/statuses/"+this.statusId;
+                this.header_text = "Search Account URL"
+
                 let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + 'https://' + this.instanceId;
                 axios.get(dataUrl)
                     .then(res => {
@@ -271,6 +279,12 @@ export default {
         extractURLtoGetInstanceName(acct) {
             const parts = acct.split('/');
             return parts[2];
+        },
+        closeModal() {
+            this.modalIsOpen = false;
+        },
+        showModal() {
+            this.modalIsOpen = true;
         }
     },
     mounted() {
@@ -278,3 +292,14 @@ export default {
     },
 }
 </script>
+
+
+<style>
+#readonly-textbox {
+    background-color: #f2f2f2; /* Light gray background */
+    border: 1px solid #ccc;   /* Light gray border */
+    padding: 8px;             /* Some padding for better appearance */
+    font-size: 14px;          /* Adjust font size */
+    color: #333;              /* Text color */
+}
+</style>

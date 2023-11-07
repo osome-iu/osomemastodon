@@ -1,10 +1,10 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Mastodon Instances</h1>
+            <h1 class="page-title">Mastodon Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>To get the mastodon instance, call <a href="https://instances.social/api/doc/" target="_blank">here</a>. This will grab the top 20 mastodon instances and with minimum 5000 active users in each instance and order in statuses descending.</p>
+                    <p>This will grab the top 20 mastodon instances (with a minimum 5000 active users) and list them in descending order.</p>
                 </div>
             </div>
             <div class="row">
@@ -12,7 +12,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Get the instance data <a href="https://instances.social/api/doc/" target="_blank">Documentation</a>
+                            Get the instances - <a href="https://instances.social/api/doc/" target="_blank" class="black-link">Documentation</a>
                         </div>
                     </div>
                 </div>

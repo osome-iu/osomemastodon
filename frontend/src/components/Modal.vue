@@ -2,7 +2,7 @@
     <div v-if="isOpen" class="prompt-modal">
         <div class="prompt-modal-content">
             <div class="prompt-modal-header">
-                <h5>Account Search</h5>
+                <h5>{{ header }}</h5>
                 <button class="prompt-modal-close" @click="$emit('cancel')">&times;</button>
             </div>
 
@@ -53,6 +53,10 @@ export default {
             type: String,
             default: 'API URL',
         },
+        header:{
+            type: String,
+            default: 'Search API',
+        }
     },
     data() {
         return {

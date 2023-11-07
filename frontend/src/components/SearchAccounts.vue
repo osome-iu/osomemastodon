@@ -2,7 +2,7 @@
     <div>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text" />
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Accounts</h1>
+            <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>Search for content in accounts.</p>
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documentation</a>
+                            Search accounts by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -308,8 +308,4 @@ export default {
     text-decoration: underline; /* Add underline to text */
     color: blue; /* Set the color of the text */
 }
-
-
-
-
 </style>

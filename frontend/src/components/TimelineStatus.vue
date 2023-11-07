@@ -2,7 +2,7 @@
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Timeline Status</h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instance</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>A chronological list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank">Documentation</a>
+                            Most recent statuses for instance - <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">

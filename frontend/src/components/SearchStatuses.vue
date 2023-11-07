@@ -2,7 +2,7 @@
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Statuses</h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>Search for Statuses.</p>
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documentation</a>
+                            Statuses search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -300,3 +300,4 @@ export default {
     },
 }
 </script>
+

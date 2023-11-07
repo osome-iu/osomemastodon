@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/searchbyid',
     name: 'SearchByIdStatus',
-    component: () => import(/* webpackChunkName: "about" */ '../components/SearchByIdStatus.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/SingleStatusById.vue')
   },
   {
     path: '/searchbykeyword',
@@ -19,7 +19,7 @@ const routes = [
   {
     path: '/accountsbyId',
     name: 'AccountsById',
-    component: () => import(/* webpackChunkName: "about" */ '../components/AccountById.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/SingleAccountById.vue')
   },
   {
     path: '/timelinehashtag',

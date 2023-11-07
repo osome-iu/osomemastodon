@@ -2,10 +2,10 @@
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Timeline Hashtag </h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Most recent by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>View public/local statuses containing the given hashtag. This allows you to fetch statuses in a chronological order, based on the hashtag you are searching.</p>
+                    <p>View public/local statuses containing the given hashtag. This allows you to fetch statuses in chronological order based on the hashtag you are searching.</p>
                 </div>
             </div>
             <div class="row">
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank">Documentation</a>
+                            Most recent statuses by hashtag - <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -347,3 +347,4 @@ export default {
     },
 }
 </script>
+

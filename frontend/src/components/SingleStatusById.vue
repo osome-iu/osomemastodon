@@ -2,7 +2,7 @@
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Status - Search By Id</h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Single Status by Id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>Obtain information about a status by status Id.</p>
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search a single status - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank">Documentation</a>
+                            Search a single status by Id - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-4">
+                    <div class="card mb-4" v-if="this.statusReceivedId">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Status Data

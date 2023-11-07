@@ -2,7 +2,7 @@
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Accounts by Id</h1>
+            <h1 class="page-title">Accounts <span class="subtitle">- Single Account by Id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>View information about a profile.</p>
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/accounts/AccountById.vue" target="_blank">Documentation</a>
+                            Search accounts by Id - <a href="https://docs.joinmastodon.org/methods/accounts/AccountById.vue" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -124,7 +124,7 @@
                                     JSON :
                                 </div>
                                 <div class="col-xl-5">
-                                    <button type="button" class="btn btn-primary" :onclick="downloadJSON" >Download</button>
+                                    <button type="button" class="btn btn-primary" :onclick="downloadJSON">Download</button>
                                 </div>
                             </div>
                         </div>
@@ -225,9 +225,9 @@ export default {
                         let message = this.displayName+ " retrieved successfully"
                         this.successShowToast(message)
                     }).catch(error => {
-                    console.log(error);
-                    let message = this.displayName+ " retrieved successfully"
-                    this.error(message)
+                        console.log(error);
+                        let message = this.displayName+ " retrieved successfully"
+                        this.error(message)
                 });
             }
         },

@@ -5,7 +5,7 @@
             <h1 class="mt-4">Hashtags</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for Hashtags.</p>
+                    <p>Get hashtag metadata.</p>
                 </div>
             </div>
             <div class="row">
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Documentation</a>
+                            Get hashtag metadata by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">

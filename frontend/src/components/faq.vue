@@ -1,12 +1,14 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">FAQ</h1>
+            <h1 class="page-title">FAQ</h1>
             <ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Instances</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Search API</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Timeline API</ul>
+                <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> How the mastodon status Id made?</ul>
+                <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</ul>
             </ul>
             <h4 class="mt-4">Mastodon Instances</h4>
             <p>
@@ -31,13 +33,13 @@
             <ul>
                 <li>Once you've registered the application, you will be provided with a Client ID and a Client Secret. Keep these credentials secure.</li>
             </ul>
-            <h4 class="mt-4">Mastodon Search API</h4>
+            <h4 class="mt-4">How the mastodon status Id generated?</h4>
             <p>
-                Search for content in accounts, statuses and hashtags.
+                In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct ID for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker ID, representing the name of the server (instance) to which the user belongs, prevents collisions between IDs from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker ID, and sequence number allows Mastodon to create globally unique post IDs, facilitating efficient organization and retrieval of posts across its decentralized network.
             </p>
-            <h4 class="mt-4">Mastodon Timeline API</h4>
+            <h4 class="mt-4">Difference between the Local and Federated timelines</h4>
             <p>
-
+            The Local timeline shows posts from all users in your server, while the Federated timeline shows you all public posts from users that people in your server follow.
             </p>
         </div>
     </main>

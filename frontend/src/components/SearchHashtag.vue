@@ -64,26 +64,24 @@
                     color="#ff1d5e"
                 />
             </div>
-            <div class="card-body">
-                <div class="table-responsive" v-if="!loading && hashtagData.length>0" style="font-size: 10px;">
-                    <table class="table table-bordered">
-                        <thead>
+            <div class="table-responsive" v-if="!loading && hashtagData.length>0" style="font-size: 10px;">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">URL</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="hashtag in hashtagData" :key="key">
-                                <td>{{hashtag.name}}</td>
-                                <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Link</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
-                    <fa icon="exclamation-triangle" /> No data available.
-                </div>
+                    </thead>
+                    <tbody>
+                        <tr v-for="hashtag in hashtagData" :key="key">
+                            <td>{{hashtag.name}}</td>
+                            <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Link</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="alert alert-warning" v-if="!hashtagData.length && this.searched">
+                <fa icon="exclamation-triangle" /> No data available.
             </div>
         </div>
     </main>
@@ -123,7 +121,8 @@ export default {
             instanceIdError: "",
             modalIsOpen: false,
             api_call: "",
-            header_text: ""
+            header_text: "",
+            searched: false,
         }
     },
     methods: {
@@ -192,7 +191,6 @@ export default {
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=hashtags';
                 axios.get(dataUrl)
                     .then(res => {
-                        console.log(res)
                         this.hashtagData = res.data.hashtags;
                         this.downloadData = this.hashtagData
                         this.loading = false;

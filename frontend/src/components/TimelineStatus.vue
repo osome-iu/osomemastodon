@@ -139,6 +139,9 @@
                     </div>
                 </div>
             </div>
+            <div class="alert alert-warning" v-if="statusesArray.length === 0 && this.searched">
+                <fa icon="exclamation-triangle" /> No data available.
+            </div>
         </div>
     </main>
 </template>
@@ -175,7 +178,8 @@ export default {
             dataTypeBlurred: false,
             modalIsOpen: false,
             api_call: "",
-            header_text: ""
+            header_text: "",
+            searched: false,
         }
     },
     methods: {
@@ -226,7 +230,6 @@ export default {
                 this.dataTypeError = "Please enter data type";
             }
             if(this.isValidInput(this.instanceId) && this.isValidInput(this.limitNo) && this.isValidInput(this.dataType)){
-                https://{mastodon_instance}/api/v1/timelines/public?limit={limit}&local={data_type}
                 this.api_call = "https://"+this.instanceId+ "/api/v1/timelines/public?limit="+ this.limitNo+ "&local="+this.dataType;
                 this.header_text = "Search Statuses URL"
                 this.statusesArray = []
@@ -237,6 +240,7 @@ export default {
                     .then(res => {
                         this.statusesArray = res.data.hashtag;
                         this.loading = false;
+                        this.searched = true;
                         let message = this.statusesArray.length +" data retrieved"
                         this.successShowToast(message)
                     }).catch(error => {

@@ -47,6 +47,14 @@
                             </div>
                         </div>
                     </div>
+                    <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
+                        <hollow-dots-spinner
+                            :animation-duration="1000"
+                            :dot-size="15"
+                            :dots-num="3"
+                            color="#ff1d5e"
+                        />
+                    </div>
                     <div class="card mb-4" v-if="this.statusReceivedId">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
@@ -153,10 +161,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row" v-if="show_json">
-                <div class="col-xl-12">
-                    <textarea class="form-control" v-model="survey_json" style="height:600px "></textarea>
-                </div>
+            <div class="alert alert-warning" v-if="singleStatusData.length === 0 && this.searched">
+                <fa icon="exclamation-triangle" /> No data available.
             </div>
         </div>
     </main>
@@ -166,10 +172,13 @@
 import axios from "axios";
 import * as constants from "@/shared/Constants";
 import Modal from "@/components/Modal.vue";
+import {HollowDotsSpinner} from "epic-spinners";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     name: 'SearchByIdStatus',
-    components: {Modal},
+    components: {Modal, HollowDotsSpinner},
     data() {
         return {
             singleStatusData: [],
@@ -201,6 +210,8 @@ export default {
             searchStatusIdError: "",
             instanceIdError: "",
             modalIsOpen: false,
+            loading: false,
+            searched:false,
         }
     },
     methods: {
@@ -234,10 +245,10 @@ export default {
             if(this.isValidInstance(this.instanceId) && this.isValidStatusId(this.statusId)) {
                 this.api_call = "https://"+this.instanceId+"/api/v1/statuses/"+this.statusId;
                 this.header_text = "Search Account URL"
-
                 let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + 'https://' + this.instanceId;
                 axios.get(dataUrl)
                     .then(res => {
+                        this.searched = true;
                         this.singleStatusData = res;
                         this.statusReceivedId = res.data.id;
                         this.statusContent = res.data.content;
@@ -250,8 +261,12 @@ export default {
                         this.statusCreatedAt = res.data.created_at;
                         this.statusEditedAt = res.data.edited_at;
                         this.instanceName = this.extractURLtoGetInstanceName(res.data.url);
+                        let message = "Data retrieved successfully."
+                        this.successShowToast(message)
                     }).catch(error => {
                     console.log(error);
+                    this.singleStatusData = []
+                    this.errorShowToast();
                 });
             }
         },
@@ -285,7 +300,17 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
-        }
+        },
+        errorShowToast(){
+            toast.error('Error in retrieving data!', {
+                autoClose: 3000,
+            })
+        },
+        successShowToast(message){
+            toast.success(message, {
+                autoClose: 3000,
+            })
+        },
     },
     mounted() {
         this.fetchAllInstanceData();

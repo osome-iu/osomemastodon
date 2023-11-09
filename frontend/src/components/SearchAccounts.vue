@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text" />
         <div class="container-fluid px-4">
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
@@ -18,15 +18,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instance</label><button id="button_text" :onclick="applymanuallyClick"></button>
-                                    <button id="button_text" :onclick="applymanuallyClick" v-if="applymanually"> choose</button>
+                                    <label>Mastodon Instance</label>
                                     <select
                                         v-model="instanceId"
                                         class="form-control"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         v-on:blur="instanceIdBlurred = true"
-                                        v-if="!applymanually"
-                                        @input="instanceInputChanged"
                                     >
                                         <option disabled value="">Choose an instance</option>
                                         <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
@@ -56,51 +53,49 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
-                            <hollow-dots-spinner
-                                :animation-duration="1000"
-                                :dot-size="15"
-                                :dots-num="3"
-                                color="#ff1d5e"
-                            />
-                        </div>
-                        <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 12px;">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Display Name</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Instance</th>
-                                    <th scope="col">Followers Count</th>
-                                    <th scope="col">Following Count</th>
-                                    <th scope="col">Status Count </th>
-                                    <th scope="col">Profile Info </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="account in accountsData" :key="key">
-                                    <td>{{account.id}}</td>
-                                    <td>{{account.display_name}}</td>
-                                    <td>{{account.username}}</td>
-                                    <td>{{this.extractInstanceName(account.acct)}}</td>
-                                    <td>{{account.followers_count}}</td>
-                                    <td>{{account.following_count}}</td>
-                                    <td>{{account.statuses_count}}</td>
-                                    <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id)">view</button></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
-                            No data available.
-                        </div>
-                    </div>
                 </div>
             </div>
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
+                <hollow-dots-spinner
+                    :animation-duration="1000"
+                    :dot-size="15"
+                    :dots-num="3"
+                    color="#ff1d5e"
+                />
+            </div>
+            <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 12px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Display Name</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Instance</th>
+                            <th scope="col">Followers Count</th>
+                            <th scope="col">Following Count</th>
+                            <th scope="col">Status Count </th>
+                            <th scope="col">Profile Info </th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <tr v-for="account in accountsData" :key="key">
+                                <td>{{account.id}}</td>
+                                <td>{{account.display_name}}</td>
+                                <td>{{account.username}}</td>
+                                <td>{{this.extractInstanceName(account.acct)}}</td>
+                                <td>{{account.followers_count}}</td>
+                                <td>{{account.following_count}}</td>
+                                <td>{{account.statuses_count}}</td>
+                                <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id)">view</button></td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
+            <div class="alert alert-warning" v-if="!accountsData.length && this.searched">
+                <fa icon="exclamation-triangle" /> No data available.
+            </div>
         </div>
-    </div>
+    </main>
 </template>
 
 
@@ -131,7 +126,7 @@ export default {
             instanceId: "",
             searchKeyword: "",
             searchType: "",
-            accountsData: "",
+            accountsData: [],
             showDownloadBtn: "",
             loading: false,
             downloadData: [],
@@ -144,12 +139,8 @@ export default {
             modalIsOpen: false,
             api_call: "",
             selectedItem: null,
-            options: [
-                { label: 'Option 1', value: 'option1' },
-                { label: 'Option 2', value: 'option2' },
-                { label: 'Option 3', value: 'option3' },
-            ],
-            header_text: ""
+            header_text: "",
+            searched: false,
         }
     },
     methods: {
@@ -218,6 +209,7 @@ export default {
         submitAccountSearch(){
             this.searchKeywordError = "";
             this.instanceIdError = "";
+            this.searched = false;
 
             if (!this.isValidInstance(this.instanceId)) {
                 this.instanceIdError = "Please apply a valid Mastodon instance";
@@ -231,11 +223,10 @@ export default {
                 this.api_call = "https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=accounts"
                 this.header_text = "Search Account URL"
                 this.loading = true;
-                this.singleStatusData = []
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=accounts';
                 axios.get(dataUrl)
                     .then(res => {
-                        this.singleStatusData = res;
+                        this.searched = true;
                         this.accountsData = res.data.accounts;
                         this.downloadData = this.accountsData;
                         this.loading = false;
@@ -272,7 +263,7 @@ export default {
             a.click();
 
 
-// Remove the link from the document
+    // Remove the link from the document
             document.body.removeChild(a);
         },
         extractInstanceName(acct){
@@ -296,16 +287,3 @@ export default {
 }
 </script>
 
-
-<style scoped>
-/* Add some basic styles to remove default button styles */
-#button_text {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
-    cursor: pointer;
-    text-decoration: underline; /* Add underline to text */
-    color: blue; /* Set the color of the text */
-}
-</style>

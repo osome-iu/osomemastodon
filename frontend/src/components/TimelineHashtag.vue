@@ -141,10 +141,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
-                        <fa icon="exclamation-triangle" /> No data available.
-                    </div>
                 </div>
+            </div>
+            <div class="alert alert-warning" v-if="hashtagArray.length === 0 && this.searched">
+                <fa icon="exclamation-triangle" /> No data available.
             </div>
         </div>
     </main>
@@ -175,7 +175,6 @@ export default {
             hashtagSearch: "",
             hashtagArray: [],
             loading: false,
-
             instanceIdError: "",
             instanceIdBlurred: false,
             hashtagKeywordError: "",
@@ -186,7 +185,8 @@ export default {
             limitNoBlurred: false,
             modalIsOpen: false,
             api_call: "",
-            header_text: ""
+            header_text: "",
+            searched: false,
         }
     },
     methods: {
@@ -273,6 +273,7 @@ export default {
                     .then(res => {
                         this.hashtagArray = res.data.hashtag;
                         this.loading = false;
+                        this.searched = true;
                         let message = this.hashtagArray.length +" data retrieved"
                         this.successShowToast(message)
                     }).catch(error => {

@@ -7,6 +7,7 @@
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Search API</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Timeline API</ul>
+                <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> What can use in mastodon search inputs?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> How the mastodon status Id made?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</ul>
             </ul>
@@ -32,6 +33,14 @@
             </p>
             <ul>
                 <li>Once you've registered the application, you will be provided with a Client ID and a Client Secret. Keep these credentials secure.</li>
+            </ul>
+            <h4 class="mt-4">What can use in mastodon search inputs?</h4>
+            <p>
+                <b>Keywords</b> <br/>
+            </p>
+            <ul>
+                <li>You can only use text in statuses and hashtag keywords—no symbols allowed. Spaces are permitted. </li>
+                <li>Status IDs can consist of words and numbers, while Account IDs can only contain numbers</li>
             </ul>
             <h4 class="mt-4">How the mastodon status Id generated?</h4>
             <p>

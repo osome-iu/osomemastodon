@@ -113,7 +113,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
+            <div class="alert alert-warning" v-if="statusData.length === 0 && this.searched">
                 <fa icon="exclamation-triangle" /> No data available.
             </div>
         </div>
@@ -156,7 +156,8 @@ export default {
             accessTokenError: "",
             modalIsOpen: false,
             api_call: "",
-            header_text: ""
+            header_text: "",
+            searched: false,
         }
     },
     methods: {
@@ -223,6 +224,7 @@ export default {
             this.searchKeywordError = "";
             this.instanceIdError = "";
             this.accessTokenError = "";
+            this.searched = false;
 
             if (!this.isValidInstance(this.instanceId)) {
                 this.instanceIdError = "Mastodon instance is required";
@@ -242,6 +244,7 @@ export default {
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=statuses&client_key=' + this.accessToken;
                 axios.get(dataUrl)
                     .then(res => {
+                        this.searched = true;
                         this.singleStatusData = res;
                         this.show_json = true;
                         this.survey_json = this.stringifyJSON(this.singleStatusData)

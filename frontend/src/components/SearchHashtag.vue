@@ -66,17 +66,17 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Instance</th>
+                            <th scope="col">Hashtag Name</th>
+                            <th scope="col">Instance Name</th>
                             <th scope="col">URL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(innerArray, index) in hashtagData" :key="index">
-                            <td>{{ innerArray[1].name }}</td>
-                            <td>{{ getDomain(innerArray[1].url) }}</td>
-                            <td><a :href="innerArray[1].url" target="_blank" style="text-decoration: underline; color: #0a53be;">Link</a></td>
-                        </tr>
+                    <tr v-for="hashtag in hashtagData" :key="key">
+                        <td>{{hashtag.name}}</td>
+                        <td>{{ getDomain(hashtag.url) }}</td>
+                        <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Link</a></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -188,7 +188,7 @@ export default {
             }
 
             if(this.isValidKeyword(this.searchKeyword)) {
-                this.api_call = "https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
+                this.api_call = "https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
 
@@ -202,13 +202,16 @@ export default {
                         let data_received = res.data;
 
                         // Assuming res.data is an array containing hashtag data
-                        for (let i = 0; i < data_received.length; i++) {
-                            this.hashtagData.push(data_received[i].hashtags);
+                        for (let data of data_received) {
+                            for (let j=0;j<data.hashtags.length; j++){
+                                this.hashtagData.push(data.hashtags[j]);
+                            }
                         }
+
+                        console.log(this.hashtagData)
                         this.downloadData = this.hashtagData;
                         this.loading = false;
 
-                        console.log(this.hashtagData)
 
                         let message = this.hashtagData.length + " data retrieved";
                         this.successShowToast(message);

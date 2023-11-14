@@ -43,3 +43,28 @@ def fetch_account_data(mastodon_instance, account_id):
     else:
         # Handle the errors occur with API method calling.
         logger.error(f"Error: {response.status_code} - {response.text}")
+
+def get_account_data_from_keyword(mastodon_instance, search_keyword):
+    """
+    Get the account data from the keyword.
+    Parameters
+    -----------
+    - Pass the mastodon_instance, keyword
+
+    Returns
+    - Json object which contains the account information.
+    -----------
+    Note: here is the reference : https://docs.joinmastodon.org/methods/search/
+    """
+    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=accounts'
+
+    response = requests.get(search_endpoint_url)
+
+    # Check the response status code
+    if response.status_code == 200:
+        hashtag_data = response.json()
+        return hashtag_data
+    else:
+        # Handle the errors occur with API method calling.
+        print(f"Error: {response.status_code} - {response.text}")
+

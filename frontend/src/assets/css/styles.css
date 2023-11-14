@@ -11036,13 +11036,14 @@ body {
   color: #E5E4E2;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #0073cf;
+  color: #E5E4E2;
+  text-decoration: underline;
 }
 /*.sb-sidenav-dark .sb-sidenav-menu .nav-link.active {*/
 /*  color: #fff;*/
 /*}*/
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: #0073cf;
+  color: #E5E4E2;
 }
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #343a40;
@@ -11065,7 +11066,7 @@ body {
   color: #adb5bd;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link:hover {
-  color: #0d6efd;
+  color: #adb5bd;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active {
   color: #0073cf;

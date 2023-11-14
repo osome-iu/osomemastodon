@@ -21,7 +21,7 @@
     "primevue": "^3.37.0",
     "tom-select": "^2.3.0",
     "vue": "^3.3.7",
-    "vue-multiselect": "^2.1.8",
+    "vue-multiselect": "^3.0.0-beta.3",
     "vue-router": "^4.0.3",
     "vue-select": "^4.0.0-beta.6",
     "vue3-toastify": "^0.1.14",

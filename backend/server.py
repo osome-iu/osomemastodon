@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify, Response, render_template
 from flask_cors import CORS, cross_origin
 import os, sys
 from library import backend_util
-from route_functions import instance_data_api, status_search_api,account_search_api,timeline_api
+from route_functions import instance_data_api, search_api,account_search_api,timeline_api
 
 # Log file location and the file
 LOG_DIR = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/log"
@@ -22,21 +22,21 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 #render the frontend
-# @app.route('/')
-# @cross_origin()
-# def index():
-#     resp = render_template("/index.html")
-#     return resp
-#
-# @app.route('/<path:fallback>')
-# @cross_origin()
-# def index_fallback(fallback):
-#     resp = render_template("/index.html")
-#     return resp
+@app.route('/')
+@cross_origin()
+def index():
+    resp = render_template("/index.html")
+    return resp
+
+@app.route('/<path:fallback>')
+@cross_origin()
+def index_fallback(fallback):
+    resp = render_template("/index.html")
+    return resp
 
 # register blueprints
 app.register_blueprint(instance_data_api.blueprint)
-app.register_blueprint(status_search_api.blueprint)
+app.register_blueprint(search_api.blueprint)
 app.register_blueprint(account_search_api.blueprint)
 app.register_blueprint(timeline_api.blueprint)
 

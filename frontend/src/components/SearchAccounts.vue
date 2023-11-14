@@ -17,18 +17,21 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-4">
-                                    <label>Mastodon Instance</label>
-                                    <select
-                                        v-model="instanceId"
-                                        class="form-control"
-                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
-                                        v-on:blur="instanceIdBlurred = true"
-                                    >
-                                        <option disabled value="">Choose an instance</option>
-                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
-                                    </select>
-                                    <div v-if="instanceIdError !== ''" class="invalid-feedback" >{{ instanceIdError }}</div>
+                                <div class="col-xl-6">
+                                    <label class="typo__label">Mastodon Instances</label>
+                                    <VueMultiselect
+                                        v-model="selectedMastodonInstances"
+                                        :options="instanceData"
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @tag="addMastodonInstance"
+                                        tag-placeholder="Add as a new instance"
+                                        placeholder="Type to search or add"
+                                        label="name"
+                                        track-by="name"
+                                        :style="{ width: '100%', height: '40%' }"
+                                    />
+                                    <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-4">
                                     <label for="keyword">Keyword</label>
@@ -86,7 +89,7 @@
                                 <td>{{account.followers_count}}</td>
                                 <td>{{account.following_count}}</td>
                                 <td>{{account.statuses_count}}</td>
-                                <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id)">view</button></td>
+                                <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id,this.extractInstanceName(account.acct) )">view</button></td>
                             </tr>
                         </tbody>
                 </table>
@@ -108,6 +111,7 @@ import 'vue3-toastify/dist/index.css'
 import Modal from "../components/Modal.vue";
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
+import VueMultiselect from 'vue-multiselect'
 
 
 export default {
@@ -115,7 +119,8 @@ export default {
     components: {
         HollowDotsSpinner,
         Modal,
-        vSelect
+        vSelect,
+        VueMultiselect
     },
     data() {
         return {
@@ -141,6 +146,7 @@ export default {
             selectedItem: null,
             header_text: "",
             searched: false,
+            selectedMastodonInstances: [],
         }
     },
     methods: {
@@ -168,10 +174,12 @@ export default {
         isValidInstance(instanceId) {
             return instanceId.trim() !== '';
         },
-        viewAccountInfo(accountId){
+        viewAccountInfo(accountId, instance_name){
+            console.log(accountId)
+            console.log(instance_name)
             this.$router.push({
-                name: 'Accounts', // Assuming you have a route name
-                params: { accountId: accountId, instanceId: this.instanceId},
+                name: 'AccountsById', // Assuming you have a route name
+                params: { accountId: accountId, instanceId: instance_name},
             });
         },
         keywordInputChanged(e){
@@ -188,14 +196,6 @@ export default {
                 this.instanceIdError = ""
                 this.instanceIdBlurred = false;
             }
-        },
-        applymanuallyClick(){
-            this.instanceId = "";
-            if(this.applymanually){
-                this.applymanually = false;
-                return
-            }
-            this.applymanually = true
         },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'
@@ -219,23 +219,38 @@ export default {
                 this.searchKeywordError = "A keyword is required";
             }
 
-            if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
-                this.api_call = "https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=accounts"
+            if(this.isValidKeyword(this.searchKeyword)) {
+                this.api_call = "https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=accounts"
                 this.header_text = "Search Account URL"
                 this.loading = true;
-                let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=accounts';
-                axios.get(dataUrl)
+
+                let dataUrl = constants.url + '/api/search-accounts-by-keyword';
+                let requestData = {
+                    keyword: this.searchKeyword,
+                    instances: this.selectedMastodonInstances,
+                };
+                axios.post(dataUrl, requestData)
                     .then(res => {
-                        this.searched = true;
-                        this.accountsData = res.data.accounts;
+                        let data_received = res.data;
+
+                        // Assuming res.data is an array containing hashtag data
+                        for (let data of data_received) {
+                            for (let j=0;j<data.accounts.length; j++){
+                                this.accountsData.push(data.accounts[j]);
+                            }
+                        }
+
                         this.downloadData = this.accountsData;
                         this.loading = false;
-                        let message = this.accountsData.length +" data retrieved"
-                        this.successShowToast(message)
-                    }).catch(error => {
-                    this.errorShowToast();
-                    this.loading = false;
-                });
+
+                        let message = this.accountsData.length + " data retrieved";
+                        this.successShowToast(message);
+                    })
+                    .catch(error => {
+                        this.loading = false;
+                        this.errorShowToast();
+                        console.log(error);
+                    });
             }
             this.accountsData = []
             this.downloadData = []
@@ -246,11 +261,11 @@ export default {
             }, 4);
         },
         downloadAccountJSON(){
-// Create a Blob containing the JSON data
+            // Create a Blob containing the JSON data
             const blob = new Blob([JSON.stringify(this.downloadData)], { type: 'application/json' });
 
 
-// Create a download link
+             // Create a download link
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             if(this.accountsData.length > 0){
@@ -258,12 +273,12 @@ export default {
             }
             let message = "Data downloaded successfully!"
             this.successShowToast(message)
-// Append the link to the document and trigger the click event
+            // Append the link to the document and trigger the click event
             document.body.appendChild(a);
             a.click();
 
 
-    // Remove the link from the document
+            // Remove the link from the document
             document.body.removeChild(a);
         },
         extractInstanceName(acct){
@@ -279,11 +294,22 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
-        }
+        },
+        addMastodonInstance (newInstance) {
+            const mastodonInstance = {
+                name: newInstance,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance)
+            this.selectedMastodonInstances.push(mastodonInstance)
+        },
     },
     mounted() {
         this.fetchAllInstanceData();
     },
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 

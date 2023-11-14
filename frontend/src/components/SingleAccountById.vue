@@ -181,6 +181,11 @@ export default {
                 autoClose: 3000,
             })
         },
+        errorShowToast(){
+            toast.error('Error in retrieving data!', {
+                autoClose: 3000,
+            })
+        },
         isValidAccountId(accountId) {
             return accountId.trim() !== '';
         },
@@ -222,12 +227,12 @@ export default {
                         this.bot = res.data.bot;
                         this.avatarLink = res.data.avatar;
                         this.note = res.data.note;
-                        let message = this.displayName+ " retrieved successfully"
+                        let message = "Account :" + this.displayName+ " retrieved successfully"
                         this.successShowToast(message)
                     }).catch(error => {
                         console.log(error);
-                        let message = this.displayName+ " retrieved successfully"
-                        this.error(message)
+                        let message = "Error in retrieving account : " + this.displayName;
+                        this.errorShowToast(message)
                 });
             }
         },
@@ -290,6 +295,7 @@ export default {
     created() {
         this.accountId = this.$route.params.accountId;
         this.instanceId = this.$route.params.instanceId;
+        console.log("Call in here!!!!")
         console.log(this.instanceId)
         console.log(this.accountId)
         if(!this.instanceId){

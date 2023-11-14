@@ -255,6 +255,7 @@ export default {
                         this.successShowToast(message)
                     }).catch(error => {
                     this.errorShowToast();
+                    this.loading = false;
                     console.log(error);
                 });
             }

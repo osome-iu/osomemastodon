@@ -2,7 +2,7 @@
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text" />
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Hashtags</h1>
+            <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>Get hashtag metadata.</p>

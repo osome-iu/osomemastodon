@@ -83,7 +83,7 @@ export default {
 <style scoped>
 
 .active-link {
-    border-right: 8px solid #0073cf;
+    border-right: 8px solid #0096FF;
     color:#0073cf;
     .sb-nav-link-icon{
         color: #0073cf;
@@ -92,7 +92,7 @@ export default {
 }
 
 .active-link:hover {
-    border-right: 8px solid #0073cf;
+    border-right: 8px solid #0096FF;
     color:#0073cf;
     .sb-nav-link-icon{
         color: #0073cf;

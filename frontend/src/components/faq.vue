@@ -35,9 +35,6 @@
                 <li>Once you've registered the application, you will be provided with a Client ID and a Client Secret. Keep these credentials secure.</li>
             </ul>
             <h4 class="mt-4">What can use in mastodon search inputs?</h4>
-            <p>
-                <b>Keywords</b> <br/>
-            </p>
             <ul>
                 <li>You can only use text in statuses and hashtag keywords—no symbols allowed. Spaces are permitted. </li>
                 <li>Status IDs can consist of words and numbers, while Account IDs can only contain numbers</li>

@@ -11036,13 +11036,13 @@ body {
   color: #E5E4E2;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: green;
+  color: #0073cf;
 }
 /*.sb-sidenav-dark .sb-sidenav-menu .nav-link.active {*/
 /*  color: #fff;*/
 /*}*/
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: green;
+  color: #0073cf;
 }
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #343a40;
@@ -11068,10 +11068,10 @@ body {
   color: #0d6efd;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active {
-  color: green;
+  color: #0073cf;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
-  color: green;
+  color: #0073cf;
 }
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;

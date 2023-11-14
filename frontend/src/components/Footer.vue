@@ -3,11 +3,11 @@
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted"><a href="https://www.iu.edu/copyright/index.html" target="_blank">Copyright </a> &copy; {{ getcurrentYear }} the
-                        Trustees of <a href="http://indiana.edu/" target="_blank">Indiana University</a></div>
+                    <div class="text-muted"><a href="https://www.iu.edu/copyright/index.html" target="_blank" class="navigation-link">Copyright </a> &copy; {{ getcurrentYear }} the
+                        Trustees of <a href="http://indiana.edu/" target="_blank" class="navigation-link">Indiana University</a></div>
                     <div>
-                        <a href="https://cnets.indiana.edu/" target="_blank">CNetS</a>&nbsp;&nbsp;&middot;
-                        <a href="https://luddy.indiana.edu/" target="_blank">Luddy</a>
+                        <a href="https://cnets.indiana.edu/" target="_blank" class="navigation-link">CNetS</a>&nbsp;&nbsp;&middot;
+                        <a href="https://luddy.indiana.edu/" target="_blank" class="navigation-link">Luddy</a>
                     </div>
                 </div>
             </div>
@@ -30,3 +30,16 @@ export default {
     }
 }
 </script>
+
+<style>
+
+.navigation-link {
+    text-decoration: underline;
+    color: #2c3e50; /* Adjust the color as needed */
+    /* Adding a transition for a smoother effect */
+    transition: text-decoration 0.3s;
+}
+.navigation-link:hover {
+    text-decoration: none;
+}
+</style>

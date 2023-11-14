@@ -11,32 +11,30 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-search"></i>
-                            Get hashtag metadata by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
-                        </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-4">
-                                    <label>Mastodon Instance</label>
-                                    <select
-                                        v-model="instanceId"
-                                        class="form-control"
-                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
-                                        v-on:blur="instanceIdBlurred = true"
-                                        @input="instanceInputChanged"
-                                    >
-                                        <option disabled value="">Choose an instance</option>
-                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
-                                    </select>
+                                <div class="col-xl-6">
+                                    <label class="typo__label">Mastodon Instances</label>
+                                    <VueMultiselect
+                                        v-model="selectedMastodonInstances"
+                                        :options="instanceData"
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @tag="addMastodonInstance"
+                                        tag-placeholder="Add as a new instance"
+                                        placeholder="Type to search or add"
+                                        label="name"
+                                        track-by="name"
+                                        :style="{ width: '100%', height: '50%' }"
+                                    />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
-                                <div class="col-xl-4">
+                                <div class="col-xl-3">
                                     <label for="keyword">Keyword</label>
                                     <input
                                         v-model="searchKeyword"
-                                        v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
-                                        v-on:blur="searchKeywordBlurred = true"
+                                        :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
+                                        @blur="searchKeywordBlurred = true"
                                         placeholder="keyword"
                                         @input="keywordInputChanged"
                                     />
@@ -48,7 +46,7 @@
                                 <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
                                     <div class="col-md-12 text-right">
                                         <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
-                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
+                                        <button type="button" class="btn btn-primary" @click="showModal">Show URL</button> <!-- Correct the @click binding -->
                                     </div>
                                 </div>
                             </div>
@@ -69,13 +67,15 @@
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
+                            <th scope="col">Instance</th>
                             <th scope="col">URL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="hashtag in hashtagData" :key="key">
-                            <td>{{hashtag.name}}</td>
-                            <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Link</a></td>
+                        <tr v-for="(innerArray, index) in hashtagData" :key="index">
+                            <td>{{ innerArray[1].name }}</td>
+                            <td>{{ getDomain(innerArray[1].url) }}</td>
+                            <td><a :href="innerArray[1].url" target="_blank" style="text-decoration: underline; color: #0a53be;">Link</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -94,12 +94,14 @@ import { HollowDotsSpinner } from 'epic-spinners';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 import Modal from "../components/Modal.vue";
+import VueMultiselect from 'vue-multiselect'
 
 export default {
     name: 'searchHashtags',
     components: {
         HollowDotsSpinner,
-        Modal
+        Modal,
+        VueMultiselect
     },
     data() {
         return {
@@ -123,6 +125,7 @@ export default {
             api_call: "",
             header_text: "",
             searched: false,
+            selectedMastodonInstances: [],
         }
     },
     methods: {
@@ -184,22 +187,36 @@ export default {
                 this.searchKeywordError = "Keyword is required";
             }
 
-            if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword)) {
+            if(this.isValidKeyword(this.searchKeyword)) {
                 this.api_call = "https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
-                let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=hashtags';
-                axios.get(dataUrl)
+
+                let dataUrl = constants.url + '/api/search-hashtag-by-keyword';
+                let requestData = {
+                    keyword: this.searchKeyword,
+                    instances: this.selectedMastodonInstances,
+                };
+                axios.post(dataUrl, requestData)
                     .then(res => {
-                        this.hashtagData = res.data.hashtags;
-                        this.downloadData = this.hashtagData
+                        let data_received = res.data;
+
+                        // Assuming res.data is an array containing hashtag data
+                        for (let i = 0; i < data_received.length; i++) {
+                            this.hashtagData.push(data_received[i].hashtags);
+                        }
+                        this.downloadData = this.hashtagData;
                         this.loading = false;
-                        let message = this.hashtagData.length +" data retrieved"
-                        this.successShowToast(message)
-                    }).catch(error => {
-                    this.errorShowToast();
-                    console.log(error);
-                });
+
+                        console.log(this.hashtagData)
+
+                        let message = this.hashtagData.length + " data retrieved";
+                        this.successShowToast(message);
+                    })
+                    .catch(error => {
+                        this.errorShowToast();
+                        console.log(error);
+                    });
             }
         },
         stringifyJSON(stringobject) {
@@ -238,6 +255,26 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        search(query) {
+            console.log('Searching for:', query);
+        },
+        addMastodonInstance (newInstance) {
+            const mastodonInstance = {
+                name: newInstance,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance)
+            this.selectedMastodonInstances.push(mastodonInstance)
+        },
+        getDomain(url) {
+            try {
+                return new URL(url).hostname;
+            } catch (error) {
+                console.error("Invalid URL:", url);
+                return "";
+            }
         }
     },
     mounted() {
@@ -245,3 +282,5 @@ export default {
     },
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

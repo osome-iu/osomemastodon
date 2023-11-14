@@ -4,7 +4,7 @@
             <h1 class="page-title">Mastodon Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>This will grab the top 20 mastodon instances (with a minimum 5000 active users) and list them in descending order.</p>
+                    <p>This will grab the top 20 mastodon instances (with a minimum 5000 active users) and list them.</p>
                 </div>
             </div>
             <div class="row">

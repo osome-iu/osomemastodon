@@ -83,24 +83,24 @@ export default {
 <style scoped>
 
 .active-link {
-    border-right: 8px solid green;
-    color:green;
+    border-right: 8px solid #0073cf;
+    color:#0073cf;
     .sb-nav-link-icon{
-        color: green;
+        color: #0073cf;
     }
-    background: linear-gradient(to right, #151C62, green);
+    background: linear-gradient(to right, #151C62, #0073cf);
 }
 
 .active-link:hover {
-    border-right: 8px solid green;
-    color:green;
+    border-right: 8px solid #0073cf;
+    color:#0073cf;
     .sb-nav-link-icon{
-        color: green;
+        color: #0073cf;
     }
     .nav{
-        color: green;
+        color: #0073cf;
     }
-    background: linear-gradient(to right, #151C62, green);
+    background: linear-gradient(to right, #151C62, #0073cf);
 }
 
 </style>

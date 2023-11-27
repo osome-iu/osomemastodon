@@ -36,7 +36,6 @@ export default {
 .navigation-link {
     text-decoration: underline;
     color: #2c3e50; /* Adjust the color as needed */
-    /* Adding a transition for a smoother effect */
     transition: text-decoration 0.3s;
 }
 .navigation-link:hover {

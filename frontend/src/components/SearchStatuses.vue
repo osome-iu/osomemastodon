@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
@@ -45,25 +45,14 @@
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
-<!--                                <div class="col-xl-3">-->
-<!--                                    <label> Access Token <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></label>-->
-<!--                                    <input-->
-<!--                                        v-model="accessToken"-->
-<!--                                        v-bind:class="{'form-control': true, 'is-invalid': accessTokenError !== ''}"-->
-<!--                                        v-on:blur="accessTokenBlurred = true"-->
-<!--                                        placeholder="Access Token"-->
-<!--                                        @input="accessTokenInputChanged"-->
-<!--                                    />-->
-<!--                                    <div v-if="accessTokenError !== ''" class="invalid-feedback">{{ accessTokenError }}</div>-->
-<!--                                </div>-->
-                                <div class="col-md-2" style="margin-top: 30px; margin-left: 20px;">
+                                <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
                                     <label for="checkbox">&nbsp;Check mastodon instance &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
                                 </div>
                                 <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
                                 </div>
-                                <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
+                                <div class="row" style="margin-top: 23px;" v-if="!loading && statusData.length">
                                     <div class="col-md-12 text-right">
                                         <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
                                         <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
@@ -166,7 +155,6 @@ export default {
     },
     data() {
         return {
-            accessToken: "FUmbJ4X2H9W9asbpBWspQDd1B5iJUPOgp9fXlgW0mMM",
             token: null,
             instanceData:[],
             instanceId: "",
@@ -183,7 +171,8 @@ export default {
             accessTokenBlurred: false,
             accessTokenError: "",
             modalIsOpen: false,
-            api_call: "",
+            officialURL: "",
+            osomeURL: "",
             header_text: "",
             searched: false,
             checkMastodonInstance : false,
@@ -211,9 +200,6 @@ export default {
         },
         isValidInstance(instanceId) {
             return instanceId.trim() !== '';
-        },
-        isValidAccessToken(accessToken) {
-            return accessToken.trim() !== '';
         },
         sanitizeHtml(htmlsending) {
             return DOMPurify.sanitize(htmlsending);
@@ -268,13 +254,11 @@ export default {
                 this.searchKeywordError = "Keyword is required";
             }
 
-            if (!this.isValidAccessToken(this.accessToken)) {
-                this.accessTokenError = "Access token is required";
-            }
-
             if(this.isValidKeyword(this.searchKeyword)) {
-
-                this.api_call = "curl --location 'https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
+                this.statusData = [];
+                this.downloadData = [];
+                this.officialURL = "curl --location 'https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
+                this.osomeURL = "url --location 'https://sdfsfddsfds'c"
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword';
@@ -285,11 +269,10 @@ export default {
                     keyword: this.searchKeyword,
                     access_tokens: this.accessTokenArray
                 };
-                console.log(requestData)
+
                 axios.post(dataUrl, requestData)
                     .then(async res => {
                         let data_received = res.data;
-                        console.log("Data length" + data_received.length)
                         if(this.checkMastodonInstance){
                             //Assuming res.data is an array containing hashtag data
                             for (let data of data_received) {
@@ -303,7 +286,7 @@ export default {
                                 }
                             }
                         }
-
+                        this.downloadData = this.statusData;
                         this.loading = false;
                         let message = this.statusData.length + " data retrieved";
                         this.successShowToast(message);

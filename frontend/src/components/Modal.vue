@@ -7,7 +7,7 @@
             </div>
 
             <div class="prompt-modal-body">
-                <div style="text-align: left">
+                <div>
                     <div class="row">
                         <label for="keyword"><b>GET</b> Request</label>
                     </div>
@@ -16,23 +16,36 @@
                         <label for="keyword"><b>Documentation</b> <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Mastodon Search</a></label>
                     </div>
 
-                    <div class="row" style="margin-left:1px; margin-right: 1px">
-                        <input
-                            v-model="this.url" ref="showURLvalue"
-                        />
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="form-control">Official - Mastodon API</label>
+                            <input v-model="this.officialURL" ref="officialURL" class="form-control"/>
+                        </div>
+                        <div class="col-2">
+                            <label for="form-control"></label>
+                            <button type="button" class="btn btn-success btn-sm" :onclick="copyOfficialMastodonAPItoClipboard">Copy</button>
+                        </div>
+                    </div>
+                    <div v-if="linkcopiedofficialAPI" class="validation-message" >
+                        Copied to clipboard!
+                    </div>
+                    <div class="row">
+                        <div class="col-9">
+                            <label for="form-control">OSoME - Mastodon API </label>
+                            <input v-model="this.osomeURL" ref="osomeURL" class="form-control"/>
+                        </div>
+                        <div class="col-2">
+                            <label for="form-control"></label>
+                            <button type="button" class="btn btn-success btn-sm" :onclick="copyOSoMeMastodonAPItoClipboard">Copy</button>
+                        </div>
+                    </div>
+                    <div v-if="linkcopiedOsoMEAPI" class="validation-message">
+                        Copied to clipboard!
                     </div>
                 </div>
-
-                <div v-if="linkcopied" class="validation-message" style="text-align: center;">
-                    Copied to clipboard!
-                </div>
-
-                <div class="row" style="text-align: center; margin-left:10px; margin-right: 10px">
-                    <div class="col">
-                        <button type="button" class="btn btn-success btn-sm" :onclick="copyToClipboard">Copy</button>
-                    </div>
-                    <div class="col">
-                        <button  class="btn btn-secondary btn-sm" @click="$emit('cancel')">Cancel</button>
+                <div class="row" style="text-align: center; margin-left:10px; margin-right: 10px; margin-top:20px;">
+                    <div class="col" >
+                        <button  class="btn btn-secondary btn-md" @click="$emit('cancel')">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -41,17 +54,21 @@
         </div>
     </div>
 </template>
-<script>
 
+<script>
 export default {
     props: {
         isOpen: {
             type: Boolean,
             required: true,
         },
-        url: {
+        officialURL: {
             type: String,
-            default: 'API URL',
+            default: 'Official API URL',
+        },
+        osomeURL: {
+            type: String,
+            default: "OSoME API URL"
         },
         header:{
             type: String,
@@ -60,15 +77,16 @@ export default {
     },
     data() {
         return {
-            linkcopied: false,
+            linkcopiedofficialAPI: false,
+            linkcopiedOsoMEAPI: false,
             inputValue: '',
         };
     },
     methods: {
-        copyToClipboard() {
+        copyOfficialMastodonAPItoClipboard() {
             // Select the input field content
-            this.$refs.showURLvalue.select();
-            this.$refs.showURLvalue.setSelectionRange(0, 99999);
+            this.$refs.officialURL.select();
+            this.$refs.officialURL.setSelectionRange(0, 99999);
 
             // Execute the copy command
             document.execCommand('copy');
@@ -77,11 +95,30 @@ export default {
             window.getSelection().removeAllRanges();
 
             // Show validation message
-            this.linkcopied = true;
+            this.linkcopiedofficialAPI = true;
 
             // Hide validation message after a delay (e.g., 2 seconds)
             setTimeout(() => {
-                this.linkcopied = false;
+                this.linkcopiedofficialAPI = false;
+            }, 500);
+        },
+        copyOSoMeMastodonAPItoClipboard(){
+            // Select the input field content
+            this.$refs.osomeURL.select();
+            this.$refs.osomeURL.setSelectionRange(0, 99999);
+
+            // Execute the copy command
+            document.execCommand('copy');
+
+            // Clear the selection
+            window.getSelection().removeAllRanges();
+
+            // Show validation message
+            this.linkcopiedOsoMEAPI = true;
+
+            // Hide validation message after a delay (e.g., 2 seconds)
+            setTimeout(() => {
+                this.linkcopiedOsoMEAPI = false;
             }, 500);
         }
     },

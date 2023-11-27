@@ -259,9 +259,6 @@ export default {
         showModal() {
             this.modalIsOpen = true;
         },
-        search(query) {
-            console.log('Searching for:', query);
-        },
         addMastodonInstance (newInstance) {
             const mastodonInstance = {
                 name: newInstance,

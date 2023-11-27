@@ -150,14 +150,6 @@ export default {
         }
     },
     methods: {
-        addNewItem() {
-            const trimmedItem = this.newItem.trim();
-            if (trimmedItem && !this.options.includes(trimmedItem)) {
-                this.options.push(trimmedItem);
-                this.selectedItem = trimmedItem;
-                this.newItem = ''; // Clear the input field
-            }
-        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 3000,

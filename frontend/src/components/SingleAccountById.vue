@@ -17,18 +17,20 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-4">
+                                <div class="col-xl-5">
                                     <label>Mastodon Instance</label>
-                                    <select
-                                        v-model="instanceId"
-                                        class="form-control"
-                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
-                                        v-on:blur="instanceIdBlurred = true"
-                                        @input="instanceInputChanged"
-                                    >
-                                        <option disabled value="">Choose an instance</option>
-                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
-                                    </select>
+                                    <VueMultiselect
+                                        v-model="selectedMastodonInstances"
+                                        :options="instanceData"
+                                        :multiple="true"
+                                        :taggable="false"
+                                        @tag="addMastodonInstance"
+                                        tag-placeholder="Add as a new instance"
+                                        placeholder="Type to search or add"
+                                        label="name"
+                                        track-by="name"
+                                        :style="{ width: '100%', height: '40%' }"
+                                    />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
@@ -141,10 +143,11 @@ import * as constants from "@/shared/Constants";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 import Modal from "@/components/Modal.vue";
+import VueMultiselect from 'vue-multiselect'
 
 export default {
     name: 'AccountsById',
-    components: {Modal},
+    components: {Modal,VueMultiselect},
     data() {
         return {
             clientKey: null,
@@ -172,7 +175,8 @@ export default {
             modalIsOpen: false,
             modalTitle: 'Info',
             api_call: "",
-            header_text: ""
+            header_text: "",
+            selectedMastodonInstances: [],
         }
     },
     methods: {
@@ -186,9 +190,9 @@ export default {
                 autoClose: 3000,
             })
         },
-        isValidAccountId(accountId) {
-            return accountId.trim() !== '';
-        },
+        // isValidAccountId(accountId) {
+        //     return accountId.trim() !== '';
+        // },
         isValidInstance(instanceId) {
             return instanceId.trim() !== '';
         },
@@ -202,19 +206,20 @@ export default {
             });
         },
         submitAccountSearch(){
+            console.log("This is calling......")
             this.searchAccountIdError = "";
             this.instanceIdError = "";
 
-            if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please choose a Mastodon instance.";
-            }
+            // if (!this.isValidInstance(this.selectedMastodonInstances)) {
+            //     this.instanceIdError = "Please choose a Mastodon instance.";
+            // }
 
-            if (!this.isValidAccountId(this.accountId)) {
-                this.searchAccountIdError = "Account Id is required.";
-            }
+            // if (!this.isValidAccountId(this.accountId)) {
+            //     this.searchAccountIdError = "Account Id is required.";
+            // }
 
-            if(this.isValidInstance(this.instanceId) && this.isValidAccountId(this.accountId)) {
-                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.instanceId + '&account_id=' + this.accountId;
+            // if(this.isValidAccountId(this.accountId)) {
+                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.selectedMastodonInstances[0].name + '&account_id=' + this.accountId;
                 this.clearAllFields()
                 axios.get(dataUrl)
                     .then(res => {
@@ -234,7 +239,7 @@ export default {
                         let message = "Error in retrieving account : " + this.displayName;
                         this.errorShowToast(message)
                 });
-            }
+            // }
         },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {
@@ -287,28 +292,36 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
-        }
+        },
+        addMastodonInstance (newInstance) {
+            this.fetchAllInstanceData();
+            const mastodonInstance = {
+                name: newInstance,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance);
+            this.selectedMastodonInstances.push(mastodonInstance);
+        },
     },
     mounted() {
         this.fetchAllInstanceData();
     },
     created() {
         this.accountId = this.$route.params.accountId;
-        this.instanceId = this.$route.params.instanceId;
-        console.log("Call in here!!!!")
-        console.log(this.instanceId)
-        console.log(this.accountId)
-        if(!this.instanceId){
-            this.instanceId = ""
+        this.addMastodonInstance(this.$route.params.instanceId)
+
+        if(this.selectedMastodonInstances.length < 0){
+            this.selectedMastodonInstances = []
             this.accountId = ""
-        }
-        else{
+        } else{
             this.submitAccountSearch();
         }
     },
 }
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <style>
 #readonly-textbox {
     background-color: #f2f2f2; /* Light gray background */

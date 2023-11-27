@@ -17,17 +17,19 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-3">
+                                <div class="col-xl-4">
                                     <label>Mastodon Instance</label>
-                                    <select
-                                        v-model="instanceId"
-                                        class="form-control"
-                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
-                                        v-on:blur="instanceIdBlurred = true"
-                                    >
-                                        <option disabled value="">Choose an instance</option>
-                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
-                                    </select>
+                                    <VueMultiselect
+                                        v-model="selectedMastodonInstances"
+                                        :options="instanceData"
+                                        :taggable="true"
+                                        @tag="addMastodonInstance"
+                                        tag-placeholder="Add as a new instance"
+                                        placeholder="Type to search or add"
+                                        label="name"
+                                        track-by="name"
+                                        :style="{ width: '100%', height: '50%' }"
+                                    />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
@@ -175,10 +177,15 @@ import Modal from "@/components/Modal.vue";
 import {HollowDotsSpinner} from "epic-spinners";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import VueMultiselect from 'vue-multiselect'
 
 export default {
     name: 'SearchByIdStatus',
-    components: {Modal, HollowDotsSpinner},
+    components: {
+        Modal,
+        HollowDotsSpinner,
+        VueMultiselect
+    },
     data() {
         return {
             singleStatusData: [],
@@ -212,6 +219,7 @@ export default {
             modalIsOpen: false,
             loading: false,
             searched:false,
+            selectedMastodonInstances: [],
         }
     },
     methods: {
@@ -234,18 +242,16 @@ export default {
             this.searchStatusIdError = "";
             this.instanceIdError = "";
 
-            if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please choose a Mastodon instance";
-            }
-
             if (!this.isValidStatusId(this.statusId)) {
                 this.searchStatusIdError = "A keyword is required";
             }
 
-            if(this.isValidInstance(this.instanceId) && this.isValidStatusId(this.statusId)) {
-                this.api_call = "https://"+this.instanceId+"/api/v1/statuses/"+this.statusId;
+            if(this.isValidStatusId(this.statusId)) {
+
+                this.api_call = "https://"+this.selectedMastodonInstances.name+"/api/v1/statuses/"+this.statusId;
                 this.header_text = "Search Account URL"
-                let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + 'https://' + this.instanceId;
+                let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
+                console.log(dataUrl)
                 axios.get(dataUrl)
                     .then(res => {
                         this.searched = true;
@@ -311,6 +317,15 @@ export default {
                 autoClose: 3000,
             })
         },
+        addMastodonInstance (newInstance) {
+            const mastodonInstance = {
+                name: newInstance,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance)
+            this.selectedMastodonInstances.push(mastodonInstance)
+        },
     },
     mounted() {
         this.fetchAllInstanceData();
@@ -318,6 +333,7 @@ export default {
 }
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 
 <style>
 #readonly-textbox {

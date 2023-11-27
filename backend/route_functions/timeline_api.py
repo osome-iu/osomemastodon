@@ -11,38 +11,52 @@ Authors: Pasan Kamburugamuwa
 """
 
 
-from flask import Blueprint,request
+from flask import Blueprint,request,jsonify
 from mastoapp import timeline_statuses,hashtag_search
 
 blueprint = Blueprint('timeline_api', __name__, url_prefix='/api')
 
-@blueprint.route('/timeline-statuses', methods= ['GET'])
+@blueprint.route('/timeline-statuses', methods= ['POST'])
 def get_statuses_timeline_data():
     """
     Get the timeline statuses
     """
     try:
-        mastodon_instance = request.args.get('mastodon_instance')
-        data_type = request.args.get('data_type')
-        limit = request.args.get('limit')
-        timeline_status = timeline_statuses.fetch_timeline_status_data(mastodon_instance, data_type, limit)
+        data = request.get_json()
+        mastodon_instances = data.get('mastodon_instances')
+        data_type = data.get('data_type')
+        limit = data.get('limit_no')
+        statuses_timeline_result_set = []
+
+        for mastodon_instance in mastodon_instances:
+            for key, instance_name in mastodon_instance.items():
+                if key == 'name':
+                    timeline_status = timeline_statuses.fetch_timeline_status_data(instance_name, data_type, limit)
+                    statuses_timeline_result_set.append(timeline_status)
     except:
         return "Bad request", 400
     else:
-        return timeline_status
+        print(statuses_timeline_result_set)
+        return jsonify(statuses_timeline_result_set)
 
-@blueprint.route('/hashtag-search', methods= ['GET'])
-def search_hashtag_by_id():
+@blueprint.route('/hashtag-search', methods= ['POST'])
+def search_timeline_hashtag_by_statuses():
     """
     Search the statuses through hashtag search.
     """
     try:
-        mastodon_instance = request.args.get('mastodon_instance')
-        hashtag = request.args.get('hashtag')
-        data_type = request.args.get('data_type')
-        limit = request.args.get('limit')
-        hashtag_statuses = hashtag_search.fetch_hashtag_data(mastodon_instance, hashtag, data_type, limit)
+        data = request.get_json()
+        mastodon_instances = data.get('mastodon_instances')
+        hashtag = data.get('hashtag')
+        data_type = data.get('data_type')
+        limit_no = data.get('limit_no')
+        hashtag_timeline_result_set = []
+        for mastodon_instance in mastodon_instances:
+            for key, instance_name in mastodon_instance.items():
+                if key == 'name':
+                    hashtag_statuses = hashtag_search.fetch_hashtag_data(instance_name, hashtag, data_type, limit_no)
+                    hashtag_timeline_result_set.append(hashtag_statuses)
     except:
         return "Bad request", 400
     else:
-        return hashtag_statuses
+        return jsonify(hashtag_timeline_result_set)

@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/timelinestatus',
     name: 'TimelineStatus',
-    component: () => import(/* webpackChunkName: "about" */ '../components/TimelineStatus.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/TimelineStatuses.vue')
   },
   {
     path: '/faq',

@@ -21,7 +21,7 @@ LOG_FNAME = "mastodon_logging.log"
 script_name = os.path.basename(__file__)
 logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
 
-def fetch_timeline_status_data(mastodon_instance, limit, data_type):
+def fetch_timeline_status_data(mastodon_instance, data_type, limit):
     """
     Get the public timeline data from the mastodon instances
     Documentation - https://docs.joinmastodon.org/methods/timelines/#public
@@ -34,12 +34,13 @@ def fetch_timeline_status_data(mastodon_instance, limit, data_type):
     -----------
     """
     timeline_statuses_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/public?limit={limit}&local={data_type}'
+    print(timeline_statuses_endpoint_url)
     response = requests.get(timeline_statuses_endpoint_url)
     # Check the response status code
     if response.status_code == 200:
         timeline_data = response.json()
-        timeline_statuses = {"timeline_statuses": timeline_data}
-        return timeline_statuses
+        timeline_status = {"timeline_status": timeline_data}
+        return timeline_status
     else:
         # Handle the errors occur with API method calling.
         logger.error(f"Error: {response.status_code} - {response.text}")

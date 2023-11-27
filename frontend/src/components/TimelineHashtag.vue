@@ -17,18 +17,20 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-2">
+                                <div class="col-xl-4">
                                     <label>Mastodon Instance</label>
-                                    <select
-                                        v-model="instanceId"
-                                        class="form-control"
-                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
-                                        v-on:blur="instanceIdBlurred = true"
-                                        @input="instanceInputChanged"
-                                    >
-                                        <option disabled value="">Choose an instance</option>
-                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
-                                    </select>
+                                    <VueMultiselect
+                                        v-model="selectedMastodonInstances"
+                                        :options="instanceData"
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @tag="addMastodonInstance"
+                                        tag-placeholder="Add as a new instance"
+                                        placeholder="Type to search or add"
+                                        label="name"
+                                        track-by="name"
+                                        :style="{ width: '100%', height: '40%' }"
+                                    />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
@@ -57,7 +59,7 @@
                                     </select>
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
-                                <div class="col-xl-2">
+                                <div class="col-xl-1">
                                     <label> Limit</label>
                                     <select v-model="limitNo"
                                             label="Limit"
@@ -77,7 +79,7 @@
                                     </select>
                                     <div v-if="limitNoError !== ''" class="invalid-feedback">{{ limitNoError }}</div>
                                 </div>
-                                <div class="col-xl-4" style="margin-top: 23px;">
+                                <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitHashtagSearch" >Search</button>
                                 </div>
                                 <div class="row" style="margin-top: 23px; float: right;" v-if="!loading && hashtagArray.length">
@@ -157,12 +159,14 @@ import { HollowDotsSpinner } from 'epic-spinners';
 import Modal from "@/components/Modal.vue";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import VueMultiselect from 'vue-multiselect'
 
 export default {
     name: 'singleStatus',
     components: {
         HollowDotsSpinner,
-        Modal
+        Modal,
+        VueMultiselect
     },
     data() {
         return {
@@ -187,6 +191,7 @@ export default {
             api_call: "",
             header_text: "",
             searched: false,
+            selectedMastodonInstances: [],
         }
     },
     methods: {
@@ -244,11 +249,6 @@ export default {
             })
         },
         submitHashtagSearch(){
-
-            if (!this.isValidInput(this.instanceId)) {
-                this.instanceIdError = "Please choose a Mastodon instance.";
-            }
-
             if (!this.isValidInput(this.hashtagSearch)) {
                 this.hashtagKeywordError = "Hashtag is required.";
             }
@@ -261,25 +261,36 @@ export default {
                 this.limitNoError = "Limit no is required.";
             }
 
-            if(this.isValidInput(this.instanceId) && this.isValidInput(this.hashtagSearch) && this.isValidInput(this.dataType) && this.isValidInput(this.limitNo)) {
+            if(this.isValidInput(this.hashtagSearch) && this.isValidInput(this.dataType) && this.isValidInput(this.limitNo)) {
                 this.api_call = "https://"+this.instanceId+ "/api/v1/timelines/tag/"+ this.hashtagSearch+ "?limit="+this.limitNo+"&local="+ this.dataType;
                 this.header_text = "Search Statuses URL"
-
-                this.hashtagArray = []
                 this.loading = true;
-                let dataUrl = constants.url + '/api/hashtag-search?mastodon_instance=' + this.instanceId + '&hashtag=' + this.hashtagSearch + '&limit=' + this.limitNo + '&data_type=' + this.dataType;
-                this.clearAllFields()
-                axios.get(dataUrl)
+                this.hashtagArray = [];
+                let dataUrl = constants.url + '/api/hashtag-search';
+                let requestData = {
+                    hashtag: this.hashtagSearch,
+                    mastodon_instances: this.selectedMastodonInstances,
+                    data_type: this.dataType,
+                    limit_no: this.limitNo
+                };
+                axios.post(dataUrl, requestData)
                     .then(res => {
-                        this.hashtagArray = res.data.hashtag;
+                        let data_received = res.data;
+                        //Assuming res.data is an array containing hashtag data
+                        for (let data of data_received) {
+                            for (let j=0;j<data.hashtag.length; j++){
+                                this.hashtagArray.push(data.hashtag[j]);
+                            }
+                        }
                         this.loading = false;
-                        this.searched = true;
-                        let message = this.hashtagArray.length +" data retrieved"
-                        this.successShowToast(message)
-                    }).catch(error => {
+                        let message = this.hashtagArray.length + " data retrieved";
+                        this.successShowToast(message);
+                    })
+                    .catch(error => {
                         this.errorShowToast();
+                        this.loading = false;
                         console.log(error);
-                });
+                    });
             }
         },
         stringifyJSON(stringobject) {
@@ -331,7 +342,16 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
-        }
+        },
+        addMastodonInstance (newInstance) {
+            const mastodonInstance = {
+                name: newInstance,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance)
+            this.selectedMastodonInstances.push(mastodonInstance)
+        },
     },
     mounted() {
         this.fetchAllInstanceData();
@@ -348,4 +368,6 @@ export default {
     },
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 

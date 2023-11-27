@@ -36,7 +36,7 @@ def status_search_by_id(mastodon_instance, status_id):
         }
         -----------
     """
-    status_endpoint_url = f'{mastodon_instance}/api/v1/statuses/{status_id}'
+    status_endpoint_url = f'https://{mastodon_instance}/api/v1/statuses/{status_id}'
     response = requests.get(status_endpoint_url)
     status = response.json()
     return status
@@ -68,7 +68,7 @@ def mastodon_search_by_keyword(access_token, search_keyword, search_type, mastod
     if search_type == 'all':
         search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}'
     else:
-        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type={search_type}'
+        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type={search_type}&resolve=true'
 
     headers = {
         'Authorization': f'Bearer {access_token}'

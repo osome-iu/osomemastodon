@@ -34,13 +34,13 @@ def fetch_hashtag_data(mastodon_instance, hashtag, data_type, limit):
     -----------
     """
     hashtag_search_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/tag/{hashtag}?limit={limit}&local={data_type}'
-
     response = requests.get(hashtag_search_endpoint_url)
     hashtag_data = {}
     # Check the response status code
     if response.status_code == 200:
         hashtag_data = response.json()
         hashtag_dict = {"hashtag": hashtag_data}
+        print(hashtag_dict)
         return hashtag_dict
     else:
         # Handle the errors occur with API method calling.

@@ -33,9 +33,7 @@ def fetch_account_data(mastodon_instance, account_id):
     -----------
     """
     account_search_endpoint_url = f'https://{mastodon_instance}/api/v1/accounts/{account_id}'
-    print(account_search_endpoint_url)
     response = requests.get(account_search_endpoint_url)
-    print(response)
     # Check the response status code
     if response.status_code == 200:
         account = response.json()

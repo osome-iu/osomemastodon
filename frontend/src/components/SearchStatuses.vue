@@ -31,7 +31,7 @@
                                     </select>
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
-                                <div class="col-xl-3">
+                                <div class="col-xl-2">
                                     <label for="keyword">Keyword</label>
                                     <input
                                         v-model="searchKeyword"
@@ -53,7 +53,11 @@
                                     />
                                     <div v-if="accessTokenError !== ''" class="invalid-feedback">{{ accessTokenError }}</div>
                                 </div>
-                                <div class="col-xl-3" style="margin-top: 23px;">
+                                <div class="col-md-2" style="margin-top: 30px; margin-left: 20px;">
+                                    <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
+                                    <label for="checkbox">&nbsp;Check mastodon instance &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
+                                </div>
+                                <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
                                 </div>
                                 <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
@@ -87,10 +91,11 @@
                         <th scope="col">Created At </th>
                         <th scope="col">Mentions </th>
                         <th scope="col">Tags </th>
+                        <th scope="col" v-if="checkMastodonInstance">Instance? </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="status in statusData" :key="key">
+                    <tr v-for="status in statusData">
                         <td>{{status.id}}</td>
                         <td>{{extractURLtoGetInstanceName(status.url)}}</td>
                         <td><div v-html="this.sanitizeHtml(status.content)" ></div></td>
@@ -98,17 +103,18 @@
                         <td>{{status.in_reply_to_id}}</td>
                         <td>{{status.created_at}}</td>
                         <td>
-                            <span v-for="(mention, index) in status.mentions" :key="index">
+                            <span v-for="(mention, index) in status.mentions">
                                 <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
                                 <span v-if="index < status.mentions.length - 1">, </span>
                             </span>
                         </td>
                         <td>
-                            <span v-for="(tag, index) in status.tags" :key="index">
+                            <span v-for="(tag, index) in status.tags">
                                 <a :href="tag.url" target="_blank" style="text-underline: #0a53be">{{tag.name}}</a>
                                 <span v-if="index < status.tags.length - 1">, </span>
                             </span>
                         </td>
+                        <td :style="getStatusBackgroundColor(status.mastodon_instance)" v-if="checkMastodonInstance">{{ status.mastodon_instance }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -129,6 +135,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import Modal from "../components/Modal.vue";
 
+
 export default {
     name: 'searchStatus',
     components: {
@@ -137,13 +144,12 @@ export default {
     },
     data() {
         return {
-            accessToken: "",
+            accessToken: "FUmbJ4X2H9W9asbpBWspQDd1B5iJUPOgp9fXlgW0mMM",
             token: null,
             instanceData:[],
             instanceId: "",
             searchKeyword: "",
             searchType: "",
-            survey_json: "",
             statusData: [],
             showDownloadBtn: "",
             loading: false,
@@ -158,7 +164,11 @@ export default {
             api_call: "",
             header_text: "",
             searched: false,
+            checkMastodonInstance : false,
         }
+    },
+    computed:{
+
     },
     methods: {
         successShowToast(message){
@@ -243,13 +253,15 @@ export default {
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=statuses&client_key=' + this.accessToken;
                 axios.get(dataUrl)
-                    .then(res => {
+                    .then(async res => {
                         this.searched = true;
-                        this.singleStatusData = res;
                         this.show_json = true;
-                        this.survey_json = this.stringifyJSON(this.singleStatusData)
-                        this.statusData = res.data.statuses;
-                        this.downloadData = this.statusData
+                        if(this.checkMastodonInstance){
+                            this.statusData = await this.checkIfMastodonInstance(res.data.statuses)
+                        }else{
+                            this.statusData = res.data.statuses
+                        }
+                        this.downloadData = res.data.statuses
                         this.loading = false;
                         let message = this.statusData.length +" data retrieved"
                         this.successShowToast(message)
@@ -259,6 +271,41 @@ export default {
                     console.log(error);
                 });
             }
+        },
+        async checkIfMastodonInstance(statusData) {
+            const updatedStatusData = [];
+
+            for (let status of statusData) {
+                let serverName = this.extractURLtoGetInstanceName(status.url);
+                const apiURL = `https://${serverName}/api/v1/instance`;
+
+                try {
+                    const response = await fetch(apiURL, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (response.ok) {
+                        const responseData = await response.json();
+                        // Assuming you want to add the API response data to each status
+                        const updatedStatus = { ...status, "mastodon_instance": "Yes" };
+                        updatedStatusData.push(updatedStatus);
+                    } else {
+                        console.error(`Error: ${response.status} - ${response.statusText}`);
+                        // Assuming you want to add an error message to each status in case of an error
+                        const updatedStatus = { ...status, "mastodon_instance": "No" };
+                        updatedStatusData.push(updatedStatus);
+                    }
+                } catch (error) {
+                    console.error('Error during API request:', error);
+                    // Assuming you want to add an error message to each status in case of an error
+                    const updatedStatus = { ...status, "mastodon_instance": "No" };
+                    updatedStatusData.push(updatedStatus);
+                }
+            }
+            return updatedStatusData;
         },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {
@@ -297,6 +344,18 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        getStatusBackgroundColor(value) {
+            if (value === 'Yes') {
+                return { backgroundColor: 'green', color: 'white' };
+            } else if (value === 'No') {
+                return { backgroundColor: 'red', color: 'white' };
+            } else {
+                return {}; // Default styling if the value is neither 'Yes' nor 'No'
+            }
+        },
+        changeCheckMastodonInstance(){
+            this.statusData = []
         }
     },
     mounted() {

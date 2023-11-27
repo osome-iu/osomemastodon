@@ -27,7 +27,6 @@ def get_statuses_timeline_data():
         data_type = data.get('data_type')
         limit = data.get('limit_no')
         statuses_timeline_result_set = []
-
         for mastodon_instance in mastodon_instances:
             for key, instance_name in mastodon_instance.items():
                 if key == 'name':

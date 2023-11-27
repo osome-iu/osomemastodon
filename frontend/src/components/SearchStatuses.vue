@@ -17,18 +17,21 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-xl-2">
+                                <div class="col-xl-4">
                                     <label>Mastodon Instance</label>
-                                    <select
-                                        v-model="instanceId"
-                                        class="form-control"
-                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
-                                        v-on:blur="instanceIdBlurred = true"
-                                        @input="instanceInputChanged"
-                                    >
-                                        <option disabled value="">Choose an instance</option>
-                                        <option v-for="item in instanceData" :key="item.name" :value="item.name">{{ item.name }}</option>
-                                    </select>
+                                    <VueMultiselect
+                                        v-model="selectedMastodonInstances"
+                                        :options="instanceData"
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @tag="addMastodonInstance"
+                                        @remove="removeMastodonInstance"
+                                        tag-placeholder="Add as a new instance"
+                                        placeholder="Type to search or add"
+                                        label="name"
+                                        track-by="name"
+                                        :style="{ width: '100%', height: '50%' }"
+                                    />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
@@ -42,17 +45,17 @@
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
-                                <div class="col-xl-3">
-                                    <label> Access Token <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></label>
-                                    <input
-                                        v-model="accessToken"
-                                        v-bind:class="{'form-control': true, 'is-invalid': accessTokenError !== ''}"
-                                        v-on:blur="accessTokenBlurred = true"
-                                        placeholder="Access Token"
-                                        @input="accessTokenInputChanged"
-                                    />
-                                    <div v-if="accessTokenError !== ''" class="invalid-feedback">{{ accessTokenError }}</div>
-                                </div>
+<!--                                <div class="col-xl-3">-->
+<!--                                    <label> Access Token <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></label>-->
+<!--                                    <input-->
+<!--                                        v-model="accessToken"-->
+<!--                                        v-bind:class="{'form-control': true, 'is-invalid': accessTokenError !== ''}"-->
+<!--                                        v-on:blur="accessTokenBlurred = true"-->
+<!--                                        placeholder="Access Token"-->
+<!--                                        @input="accessTokenInputChanged"-->
+<!--                                    />-->
+<!--                                    <div v-if="accessTokenError !== ''" class="invalid-feedback">{{ accessTokenError }}</div>-->
+<!--                                </div>-->
                                 <div class="col-md-2" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
                                     <label for="checkbox">&nbsp;Check mastodon instance &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
@@ -64,6 +67,23 @@
                                     <div class="col-md-12 text-right">
                                         <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
                                         <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="selectedMastodonInstances.length">
+                                <div class="row" style="margin-top: 20px; font-weight: bold;">
+                                    <p style="text-decoration: underline;" >Access Tokens <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></p>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-xl-3" style="margin-top: 10px" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index">
+                                        <label for="keyword">{{ mastodonInstance.name }}</label>
+                                        <input
+                                            v-model="accessTokenArray[index]"
+                                            v-bind:class="{'form-control': true,}"
+                                            placeholder="Access Token"
+                                            @input="accessTokenInputChangedArray(index)"
+                                        />
+                                        <div v-if="accessTokenErrorArray[index] !== ''" class="invalid-feedback">{{ accessTokenErrorArray[index] }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -134,13 +154,15 @@ import DOMPurify from 'dompurify';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import Modal from "../components/Modal.vue";
+import VueMultiselect from "vue-multiselect";
 
 
 export default {
     name: 'searchStatus',
     components: {
         HollowDotsSpinner,
-        Modal
+        Modal,
+        VueMultiselect
     },
     data() {
         return {
@@ -165,6 +187,9 @@ export default {
             header_text: "",
             searched: false,
             checkMastodonInstance : false,
+            selectedMastodonInstances: [],
+            accessTokenArray: [], // Array to store access tokens
+            accessTokenErrorArray: [], // Array to store access token errors
         }
     },
     computed:{
@@ -208,11 +233,14 @@ export default {
                 this.searchKeywordBlurred = false;
             }
         },
-        accessTokenInputChanged(e){
-            let valueReceived = e.target.value;
-            if(valueReceived){
-                this.accessTokenError = ""
-                this.accessTokenBlurred = false;
+        accessTokenInputChangedArray(index){
+            const accessToken = this.accessTokenArray[index];
+
+            // Check if the access token is empty
+            if (!accessToken.trim()) {
+                this.accessTokenErrorArray[index] = 'Access Token cannot be empty';
+            } else {
+                this.accessTokenErrorArray[index] = ''; // Clear the error if not empty
             }
         },
         viewAccountInfo(accountId){
@@ -236,10 +264,6 @@ export default {
             this.accessTokenError = "";
             this.searched = false;
 
-            if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Mastodon instance is required";
-            }
-
             if (!this.isValidKeyword(this.searchKeyword)) {
                 this.searchKeywordError = "Keyword is required";
             }
@@ -247,35 +271,54 @@ export default {
             if (!this.isValidAccessToken(this.accessToken)) {
                 this.accessTokenError = "Access token is required";
             }
-            if(this.isValidInstance(this.instanceId) && this.isValidKeyword(this.searchKeyword) && this.isValidAccessToken(this.accessToken)) {
+
+            if(this.isValidKeyword(this.searchKeyword)) {
+
                 this.api_call = "curl --location 'https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
-                let dataUrl = constants.url + '/api/search-status-by-keyword?keyword=' + this.searchKeyword + '&mastodon_instance=' + this.instanceId + '&type=statuses&client_key=' + this.accessToken;
-                axios.get(dataUrl)
+                let dataUrl = constants.url + '/api/search-status-by-keyword';
+
+
+                let requestData = {
+                    mastodon_instances: this.selectedMastodonInstances,
+                    keyword: this.searchKeyword,
+                    access_tokens: this.accessTokenArray
+                };
+                console.log(requestData)
+                axios.post(dataUrl, requestData)
                     .then(async res => {
-                        this.searched = true;
-                        this.show_json = true;
+                        let data_received = res.data;
+                        console.log("Data length" + data_received.length)
                         if(this.checkMastodonInstance){
-                            this.statusData = await this.checkIfMastodonInstance(res.data.statuses)
+                            //Assuming res.data is an array containing hashtag data
+                            for (let data of data_received) {
+                                const mastodonInstanceResult = await this.checkIfMastodonInstance(data.searched_status)
+                                this.statusData = this.statusData.concat(mastodonInstanceResult);
+                            }
                         }else{
-                            this.statusData = res.data.statuses
+                            for (let data of data_received) {
+                                for (let j = 0; j < data.searched_status.statuses.length; j++) {
+                                    this.statusData.push(data.searched_status.statuses[j]);
+                                }
+                            }
                         }
-                        this.downloadData = res.data.statuses
+
                         this.loading = false;
-                        let message = this.statusData.length +" data retrieved"
-                        this.successShowToast(message)
-                    }).catch(error => {
-                    this.errorShowToast();
-                    this.loading = false;
-                    console.log(error);
-                });
+                        let message = this.statusData.length + " data retrieved";
+                        this.successShowToast(message);
+                    })
+                    .catch(error => {
+                        this.errorShowToast();
+                        this.loading = false;
+                        console.log(error);
+                    });
             }
         },
         async checkIfMastodonInstance(statusData) {
             const updatedStatusData = [];
 
-            for (let status of statusData) {
+            for (let status of statusData.statuses) {
                 let serverName = this.extractURLtoGetInstanceName(status.url);
                 const apiURL = `https://${serverName}/api/v1/instance`;
 
@@ -356,11 +399,30 @@ export default {
         },
         changeCheckMastodonInstance(){
             this.statusData = []
-        }
+        },
+        addMastodonInstance (newInstance) {
+            const mastodonInstance = {
+                name: newInstance,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance)
+            this.selectedMastodonInstances.push(mastodonInstance)
+        },
+        removeMastodonInstance(removedItem) {
+            // Find the index of the removed item
+            const index = this.selectedMastodonInstances.findIndex(item => item === removedItem);
+
+            // Remove the corresponding elements from accessTokenArray and accessTokenErrorArray
+            this.accessTokenArray.splice(index, 1);
+            this.accessTokenErrorArray.splice(index, 1);
+        },
     },
     mounted() {
         this.fetchAllInstanceData();
     },
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 

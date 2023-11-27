@@ -78,8 +78,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row align-items-center">
-                            </div>
                         </div>
                     </div>
                     <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">

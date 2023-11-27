@@ -31,21 +31,34 @@ def search_status_data_by_id():
     else:
         return status
 
-@blueprint.route('/search-status-by-keyword', methods= ['GET'])
+@blueprint.route('/search-status-by-keyword', methods= ['POST'])
 def search_status_data_by_keyword():
     """
     Search the status through the status id.
     """
     try:
-        mastodon_instance = request.args.get('mastodon_instance')
-        search_keyword = request.args.get('keyword')
-        search_type = request.args.get('type')
-        client_key = request.args.get('client_key')
-        status = statuses_search.mastodon_search_by_keyword(client_key, search_keyword, search_type, mastodon_instance)
+        data = request.get_json()
+        mastodon_instances = data.get('mastodon_instances')
+        search_keyword = data.get('keyword')
+        access_tokens = data.get('access_tokens')
+
+        mastodon_instance_list = [{'name': instance['name'], 'access_token': access_token} for access_token, instance in
+                         zip(access_tokens, mastodon_instances)]
+
+        statuses_result_set = []
+
+        for mastodon_instance in mastodon_instance_list:
+            mastodon_instance_name = mastodon_instance.get('name')
+            access_token = mastodon_instance.get('access_token')
+
+            if mastodon_instance_name and access_token:
+                status_data = statuses_search.mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance_name)
+                statuses_result_set.append(status_data)
+
     except:
         return "Bad request", 400
     else:
-        return status
+        return jsonify(statuses_result_set)
 
 
 @blueprint.route('/search-hashtag-by-keyword', methods= ['POST'])

@@ -36,6 +36,7 @@ def fetch_timeline_status_data(mastodon_instance, data_type, limit):
     timeline_statuses_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/public?limit={limit}&local={data_type}'
     print(timeline_statuses_endpoint_url)
     response = requests.get(timeline_statuses_endpoint_url)
+
     # Check the response status code
     if response.status_code == 200:
         timeline_data = response.json()

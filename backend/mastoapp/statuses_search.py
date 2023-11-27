@@ -42,14 +42,14 @@ def status_search_by_id(mastodon_instance, status_id):
     return status
 
 
-def mastodon_search_by_keyword(access_token, search_keyword, search_type, mastodon_instance):
+def mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance):
     """
     This method is used to get the accounts,statuses and hashtags.
 
     Parameters passing
     -----------
-    - access_token - Bearer token to retrieve statuses
-    - q - query_search
+    - access_tokens - Bearer tokens to retrieve statuses
+    - search_keyword - search keyword
 
     Returns
     - JSON object
@@ -65,10 +65,8 @@ def mastodon_search_by_keyword(access_token, search_keyword, search_type, mastod
     -----------
     Note: here is the reference : https://docs.joinmastodon.org/methods/search/
     """
-    if search_type == 'all':
-        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}'
-    else:
-        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type={search_type}&resolve=true'
+
+    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true'
 
     headers = {
         'Authorization': f'Bearer {access_token}'
@@ -78,8 +76,9 @@ def mastodon_search_by_keyword(access_token, search_keyword, search_type, mastod
 
     # Check the response status code
     if response.status_code == 200:
-        status = response.json()
-        return status
+        status_data = response.json()
+        searched_status = {"searched_status": status_data}
+        return searched_status
     else:
         # Handle the errors occur with API method calling.
         print(f"Error: {response.status_code} - {response.text}")

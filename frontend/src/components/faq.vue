@@ -5,8 +5,7 @@
             <ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Instances</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token?</ul>
-                <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Search API</ul>
-                <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Mastodon Timeline API</ul>
+                <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Why is there an option to check the Mastodon instance for each status?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> What can use in mastodon search inputs?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> How the mastodon status Id made?</ul>
                 <ul><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</ul>
@@ -34,6 +33,10 @@
             <ul>
                 <li>Once you've registered the application, you will be provided with a Client ID and a Client Secret. Keep these credentials secure.</li>
             </ul>
+            <h4 class="mt-4">Why is there an option to check the Mastodon instance for each status?</h4>
+            <p>
+                There are some misconfigured Mastodon instances there.
+            </p>
             <h4 class="mt-4">What can use in mastodon search inputs?</h4>
             <ul>
                 <li>You can only use text in statuses and hashtag keywords—no symbols allowed. Spaces are permitted. </li>

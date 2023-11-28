@@ -22,7 +22,6 @@
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
                                         :options="instanceData"
-                                        :multiple="true"
                                         :taggable="false"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"

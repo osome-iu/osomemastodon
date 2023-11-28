@@ -45,7 +45,7 @@
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
-                                <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
+                                <div class="col-md-2" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
                                     <label for="checkbox">&nbsp;Check mastodon instance &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
                                 </div>
@@ -123,7 +123,7 @@
                                 <span v-if="index < status.tags.length - 1">, </span>
                             </span>
                         </td>
-                        <td :style="getStatusBackgroundColor(status.mastodon_instance)" v-if="checkMastodonInstance">{{ status.mastodon_instance }}</td>
+                        <td>{{ status.mastodon_instance }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -373,15 +373,6 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
-        },
-        getStatusBackgroundColor(value) {
-            if (value === 'Yes') {
-                return { backgroundColor: 'green', color: 'white' };
-            } else if (value === 'No') {
-                return { backgroundColor: 'red', color: 'white' };
-            } else {
-                return {}; // Default styling if the value is neither 'Yes' nor 'No'
-            }
         },
         changeCheckMastodonInstance(){
             this.statusData = []

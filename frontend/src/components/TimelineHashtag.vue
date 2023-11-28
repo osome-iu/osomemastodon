@@ -59,8 +59,8 @@
                                     </select>
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
-                                <div class="col-xl-1">
-                                    <label> Limit</label>
+                                <div class="col-xl-2">
+                                    <label> Limit (From each instance)</label>
                                     <select v-model="limitNo"
                                             label="Limit"
                                             class="form-control"

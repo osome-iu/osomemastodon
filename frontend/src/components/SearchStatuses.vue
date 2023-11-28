@@ -123,7 +123,7 @@
                                 <span v-if="index < status.tags.length - 1">, </span>
                             </span>
                         </td>
-                        <td>{{ status.mastodon_instance }}</td>
+                        <td v-if="checkMastodonInstance">{{ status.mastodon_instance }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -401,5 +401,14 @@ export default {
 }
 </script>
 
+
+<style>
+.green-box {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+</style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 

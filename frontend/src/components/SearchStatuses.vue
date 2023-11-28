@@ -64,7 +64,7 @@
                                     <p style="text-decoration: underline;" >Access Tokens <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></p>
                                 </div>
                                 <div class="row" >
-                                    <div class="col-xl-3" style="margin-top: 10px" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index">
+                                    <div class="col-xl-3" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index">
                                         <label for="keyword">{{ mastodonInstance.name }}</label>
                                         <input
                                             v-model="accessTokenArray[index]"

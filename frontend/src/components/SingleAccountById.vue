@@ -50,7 +50,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-4">
+                    <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
+                        <hollow-dots-spinner
+                            :animation-duration="1000"
+                            :dot-size="15"
+                            :dots-num="3"
+                            color="#ff1d5e"
+                        />
+                    </div>
+                    <div class="card mb-4" v-if="!loading && username">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Account Information
@@ -144,10 +152,11 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 import Modal from "@/components/Modal.vue";
 import VueMultiselect from 'vue-multiselect'
+import {HollowDotsSpinner} from "epic-spinners";
 
 export default {
     name: 'AccountsById',
-    components: {Modal,VueMultiselect},
+    components: {Modal,VueMultiselect,HollowDotsSpinner},
     data() {
         return {
             clientKey: null,
@@ -177,6 +186,7 @@ export default {
             api_call: "",
             header_text: "",
             selectedMastodonInstances: [],
+            loading: false,
         }
     },
     methods: {
@@ -190,9 +200,9 @@ export default {
                 autoClose: 3000,
             })
         },
-        // isValidAccountId(accountId) {
-        //     return accountId.trim() !== '';
-        // },
+        isValidAccountId(accountId) {
+            return accountId.trim() !== '';
+        },
         isValidInstance(instanceId) {
             return instanceId.trim() !== '';
         },
@@ -206,19 +216,15 @@ export default {
             });
         },
         submitAccountSearch(){
-            console.log("This is calling......")
             this.searchAccountIdError = "";
             this.instanceIdError = "";
 
-            // if (!this.isValidInstance(this.selectedMastodonInstances)) {
-            //     this.instanceIdError = "Please choose a Mastodon instance.";
-            // }
+            if (!this.isValidAccountId(this.accountId)) {
+                this.searchAccountIdError = "Account Id is required.";
+            }
 
-            // if (!this.isValidAccountId(this.accountId)) {
-            //     this.searchAccountIdError = "Account Id is required.";
-            // }
-
-            // if(this.isValidAccountId(this.accountId)) {
+            if(this.isValidAccountId(this.accountId)) {
+                this.loading = true;
                 let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.selectedMastodonInstances[0].name + '&account_id=' + this.accountId;
                 this.clearAllFields()
                 axios.get(dataUrl)
@@ -232,14 +238,16 @@ export default {
                         this.bot = res.data.bot;
                         this.avatarLink = res.data.avatar;
                         this.note = res.data.note;
+                        this.loading = false;
                         let message = "Account :" + this.displayName+ " retrieved successfully"
                         this.successShowToast(message)
                     }).catch(error => {
+                        this.loading = false;
                         console.log(error);
                         let message = "Error in retrieving account : " + this.displayName;
                         this.errorShowToast(message)
                 });
-            // }
+            }
         },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {
@@ -306,17 +314,6 @@ export default {
     },
     mounted() {
         this.fetchAllInstanceData();
-    },
-    created() {
-        this.accountId = this.$route.params.accountId;
-        this.addMastodonInstance(this.$route.params.instanceId)
-
-        if(this.selectedMastodonInstances.length < 0){
-            this.selectedMastodonInstances = []
-            this.accountId = ""
-        } else{
-            this.submitAccountSearch();
-        }
     },
 }
 </script>

@@ -9,16 +9,12 @@
             <div class="prompt-modal-body">
                 <div>
                     <div class="row">
-                        <label for="keyword"><b>GET</b> Request</label>
-                    </div>
 
-                    <div class="row">
-                        <label for="keyword"><b>Documentation</b> <a href="https://docs.joinmastodon.org/methods/search/" target="_blank">Mastodon Search</a></label>
                     </div>
 
                     <div class="row">
                         <div class="col-9">
-                            <label for="form-control">Official - Mastodon API</label>
+                            <label for="form-control" style="font-size:15px">Official - Mastodon API <b>(GET)</b></label>
                             <input v-model="this.officialURL" ref="officialURL" class="form-control"/>
                         </div>
                         <div class="col-2">
@@ -31,7 +27,7 @@
                     </div>
                     <div class="row">
                         <div class="col-9">
-                            <label for="form-control">OSoME - Mastodon API </label>
+                            <label for="form-control">OSoME - Mastodon API <b>(POST)</b></label>
                             <input v-model="this.osomeURL" ref="osomeURL" class="form-control"/>
                         </div>
                         <div class="col-2">
@@ -69,6 +65,10 @@ export default {
         osomeURL: {
             type: String,
             default: "OSoME API URL"
+        },
+        osomeURLrequestType:{
+            type: String,
+            default: "POST"
         },
         header:{
             type: String,

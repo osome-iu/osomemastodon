@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text" />
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text" />
         <div class="container-fluid px-4">
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
@@ -122,7 +122,8 @@ export default {
             searchKeywordError: "",
             instanceIdError: "",
             modalIsOpen: false,
-            api_call: "",
+            osomeURL: "",
+            officialURL: "",
             header_text: "",
             searched: false,
             selectedMastodonInstances: [],
@@ -188,7 +189,6 @@ export default {
             }
 
             if(this.isValidKeyword(this.searchKeyword)) {
-                this.api_call = "https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
 
@@ -197,6 +197,11 @@ export default {
                     keyword: this.searchKeyword,
                     instances: this.selectedMastodonInstances,
                 };
+
+                let jsonData = JSON.stringify(requestData);
+                this.officialURL = "https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
+                this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/search-hashtag-by-keyword"`;
+
                 axios.post(dataUrl, requestData)
                     .then(res => {
                         let data_received = res.data;

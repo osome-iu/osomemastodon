@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instance</span></h1>
             <div class="col-12">
@@ -168,7 +168,6 @@ export default {
             dataType: "",
             statusesArray: [],
             loading: false,
-
             instanceIdError: "",
             instanceIdBlurred: false,
             limitNoBlurred: false,
@@ -176,7 +175,8 @@ export default {
             dataTypeError: "",
             dataTypeBlurred: false,
             modalIsOpen: false,
-            api_call: "",
+            osomeURL: "",
+            officialURL: "",
             header_text: "",
             searched: false,
             selectedMastodonInstances: [],
@@ -228,8 +228,6 @@ export default {
             }
 
             if(this.isValidInput(this.limitNo) && this.isValidInput(this.dataType)) {
-                // this.api_call = "https://" + this.instanceId + "/api/v1/timelines/tag/" + this.hashtagSearch + "?limit=" + this.limitNo + "&local=" + this.dataType;
-                // this.api_call = "https://"+this.instanceId+ "/api/v1/timelines/tag/"+ this.hashtagSearch+ "&local="+this.dataType;
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
                 this.statusesArray = [];
@@ -239,6 +237,12 @@ export default {
                     data_type: this.dataType,
                     limit_no: this.limitNo
                 };
+
+                let jsonData = JSON.stringify(requestData);
+
+                this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/timeline-statuses"`;
+                this.officialURL = "https://"+this.selectedMastodonInstances[0].name+ "/api/v1/timelines/public?local="+this.dataType+"&limit="+this.limitNo;
+
                 axios.post(dataUrl, requestData)
                     .then(res => {
                         let data_received = res.data;

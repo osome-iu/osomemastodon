@@ -37,6 +37,7 @@ def fetch_account_data(mastodon_instance, account_id):
     # Check the response status code
     if response.status_code == 200:
         account = response.json()
+        print(account)
         return account
     else:
         # Handle the errors occur with API method calling.

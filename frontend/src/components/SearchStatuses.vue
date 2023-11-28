@@ -257,8 +257,6 @@ export default {
             if(this.isValidKeyword(this.searchKeyword)) {
                 this.statusData = [];
                 this.downloadData = [];
-                this.officialURL = "curl --location 'https://"+this.instanceId+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessToken;
-                this.osomeURL = "url --location 'https://sdfsfddsfds'c"
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword';
@@ -269,6 +267,11 @@ export default {
                     keyword: this.searchKeyword,
                     access_tokens: this.accessTokenArray
                 };
+
+                let jsonData = JSON.stringify(requestData);
+
+                this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/search-status-by-keyword"`;
+                this.officialURL = "curl --location 'https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessTokenArray[0];
 
                 axios.post(dataUrl, requestData)
                     .then(async res => {

@@ -1,6 +1,6 @@
 <template>
     <main>
-        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :url="this.api_call" :header="this.header_text"/>
+        <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by Id</span></h1>
             <div class="col-12">
@@ -45,6 +45,12 @@
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitAccountSearch" >Search</button>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 23px;" v-if="!loading && username">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-warning" @click="downloadJSON" style="margin-right: 20px">Download JSON</button>
+                                    <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +116,6 @@
                                 <div class="col-xl-5">
                                     <input class="form-control" type="text" placeholder="Bot" v-model="this.bot" aria-describedby="btnNavbarSearch" readonly/>
                                 </div>
-                                <Modal :isOpen="modalIsOpen" @cancel="closeModal"/>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 10px"> <!-- Center the first row -->
                                 <div class="col-xl-2" >
@@ -126,14 +131,6 @@
                                 </div>
                                 <div class="col-xl-5">
                                     <div class="form-control" v-html="this.note" style="font-size: 10px;" id="readonly-textbox"></div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center" style="margin-top: 10px"> <!-- Center the first row -->
-                                <div class="col-xl-2" >
-                                    JSON :
-                                </div>
-                                <div class="col-xl-5">
-                                    <button type="button" class="btn btn-primary" :onclick="downloadJSON">Download</button>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +159,7 @@ export default {
             clientSecret: null,
             token: null,
             instanceData:[],
+            accountData:[],
             instanceId: "",
             accountId: "",
             show_json: false,
@@ -183,9 +181,12 @@ export default {
             modalIsOpen: false,
             modalTitle: 'Info',
             api_call: "",
-            header_text: "",
+            header_text: "Search Account by Id",
             selectedMastodonInstances: [],
             loading: false,
+            officialURL: "",
+            osomeURL:"",
+            downloadData: []
         }
     },
     methods: {
@@ -194,8 +195,8 @@ export default {
                 autoClose: 3000,
             })
         },
-        errorShowToast(){
-            toast.error('Error in retrieving data!', {
+        errorShowToast(message){
+            toast.error(message, {
                 autoClose: 3000,
             })
         },
@@ -224,26 +225,30 @@ export default {
 
             if(this.isValidAccountId(this.accountId)) {
                 this.loading = true;
-                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.selectedMastodonInstances[0].name + '&account_id=' + this.accountId;
-                this.clearAllFields()
+                this.accountData = []
+                this.clearAllFields();
+                this.officialURL = 'https://'+this.selectedMastodonInstances.name+'/api/v1/accounts/'+this.accountId;
+                this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
+                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.selectedMastodonInstances.name + '&account_id=' + this.accountId;
                 axios.get(dataUrl)
                     .then(res => {
                         this.accountData = res.data;
-                        this.username = res.data.username;
-                        this.displayName = res.data.display_name;
-                        this.followersCount = res.data.followers_count;
-                        this.followingCount = res.data.following_count;
-                        this.statusCount = res.data.statuses_count;
-                        this.bot = res.data.bot;
-                        this.avatarLink = res.data.avatar;
-                        this.note = res.data.note;
+                        this.username = this.accountData.username;
+                        this.displayName = this.accountData.display_name;
+                        this.followersCount = this.accountData.followers_count;
+                        this.followingCount = this.accountData.following_count;
+                        this.statusCount = this.accountData.statuses_count;
+                        this.bot = this.accountData.bot;
+                        this.avatarLink = this.accountData.avatar;
+                        this.note = this.accountData.note;
                         this.loading = false;
-                        let message = "Account :" + this.displayName+ " retrieved successfully"
+                        this.downloadData = res.data;
+                        let message = "Account data retrieved successfully!"
                         this.successShowToast(message)
                     }).catch(error => {
                         this.loading = false;
                         console.log(error);
-                        let message = "Error in retrieving account : " + this.displayName;
+                        let message = "No data found or error in retrieving data!";
                         this.errorShowToast(message)
                 });
             }
@@ -255,7 +260,7 @@ export default {
         },
         downloadJSON(){
             // Create a Blob containing the JSON data
-            const blob = new Blob([JSON.stringify(this.accountData)], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify(this.downloadData)], { type: 'application/json' });
 
             // Create a download link
             const a = document.createElement('a');
@@ -312,8 +317,19 @@ export default {
         },
     },
     mounted() {
+        const instanceId = this.$route.params.instanceId;
+        if(instanceId){
+            const mastodonInstance = {
+                name: instanceId,
+                active_users: "",
+                all_users: ""
+            }
+            this.instanceData.push(mastodonInstance);
+            this.selectedMastodonInstances.push(mastodonInstance);
+            this.accountId = this.$route.params.accountId;
+        }
         this.fetchAllInstanceData();
-    },
+    }
 }
 </script>
 

@@ -20,7 +20,7 @@ LOG_FNAME = "mastodon_logging.log"
 script_name = os.path.basename(__file__)
 logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
 
-def fetch_account_data(mastodon_instance, account_id):
+def fetch_account_data_by_account_id(mastodon_instance, account_id):
     """
     Get the account information from the mastodon API.
     Documentation - https://docs.joinmastodon.org/methods/accounts/#get
@@ -37,11 +37,11 @@ def fetch_account_data(mastodon_instance, account_id):
     # Check the response status code
     if response.status_code == 200:
         account = response.json()
-        print(account)
         return account
     else:
         # Handle the errors occur with API method calling.
         logger.error(f"Error: {response.status_code} - {response.text}")
+        return response.status_code
 
 def get_account_data_from_keyword(mastodon_instance, search_keyword):
     """
@@ -65,5 +65,5 @@ def get_account_data_from_keyword(mastodon_instance, search_keyword):
         return hashtag_data
     else:
         # Handle the errors occur with API method calling.
-        print(f"Error: {response.status_code} - {response.text}")
+        logger.error(f"Error: {response.status_code} - {response.text}")
 

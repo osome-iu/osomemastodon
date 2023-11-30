@@ -25,14 +25,10 @@ def search_account_data_by_id():
     try:
         mastodon_instance = request.args.get('mastodon_instance')
         account_id = request.args.get('account_id')
-        status = account_search.fetch_account_data(mastodon_instance, account_id)
-        print(mastodon_instance)
-        print(account_id)
+        status = account_search.fetch_account_data_by_account_id(mastodon_instance, account_id)
     except:
         return "Bad request", 400
     else:
-        print("IN HERE WE ARE CALLING.....")
-        print(status)
         return status
 
 @blueprint.route('/search-accounts-by-keyword', methods= ['POST'])

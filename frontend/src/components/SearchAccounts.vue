@@ -16,7 +16,7 @@
                             Search accounts by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div a class="row">
                                 <div class="col-xl-6">
                                     <label class="typo__label">Mastodon Instances</label>
                                     <VueMultiselect
@@ -171,7 +171,7 @@ export default {
             console.log(accountId)
             console.log(instance_name)
             this.$router.push({
-                name: 'AccountsById', // Assuming you have a route name
+                name: 'singleAccountById', // Assuming you have a route name
                 params: { accountId: accountId, instanceId: instance_name},
             });
         },
@@ -261,7 +261,6 @@ export default {
             // Create a Blob containing the JSON data
             const blob = new Blob([JSON.stringify(this.downloadData)], { type: 'application/json' });
 
-
              // Create a download link
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
@@ -273,7 +272,6 @@ export default {
             // Append the link to the document and trigger the click event
             document.body.appendChild(a);
             a.click();
-
 
             // Remove the link from the document
             document.body.removeChild(a);

@@ -47,25 +47,21 @@
                                 </div>
                                 <div class="col-md-2" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label for="checkbox">&nbsp;Check mastodon instance &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
+                                    <label for="checkbox">&nbsp;Check Instances &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
                                 </div>
                                 <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
-                                </div>
-                                <div class="row" style="margin-top: 23px;" v-if="!loading && statusData.length">
-                                    <div class="col-md-12 text-right">
-                                        <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
-                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
-                                    </div>
                                 </div>
                             </div>
                             <div v-if="selectedMastodonInstances.length">
                                 <div class="row" style="margin-top: 20px; font-weight: bold;">
                                     <p style="text-decoration: underline;" >Access Tokens <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></p>
                                 </div>
-                                <div class="row" >
-                                    <div class="col-xl-3" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index">
-                                        <label for="keyword">{{ mastodonInstance.name }}</label>
+                                <div class="row" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index" style="margin-top:10px;">
+                                    <div class="col-md-2" style="margin-top:5px;">
+                                        <p>{{ mastodonInstance.name }}</p>
+                                    </div>
+                                    <div class="col-xl-4">
                                         <input
                                             v-model="accessTokenArray[index]"
                                             v-bind:class="{'form-control': true,}"
@@ -74,6 +70,15 @@
                                         />
                                         <div v-if="accessTokenErrorArray[index] !== ''" class="invalid-feedback">{{ accessTokenErrorArray[index] }}</div>
                                     </div>
+                                    <div class="col-xl-5">
+                                        <button type="button" class="btn btn-danger" @click="removeMastodonInstanceFromBtn(index)" >Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 23px;" v-if="!loading && statusData.length">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
+                                    <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
                                 </div>
                             </div>
                         </div>
@@ -181,9 +186,6 @@ export default {
             accessTokenErrorArray: [], // Array to store access token errors
         }
     },
-    computed:{
-
-    },
     methods: {
         successShowToast(message){
             toast.success(message, {
@@ -267,6 +269,7 @@ export default {
                     keyword: this.searchKeyword,
                     access_tokens: this.accessTokenArray
                 };
+                console.log(requestData)
 
                 let jsonData = JSON.stringify(requestData);
 
@@ -394,6 +397,13 @@ export default {
             this.accessTokenArray.splice(index, 1);
             this.accessTokenErrorArray.splice(index, 1);
         },
+        removeMastodonInstanceFromBtn(index){
+            console.log(index)
+            // Remove the element at the specified index from both arrays
+            this.selectedMastodonInstances.splice(index, 1);
+            this.accessTokenArray.splice(index, 1);
+            this.accessTokenErrorArray.splice(index, 1);
+        }
     },
     mounted() {
         this.fetchAllInstanceData();
@@ -401,14 +411,5 @@ export default {
 }
 </script>
 
-
-<style>
-.green-box {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-}
-</style>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 

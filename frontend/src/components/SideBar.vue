@@ -43,7 +43,7 @@
                                     <router-link class="nav-item nav-link" :to="{name: 'SearchAccounts'}"  exact-active-class="active-link">
                                         <div class="sb-nav-link-icon"><i class="fa fa-search-plus"></i></div>Search by keyword
                                     </router-link>
-                                    <router-link class="nav-item nav-link" :to="{name: 'AccountsById'}" exact-active-class="active-link" >
+                                    <router-link class="nav-item nav-link" :to="{name: 'singleAccountById'}" exact-active-class="active-link" >
                                         <div class="sb-nav-link-icon"><i class="fa fa-user-circle"></i></div>Single Account by ID
                                     </router-link>
                                 </nav>
@@ -56,6 +56,10 @@
                             <router-link class="nav-item nav-link" :to="{name: 'FAQ'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-life-ring"></i></div>
                                 FAQ
+                            </router-link>
+                            <router-link class="nav-item nav-link" :to="{name: 'APIdoc'}"  exact-active-class="active-link">
+                                <div class="sb-nav-link-icon"><i class="fa fa-link"></i></div>
+                                API Doc
                             </router-link>
                         </div>
                     </div>

@@ -44,7 +44,12 @@
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitSingleStatus" style="margin-right: 20px">Search</button>
-                                    <button type="button" class="btn btn-primary" :onclick="showModal" v-if="this.statusReceivedId">Show URL</button>
+                                </div>
+                                <div class="row" style="margin-top: 23px;" v-if="!loading && statusContent">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-warning" @click="downloadJSON" style="margin-right: 20px">Download JSON</button>
+                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -151,19 +156,11 @@
                                     <input class="form-control" type="text" placeholder="Status Edited At" v-model="this.statusEditedAt" aria-describedby="btnNavbarSearch" readonly/>
                                 </div>
                             </div>
-                            <div class="row justify-content-center" style="margin-top: 10px"> <!-- Center the first row -->
-                                <div class="col-xl-2" >
-                                    JSON :
-                                </div>
-                                <div class="col-xl-5">
-                                    <button type="button" class="btn btn-primary" :onclick="downloadJSON" >Download</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="alert alert-warning" v-if="singleStatusData.length === 0 && this.searched">
+            <div class="alert alert-warning" v-if="singleStatusData.length && this.searched">
                 <fa icon="exclamation-triangle" /> No data available.
             </div>
         </div>
@@ -249,12 +246,11 @@ export default {
             }
 
             if(this.isValidStatusId(this.statusId)) {
-
+                this.loading = true;
                 this.officialURL = "https://"+this.selectedMastodonInstances.name+"/api/v1/statuses/"+this.statusId;
                 this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
                 this.header_text = "Search Account URL"
                 let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
-                console.log(dataUrl)
                 axios.get(dataUrl)
                     .then(res => {
                         this.searched = true;
@@ -272,6 +268,7 @@ export default {
                         this.instanceName = this.extractURLtoGetInstanceName(res.data.url);
                         let message = "Data retrieved successfully."
                         this.successShowToast(message)
+                        this.loading = false;
                     }).catch(error => {
                     console.log(error);
                     this.singleStatusData = []
@@ -332,7 +329,7 @@ export default {
     },
     mounted() {
         this.fetchAllInstanceData();
-    },
+    }
 }
 </script>
 

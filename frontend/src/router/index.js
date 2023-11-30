@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/accountsbyId',
-    name: 'AccountsById',
+    name: 'singleAccountById',
     component: () => import(/* webpackChunkName: "about" */ '../components/SingleAccountById.vue')
   },
   {
@@ -35,6 +35,11 @@ const routes = [
     path: '/faq',
     name: 'FAQ',
     component: () => import(/* webpackChunkName: "about" */ '../components/faq.vue')
+  },
+  {
+    path: '/apidocumentation',
+    name: 'APIdoc',
+    component: () => import(/* webpackChunkName: "about" */ '../components/APIdocumentation.vue')
   },
   {
     path: '/searchaccounts',

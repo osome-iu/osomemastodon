@@ -45,7 +45,7 @@
                 <div class="code-box">
                     <div class="code-content">
                         <code>
-                            GET https://osome.iu.edu/mastodon/api/get-instance-data
+                            GET https://osome.iu.edu/tools/mastodon/api/get-instance-data
                         </code>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                     <div style="margin-left:20px">
                         <ul>
                             <li><b>Method</b> : GET</li>
-                            <li><b>URL</b> : https://osome.iu.edu/mastodon/api/get-instance-data</li>
+                            <li><b>URL</b> : https://osome.iu.edu/tools/mastodon/api/get-instance-data</li>
                         </ul>
                     </div>
                 </div>

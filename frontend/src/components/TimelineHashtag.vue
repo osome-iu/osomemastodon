@@ -352,9 +352,7 @@ export default {
         },
         addMastodonInstance (newInstance) {
             const mastodonInstance = {
-                name: newInstance,
-                active_users: "",
-                all_users: ""
+                name: newInstance
             }
             this.instanceData.push(mastodonInstance)
             this.selectedMastodonInstances.push(mastodonInstance)

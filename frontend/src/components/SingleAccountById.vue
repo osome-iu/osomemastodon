@@ -320,9 +320,7 @@ export default {
         const instanceId = this.$route.params.instanceId;
         if(instanceId){
             const mastodonInstance = {
-                name: instanceId,
-                active_users: "",
-                all_users: ""
+                name: instanceId
             }
             this.instanceData.push(mastodonInstance);
             this.selectedMastodonInstances.push(mastodonInstance);

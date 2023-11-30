@@ -17,7 +17,7 @@ def status_search_by_id(mastodon_instance, status_id):
     Parameters passing
     -----------
     - status_id - status_id
-
+    - mastodon_instance - name of the mastodon instance
     Returns
     - JSON object
         {

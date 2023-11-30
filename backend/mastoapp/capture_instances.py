@@ -76,13 +76,11 @@ def fetch_instance_data():
         for instance in data.get("instances", []):
 
             instance_name = instance.get("name")
-            active_users = instance.get("active_users")
-            all_users = instance.get("users")
 
             #This function is used to write the collected instance_name in to a json file.
             if instance_name:
                 # Create a dictionary with only the "name" field
-                instance_list.append({"name": instance_name, "active_users": active_users, "all_users": all_users})
+                instance_list.append({"name": instance_name})
 
                 with open(FILE, 'w') as json_file:
                     json.dump(instance_list, json_file, indent=2)

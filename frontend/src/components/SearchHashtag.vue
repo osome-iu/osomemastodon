@@ -213,7 +213,6 @@ export default {
                             }
                         }
 
-                        console.log(this.hashtagData)
                         this.downloadData = this.hashtagData;
                         this.loading = false;
 

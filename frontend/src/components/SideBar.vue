@@ -59,7 +59,7 @@
                             </router-link>
                             <router-link class="nav-item nav-link" :to="{name: 'APIdoc'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-link"></i></div>
-                                API Doc
+                                API Documentation
                             </router-link>
                             <div class="sb-sidenav-menu-heading">RELATED LINKS</div>
                             <a class="nav-item nav-link" href="https://osome.iu.edu/" target="_blank" rel="noopener noreferrer">

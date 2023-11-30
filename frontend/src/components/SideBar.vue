@@ -61,6 +61,11 @@
                                 <div class="sb-nav-link-icon"><i class="fa fa-link"></i></div>
                                 API Doc
                             </router-link>
+                            <div class="sb-sidenav-menu-heading">RELATED LINKS</div>
+                            <a class="nav-item nav-link" href="https://osome.iu.edu/" target="_blank" rel="noopener noreferrer">
+                                <img src="../assets/favicon.png" alt="Mastodon Logo" class="sb-nav-link-icon">
+                                OSoMe
+                            </a>
                         </div>
                     </div>
                 </nav>

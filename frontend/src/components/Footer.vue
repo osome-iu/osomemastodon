@@ -6,7 +6,8 @@
                     <div class="text-muted"><a href="https://www.iu.edu/copyright/index.html" target="_blank" class="navigation-link">Copyright </a> &copy; {{ getcurrentYear }} the
                         Trustees of <a href="http://indiana.edu/" target="_blank" class="navigation-link">Indiana University</a></div>
                     <div>
-                        <a href="https://cnets.indiana.edu/" target="_blank" class="navigation-link">CNetS</a>&nbsp;&nbsp;&middot;
+                        <a href="https://osome.iu.edu/" target="_blank" class="navigation-link">OSoMe</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;
+                        <a href="https://cnets.indiana.edu/" target="_blank" class="navigation-link">CNetS</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;
                         <a href="https://luddy.indiana.edu/" target="_blank" class="navigation-link">Luddy</a>
                     </div>
                 </div>

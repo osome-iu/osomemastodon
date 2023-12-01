@@ -23,6 +23,7 @@
     "vue": "^3.3.7",
     "vue-multiselect": "^3.0.0-beta.3",
     "vue-router": "^4.0.3",
+    "vue-scrollto": "^2.20.0",
     "vue-select": "^4.0.0-beta.6",
     "vue3-toastify": "^0.1.14",
     "vuelidate": "^0.7.7",

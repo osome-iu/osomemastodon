@@ -3,28 +3,12 @@ import App from './App.vue'
 import router from './router'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Vuex, {createStore} from 'vuex';
+const VueScrollTo = require('vue-scrollto')
 
-
-const store = createStore({
-    state: {
-        bearerToken: null,
-    },
-    mutations: {
-        setBearerToken(state, token) {
-            state.bearerToken = token;
-        },
-    },
-    actions: {
-        updateBearerToken({ commit }, token) {
-            commit('setBearerToken', token);
-        },
-    },
-    getters: {
-        getBearerToken(state) {
-            return state.bearerToken;
-        },
-    },
+const app = createApp(App);
+app.use(router);
+app.use(VueScrollTo, {
+    offset: -65,
 })
 
-createApp(App).use(store).use(router).use(Vuex).mount('#app')
+app.mount('#app')

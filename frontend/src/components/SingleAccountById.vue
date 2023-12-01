@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search accounts by Id - <a href="https://docs.joinmastodon.org/methods/accounts/AccountById.vue" target="_blank" class="black-link">Documentation</a>
+                            Search accounts by Id - <a href="https://docs.joinmastodon.org/methods/accounts" target="_blank" class="black-link">Documentation</a>
                         </div>
                         <div class="card-body">
                             <div class="row">

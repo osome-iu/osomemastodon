@@ -34,8 +34,8 @@
                         <h6 style="padding-top: 10px;">Request</h6>
                              <div style="margin-left:20px">
                                  <ul>
-                                     <li><b>Method</b> : GET</li>
-                                     <li><b>URL</b> : https://instances.social/api/1.0/instances/list</li>
+                                     <li><b>Method</b>: GET</li>
+                                     <li><b>URL</b>: https://instances.social/api/1.0/instances/list</li>
                                      <li><b>Headers</b>: </li>
                                     <ul>
                                         <li>Authorization: Bearer YOUR_API_KEY</li>
@@ -55,8 +55,8 @@
                         <h6 style="padding-top: 10px;">Request</h6>
                         <div style="margin-left:20px">
                             <ul>
-                                <li><b>Method</b> : GET</li>
-                                <li><b>URL</b> : https://osome.iu.edu/tools/mastodon/api/get-instance-data</li>
+                                <li><b>Method</b>: GET</li>
+                                <li><b>URL</b>: https://osome.iu.edu/tools/mastodon/api/get-instance-data</li>
                             </ul>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         <h6 style="padding-top: 10px;">Headers</h6>
                         <p>The following header must be included in the request:</p>
                         <ul>
-                            <li><b>Authorization</b> :Bearer token for authentication</li>
+                            <li><b>Authorization</b>:Bearer token for authentication</li>
                         </ul>
                         <div class="code-box">
                             <div class="code-content">
@@ -289,7 +289,7 @@
                             </ul>
                             <li><b>Parameters</b></li>
                             <ul>
-                                <li><b>mastodon_instance</b> : This should be replaced with the domain of the Mastodon instance you are working with (e.g., mastodon.social)</li>
+                                <li><b>mastodon_instance</b>: This should be replaced with the domain of the Mastodon instance you are working with (e.g., mastodon.social)</li>
                                 <li><b>status_Id</b> (string): This should be replaced with the ID of the specific status you want to retrieve</li>
                             </ul>
                         </ul>
@@ -313,7 +313,7 @@
                                 <li><b>Parameters</b></li>
                                 <ul>
                                     <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>status_id</b> : The mastodon specific status id you want to search.</li>
+                                    <li><b>status_id</b>: The mastodon specific status id you want to search.</li>
                                 </ul>
                             </ul>
                         </div>
@@ -491,6 +491,21 @@
         </div>
     </main>
 </template>
+
+<script>
+import VueScrollTo from 'vue-scrollto';
+export default {
+    name: "FAQ",
+    mounted() {
+        const id = this.$route.hash.slice(1);
+        if (id) {
+            if (id) {
+                VueScrollTo.scrollTo('#' + id, 500, { offset: -65 });
+            }
+        }
+    }
+}
+</script>
 
 
 <style>

@@ -13,12 +13,12 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Statuses search by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
+                            Statuses search by keyword - <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instance</label>
+                                    <label>Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
                                         :options="instanceData"
@@ -45,9 +45,9 @@
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
-                                <div class="col-md-2" style="margin-top: 30px; margin-left: 20px;">
+                                <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label for="checkbox">&nbsp;Check Instances &nbsp;<router-link to="/faq" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
+                                    <label for="checkbox">&nbsp;Check Instance Validity &nbsp;<router-link to="/faq#q-3" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
                                 </div>
                                 <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
@@ -410,4 +410,3 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
-

@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instance</label>
+                                    <label>Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
                                         :options="instanceData"
@@ -60,7 +60,7 @@
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label> Limit (From each instance)</label>
+                                    <label> Limit</label>
                                     <select v-model="limitNo"
                                             label="Limit"
                                             class="form-control"

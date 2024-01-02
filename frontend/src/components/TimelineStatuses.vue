@@ -13,12 +13,12 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Most recent statuses for instance - <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="black-link">Documentation</a>
+                            Most recent statuses for instance - <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instance</label>
+                                    <label>Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
                                         :options="instanceData"
@@ -49,7 +49,7 @@
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label> Limit (From each instance)</label>
+                                    <label> Limit</label>
                                     <select v-model="limitNo"
                                             label="Limit"
                                             class="form-control"

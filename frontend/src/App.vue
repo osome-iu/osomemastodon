@@ -36,9 +36,9 @@ body, html, #app {
 @import'~bootstrap/dist/css/bootstrap.css';
 @import '../src/assets/css/styles.css';
 
- .page-title {
+.page-title {
      font-size: 2.5em; /* Adjust the font size as needed */
- }
+}
 
 .subtitle {
     font-size: 0.8em; /* Adjust the font size for the subtitle */
@@ -51,5 +51,15 @@ body, html, #app {
 }
 .black-link:hover {
     text-decoration: underline; /* Underline on hover */
+}
+
+.api-documentation{
+    text-decoration: none;
+    color: #353935
+}
+
+.api-documentation:hover{
+    text-decoration: underline;
+    color: blue
 }
 </style>

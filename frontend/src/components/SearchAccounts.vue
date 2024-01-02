@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search accounts by keyword - <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="black-link">Documentation</a>
+                            Search accounts by keyword - <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div a class="row">

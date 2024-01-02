@@ -4,19 +4,10 @@
             <h1 class="page-title">Mastodon Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>This will grab the top 20 mastodon instances (with a minimum 5000 active users) and list them.</p>
+                    <p>This will grab the top 20 Mastodon instances (with a minimum 5000 active users) and list them.</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-search"></i>
-                            Get the instances - <a href="https://instances.social/api/doc/" target="_blank" class="black-link">Documentation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
@@ -108,6 +99,5 @@ export default {
     },
     computed: {
     },
-
 }
 </script>

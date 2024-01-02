@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search a single status by Id - <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="black-link">Documentation</a>
+                            Search a single status by Id - <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">

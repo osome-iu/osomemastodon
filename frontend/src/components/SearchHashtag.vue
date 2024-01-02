@@ -11,6 +11,10 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-search"></i>
+                            Statuses hashtag metadata -<router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">Documentation</router-link>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-6">

@@ -182,6 +182,14 @@ export default {
             selectedMastodonInstances: [],
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.length > 0) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
         instanceInputChanged(e){
             let valueReceived = e.target.value;
@@ -306,12 +314,12 @@ export default {
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         closeModal() {

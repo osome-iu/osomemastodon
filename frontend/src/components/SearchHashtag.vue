@@ -5,7 +5,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get hashtag metadata.</p>
+                    <p>Retrieve detailed metadata information for hashtags with the given keyword.</p>
                 </div>
             </div>
             <div class="row">
@@ -21,6 +21,7 @@
                                     <label class="typo__label">Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :multiple="true"
                                         :taggable="true"
@@ -39,7 +40,7 @@
                                         v-model="searchKeyword"
                                         :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         @blur="searchKeywordBlurred = true"
-                                        placeholder="keyword"
+                                        placeholder="Hashtag keyword"
                                         @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
@@ -133,22 +134,30 @@ export default {
             selectedMastodonInstances: [],
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.length > 0) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         isValidKeyword(keyword) {
             return keyword.trim() !== '';
         },
-        isValidInstance(instanceId) {
-            return instanceId.trim() !== '';
+        isValidInstance(instanceArray) {
+            return instanceArray.length >= 1;
         },
         viewAccountInfo(accountId){
             this.$router.push({
@@ -184,15 +193,15 @@ export default {
             this.searchKeywordError = "";
             this.instanceIdError = "";
 
-            if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please choose a valid Mastodon instance";
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add one or more Mastodon instances";
             }
 
             if (!this.isValidKeyword(this.searchKeyword)) {
                 this.searchKeywordError = "Keyword is required";
             }
 
-            if(this.isValidKeyword(this.searchKeyword)) {
+            if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances)) {
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
 

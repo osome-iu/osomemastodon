@@ -5,7 +5,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for Statuses.</p>
+                    <p>Search for statuses for a given keyword. This function allows to search across multiple instances with given keyword. </p>
                 </div>
             </div>
             <div class="row">
@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Statuses search by keyword - <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">Documentation</router-link>
+                            Statuses search by keyword - <router-link to="/apidocumentation#api-2" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -21,6 +21,7 @@
                                     <label>Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :multiple="true"
                                         :taggable="true"
@@ -39,7 +40,7 @@
                                     <input
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
-                                        placeholder="Keyword"
+                                        placeholder="Status keyword"
                                         v-on:blur="searchKeywordBlurred = true"
                                         @input="keywordInputChanged"
                                     />
@@ -186,22 +187,30 @@ export default {
             accessTokenErrorArray: [], // Array to store access token errors
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.length > 0) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         isValidKeyword(keyword) {
             return keyword.trim() !== '';
         },
-        isValidInstance(instanceId) {
-            return instanceId.trim() !== '';
+        isValidInstance(instanceArray) {
+            return instanceArray.length >= 1;
         },
         sanitizeHtml(htmlsending) {
             return DOMPurify.sanitize(htmlsending);
@@ -252,11 +261,15 @@ export default {
             this.accessTokenError = "";
             this.searched = false;
 
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add one or more Mastodon instances";
+            }
+
             if (!this.isValidKeyword(this.searchKeyword)) {
                 this.searchKeywordError = "Keyword is required";
             }
 
-            if(this.isValidKeyword(this.searchKeyword)) {
+            if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances)) {
                 this.statusData = [];
                 this.downloadData = [];
                 this.header_text = "Search Statuses URL"

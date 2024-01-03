@@ -9,6 +9,7 @@
                 <li class= "list-item" v-scroll-to="'#q-4'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> What can be used in Mastodon search inputs</li>
                 <li class= "list-item" v-scroll-to="'#q-5'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How the Mastodon Id Status is made</li>
                 <li class= "list-item" v-scroll-to="'#q-6'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</li>
+                <li class= "list-item" v-scroll-to="'#q-7'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
             </ul>
             <div id="q-1">
                 <h4 class="mt-4">Mastodon Instances</h4>
@@ -61,6 +62,12 @@
                 <h4 class="mt-4">Difference between the Local and Federated timelines</h4>
                 <p>
                 The Local timeline shows posts from all users in your server, while the Federated timeline shows you all public posts from users that people in your server follow.
+                </p>
+            </div>
+            <div id="q-7">
+                <h4 class="mt-4">Report an issue</h4>
+                <p>
+                    We encourage you to leverage our public GitHub repository for code maintenance. Please feel free to submit any issues you encounter by reporting them in the repository in <a href="https://github.com/osome-iu/osomemastodon/issues" target="_blank" class="black-link">here</a>.
                 </p>
             </div>
         </div>

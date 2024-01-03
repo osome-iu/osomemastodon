@@ -5,7 +5,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Single Status by Id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Obtain information about a status by status Id.</p>
+                    <p>Get information about a status by status Id.</p>
                 </div>
             </div>
             <div class="row">
@@ -21,6 +21,7 @@
                                     <label>Mastodon Instance</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :taggable="true"
                                         @tag="addMastodonInstance"
@@ -38,7 +39,7 @@
                                         v-model="statusId"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchStatusIdError !== ''}"
                                         v-on:blur="searchStatusIdBlurred = true"
-                                        placeholder="Status ID"
+                                        placeholder="Status Id"
                                     />
                                     <div v-if="searchStatusIdError !== ''" class="invalid-feedback">{{ searchStatusIdError }}</div>
                                 </div>
@@ -221,12 +222,23 @@ export default {
             officialURL: "",
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.name) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
         isValidStatusId(statusId) {
             return statusId.trim() !== '';
         },
-        isValidInstance(instanceId) {
-            return instanceId.trim() !== '';
+        isValidInstance(instanceName) {
+            // Check if instanceName exists and has a truthy name property
+            const isValid = instanceName && instanceName.name && instanceName.name.trim() !== '';
+            this.instanceIdError = isValid ? '' : '';
+            return isValid;
         },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'
@@ -241,11 +253,15 @@ export default {
             this.searchStatusIdError = "";
             this.instanceIdError = "";
 
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add a Mastodon instance";
+            }
+
             if (!this.isValidStatusId(this.statusId)) {
                 this.searchStatusIdError = "A keyword is required";
             }
 
-            if(this.isValidStatusId(this.statusId)) {
+            if(this.isValidStatusId(this.statusId) && this.isValidInstance(this.selectedMastodonInstances)) {
                 this.loading = true;
                 this.officialURL = "https://"+this.selectedMastodonInstances.name+"/api/v1/statuses/"+this.statusId;
                 this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
@@ -309,20 +325,13 @@ export default {
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
-        },
-        addMastodonInstance (newInstance) {
-            const mastodonInstance = {
-                name: newInstance
-            }
-            this.instanceData.push(mastodonInstance)
-            this.selectedMastodonInstances.push(mastodonInstance)
         },
     },
     mounted() {

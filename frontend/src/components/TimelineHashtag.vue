@@ -13,7 +13,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Most recent statuses by hashtag - <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="black-link">Documentation</a>
+                            Most recent statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -21,6 +21,7 @@
                                     <label>Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :multiple="true"
                                         :taggable="true"
@@ -38,7 +39,7 @@
                                     <input
                                         v-model="hashtagSearch"
                                         v-bind:class="{'form-control': true, 'is-invalid': hashtagKeywordError !== ''}"
-                                        placeholder="Hashtag"
+                                        placeholder="Hashtag keyword"
                                         v-on:blur="searchAccountIdBlurred = true"
                                         @input="hashtagInputChanged"
                                     />
@@ -195,7 +196,18 @@ export default {
             selectedMastodonInstances: [],
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.length > 0) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
+        isValidInstance(instanceArray) {
+            return instanceArray.length >= 1;
+        },
         hashtagInputChanged(e){
             let valueReceived = e.target.value;
             if(valueReceived){
@@ -241,15 +253,19 @@ export default {
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         submitHashtagSearch(){
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add one or more Mastodon instances";
+            }
+
             if (!this.isValidInput(this.hashtagSearch)) {
                 this.hashtagKeywordError = "Hashtag is required.";
             }
@@ -262,7 +278,7 @@ export default {
                 this.limitNoError = "Limit no is required.";
             }
 
-            if(this.isValidInput(this.hashtagSearch) && this.isValidInput(this.dataType) && this.isValidInput(this.limitNo)) {
+            if(this.isValidInstance(this.selectedMastodonInstances) && this.isValidInput(this.hashtagSearch) && this.isValidInput(this.dataType) && this.isValidInput(this.limitNo)) {
 
                 this.header_text = "Search Statuses URL"
                 this.loading = true;

@@ -5,7 +5,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for content in accounts.</p>
+                    <p>Search for accounts for the given keyword. Can search across multiple instances at once.</p>
                 </div>
             </div>
             <div class="row">
@@ -21,6 +21,7 @@
                                     <label class="typo__label">Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :multiple="true"
                                         :taggable="true"
@@ -31,6 +32,7 @@
                                         track-by="name"
                                         :style="{ width: '100%', height: '40%' }"
                                     />
+                                    <!-- Check if instanceIdError is used correctly -->
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-4">
@@ -39,7 +41,7 @@
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         v-on:blur="searchKeywordBlurred = true"
-                                        placeholder="Keyword"
+                                        placeholder="Account keyword"
                                         @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
@@ -150,26 +152,32 @@ export default {
             selectedMastodonInstances: [],
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.length > 0) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         isValidKeyword(keyword) {
             return keyword.trim() !== '';
         },
-        isValidInstance(instanceId) {
-            return instanceId.trim() !== '';
+        isValidInstance(instanceArray) {
+            return instanceArray.length >= 1;
         },
         viewAccountInfo(accountId, instance_name){
-            console.log(accountId)
-            console.log(instance_name)
             this.$router.push({
                 name: 'singleAccountById', // Assuming you have a route name
                 params: { accountId: accountId, instanceId: instance_name},
@@ -180,14 +188,6 @@ export default {
             if(valueReceived){
                 this.searchKeywordError = ""
                 this.searchKeywordBlurred = false;
-            }
-        },
-        instanceInputChanged(e){
-            this.instanceId = e.target.value;
-            let valueReceived = e.target.value;
-            if(valueReceived){
-                this.instanceIdError = ""
-                this.instanceIdBlurred = false;
             }
         },
         fetchAllInstanceData(){
@@ -204,15 +204,16 @@ export default {
             this.instanceIdError = "";
             this.searched = false;
 
-            if (!this.isValidInstance(this.instanceId)) {
-                this.instanceIdError = "Please apply a valid Mastodon instance";
+
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add one or more Mastodon instances";
             }
 
-            if (!this.isValidKeyword(this.searchKeyword)) {
+            if (!this.isValidKeyword(this.searchKeyword) ) {
                 this.searchKeywordError = "A keyword is required";
             }
 
-            if(this.isValidKeyword(this.searchKeyword)) {
+            if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances) ) {
                 this.header_text = "Search Account URL"
                 this.loading = true;
 
@@ -291,11 +292,13 @@ export default {
             this.modalIsOpen = true;
         },
         addMastodonInstance (newInstance) {
+            console.log(newInstance)
             const mastodonInstance = {
                 name: newInstance
             }
             this.instanceData.push(mastodonInstance)
             this.selectedMastodonInstances.push(mastodonInstance)
+            this.instanceIdError = ""
         },
     },
     mounted() {

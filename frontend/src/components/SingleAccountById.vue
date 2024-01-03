@@ -5,7 +5,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by Id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>View information about a profile.</p>
+                    <p>Retrieve information about a profile using the account Id.</p>
                 </div>
             </div>
             <div class="row">
@@ -21,6 +21,7 @@
                                     <label>Mastodon Instance</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :taggable="false"
                                         @tag="addMastodonInstance"
@@ -189,22 +190,33 @@ export default {
             downloadData: []
         }
     },
+    watch: {
+        selectedMastodonInstances: function (newInstances) {
+            // Check if the array is not empty, reset the error
+            if (newInstances.name) {
+                this.instanceIdError = '';
+            }
+        },
+    },
     methods: {
         successShowToast(message){
             toast.success(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         errorShowToast(message){
             toast.error(message, {
-                autoClose: 3000,
+                autoClose: 8000,
             })
         },
         isValidAccountId(accountId) {
             return accountId.trim() !== '';
         },
-        isValidInstance(instanceId) {
-            return instanceId.trim() !== '';
+        isValidInstance(instanceName) {
+            // Check if instanceName exists and has a truthy name property
+            const isValid = instanceName && instanceName.name && instanceName.name.trim() !== '';
+            this.instanceIdError = isValid ? '' : '';
+            return isValid;
         },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'
@@ -223,7 +235,11 @@ export default {
                 this.searchAccountIdError = "Account Id is required.";
             }
 
-            if(this.isValidAccountId(this.accountId)) {
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add a Mastodon instance";
+            }
+
+            if(this.isValidAccountId(this.accountId) && this.isValidInstance(this.selectedMastodonInstances)) {
                 this.loading = true;
                 this.accountData = []
                 this.clearAllFields();

@@ -11,7 +11,7 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Instances
+                    Instances - <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">Documentation</router-link>
                 </div>
                 <div class="card-body">
                     <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">

@@ -262,6 +262,7 @@ export default {
             })
         },
         submitHashtagSearch(){
+
             if (!this.isValidInstance(this.selectedMastodonInstances)) {
                 this.instanceIdError = "Please add one or more Mastodon instances";
             }

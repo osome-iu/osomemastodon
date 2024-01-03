@@ -4,7 +4,7 @@
             <h1 class="page-title">Mastodon Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>This will grab the top 20 Mastodon instances (with a minimum 5000 active users) and list them.</p>
+                    <p>This will grab the top 20 Mastodon instances (with a minimum 5000 active users) and list them. This is using the instances.social API to get the instances. </p>
                 </div>
             </div>
 

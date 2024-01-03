@@ -21,6 +21,7 @@
                                     <label>Mastodon Instances</label>
                                     <VueMultiselect
                                         v-model="selectedMastodonInstances"
+                                        v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
                                         :multiple="true"
                                         :taggable="true"
@@ -191,6 +192,9 @@ export default {
         },
     },
     methods: {
+        isValidInstance(instanceArray) {
+            return instanceArray.length >= 1;
+        },
         instanceInputChanged(e){
             let valueReceived = e.target.value;
             if(valueReceived){
@@ -234,8 +238,11 @@ export default {
             if (!this.isValidInput(this.dataType)) {
                 this.dataTypeError = "Please enter data type";
             }
+            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+                this.instanceIdError = "Please add one or more Mastodon instances";
+            }
 
-            if(this.isValidInput(this.limitNo) && this.isValidInput(this.dataType)) {
+            if(this.isValidInput(this.limitNo) && this.isValidInput(this.dataType) && this.isValidInstance(this.selectedMastodonInstances)) {
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
                 this.statusesArray = [];

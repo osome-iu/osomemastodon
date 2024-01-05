@@ -17,7 +17,7 @@ from library import backend_util
 LOG_DIR = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/log"
 LOG_FNAME = "mastodon_logging.log"
 
-FILE = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/osomemastodon/backend/data/mastodon_instance.json"
+FILE = "/Users/pkamburu/osomemastodon/osomemastodon/backend/data/mastodon_instance.json"
 
 script_name = os.path.basename(__file__)
 logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
@@ -63,7 +63,7 @@ def fetch_instance_data():
     - active_users - no of activate users
     -----------
     """
-    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc"
+    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc1"
     payload={}
     headers = {
         'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()
@@ -72,21 +72,15 @@ def fetch_instance_data():
 
     if response.status_code == 200:
         data = response.json()
-        instance_list = []
-        for instance in data.get("instances", []):
-
-            instance_name = instance.get("name")
-
-            #This function is used to write the collected instance_name in to a json file.
-            if instance_name:
-                # Create a dictionary with only the "name" field
-                instance_list.append({"name": instance_name})
-
-                with open(FILE, 'w') as json_file:
-                    json.dump(instance_list, json_file, indent=2)
+        with open(FILE, 'w') as json_file:
+            json.dump(data, json_file, indent=2)
         return data
     else:
         print(f"Failed to retrieve data. Status code: {response.status_code}")
+        with open(FILE, 'r') as file:
+            data = json.load(file)
+        json_data = json.dumps(data, indent=2)
+        return json_data
 
 
 def get_all_instance_from_saved_file():

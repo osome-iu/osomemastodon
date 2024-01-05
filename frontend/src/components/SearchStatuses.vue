@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label for="checkbox">&nbsp;Check Instance Validity &nbsp;<router-link to="/faq#q-3" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
+                                    <label for="checkbox">&nbsp;Check instance validity &nbsp;<router-link to="/faq#q-3" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
                                 </div>
                                 <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>

@@ -14,10 +14,10 @@ import os, json
 from library import backend_util
 
 # Log file location and the file
-LOG_DIR = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/log"
+LOG_DIR = "/home/data/apps/mastodon/log"
 LOG_FNAME = "mastodon_logging.log"
 
-FILE = "/Users/pkamburu/osomemastodon/osomemastodon/backend/data/mastodon_instance.json"
+FILE = "/home/data/apps/mastodon/osomemastodon/backend/data/mastodon_instance.json"
 
 script_name = os.path.basename(__file__)
 logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
@@ -63,7 +63,7 @@ def fetch_instance_data():
     - active_users - no of activate users
     -----------
     """
-    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc1"
+    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc"
     payload={}
     headers = {
         'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()

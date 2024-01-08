@@ -282,7 +282,6 @@ export default {
                     keyword: this.searchKeyword,
                     access_tokens: this.accessTokenArray
                 };
-                console.log(requestData)
 
                 let jsonData = JSON.stringify(requestData);
 

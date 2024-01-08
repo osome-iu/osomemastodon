@@ -128,15 +128,37 @@
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top:20px">
-
-                    </div>
-
                     <h6>Note</h6>
                     <ul>
                         <li>Ensure the provided access_token is a valid Bearer token.</li>
                         <li>The response includes lists of accounts, statuses, and hashtags. But only populated statuses as we specifically select it. </li>
                     </ul>
+                    <h6>OSoMe API Endpoint</h6>
+                    <p>The API endpoint facilitates the search for statuses across multiple Mastodon instances using a specified keyword. </p>
+                    <div class="code-box">
+                        <div class="code-content">
+                            <code>
+                                curl -X POST -H "Content-Type: application/json" -d '{"mastodon_instances":[{"name":"INSTANCE_NAME_1"},{"name":"INSTANCE_NAME_2"}],"keyword":"SEARCH_KEYWORD","access_tokens":["ACCESS_TOKEN_1","ACCESS_TOKEN_2"]}' "https://osome.iu.edu/tools/mastodon/api/search-status-by-keyword"
+                            </code>
+                        </div>
+                    </div>
+                    <div style="margin-left:15px">
+                        <h6 style="padding-top: 10px;">Request</h6>
+                        <div style="margin-left:20px">
+                            <ul>
+                                <li><b>Headers</b></li>
+                                <ul>
+                                    <li>Content-Type: application/json</li>
+                                </ul>
+                                <li><b>Parameters</b></li>
+                                <ul>
+                                    <li><b>mastodon_instances</b> (array): List of Mastodon instances with their names.</li>
+                                    <li><b>keyword</b> (string): (Required) The search keyword.</li>
+                                    <li><b>access_tokens</b> (array): List of access tokens for each mastodon instance.</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -366,6 +388,31 @@
                         <li>Ensure the provided access_token is a valid Bearer token.</li>
                         <li>The response includes lists of accounts, statuses, and hashtags. But only get populated accounts as we specifically select it. </li>
                     </ul>
+                    <h6>OSoMe API Endpoint</h6>
+                    <p>The API endpoint facilitates the search for accounts across multiple Mastodon instances using a specified keyword. </p>
+                    <div class="code-box">
+                        <div class="code-content">
+                            <code>
+                                curl -X POST -H "Content-Type: application/json" -d '{"keyword":"SEARCH_KEYWORD","instances":[{"name":"INSTANCE_1"},{"name":"INSTANCE_2"}]}' "https://osome.iu.edu/tools/mastodon/api/search-accounts-by-keyword"
+                            </code>
+                        </div>
+                    </div>
+                    <div style="margin-left:15px">
+                        <h6 style="padding-top: 10px;">Request</h6>
+                        <div style="margin-left:20px">
+                            <ul>
+                                <li><b>Headers</b></li>
+                                <ul>
+                                    <li>Content-Type: application/json</li>
+                                </ul>
+                                <li><b>Parameters</b></li>
+                                <ul>
+                                    <li><b>instances</b> (array): List of Mastodon instances with their names.</li>
+                                    <li><b>keyword</b> (string): (Required) The search keyword.</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 

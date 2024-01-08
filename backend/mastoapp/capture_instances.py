@@ -63,7 +63,7 @@ def fetch_instance_data():
     - active_users - no of activate users
     -----------
     """
-    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc1"
+    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc"
     payload={}
     headers = {
         'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()
@@ -102,7 +102,11 @@ def get_all_instance_from_saved_file():
     with open(FILE, 'r') as file:
         data = json.load(file)
 
-    json_data = json.dumps(data, indent=2)
+    # Exact the name only
+    names_list = [{"name": item['name']} for item in data['instances']]
+
+    # Convert the list of names to a JSON array with indentation
+    json_data = json.dumps(names_list, indent=2)
     return json_data
 
 

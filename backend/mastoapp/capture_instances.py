@@ -102,7 +102,11 @@ def get_all_instance_from_saved_file():
     with open(FILE, 'r') as file:
         data = json.load(file)
 
-    json_data = json.dumps(data, indent=2)
+    # Exact the name only
+    names_list = [{"name": item['name']} for item in data['instances']]
+
+    # Convert the list of names to a JSON array with indentation
+    json_data = json.dumps(names_list, indent=2)
     return json_data
 
 

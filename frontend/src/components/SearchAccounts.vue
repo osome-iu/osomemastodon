@@ -292,7 +292,6 @@ export default {
             this.modalIsOpen = true;
         },
         addMastodonInstance (newInstance) {
-            console.log(newInstance)
             const mastodonInstance = {
                 name: newInstance
             }

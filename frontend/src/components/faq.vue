@@ -5,9 +5,9 @@
             <ul class= "list-item-main">
                 <li class= "list-item" v-scroll-to="'#q-1'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> Mastodon instances</li>
                 <li class= "list-item" v-scroll-to="'#q-2'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token</li>
-                <li class= "list-item" v-scroll-to="'#q-3'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Why is there an option to view the Mastodon instance associated with each status</li>
+                <li class= "list-item" v-scroll-to="'#q-3'"><span><i class="fa-solid fa-long-arrow-right"></i></span> What does "Check instance validity" mean</li>
                 <li class= "list-item" v-scroll-to="'#q-4'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> What can be used in Mastodon search inputs</li>
-                <li class= "list-item" v-scroll-to="'#q-5'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How the Mastodon Id Status is made</li>
+                <li class= "list-item" v-scroll-to="'#q-5'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How are the Mastodon Status Ids made</li>
                 <li class= "list-item" v-scroll-to="'#q-6'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</li>
                 <li class= "list-item" v-scroll-to="'#q-7'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
             </ul>
@@ -20,54 +20,46 @@
             <div id="q-2">
                 <h4 class="mt-4">How to get the access token</h4>
                 <p>
-                    To obtain an access token for a Mastodon instance, you typically need to follow a few steps. Mastodon uses OAuth 2.0 for authentication, which involves registering your application with the Mastodon instance and then obtaining an access token for user authentication. Here's a brief overview:
-                </p>
-
-                <p>
-                    <b>Register Your Application:</b> <br/>
+                    To obtain an access token for a Mastodon instance, you typically need to follow a few steps. Mastodon uses OAuth 2.0 for authentication, which involves registering your application with the Mastodon instance and then obtaining an access token for user authentication.
+                    The exact location for acquiring an API key may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social</a>.
                 </p>
                 <ol>
-                    <li>Go to the Mastodon instance where you want to access the API.</li>
-                    <li>Log in to your Mastodon account.</li>
-                    <li>Navigate to your account settings or developer settings to create a new application.</li>
-                    <li>Create a new application, providing details like the name, website, and redirect URI. The redirect URI is where the user will be redirected after they grant access.</li>
+                    <li>Log in to your account.</li>
+                    <li>Click "Preferences" from either the bottom of the right column or from the hamburger menu next to your profile picture.</li>
+                    <li>Choose &lt;/&gt; Development &lt;/&gt; from the menu.</li>
                 </ol>
-                <p>
-                    <b>Get Client Id and Client Secret:</b> <br/>
-                </p>
-                <ul>
-                    <li>Once you've registered the application, you will be provided with a Client Id and a Client Secret. Keep these credentials secure.</li>
-                </ul>
+                <p>Or, just go to mastodon application <a href="https://mastodon.social/settings/applications" target="_blank" class="black-link">settings</a>.</p>
+                <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>
             </div>
             <div id="q-3">
-                <h4 class="mt-4">Why is there an option to view the Mastodon instance associated with each status</h4>
+                <h4 class="mt-4">What does "Check instance validity" mean?</h4>
                 <p>
-                    This option allows users to verify whether a post originates from a properly configured Mastodon instance, helping to identify any potential misconfigurations in the instances.
+                    This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance.
                 </p>
             </div>
             <div id="q-4">
                 <h4 class="mt-4">What can be used in Mastodon search inputs</h4>
                 <ul>
-                    <li>You can only use text in statuses and hashtag keywords—no symbols allowed. Spaces are permitted.</li>
+                    <li>You can only use text in statuses and hashtag keywords "—" no symbols allowed. Spaces are permitted.</li>
                     <li>Status Id's can consist of words and numbers, while Account Id's can only contain numbers.</li>
                 </ul>
             </div>
             <div id="q-5">
-                <h4 class="mt-4">How the Mastodon Id Status is made</h4>
+                <h4 class="mt-4">How are the Mastodon Status IDs made</h4>
                 <p>
-                    In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct Id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker Id, representing the name of the server (instance) to which the user belongs, prevents collisions between Ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker Id, and sequence number allows Mastodon to create globally unique post Ids, facilitating efficient organization and retrieval of posts across its decentralized network.
+                    In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct Id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker Id, that represents the name of the server (instance) to which the posting user belongs, prevents collisions between Ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker Id, and sequence number allows Mastodon to create globally unique post Ids, facilitating efficient organization and retrieval of posts across its decentralized network.
                 </p>
             </div>
             <div id="q-6">
                 <h4 class="mt-4">Difference between the Local and Federated timelines</h4>
                 <p>
-                The Local timeline shows posts from all users in your server, while the Federated timeline shows you all public posts from users that people in your server follow.
+                    The Local timeline shows posts from all users belonging to a specified server, while the Federated timeline also includes all public posts from users across the Mastodon network that are followed by users belonging to the specified server.
                 </p>
             </div>
             <div id="q-7">
                 <h4 class="mt-4">Report an issue</h4>
                 <p>
-                    We encourage you to leverage our public GitHub repository for code maintenance. Please feel free to submit any issues you encounter by reporting them in the repository in <a href="https://github.com/osome-iu/osomemastodon/issues" target="_blank" class="black-link">here</a>.
+                    Please feel free to submit any issues, bug reports, or feature requests that you might have by adding new issues to the <a href="https://github.com/osome-iu/osomemastodon/issues" target="_blank" class="black-link">Github repository</a>.
                 </p>
             </div>
         </div>
@@ -104,4 +96,7 @@ export default {
     text-decoration: underline;
 }
 
+.black-link{
+    text-decoration: underline;
+}
 </style>

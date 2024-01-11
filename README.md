@@ -31,8 +31,8 @@ In order to run the project, please clone to project to your local machine. Then
 3. Run your flask app by running `flask run --port <desired_port_number>`.
 
 ## Note
-You can access the API documentation [here](https://github.com/osome-iu/osomemastodon/wiki)
-The Mastodon dashboard is live on [osome mastodon](https://osome.iu.edu/tools/mastodon)
+- You can access the API documentation [here](https://github.com/osome-iu/osomemastodon/wiki)
+- The Mastodon dashboard is live on [osome mastodon](https://osome.iu.edu/tools/mastodon)
 
 
 

@@ -30,4 +30,9 @@ In order to run the project, please clone to project to your local machine. Then
 2. Install necessary pip packages. Run `pip install -r requirements.txt`.
 3. Run your flask app by running `flask run --port <desired_port_number>`.
 
+## Note
+You can access the API documentation [here](https://github.com/osome-iu/osomemastodon/wiki)
+The Mastodon dashboard is live on [osome mastodon](https://osome.iu.edu/tools/mastodon)
+
+
 

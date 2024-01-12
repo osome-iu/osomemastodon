@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="layoutSidenav">
+        <div id="sidebarcontent">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">

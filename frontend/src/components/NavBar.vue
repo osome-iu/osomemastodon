@@ -5,7 +5,7 @@
             <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 8px;">
             <h1 class="navbar-brand mb-0" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -5px; font-weight: bold;">Search</h1>
         </div>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" style="margin-top:4px;margin-left: -130px;"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" style="margin-top:4px;margin-left: -130px;" aria-label="navigate-button"><i class="fas fa-bars"></i></button>
     </nav>
 </template>
 

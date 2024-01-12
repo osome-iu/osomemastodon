@@ -3,26 +3,36 @@
 This Dashboard seeks to make retrieving data from across different mastodon servers easier for the purposes of research.
 The dashboard currently processing these API's and visualize them in the frontend.
 
-- Search Keyword API - [search-keyword](https://docs.joinmastodon.org/methods/search/)
-- Search By Id - [search-by-id](https://docs.joinmastodon.org/methods/statuses/#get)
-- Account Search API - [account-search](https://docs.joinmastodon.org/methods/accounts/#get)
+- Instance - Get Mastodon Instances API
+- Status - Search by keyword API
+- Status - Most recent by hashtag API
+- Most recent for instance API
+- Status - Single status by Id API
+- Accounts - Search by keyword
+- Accounts - Single Account by Id
+- Get Hashtag metadata
   
 # Project Structure
 
-- Backend: A [flask](https://flask.palletsprojects.com/en/2.3.x/) application that leverages the official [mastodon api](https://docs.joinmastodon.org/api/) to get user, status and hashtag data for a given mastodon instance.
-- Frontend: A [vue.js](https://vuejs.org/guide/introduction.html) app that makes it easier for a user to perform a search query and observe the results.
+- Backend: A [flask](https://flask.palletsprojects.com/en/2.3.x/) application that leverages the official [mastodon api](https://docs.joinmastodon.org/api/) to retrieve data and manipulate the data.
+- Frontend: A [vue.js](https://vuejs.org/guide/introduction.html) app that makes it easier for a user to perform a search query and observe the results. 
 
-# Saving instance information
-
-We leverage the [instances.social](https://instances.social/api/doc/) api to capture list of mastodon instances and sort them based on highest number of users. You may generate an api key [here](https://instances.social/api/token) and update it accordingly in `/backend/mastoapp/keys.json`.
-
-# Running the app
-- Backend:
-1. Check your terminal into the backend folder.
-2. Install necessary pip packages. Run `pip install -r requirements.txt`.
-3. Run your flask app by running `flask run --port <desired_port_number>`.
+# How to run the project.
+In order to run the project, please clone to project to your local machine. Then separately run the frontend and backend of the project as below.  
 
 - Frontend:
 1. Check your terminal into the frontend folder.
 2. Install necessary npm packages. Run `npm i`.
 3. Serve your vue app by running `npm run serve`.
+
+- Backend:
+1. Check your terminal into the backend folder.
+2. Install necessary pip packages. Run `pip install -r requirements.txt`.
+3. Run your flask app by running `flask run --port <desired_port_number>`.
+
+## Note
+- You can access the API documentation [here](https://github.com/osome-iu/osomemastodon/wiki)
+- The Mastodon dashboard is live on [osome mastodon](https://osome.iu.edu/tools/mastodon)
+
+
+

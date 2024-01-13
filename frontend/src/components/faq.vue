@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="page-title">FAQ</h1>
+            <h3 class="page-title">FAQ</h3>
             <ul class= "list-item-main">
                 <li class= "list-item" v-scroll-to="'#q-1'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> Mastodon instances</li>
                 <li class= "list-item" v-scroll-to="'#q-2'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token</li>

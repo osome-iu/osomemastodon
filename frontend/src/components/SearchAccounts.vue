@@ -20,7 +20,7 @@
                                 <div class="col-xl-6">
                                     <label for="mastodonInstance">Mastodon Instances</label>
                                     <VueMultiselect
-                                        id="mastodonInstance"
+                                        aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"

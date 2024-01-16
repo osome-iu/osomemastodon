@@ -31,7 +31,7 @@
                                         placeholder="Type to search or add"
                                         label="name"
                                         track-by="name"
-                                        role="selectedMastodonInstances"
+                                        role="textbox"
                                         :style="{ width: '100%', height: '40%' }"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>

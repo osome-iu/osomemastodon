@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h3 class="page-title">FAQ</h3>
+            <h2 class="page-title">FAQ</h2>
             <ul class= "list-item-main">
                 <li class= "list-item" v-scroll-to="'#q-1'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> Mastodon instances</li>
                 <li class= "list-item" v-scroll-to="'#q-2'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token</li>
@@ -12,13 +12,13 @@
                 <li class= "list-item" v-scroll-to="'#q-7'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
             </ul>
             <div id="q-1">
-                <h4 class="mt-4">Mastodon Instances</h4>
+                <h3 class="mt-4">Mastodon Instances</h3>
                 <p>
                     Mastodon instances are independent, self-hosted communities within the Mastodon social network. Each instance operates as a separate server, allowing users to join and interact with others on that specific instance. Instances share a common set of protocols, enabling users from different instances to communicate and follow each other. These instances can have their own rules, themes, and user communities, providing diverse and customizable spaces for social interaction within the broader Mastodon network.
                 </p>
             </div>
             <div id="q-2">
-                <h4 class="mt-4">How to get the access token</h4>
+                <h3 class="mt-4">How to get the access token</h3>
                 <p>
                     To obtain an access token for a Mastodon instance, you typically need to follow a few steps. Mastodon uses OAuth 2.0 for authentication, which involves registering your application with the Mastodon instance and then obtaining an access token for user authentication.
                     The exact location for acquiring an API key may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social</a>.
@@ -32,20 +32,20 @@
                 <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>
             </div>
             <div id="q-3">
-                <h4 class="mt-4">What does "Check instance validity" mean?</h4>
+                <h3 class="mt-4">What does "Check instance validity" mean?</h3>
                 <p>
                     This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance.
                 </p>
             </div>
             <div id="q-4">
-                <h4 class="mt-4">What can be used in Mastodon search inputs</h4>
+                <h3 class="mt-4">What can be used in Mastodon search inputs</h3>
                 <ul>
                     <li>You can only use text in statuses and hashtag keywords "—" no symbols allowed. Spaces are permitted.</li>
                     <li>Status Id's can consist of words and numbers, while Account Id's can only contain numbers.</li>
                 </ul>
             </div>
             <div id="q-5">
-                <h4 class="mt-4">How are the Mastodon Status IDs made</h4>
+                <h3 class="mt-4">How are the Mastodon Status IDs made</h3>
                 <p>
                     In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct Id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker Id, that represents the name of the server (instance) to which the posting user belongs, prevents collisions between Ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker Id, and sequence number allows Mastodon to create globally unique post Ids, facilitating efficient organization and retrieval of posts across its decentralized network.
                 </p>
@@ -57,7 +57,7 @@
                 </p>
             </div>
             <div id="q-7">
-                <h4 class="mt-4">Report an issue</h4>
+                <h3 class="mt-4">Report an issue</h3>
                 <p>
                     Please feel free to submit any issues, bug reports, or feature requests that you might have by adding new issues to the <a href="https://github.com/osome-iu/osomemastodon/issues" target="_blank" class="black-link">Github repository</a>.
                 </p>

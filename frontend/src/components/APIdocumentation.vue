@@ -1,9 +1,9 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="page-title">API Documentation</h1>
+            <h3 class="page-title">API Documentation</h3>
             <div style="margin-left:50px">
-                <h5 style="margin-top:20px">API Endpoints</h5>
+                <h4 style="margin-top:20px">API Endpoints</h4>
                 <ol>
                     <li class= "list-item" v-scroll-to="'#api-1'" >Instance - Get Mastodon Instances API</li>
                     <li class= "list-item" v-scroll-to="'#api-2'">Status - Search by keyword API</li>
@@ -18,11 +18,11 @@
 
 <!--            Instance - Get Mastodon Instances API-->
             <div id="api-1">
-                <h4 class="mt-4">1. Instance - Get Mastodon Instances API</h4>
+                <h4 class="mt-4"><b>1. Instance - Get Mastodon Instances API</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official documentation from <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;">Request</p>
                              <div style="margin-left:20px">
                                  <ul>
                                      <li><b>Method</b>: GET</li>
@@ -43,7 +43,7 @@
                                  </ul>
                              </div>
                     </div>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;">Request</p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Method</b>: GET</li>
@@ -60,7 +60,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h6>Note</h6>
+                    <p><b>Note</b></p>
                     <ul>
                         <li>Data is returned in JSON format.</li>
                     </ul>
@@ -69,11 +69,11 @@
 
 <!--            Status - Search by keyword API-->
             <div id="api-2">
-                <h4 class="mt-4">2. Status - Search by keyword API</h4>
+                <h4 class="mt-4"><b>2. Status - Search by keyword API</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results as a json format. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -105,7 +105,7 @@
                         </table>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Headers</h6>
+                        <p style="padding-top: 10px;"><b>Headers</b></p>
                         <p>The following header must be included in the request:</p>
                         <ul>
                             <li><b>Authorization</b>:Bearer token for authentication</li>
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div>
-                        <h6 style="padding-top: 10px;">Request Example (POST request)</h6>
+                        <p style="padding-top: 10px;">Request Example (POST request)</p>
                         <div class="code-box">
                             <div class="code-content">
                                 <code>
@@ -128,12 +128,12 @@
                             </div>
                         </div>
                     </div>
-                    <h6>Note</h6>
+                    <p><b>Note</b></p>
                     <ul>
                         <li>Ensure the provided access_token is a valid Bearer token.</li>
                         <li>The response includes lists of accounts, statuses, and hashtags. But only populated statuses as we specifically select it. </li>
                     </ul>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <p>The API endpoint facilitates the search for statuses across multiple Mastodon instances using a specified keyword. </p>
                     <div class="code-box">
                         <div class="code-content">
@@ -143,7 +143,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;">Request</p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -165,9 +165,9 @@
 
 <!--            Status - Most recent by hashtag API            -->
             <div id="api-3">
-                <h4 class="mt-4">3. Status - Most recent by hashtag API</h4>
+                <h4 class="mt-4"><b>3. Status - Most recent by hashtag API</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation from <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
                     <h6><b>Official API Endpoint</b></h6>
                     <div class="code-box">
@@ -178,7 +178,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -195,7 +195,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <p>This API endpoint allows you to search public hashtag information through multiple Mastodon instances.</p>
                     <div class="code-box">
                         <div class="code-content">
@@ -205,7 +205,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -229,9 +229,9 @@
             <div id="api-4">
                 <h4 class="mt-4">4. Most recent for instance API</h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API endpoint retrieves public timeline statuses from a Mastodon instance. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -240,7 +240,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <h5 style="padding-top: 10px;">Request</h5>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -256,7 +256,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <p>This API endpoint retrieves public timeline statuses across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
                     <p style="font-weight:bold">(POST Request)</p>
                     <div class="code-box">
@@ -267,7 +267,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -288,11 +288,11 @@
 
             <!--            Status - Single status by Id API            -->
             <div id="api-5">
-                <h4 class="mt-4">5. Status - Single status by Id API</h4>
+                <h4 class="mt-4"><b>5. Status - Single status by Id API</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API method is used to search for statuses from a Mastodon instance based on a specific status Id. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -302,7 +302,7 @@
                     </div>
                 </div>
                 <div style="margin-left:15px">
-                    <h6 style="padding-top: 10px;">Request</h6>
+                    <p style="padding-top: 10px;"><b>Request</b></p>
                     <div style="margin-left:20px">
                         <ul>
                             <li><b>Headers</b></li>
@@ -316,7 +316,7 @@
                             </ul>
                         </ul>
                     </div>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -325,7 +325,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -345,11 +345,11 @@
 
             <!--            Accounts - Search by keyword            -->
             <div id="api-6">
-                <h4 class="mt-4">6. Accounts - Search by keyword</h4>
+                <h4 class="mt-4"><b>6. Accounts - Search by keywor</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -358,7 +358,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -374,7 +374,7 @@
                         </div>
                     </div>
                     <div>
-                        <h6 style="padding-top: 10px;">Request Example (POST request)</h6>
+                        <p style="padding-top: 10px;"><b>Request Example (POST request)</b></p>
                         <div class="code-box">
                             <div class="code-content">
                                 <code>
@@ -383,12 +383,12 @@
                             </div>
                         </div>
                     </div>
-                    <h6>Note</h6>
+                    <p><b>Note</b></p>
                     <ul>
                         <li>Ensure the provided access_token is a valid Bearer token.</li>
                         <li>The response includes lists of accounts, statuses, and hashtags. But only get populated accounts as we specifically select it. </li>
                     </ul>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <p>The API endpoint facilitates the search for accounts across multiple Mastodon instances using a specified keyword. </p>
                     <div class="code-box">
                         <div class="code-content">
@@ -398,7 +398,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -418,11 +418,11 @@
 
             <!--            Accounts - Single Account by Id           -->
             <div id="api-7">
-                <h4 class="mt-4">7. Accounts - Single Account by Id</h4>
+                <h4 class="mt-4"><b>7. Accounts - Single Account by Id</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -431,7 +431,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -446,7 +446,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -455,7 +455,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -470,7 +470,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h6>Note</h6>
+                    <p><b>Note</b></p>
                     <ul>
                         <li>When retrieving some of the account information, there may be instances where certain data is not available or not returned by the Mastodon API.</li>
                     </ul>
@@ -479,11 +479,11 @@
 
             <!--            Get Hashtag metadata          -->
             <div id="api-8">
-                <h4 class="mt-4">8. Get Hashtag metadata</h4>
+                <h4 class="mt-4"><b>8. Get Hashtag metadata</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -492,7 +492,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -507,7 +507,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h6><b>OSoMe API Endpoint</b></h6>
+                    <p><b>OSoMe API Endpoint</b></p>
                     <p>This API endpoint for searching hashtag data through a hashtag keyword across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
                     <p style="font-weight:bold">(POST Request)</p>
                     <div class="code-box">
@@ -518,7 +518,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <h6 style="padding-top: 10px;">Request</h6>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>

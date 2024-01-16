@@ -18,8 +18,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instances</label>
+                                    <label for="mastodonInstance">Mastodon Instances</label>
                                     <VueMultiselect
+                                        id="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
@@ -30,13 +31,15 @@
                                         placeholder="Type to search or add"
                                         label="name"
                                         track-by="name"
+                                        role="selectedMastodonInstances"
                                         :style="{ width: '100%', height: '50%' }"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label> Data</label>
+                                    <label for="data"> Data</label>
                                     <select v-model="dataType"
+                                            id="data"
                                             label="Choose Data"
                                             class="form-control"
                                             v-bind:class="{'is-invalid': dataTypeError !== ''}"
@@ -50,8 +53,9 @@
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label> Limit</label>
+                                    <label for="limit"> Limit</label>
                                     <select v-model="limitNo"
+                                            id="limit"
                                             label="Limit"
                                             class="form-control"
                                             v-bind:class="{'is-invalid': limitNoError !== ''}"

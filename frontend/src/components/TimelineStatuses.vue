@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label for="mastodonInstance">Mastodon Instances</label>
+                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instances</label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"

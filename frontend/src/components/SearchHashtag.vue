@@ -18,8 +18,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-6">
-                                    <label class="typo__label">Mastodon Instances</label>
+                                    <label for="mastodonInstance">Mastodon Instances</label>
                                     <VueMultiselect
+                                        id="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
@@ -30,6 +31,7 @@
                                         placeholder="Type to search or add"
                                         label="name"
                                         track-by="name"
+                                        role="selectedMastodonInstances"
                                         :style="{ width: '100%', height: '50%' }"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
@@ -37,6 +39,7 @@
                                 <div class="col-xl-3">
                                     <label for="keyword">Keyword</label>
                                     <input
+                                        id="keyword"
                                         v-model="searchKeyword"
                                         :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         @blur="searchKeywordBlurred = true"

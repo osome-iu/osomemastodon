@@ -18,8 +18,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label>Mastodon Instances</label>
+                                    <label for="mastodonInstance">Mastodon Instances</label>
                                     <VueMultiselect
+                                        id="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
@@ -31,6 +32,7 @@
                                         placeholder="Type to search or add"
                                         label="name"
                                         track-by="name"
+                                        role="selectedMastodonInstances"
                                         :style="{ width: '100%', height: '50%' }"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
@@ -43,12 +45,13 @@
                                         placeholder="Status keyword"
                                         v-on:blur="searchKeywordBlurred = true"
                                         @input="keywordInputChanged"
+                                        id="keyword"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
                                 <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label for="checkbox">&nbsp;Check instance validity &nbsp;<router-link to="/faq#q-3" target="_blank" ><i class="fas fa-info-circle"></i></router-link></label>
+                                    <label for="checkbox">&nbsp;Check instance validity &nbsp;<router-link to="/faq#q-3" target="_blank" aria-label="Check instance validity" ><i class="fas fa-info-circle"></i></router-link></label>
                                 </div>
                                 <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>

@@ -18,8 +18,9 @@
                         <div class="card-body">
                             <div a class="row">
                                 <div class="col-xl-6">
-                                    <label class="typo__label">Mastodon Instances</label>
+                                    <label class="mastodonInstance">Mastodon Instances</label>
                                     <VueMultiselect
+                                        id="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
@@ -30,6 +31,7 @@
                                         placeholder="Type to search or add"
                                         label="name"
                                         track-by="name"
+                                        role="selectedMastodonInstances"
                                         :style="{ width: '100%', height: '40%' }"
                                     />
                                     <!-- Check if instanceIdError is used correctly -->

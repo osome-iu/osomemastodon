@@ -290,9 +290,9 @@
             <div id="api-5">
                 <h4 class="mt-4"><b>5. Status - Single status by Id API</b></h4>
                 <div style="margin-left:20px">
-                    <h6><b>Overview</b></h6>
+                    <p><b>Overview</b></p>
                     <p>This API method is used to search for statuses from a Mastodon instance based on a specific status Id. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <h6><b>Official API Endpoint</b></h6>
+                    <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>

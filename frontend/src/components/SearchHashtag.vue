@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text" />
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
@@ -37,7 +38,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword">Keyword</label>
+                                    <label for="keyword" @click="showInfoModal">Keyword <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         id="keyword"
                                         v-model="searchKeyword"
@@ -103,10 +104,12 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css'
 import Modal from "../components/Modal.vue";
 import VueMultiselect from 'vue-multiselect'
+import InfoModal from "@/components/InfoModal.vue";
 
 export default {
     name: 'searchHashtags',
     components: {
+        InfoModal,
         HollowDotsSpinner,
         Modal,
         VueMultiselect
@@ -135,6 +138,9 @@ export default {
             header_text: "",
             searched: false,
             selectedMastodonInstances: [],
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -278,6 +284,15 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal() {
+            this.info_header_text = "What can I type as a search hashtag keyword?"
+            this.info_body_text = "In Mastodon Metadata search, You can use numbers, letters, or a mix of both to find topics you're interested in as hashtag keyword. You don't want to use '#' symbol to search."
+            this.infoModalIsOpen = true;
+
         },
         addMastodonInstance (newInstance) {
             const mastodonInstance = {

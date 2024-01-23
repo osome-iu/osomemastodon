@@ -7,7 +7,6 @@
                 <li class= "list-item" v-scroll-to="'#q-2'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token</li>
                 <li class= "list-item" v-scroll-to="'#q-3'"><span><i class="fa-solid fa-long-arrow-right"></i></span> What does "Check instance validity" mean</li>
                 <li class= "list-item" v-scroll-to="'#q-4'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> What can be used in Mastodon search inputs</li>
-                <li class= "list-item" v-scroll-to="'#q-5'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How are the Mastodon Status Ids made</li>
                 <li class= "list-item" v-scroll-to="'#q-6'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</li>
                 <li class= "list-item" v-scroll-to="'#q-7'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
             </ul>
@@ -21,28 +20,15 @@
                 <h3 class="mt-4">How to get the access token</h3>
                 <p>
                     To obtain an access token for a Mastodon instance, you typically need to follow a few steps. Mastodon uses OAuth 2.0 for authentication, which involves registering your application with the Mastodon instance and then obtaining an access token for user authentication.
-                    The exact location for acquiring an API key may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social</a>.
+                    The exact location for acquiring an API token may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social</a>.
                 </p>
                 <ol>
-                    <li>Log in to your account.</li>
-                    <li>Click "Preferences" from either the bottom of the right column or from the hamburger menu next to your profile picture.</li>
+                    <li>Log in to your account:</li>
+                    <li>Click "Preferences" from either the bottom of the right column or from the hamburger menu next to your profile picture:</li>
                     <li>Choose &lt;/&gt; Development &lt;/&gt; from the menu.</li>
                 </ol>
                 <p>Or, just go to mastodon application <a href="https://mastodon.social/settings/applications" target="_blank" class="black-link">settings</a>.</p>
                 <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>
-            </div>
-            <div id="q-3">
-                <h3 class="mt-4">What does "Check instance validity" mean?</h3>
-                <p>
-                    This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance.
-                </p>
-            </div>
-            <div id="q-4">
-                <h3 class="mt-4">What can be used in Mastodon search inputs</h3>
-                <ul>
-                    <li>You can only use text in statuses and hashtag keywords "—" no symbols allowed. Spaces are permitted.</li>
-                    <li>Status Id's can consist of words and numbers, while Account Id's can only contain numbers.</li>
-                </ul>
             </div>
             <div id="q-5">
                 <h3 class="mt-4">How are the Mastodon Status IDs made</h3>
@@ -53,7 +39,7 @@
             <div id="q-6">
                 <h4 class="mt-4">Difference between the Local and Federated timelines</h4>
                 <p>
-                    The Local timeline shows posts from all users belonging to a specified server, while the Federated timeline also includes all public posts from users across the Mastodon network that are followed by users belonging to the specified server.
+                    The Local timeline displays posts from all users on a specified server, while the Federated timeline includes public posts from users across the Mastodon network who are followed by users on the specified server.
                 </p>
             </div>
             <div id="q-7">

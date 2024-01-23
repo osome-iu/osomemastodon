@@ -4,7 +4,7 @@
             <h1 class="page-title">Mastodon Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>This will grab the top 20 Mastodon instances (with a minimum 5000 active users) and list them. This is using the instances.social API to get the instances. </p>
+                    <p>Retrieves the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the instances.social API to gather the instances.</p>
                 </div>
             </div>
 
@@ -92,6 +92,7 @@ export default {
         axios.get(dataUrl)
             .then(res => {
                 this.instanceData = res.data.instances;
+                this.instanceData.sort((a, b) => b.active_users - a.active_users);
                 this.loading = false
             }).catch(error => {
             console.log(error);

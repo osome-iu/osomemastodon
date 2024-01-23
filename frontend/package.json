@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "big-integer": "^1.6.51",
     "bignumber.js": "^9.1.1",
     "bootstrap": "^5.1.3",

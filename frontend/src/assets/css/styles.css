@@ -10903,7 +10903,7 @@ body {
     transform: translateX(0);
   }
   #layoutSidenav #layoutSidenav_content {
-    margin-left: 0;
+    margin-left: 20px;
     transition: margin 0.15s ease-in-out;
   }
   .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -11007,6 +11007,13 @@ body {
   margin-left: auto;
   transition: transform 0.15s ease;
 }
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-sidenav-collapse-below {
+  display: inline-block;
+  margin-left: auto;
+  transition: transform 0.15s ease;
+}
+
 .sb-sidenav .sb-sidenav-menu .nav .nav-link.collapsed .sb-sidenav-collapse-arrow {
   transform: rotate(-90deg);
 }

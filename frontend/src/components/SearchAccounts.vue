@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text" />
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
@@ -38,7 +39,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-4">
-                                    <label for="keyword">Keyword</label>
+                                    <label for="keyword" @click="showInfoModal">Keyword <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
@@ -116,11 +117,13 @@ import Modal from "../components/Modal.vue";
 import vSelect from 'vue-select';
 import 'vue-select/dist/vue-select.css';
 import VueMultiselect from 'vue-multiselect'
+import InfoModal from "@/components/InfoModal.vue";
 
 
 export default {
     name: 'accounts',
     components: {
+        InfoModal,
         HollowDotsSpinner,
         Modal,
         vSelect,
@@ -152,6 +155,9 @@ export default {
             header_text: "",
             searched: false,
             selectedMastodonInstances: [],
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -292,6 +298,14 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal() {
+            this.info_header_text = "What can I use in account search keyword?"
+            this.info_body_text = "In Mastodon account keyword search, You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
+            this.infoModalIsOpen = true;
         },
         addMastodonInstance (newInstance) {
             const mastodonInstance = {

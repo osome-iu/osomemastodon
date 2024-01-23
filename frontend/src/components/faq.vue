@@ -25,7 +25,7 @@
                 <ol>
                     <li>Log in to your account:</li>
                     <li>Click "Preferences" from either the bottom of the right column or from the hamburger menu next to your profile picture:</li>
-                    <li>Choose &lt;/&gt; Development &lt;/&gt; from the menu.</li>
+                    <li>Choose &lt;/&gt; Development &lt;/&gt; from the menu:</li>
                 </ol>
                 <p>Or, just go to mastodon application <a href="https://mastodon.social/settings/applications" target="_blank" class="black-link">settings</a>.</p>
                 <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>

@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: 'LandingView',
-    component: () => import(/* webpackChunkName: "about" */ '../components/HomeView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/HomePage.vue')
   },
   {
     path: '/instances',

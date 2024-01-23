@@ -17,7 +17,7 @@
                                 <li><router-link to="/searchbykeyword"  class="api-documentation">Search by keyword</router-link> - Search for statuses for a given keyword. This function allows to search across multiple instances with given keyword.</li>
                                 <li><router-link to="/timelinehashtag"  class="api-documentation">Most recent by hashtag</router-link> - Retrieve detailed metadata information for hashtags with the given keyword.</li>
                                 <li><router-link to="/timelinestatus"  class="api-documentation">Recent for instance</router-link> - A chronological list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </li>
-                                <li><router-link to="/searchbyid"  class="api-documentation">Single status by Id</router-link> - Get information about a status by status Id</li>
+                                <li><router-link to="/searchbyid"  class="api-documentation">Single status by Id</router-link> - Get information about a status by status Id.</li>
                             </ul>
                         </div>
                         <div class="api-section">
@@ -42,8 +42,8 @@
                         <div class="api-section">
                             <h4>5. Documentation</h4>
                             <ol class="api-list">
-                                <li><router-link to="/faq" class="api-documentation">FAQ</router-link> - Can search across multiple instances at once.</li>
-                                <li><router-link to="/apidocumentation" class="api-documentation">API Documentation</router-link> -  Can search across multiple instances at once.</li>
+                                <li><router-link to="/faq" class="api-documentation">FAQ</router-link> - The FAQ section addresses common questions, providing quick insights and information about the Mastodon interface.</li>
+                                <li><router-link to="/apidocumentation" class="api-documentation">API Documentation</router-link> - Guide to interact with Mastodon APIs, presenting key information on endpoints, request formats, and response structures.</li>
                             </ol>
                         </div>
                     </div>

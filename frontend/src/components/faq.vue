@@ -20,7 +20,7 @@
                 <h3 class="mt-4">How to get the access token</h3>
                 <p>
                     To obtain an access token for a Mastodon instance, you typically need to follow a few steps. Mastodon uses OAuth 2.0 for authentication, which involves registering your application with the Mastodon instance and then obtaining an access token for user authentication.
-                    The exact location for acquiring an API token may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social</a>.
+                    The exact location for acquiring an API token may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social:</a>.
                 </p>
                 <ol>
                     <li>Log in to your account.</li>

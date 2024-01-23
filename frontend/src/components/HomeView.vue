@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="page-title">OSoMe Mastodon Search</h1>
+            <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
                 <div>
                     <p>OSoMe Mastodon interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation.This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>

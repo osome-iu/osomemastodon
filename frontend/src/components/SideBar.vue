@@ -5,7 +5,6 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">HOME</div>
                             <router-link class="nav-item nav-link" :to="{name: 'LandingView'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-home"></i></div>
                                 Mastodon

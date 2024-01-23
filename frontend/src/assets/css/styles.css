@@ -10903,7 +10903,7 @@ body {
     transform: translateX(0);
   }
   #layoutSidenav #layoutSidenav_content {
-    margin-left: 50px;
+    margin-left: 20px;
     transition: margin 0.15s ease-in-out;
   }
   .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -10920,7 +10920,7 @@ body {
   z-index: 1039;
 }
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
-  width: 260px;
+  width: 225px;
   height: 100vh;
   z-index: 1038;
 }

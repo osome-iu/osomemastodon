@@ -510,12 +510,10 @@
                     <p><b>OSoMe API Endpoint</b></p>
                     <p>This API endpoint for searching hashtag data through a hashtag keyword across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
                     <p style="font-weight:bold">(POST Request)</p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                curl -X POST -H "Content-Type: application/json" -d '{"keyword":"SEARCH_KEYWORD","instances":[{"name":"MASTODON_INSTANCE}}' "https://osome.iu.edu/tools/mastodon/api/search-hashtag-by-keyword"
-                            </code>
-                        </div>
+                    <div class="code-content">
+                        <code>
+                            curl -X POST -H "Content-Type: application/json" -d '{"keyword":"SEARCH_KEYWORD","instances":[{"name":"MASTODON_INSTANCE}}' "https://osome.iu.edu/tools/mastodon/api/search-hashtag-by-keyword"
+                        </code>
                     </div>
                     <div style="margin-left:15px">
                         <p style="padding-top: 10px;"><b>Request</b></p>
@@ -565,9 +563,14 @@ export default {
 }
 
 .code-content {
-    padding: 16px;
     white-space: pre-wrap;
+    overflow-x: auto; /* Enable horizontal scrolling on small screens if necessary */
+    font-size: 14px; /* Adjust font size for better readability */
+    padding: 16px; /* Add padding for spacing */
+    border: 1px solid #ddd; /* Add a border for better visibility */
+    border-radius: 5px; /* Add rounded corners for aesthetics */
 }
+
 
 .navigation-link {
     text-decoration: underline;

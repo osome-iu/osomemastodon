@@ -36,7 +36,7 @@
                             </div>
 
                             <a class="nav-link collapsed" href="#" @click="toggleCollapse_two" aria-expanded="false" aria-controls="collapsePages2">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Get accounts
                                 <div :class="arrowIconClassesTwo" :click="toggleCollapse_two">
                                     <i class="fas fa-angle-down" :click="toggleCollapse_two"></i>

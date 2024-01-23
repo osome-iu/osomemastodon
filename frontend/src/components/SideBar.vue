@@ -10,15 +10,6 @@
                                 <div class="sb-nav-link-icon"><i class="fa fa-home"></i></div>
                                 Mastodon
                             </router-link>
-                            <div class="sb-sidenav-menu-heading">DOCUMENTATION</div>
-                            <router-link class="nav-item nav-link" :to="{name: 'FAQ'}"  exact-active-class="active-link">
-                                <div class="sb-nav-link-icon"><i class="fa fa-life-ring"></i></div>
-                                FAQ
-                            </router-link>
-                            <router-link class="nav-item nav-link" :to="{name: 'APIdoc'}"  exact-active-class="active-link">
-                                <div class="sb-nav-link-icon"><i class="fa fa-link"></i></div>
-                                API documentation
-                            </router-link>
 
                             <div class="sb-sidenav-menu-heading">SEARCH</div>
                             <a class="nav-link collapsed" href="#" @click="toggleCollapse_one" aria-expanded="false" aria-controls="collapsePages1">
@@ -74,6 +65,16 @@
                             <div class="sb-sidenav-menu-heading">INSTANCES</div>
                             <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" exact-active-class="active-link" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>Mastodon Instances
+                            </router-link>
+
+                            <div class="sb-sidenav-menu-heading">DOCUMENTATION</div>
+                            <router-link class="nav-item nav-link" :to="{name: 'FAQ'}"  exact-active-class="active-link">
+                                <div class="sb-nav-link-icon"><i class="fa fa-life-ring"></i></div>
+                                FAQ
+                            </router-link>
+                            <router-link class="nav-item nav-link" :to="{name: 'APIdoc'}"  exact-active-class="active-link">
+                                <div class="sb-nav-link-icon"><i class="fa fa-link"></i></div>
+                                API documentation
                             </router-link>
 
                             <div class="sb-sidenav-menu-heading">RELATED LINKS</div>

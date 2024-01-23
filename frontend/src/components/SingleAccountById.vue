@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by Id</span></h1>
             <div class="col-12">
@@ -36,7 +37,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label> Account Id</label>
+                                    <label for="keyword" @click="showInfoModal">Account Id <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         v-model="accountId"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchAccountIdError !== ''}"
@@ -152,10 +153,11 @@ import 'vue3-toastify/dist/index.css'
 import Modal from "@/components/Modal.vue";
 import VueMultiselect from 'vue-multiselect'
 import {HollowDotsSpinner} from "epic-spinners";
+import InfoModal from "@/components/InfoModal.vue";
 
 export default {
     name: 'AccountsById',
-    components: {Modal,VueMultiselect,HollowDotsSpinner},
+    components: {InfoModal, Modal,VueMultiselect,HollowDotsSpinner},
     data() {
         return {
             clientKey: null,
@@ -189,7 +191,10 @@ export default {
             loading: false,
             officialURL: "",
             osomeURL:"",
-            downloadData: []
+            downloadData: [],
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -322,6 +327,15 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal() {
+            this.info_header_text = "What can I use as an account Id?"
+            this.info_body_text = "In Mastodon single account search, you can use a mix of numbers and letters for the account Id. These Ids are like unique for each account."
+            this.infoModalIsOpen = true;
+
         },
         addMastodonInstance (newInstance) {
             this.fetchAllInstanceData();

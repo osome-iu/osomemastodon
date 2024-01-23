@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent by hashtag</span></h1>
             <div class="col-12">
@@ -37,7 +38,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label> Hashtag</label>
+                                    <label for="keyword" @click="showInfoModal('keyword')">Hashtag <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         v-model="hashtagSearch"
                                         v-bind:class="{'form-control': true, 'is-invalid': hashtagKeywordError !== ''}"
@@ -48,7 +49,7 @@
                                     <div v-if="hashtagKeywordError !== ''" class="invalid-feedback">{{ hashtagKeywordError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="datatype"> Data</label>
+                                    <label for="keyword" @click="showInfoModal('data')">Data <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <select v-model="dataType"
                                             id="datatype"
                                             label="Choose Data"
@@ -165,10 +166,12 @@ import Modal from "@/components/Modal.vue";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import VueMultiselect from 'vue-multiselect'
+import InfoModal from "@/components/InfoModal.vue";
 
 export default {
     name: 'singleStatus',
     components: {
+        InfoModal,
         HollowDotsSpinner,
         Modal,
         VueMultiselect
@@ -198,6 +201,9 @@ export default {
             header_text: "",
             searched: false,
             selectedMastodonInstances: [],
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -370,6 +376,20 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal(type) {
+            if(type === 'keyword'){
+                this.info_header_text = "What can use as a hashtag keyword?"
+                this.info_body_text = "In Mastodon statuses - most recent by hashtag, You can use numbers, letters, or a mix of both to find topics you're interested in as hashtag keyword. You don't want to use '#' symbol to search."
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "Difference between the Local and Federated timelines"
+                this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
+                this.infoModalIsOpen = true;
+            }
         },
         addMastodonInstance (newInstance) {
             const mastodonInstance = {

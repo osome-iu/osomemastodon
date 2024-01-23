@@ -9,11 +9,7 @@
             <div class="prompt-modal-body">
                 <div>
                     <div class="row">
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-9">
+                        <div class="col-12">
                             <label for="form-control" style="font-size:15px">Official - Mastodon API <b>(GET)</b></label>
                             <input v-model="this.officialURL" ref="officialURL" class="form-control"/>
                         </div>
@@ -130,25 +126,15 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    /*width: 100%;*/
+    /*height: 100%;*/
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.prompt-modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-}
 .prompt-modal-content {
     position: relative;
-    width: 400px;
-    max-width: 90%;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -189,7 +175,7 @@ export default {
 }
 @media screen and (max-width: 480px) {
     .prompt-modal-content {
-        width: 90%;
+        width: 100%;
     }
 }
 

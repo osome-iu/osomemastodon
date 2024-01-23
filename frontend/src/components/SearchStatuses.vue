@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
@@ -33,12 +34,14 @@
                                         label="name"
                                         track-by="name"
                                         role="textbox"
-                                        :style="{ width: '100%', height: '50%' , color: 'black'}"
+                                        :style="{ width: '100%', height: '50%', color: 'black' }"
+                                        input-class="custom-input-class"
+                                        ref="multiselectRef"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="keyword">Keyword</label>
+                                    <label for="keyword" @click="showInfoModal('keyword')">Keyword <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
@@ -51,7 +54,7 @@
                                 </div>
                                 <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label for="checkbox">&nbsp;Check instance validity &nbsp;<router-link to="/faq#q-3" target="_blank" aria-label="Check instance validity" ><i class="fas fa-info-circle"></i></router-link></label>
+                                    <label for="checkbox" @click="showInfoModal('validity')">&nbsp;Check instance validity &nbsp;<i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                 </div>
                                 <div class="col-xl-1" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
@@ -138,7 +141,7 @@
                 </table>
             </div>
             <div class="alert alert-warning" v-if="statusData.length === 0 && this.searched">
-                <fa icon="exclamation-triangle" /> No data available.
+                <i class="fas fa-exclamation"></i> No data available.
             </div>
         </div>
     </main>
@@ -152,6 +155,7 @@ import DOMPurify from 'dompurify';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import Modal from "../components/Modal.vue";
+import InfoModal from "../components/InfoModal.vue";
 import VueMultiselect from "vue-multiselect";
 
 
@@ -160,6 +164,7 @@ export default {
     components: {
         HollowDotsSpinner,
         Modal,
+        InfoModal,
         VueMultiselect
     },
     data() {
@@ -188,6 +193,9 @@ export default {
             selectedMastodonInstances: [],
             accessTokenArray: [], // Array to store access tokens
             accessTokenErrorArray: [], // Array to store access token errors
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -392,6 +400,20 @@ export default {
         showModal() {
             this.modalIsOpen = true;
         },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal(type) {
+            if(type =='keyword'){
+                this.info_header_text = "What can I type as a search keyword?"
+                this.info_body_text = "In Mastodon status keyword search, You can use numbers, letters, or a mix of both to find topics you're interested in as status keyword. "
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "What does \"Check instance validity\" mean?"
+                this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance."
+                this.infoModalIsOpen = true;
+            }
+        },
         changeCheckMastodonInstance(){
             this.statusData = []
         },
@@ -411,7 +433,6 @@ export default {
             this.accessTokenErrorArray.splice(index, 1);
         },
         removeMastodonInstanceFromBtn(index){
-            console.log(index)
             // Remove the element at the specified index from both arrays
             this.selectedMastodonInstances.splice(index, 1);
             this.accessTokenArray.splice(index, 1);
@@ -420,8 +441,16 @@ export default {
     },
     mounted() {
         this.fetchAllInstanceData();
+        this.$refs.multiselectRef.$el.querySelector('input').style.setProperty('color', 'black', 'important');
     },
 }
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
+
+<style scoped>
+.custom-input-class::placeholder {
+    color: black;
+}
+</style>
+

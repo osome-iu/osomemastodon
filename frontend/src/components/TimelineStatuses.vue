@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instance</span></h1>
             <div class="col-12">
@@ -32,12 +33,12 @@
                                         label="name"
                                         track-by="name"
                                         role="textbox"
-                                        :style="{ width: '100%', height: '50%' }"
+                                        :style="{ width: '100%', height: '50%' , color: 'black'}"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="data"> Data</label>
+                                    <label for="keyword" @click="showInfoModal('data')">Data <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <select v-model="dataType"
                                             id="data"
                                             label="Choose Data"
@@ -155,10 +156,12 @@ import { HollowDotsSpinner } from 'epic-spinners'
 import {toast} from "vue3-toastify";
 import Modal from "@/components/Modal.vue";
 import VueMultiselect from "vue-multiselect";
+import InfoModal from "@/components/InfoModal.vue";
 
 export default {
     name: 'timelinestatus',
     components: {
+        InfoModal,
         HollowDotsSpinner,
         Modal,
         VueMultiselect
@@ -185,6 +188,9 @@ export default {
             header_text: "",
             searched: false,
             selectedMastodonInstances: [],
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -338,6 +344,14 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal() {
+            this.info_header_text = "Difference between the Local and Federated timelines"
+            this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
+            this.infoModalIsOpen = true;
         },
         addMastodonInstance (newInstance) {
             const mastodonInstance = {

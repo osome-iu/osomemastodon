@@ -1,6 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Single Status by Id</span></h1>
             <div class="col-12">
@@ -36,7 +37,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="statusId"> Status Id</label>
+                                    <label for="keyword" @click="showInfoModal">Status Id <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         id="statusId"
                                         v-model="statusId"
@@ -179,10 +180,12 @@ import {HollowDotsSpinner} from "epic-spinners";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import VueMultiselect from 'vue-multiselect'
+import InfoModal from "@/components/InfoModal.vue";
 
 export default {
     name: 'SearchByIdStatus',
     components: {
+        InfoModal,
         Modal,
         HollowDotsSpinner,
         VueMultiselect
@@ -223,6 +226,9 @@ export default {
             selectedMastodonInstances: [],
             osomeURL: "",
             officialURL: "",
+            infoModalIsOpen: false,
+            info_header_text: "",
+            info_body_text: ""
         }
     },
     watch: {
@@ -325,6 +331,15 @@ export default {
         },
         showModal() {
             this.modalIsOpen = true;
+        },
+        closeInfoModal() {
+            this.infoModalIsOpen = false;
+        },
+        showInfoModal() {
+            this.info_header_text = "What can use as a status Id?"
+            this.info_body_text = "A Mastodon status Id can include a combination of numeric and alphanumeric characters. It is a unique identifier assigned to each post on the platform,allowing for precise referencing and retrieval of specific content."
+            this.infoModalIsOpen = true;
+
         },
         errorShowToast(){
             toast.error('Error in retrieving data!', {

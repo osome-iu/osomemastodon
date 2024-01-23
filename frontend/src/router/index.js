@@ -3,6 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'LandingView',
+    component: () => import(/* webpackChunkName: "about" */ '../components/HomeView.vue')
+  },
+  {
+    path: '/instances',
     name: 'MastodonInstances',
     component: () => import(/* webpackChunkName: "about" */ '../components/InstanceData.vue')
   },

@@ -18,7 +18,7 @@
 
 <!--            Instance - Get Mastodon Instances API-->
             <div id="api-1">
-                <h3 class="mt-4"><b>1. Instance - Get Mastodon Instances API</b></h3>
+                <h3 class="mt-4">1. Instance - Get Mastodon Instances API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official documentation from <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
@@ -69,7 +69,7 @@
 
 <!--            Status - Search by keyword API-->
             <div id="api-2">
-                <h3 class="mt-4"><b>2. Status - Search by keyword API</b></h3>
+                <h3 class="mt-4">2. Status - Search by keyword API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results as a json format. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
@@ -165,7 +165,7 @@
 
 <!--            Status - Most recent by hashtag API            -->
             <div id="api-3">
-                <h3 class="mt-4"><b>3. Status - Most recent by hashtag API</b></h3>
+                <h3 class="mt-4">3. Status - Most recent by hashtag API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation from <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
@@ -288,7 +288,7 @@
 
             <!--            Status - Single status by Id API            -->
             <div id="api-5">
-                <h3 class="mt-4"><b>5. Status - Single status by Id API</b></h3>
+                <h3 class="mt-4">5. Status - Single status by Id API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>This API method is used to search for statuses from a Mastodon instance based on a specific status Id. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
@@ -345,7 +345,7 @@
 
             <!--            Accounts - Search by keyword            -->
             <div id="api-6">
-                <h3 class="mt-4"><b>6. Accounts - Search by keywor</b></h3>
+                <h3 class="mt-4">6. Accounts - Search by keyword</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
@@ -418,7 +418,7 @@
 
             <!--            Accounts - Single Account by Id           -->
             <div id="api-7">
-                <h3 class="mt-4"><b>7. Accounts - Single Account by Id</b></h3>
+                <h3 class="mt-4">7. Accounts - Single Account by Id</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
@@ -479,7 +479,7 @@
 
             <!--            Get Hashtag metadata          -->
             <div id="api-8">
-                <h3 class="mt-4"><b>8. Get Hashtag metadata</b></h3>
+                <h3 class="mt-4">8. Get Hashtag metadata</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>

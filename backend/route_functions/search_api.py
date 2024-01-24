@@ -34,7 +34,7 @@ def search_status_data_by_id():
 @blueprint.route('/search-status-by-keyword', methods= ['POST'])
 def search_status_data_by_keyword():
     """
-    Search the status through the status id.
+    Search the status through the status keyword.
     """
     try:
         data = request.get_json()

@@ -42,7 +42,7 @@
                                     <input
                                         v-model="hashtagSearch"
                                         v-bind:class="{'form-control': true, 'is-invalid': hashtagKeywordError !== ''}"
-                                        placeholder="Hashtag keyword"
+                                        placeholder="hashtag"
                                         v-on:blur="searchAccountIdBlurred = true"
                                         @input="hashtagInputChanged"
                                     />
@@ -382,8 +382,8 @@ export default {
         },
         showInfoModal(type) {
             if(type === 'keyword'){
-                this.info_header_text = "What can use as a hashtag keyword?"
-                this.info_body_text = "In Mastodon statuses - most recent by hashtag, You can use numbers, letters, or a mix of both to find topics you're interested in as hashtag keyword. You don't want to use '#' symbol to search."
+                this.info_header_text = "What can I type in the search box?"
+                this.info_body_text = "In Mastodon statuses - most recent by hashtag, you can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "Difference between the Local and Federated timelines"

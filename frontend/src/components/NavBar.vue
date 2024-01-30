@@ -1,11 +1,19 @@
 <template>
     <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar">
         <div class="d-flex align-items-center m-0">
-            <a href="https://osome.iu.edu/" target="_blank" class="navigation-link"><h1 class="navbar-brand mb-0" style="letter-spacing: -1px; font-size: 1.5rem; font-weight: bold; margin-right: -130px;">OSoMe</h1></a>
-            <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 8px;">
-            <h1 class="navbar-brand mb-0" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -5px; font-weight: bold;">Search</h1>
+            <!-- Use ml-auto to push the button to the right -->
+            <button class="btn btn-link btn-sm order-10 order-sm-10 order-lg-0 ml-auto me-9 me-lg-0" id="sidebarToggle" href="#!" aria-label="navigate-button" style="font-size:1.2rem">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="https://osome.iu.edu/" target="_blank" class="navigation-link">
+                <!-- Add 'small' class to make the text smaller on smaller screens -->
+                <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; font-weight: bold; margin-right: -138px; margin-left: 18px;">OSoMe</h1>
+            </a>
+            <!-- Add 'small' class to make the image smaller on smaller screens -->
+            <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 8px;" class="small">
+            <!-- Add 'small' class to make the text smaller on smaller screens -->
+            <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -10px; font-weight: bold;">Search</h1>
         </div>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" style="margin-top:4px;margin-left: -130px;" aria-label="navigate-button"><i class="fas fa-bars"></i></button>
     </nav>
 </template>
 
@@ -28,7 +36,9 @@
     text-decoration: none;
 }
 
-/* Add additional styles as needed */
+.btn btn-link{
+    color: black;
+}
 </style>
 <script setup>
 </script>

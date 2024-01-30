@@ -3,10 +3,10 @@
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
         <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Accounts <span class="subtitle">- Single Account by Id</span></h1>
+            <h1 class="page-title">Accounts <span class="subtitle">- Single Account by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve information about a profile using the account Id.</p>
+                    <p>Retrieve information about a profile using the account id.</p>
                 </div>
             </div>
             <div class="row">
@@ -332,8 +332,8 @@ export default {
             this.infoModalIsOpen = false;
         },
         showInfoModal() {
-            this.info_header_text = "What can I use as an account Id?"
-            this.info_body_text = "In Mastodon single account search, you can use a mix of numbers and letters for the account Id. These Ids are like unique for each account."
+            this.info_header_text = "What can I use as an account id?"
+            this.info_body_text = "In Mastodon single account search, you can use numbers, letters, or a mix of both for the account id. These ids are unique for each account."
             this.infoModalIsOpen = true;
 
         },

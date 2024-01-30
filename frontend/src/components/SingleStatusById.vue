@@ -3,10 +3,10 @@
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
         <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Statuses <span class="subtitle">- Single Status by Id</span></h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Single Status by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get information about a status by status Id.</p>
+                    <p>Get information about a status by status id.</p>
                 </div>
             </div>
             <div class="row">
@@ -14,7 +14,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search a single status by Id - <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">Documentation</router-link>
+                            Search a single status by id - <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -336,8 +336,8 @@ export default {
             this.infoModalIsOpen = false;
         },
         showInfoModal() {
-            this.info_header_text = "What can use as a status Id?"
-            this.info_body_text = "A Mastodon status Id can include a combination of numeric and alphanumeric characters. It is a unique identifier assigned to each post on the platform,allowing for precise referencing and retrieval of specific content."
+            this.info_header_text = "What is a status id?"
+            this.info_body_text = "A Mastodon status id can include a combination of numeric and alphanumeric characters. It is a unique identifier assigned to each post on the platform, allowing for precise referencing and retrieval of specific content."
             this.infoModalIsOpen = true;
 
         },

@@ -21,7 +21,7 @@
                 <h3 class="mt-4">1. Instance - Get Mastodon Instances API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official documentation from <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
+                    <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -31,14 +31,14 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <p style="padding-top: 10px;">Request</p>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                              <div style="margin-left:20px">
                                  <ul>
                                      <li><b>Method</b>: GET</li>
                                      <li><b>URL</b>: https://instances.social/api/1.0/instances/list</li>
                                      <li><b>Headers</b>: </li>
                                     <ul>
-                                        <li>Authorization: Bearer YOUR_API_KEY</li>
+                                        <li>Authorization: Bearer access_token</li>
                                     </ul>
                                  </ul>
                              </div>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <p style="padding-top: 10px;">Request</p>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Method</b>: GET</li>
@@ -72,7 +72,7 @@
                 <h3 class="mt-4">2. Status - Search by keyword API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results as a json format. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results as a json format. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -103,6 +103,19 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div style="margin-left:15px">
+                        <p style="padding-top: 10px;"><b>Request</b></p>
+                        <div style="margin-left:20px">
+                            <ul>
+                                <li><b>Method</b>: GET</li>
+                                <li><b>URL</b>: https://instances.social/api/1.0/instances/list</li>
+                                <li><b>Headers</b>: </li>
+                                <ul>
+                                    <li>Authorization: Bearer access_token</li>
+                                </ul>
+                            </ul>
+                        </div>
                     </div>
                     <div style="margin-left:15px">
                         <p style="padding-top: 10px;"><b>Headers</b></p>
@@ -143,7 +156,7 @@
                         </div>
                     </div>
                     <div style="margin-left:15px">
-                        <p style="padding-top: 10px;">Request</p>
+                        <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
                                 <li><b>Headers</b></li>
@@ -168,7 +181,7 @@
                 <h3 class="mt-4">3. Status - Most recent by hashtag API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation from <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
+                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -230,7 +243,7 @@
                 <h3 class="mt-4">4. Most recent for instance API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves public timeline statuses from a Mastodon instance. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>This API endpoint retrieves public timeline statuses from a Mastodon instance. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -291,7 +304,7 @@
                 <h3 class="mt-4">5. Status - Single status by Id API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API method is used to search for statuses from a Mastodon instance based on a specific status Id. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>This API method is used to search for statuses from a Mastodon instance based on a specific status Id. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -348,7 +361,7 @@
                 <h3 class="mt-4">6. Accounts - Search by keyword</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -421,7 +434,7 @@
                 <h3 class="mt-4">7. Accounts - Single Account by Id</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -482,7 +495,7 @@
                 <h3 class="mt-4">8. Get Hashtag metadata</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation from <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>This API endpoint retrieves account information from the Mastodon API based on the account ID and Mastodon instance name.  You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">

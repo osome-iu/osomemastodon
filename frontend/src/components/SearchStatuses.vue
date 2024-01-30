@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for statuses for a given keyword. This function allows to search across multiple instances with given keyword. </p>
+                    <p>This function allows users to search across multiple instances with a given keyword. </p>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +45,7 @@
                                     <input
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
-                                        placeholder="Status keyword"
+                                        placeholder="keyword"
                                         v-on:blur="searchKeywordBlurred = true"
                                         @input="keywordInputChanged"
                                         id="keyword"
@@ -405,8 +405,8 @@ export default {
         },
         showInfoModal(type) {
             if(type =='keyword'){
-                this.info_header_text = "What can I type as a search keyword?"
-                this.info_body_text = "In Mastodon status keyword search, You can use numbers, letters, or a mix of both to find topics you're interested in as status keyword. "
+                this.info_header_text = "What can I type in the search box?"
+                this.info_body_text = "In Mastodon status keyword search, you can use numbers, letters, or a mix of both to find topics you're interested in as the search keyword."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What does \"Check instance validity\" mean?"

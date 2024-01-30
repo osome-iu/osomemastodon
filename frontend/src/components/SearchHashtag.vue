@@ -6,7 +6,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve detailed metadata information for hashtags with the given keyword.</p>
+                    <p>Retrieve detailed metadata information for a given hashtag.</p>
                 </div>
             </div>
             <div class="row">
@@ -14,7 +14,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Statuses hashtag metadata -<router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">Documentation</router-link>
+                            Statuses hashtag metadata - <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -38,13 +38,13 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword" @click="showInfoModal">Keyword <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" @click="showInfoModal">Hashtag <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         id="keyword"
                                         v-model="searchKeyword"
                                         :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         @blur="searchKeywordBlurred = true"
-                                        placeholder="Hashtag keyword"
+                                        placeholder="hashtag"
                                         @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
@@ -289,7 +289,7 @@ export default {
             this.infoModalIsOpen = false;
         },
         showInfoModal() {
-            this.info_header_text = "What can I type as a search hashtag keyword?"
+            this.info_header_text = "What can I type in the search box?"
             this.info_body_text = "In Mastodon Metadata search, You can use numbers, letters, or a mix of both to find topics you're interested in as hashtag keyword. You don't want to use '#' symbol to search."
             this.infoModalIsOpen = true;
 

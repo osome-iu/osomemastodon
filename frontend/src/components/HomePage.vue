@@ -4,7 +4,7 @@
             <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
                 <div>
-                    <p>OSoMe Mastodon interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation.This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
+                    <p>OSoMe Mastodon interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
                 </div>
             </div>
             <hr>
@@ -16,15 +16,15 @@
                             <ul class="api-list">
                                 <li><router-link to="/searchbykeyword"  class="api-documentation">Search by keyword</router-link> - Search for statuses for a given keyword. This function allows to search across multiple instances with given keyword.</li>
                                 <li><router-link to="/timelinehashtag"  class="api-documentation">Most recent by hashtag</router-link> - Retrieve detailed metadata information for hashtags with the given keyword.</li>
-                                <li><router-link to="/timelinestatus"  class="api-documentation">Recent for instance</router-link> - A chronological list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </li>
-                                <li><router-link to="/searchbyid"  class="api-documentation">Single status by Id</router-link> - Get information about a status by status Id.</li>
+                                <li><router-link to="/timelinestatus"  class="api-documentation">Recent for instance</router-link> - A chronological list of the most recent statuses. </li>
+                                <li><router-link to="/searchbyid"  class="api-documentation">Single status by id</router-link> - Get information about a status by status id.</li>
                             </ul>
                         </div>
                         <div class="api-section">
                             <h4>2. Get Accounts</h4>
                             <ol class="api-list">
-                                <li><router-link to="/searchaccounts" class="api-documentation">Search by keyword</router-link> - Search for accounts for the given keyword. Can search across multiple instances at once.</li>
-                                <li><router-link to="/accountsbyId" class="api-documentation">Single account by Id</router-link> - Retrieve information about a profile using the account Id.</li>
+                                <li><router-link to="/searchaccounts" class="api-documentation">Search by keyword</router-link> - Search for accounts that contain a given keyword in the username or display name.</li>
+                                <li><router-link to="/accountsbyId" class="api-documentation">Single account by id</router-link> - Retrieve information about a profile using the account id.</li>
                             </ol>
                         </div>
                         <div class="api-section">

@@ -1,13 +1,12 @@
 <template>
-    <div>
-        <div id="sidebarcontent">
+        <div id="sidebarcontent" class="scrollable-sidebar">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <router-link class="nav-item nav-link" :to="{name: 'LandingView'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-home"></i></div>
-                                Mastodon
+                                OSoMe Mastodon
                             </router-link>
 
                             <div class="sb-sidenav-menu-heading">SEARCH</div>
@@ -30,7 +29,7 @@
                                         <div class="sb-nav-link-icon"><i class="fa fa-list-alt"></i></div>Recent for instance
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" exact-active-class="active-link" >
-                                        <div class="sb-nav-link-icon"><i class="fa fa-clipboard-check"></i></div>Single Status by Id
+                                        <div class="sb-nav-link-icon"><i class="fa fa-clipboard-check"></i></div>Single Status by id
                                     </router-link>
                                 </nav>
                             </div>
@@ -50,11 +49,10 @@
                                         <div class="sb-nav-link-icon"><i class="fa fa-search-plus"></i></div>Search by keyword
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'singleAccountById'}" exact-active-class="active-link">
-                                        <div class="sb-nav-link-icon"><i class="fa fa-user-circle"></i></div>Single account by Id
+                                        <div class="sb-nav-link-icon"><i class="fa fa-user-circle"></i></div>Single account by id
                                     </router-link>
                                 </nav>
                             </div>
-
 
                             <router-link class="nav-item nav-link" :to="{name: 'SearchHashtags'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-tags"></i></div>
@@ -75,18 +73,11 @@
                                 <div class="sb-nav-link-icon"><i class="fa fa-link"></i></div>
                                 API documentation
                             </router-link>
-
-                            <div class="sb-sidenav-menu-heading">RELATED LINKS</div>
-                            <a class="nav-item nav-link" href="https://osome.iu.edu/" target="_blank" rel="noopener noreferrer">
-                                <img src="../assets/favicon.png" alt="Mastodon Logo" class="sb-nav-link-icon">
-                                OSoMe
-                            </a>
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -121,6 +112,11 @@ export default {
 
 
 <style scoped>
+
+.scrollable-sidebar {
+    max-height: 100vh; /* Set maximum height as the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
 
 .active-link {
     border-right: 8px solid #0096FF;

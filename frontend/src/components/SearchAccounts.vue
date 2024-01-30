@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts for the given keyword. Can search across multiple instances at once.</p>
+                    <p>Search for accounts that contain a given keyword in the username or display name. Multiple instances may be searched at once.</p>
                 </div>
             </div>
             <div class="row">
@@ -303,8 +303,8 @@ export default {
             this.infoModalIsOpen = false;
         },
         showInfoModal() {
-            this.info_header_text = "What can I use in account search keyword?"
-            this.info_body_text = "In Mastodon account keyword search, You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
+            this.info_header_text = "What can I type in the search box?"
+            this.info_body_text = "In Mastodon account keyword search, you can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
             this.infoModalIsOpen = true;
         },
         addMastodonInstance (newInstance) {

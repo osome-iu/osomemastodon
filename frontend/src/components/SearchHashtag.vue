@@ -1,7 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text" />
-        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
@@ -90,7 +90,7 @@
                 </table>
             </div>
             <div class="alert alert-warning" v-if="!hashtagData.length && this.searched">
-                <fa icon="exclamation-triangle" /> No data available.
+                <i class="fas fa-exclamation"></i> No data available.
             </div>
         </div>
     </main>
@@ -140,7 +140,8 @@ export default {
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
-            info_body_text: ""
+            info_body_text: "",
+            isModalError: false,
         }
     },
     watch: {
@@ -253,6 +254,23 @@ export default {
                 return value;
             }, 4);
         },
+        async checkEnteredMastodonInstance(enteredMastodonInstance){
+            const apiURL = `https://${enteredMastodonInstance}/api/v1/instance`;
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    return true;
+                }
+                return false
+            } catch (error) {
+                console.error('Error during API request:', error);
+            }
+        },
         downloadAccountJSON(){
             // Create a Blob containing the JSON data
             const blob = new Blob([JSON.stringify(this.downloadData)], { type: 'application/json' });
@@ -290,16 +308,24 @@ export default {
         },
         showInfoModal() {
             this.info_header_text = "What can I type in the search box?"
-            this.info_body_text = "In Mastodon Metadata search, You can use numbers, letters, or a mix of both to find topics you're interested in as hashtag keyword. You don't want to use '#' symbol to search."
+            this.info_body_text = "In Mastodon hashtag metadata search, you can use numbers, letters, or a mix of both for the hashtag to find topics you're interested in."
             this.infoModalIsOpen = true;
 
         },
-        addMastodonInstance (newInstance) {
-            const mastodonInstance = {
-                name: newInstance
+        async addMastodonInstance (newInstance) {
+            if(await this.checkEnteredMastodonInstance(newInstance)) {
+                const mastodonInstance = {
+                    name: newInstance
+                }
+                this.instanceData.push(mastodonInstance)
+                this.selectedMastodonInstances.push(mastodonInstance)
+            }else{
+                this.infoModalIsOpen = true;
+                this.info_header_text = "Error"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.isModalError = true;
+                this.infoModalIsOpen = true;
             }
-            this.instanceData.push(mastodonInstance)
-            this.selectedMastodonInstances.push(mastodonInstance)
         },
         getDomain(url) {
             try {

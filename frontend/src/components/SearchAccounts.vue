@@ -1,7 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text" />
-        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
@@ -55,7 +55,7 @@
                                 <div class="row" style="margin-top: 23px;" v-if="!loading && downloadData.length">
                                     <div class="col-md-12 text-right">
                                         <button type="button" class="btn btn-warning" @click="downloadAccountJSON" style="margin-right: 20px">Download JSON</button>
-                                        <button type="button" class="btn btn-primary" :onclick="showModal" >Show URL</button>
+                                        <button type="button" class="btn btn-primary" :onclick="showModal">Show URL</button>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,8 @@ export default {
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
-            info_body_text: ""
+            info_body_text: "",
+            isModalError: false,
         }
     },
     watch: {
@@ -261,6 +262,23 @@ export default {
             this.accountsData = []
             this.downloadData = []
         },
+        async checkEnteredMastodonInstance(enteredMastodonInstance){
+            const apiURL = `https://${enteredMastodonInstance}/api/v1/instance`;
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    return true;
+                }
+                return false
+            } catch (error) {
+                console.error('Error during API request:', error);
+            }
+        },
         stringifyJSON(stringobject) {
             return JSON.stringify(stringobject, function (key, value) {
                 return value;
@@ -307,13 +325,20 @@ export default {
             this.info_body_text = "In Mastodon account keyword search, you can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
             this.infoModalIsOpen = true;
         },
-        addMastodonInstance (newInstance) {
-            const mastodonInstance = {
-                name: newInstance
+        async addMastodonInstance (newInstance) {
+            if(await this.checkEnteredMastodonInstance(newInstance)) {
+                const mastodonInstance = {
+                    name: newInstance
+                }
+                this.instanceData.push(mastodonInstance)
+                this.selectedMastodonInstances.push(mastodonInstance)
+            }else{
+                this.infoModalIsOpen = true;
+                this.info_header_text = "Error"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.isModalError = true;
+                this.infoModalIsOpen = true;
             }
-            this.instanceData.push(mastodonInstance)
-            this.selectedMastodonInstances.push(mastodonInstance)
-            this.instanceIdError = ""
         },
     },
     mounted() {

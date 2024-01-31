@@ -31,9 +31,9 @@
                 <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>
             </div>
             <div id="q-5">
-                <h3 class="mt-4">How are the Mastodon Status IDs made</h3>
+                <h3 class="mt-4">How are the Mastodon Status ids made</h3>
                 <p>
-                    In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct Id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker Id, that represents the name of the server (instance) to which the posting user belongs, prevents collisions between Ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker Id, and sequence number allows Mastodon to create globally unique post Ids, facilitating efficient organization and retrieval of posts across its decentralized network.
+                    In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker id that represents the name of the server (instance) to which the posting user belongs, prevents collisions between ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker id, and sequence number allows Mastodon to create globally unique post ids, facilitating efficient organization and retrieval of posts across its decentralized network.
                 </p>
             </div>
             <div id="q-6">

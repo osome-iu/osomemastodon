@@ -7,42 +7,36 @@
             </div>
 
             <div class="prompt-modal-body">
-                <div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="form-control" style="font-size:15px">Official - Mastodon API <b>(GET)</b></label>
+                    <div class="row align-items-end">
+                        <div class="col-8 col-md-9">
+                            <label for="officialURL" style="font-size:15px">Official - Mastodon API <b>(GET)</b></label>
                             <input v-model="this.officialURL" ref="officialURL" class="form-control"/>
                         </div>
-                        <div class="col-2">
-                            <label for="form-control"></label>
-                            <button type="button" class="btn btn-success btn-sm" :onclick="copyOfficialMastodonAPItoClipboard">Copy</button>
+                        <div class="col-4 col-md-2 mt-0 mt-md-1" style="margin-bottom: 5px;">
+                            <button type="button" class="btn btn-success btn-sm" @click="copyOfficialMastodonAPItoClipboard">Copy</button>
                         </div>
                     </div>
                     <div v-if="linkcopiedofficialAPI" class="validation-message" >
                         Copied to clipboard!
                     </div>
-                    <div class="row">
-                        <div class="col-9">
-                            <label for="form-control">OSoME - Mastodon API <b>(POST)</b></label>
+                    <div class="row align-items-end">
+                        <div class="col-8 col-md-9">
+                            <label for="osomeURL" style="font-size: 15px;" >OSoME - Mastodon API <b>(POST)</b></label>
                             <input v-model="this.osomeURL" ref="osomeURL" class="form-control"/>
                         </div>
-                        <div class="col-2">
-                            <label for="form-control"></label>
-                            <button type="button" class="btn btn-success btn-sm" :onclick="copyOSoMeMastodonAPItoClipboard">Copy</button>
+                        <div class="col-4 col-md-2 mt-0 mt-md-1" style="margin-bottom: 5px;">
+                            <button type="button" class="btn btn-success btn-sm" @click="copyOSoMeMastodonAPItoClipboard">Copy</button>
                         </div>
                     </div>
                     <div v-if="linkcopiedOsoMEAPI" class="validation-message">
                         Copied to clipboard!
                     </div>
-                </div>
                 <div class="row" style="text-align: center; margin-left:10px; margin-right: 10px; margin-top:20px;">
                     <div class="col" >
                         <button  class="btn btn-secondary btn-md" @click="$emit('cancel')">Cancel</button>
                     </div>
                 </div>
             </div>
-
-            <div class="prompt-modal-footer"></div>
         </div>
     </div>
 </template>
@@ -126,8 +120,8 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    /*width: 100%;*/
-    /*height: 100%;*/
+    width: 100%;
+    height: 95%;
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -135,6 +129,8 @@ export default {
 }
 .prompt-modal-content {
     position: relative;
+    width: 600px;
+    max-width: 90%;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -160,7 +156,11 @@ export default {
     color: #666;
 }
 .prompt-modal-body {
+    margin-left:35px;
     padding: 20px;
+    text-align: left; /* Add this line to center-align text */
+    justify-content: center;
+    align-items: center;
 }
 .prompt-modal-body p {
     margin-top: 0;
@@ -177,12 +177,6 @@ export default {
     .prompt-modal-content {
         width: 100%;
     }
-}
-
-.prompt-modal-body .card-body {
-    background-color: black;
-    border-radius: 4px; /* Adjust the radius as needed */
-    padding: 15px; /* Adjust the padding as needed */
 }
 
 .row{

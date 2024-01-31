@@ -1,7 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
-        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
@@ -52,11 +52,16 @@
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
-                                <div class="col-md-3" style="margin-top: 30px; margin-left: 20px;">
+                                <div class="col-md-3 col-12" style="margin-top: 20px; margin-left: 20px; display: flex; align-items: center;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label for="checkbox" @click="showInfoModal('validity')">&nbsp;Check instance validity &nbsp;<i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label class="col-12 d-flex align-items-center" style="white-space: nowrap; pointer-events: none;">
+                                        <span>&nbsp;Check instance validity</span>&nbsp;
+                                        <button @click="showInfoModal('validity')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                            <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
+                                        </button>
+                                    </label>
                                 </div>
-                                <div class="col-xl-1" style="margin-top: 23px;">
+                                <div class="col-xl-2" style="margin-top: 23px;">
                                     <button type="button" class="btn btn-success" :onclick="submitStatusSearch" >Search</button>
                                 </div>
                             </div>
@@ -158,7 +163,6 @@ import Modal from "../components/Modal.vue";
 import InfoModal from "../components/InfoModal.vue";
 import VueMultiselect from "vue-multiselect";
 
-
 export default {
     name: 'searchStatus',
     components: {
@@ -195,7 +199,8 @@ export default {
             accessTokenErrorArray: [], // Array to store access token errors
             infoModalIsOpen: false,
             info_header_text: "",
-            info_body_text: ""
+            info_body_text: "",
+            isModalError: false,
         }
     },
     watch: {
@@ -243,12 +248,11 @@ export default {
         },
         accessTokenInputChangedArray(index){
             const accessToken = this.accessTokenArray[index];
-
             // Check if the access token is empty
             if (!accessToken.trim()) {
-                this.accessTokenErrorArray[index] = 'Access Token cannot be empty';
+                this.accessTokenErrorArray[index] = 'invalid'; // Clear the error if not empty
             } else {
-                this.accessTokenErrorArray[index] = ''; // Clear the error if not empty
+                this.accessTokenErrorArray[index] = 'valid';
             }
         },
         viewAccountInfo(accountId){
@@ -271,7 +275,6 @@ export default {
             this.instanceIdError = "";
             this.accessTokenError = "";
             this.searched = false;
-
             if (!this.isValidInstance(this.selectedMastodonInstances)) {
                 this.instanceIdError = "Please add one or more Mastodon instances";
             }
@@ -285,9 +288,8 @@ export default {
                 this.downloadData = [];
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
+
                 let dataUrl = constants.url + '/api/search-status-by-keyword';
-
-
                 let requestData = {
                     mastodon_instances: this.selectedMastodonInstances,
                     keyword: this.searchKeyword,
@@ -298,27 +300,33 @@ export default {
 
                 this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/search-status-by-keyword"`;
                 this.officialURL = "curl --location 'https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=statuses' --header 'Authorization: Bearer '" + this.accessTokenArray[0];
-
                 axios.post(dataUrl, requestData)
                     .then(async res => {
                         let data_received = res.data;
-                        if(this.checkMastodonInstance){
-                            //Assuming res.data is an array containing hashtag data
-                            for (let data of data_received) {
-                                const mastodonInstanceResult = await this.checkIfMastodonInstance(data.searched_status)
-                                this.statusData = this.statusData.concat(mastodonInstanceResult);
-                            }
-                        }else{
-                            for (let data of data_received) {
-                                for (let j = 0; j < data.searched_status.statuses.length; j++) {
-                                    this.statusData.push(data.searched_status.statuses[j]);
+                        if(data_received.length) {
+                            if (this.checkMastodonInstance) {
+                                //Assuming res.data is an array containing hashtag data
+                                for (let data of data_received) {
+                                    const mastodonInstanceResult = await this.checkIfMastodonInstance(data.searched_status)
+                                    this.statusData = this.statusData.concat(mastodonInstanceResult);
+                                }
+                            } else {
+                                for (let data of data_received) {
+                                    for (let j = 0; j < data.searched_status.statuses.length; j++) {
+                                        this.statusData.push(data.searched_status.statuses[j]);
+                                    }
                                 }
                             }
+                            this.downloadData = this.statusData;
+                            this.loading = false;
+                            let message = this.statusData.length + " data retrieved";
+                            this.successShowToast(message);
+                        }else{
+                            this.loading = false;
+                            this.modalIsOpen = true;
+                            this.info_header_text = "What does \"Check instance validity\" mean?"
+                            this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance."
                         }
-                        this.downloadData = this.statusData;
-                        this.loading = false;
-                        let message = this.statusData.length + " data retrieved";
-                        this.successShowToast(message);
                     })
                     .catch(error => {
                         this.errorShowToast();
@@ -331,39 +339,54 @@ export default {
             const updatedStatusData = [];
 
             for (let status of statusData.statuses) {
-                let serverName = this.extractURLtoGetInstanceName(status.url);
-                const apiURL = `https://${serverName}/api/v1/instance`;
+                    let serverName = this.extractURLtoGetInstanceName(status.url);
+                    const apiURL = `https://${serverName}/api/v1/instance`;
+                    try {
+                        const response = await fetch(apiURL, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
 
-                try {
-                    const response = await fetch(apiURL, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    });
-
-                    if (response.ok) {
-                        const responseData = await response.json();
-                        // Assuming you want to add the API response data to each status
-                        const updatedStatus = { ...status, "mastodon_instance": "Yes" };
-                        updatedStatusData.push(updatedStatus);
-                    } else {
-                        console.error(`Error: ${response.status} - ${response.statusText}`);
+                        if (response.ok) {
+                            // Assuming you want to add the API response data to each status
+                            const updatedStatus = {...status, "mastodon_instance": "Yes"};
+                            updatedStatusData.push(updatedStatus);
+                        } else {
+                            console.error(`Error: ${response.status} - ${response.statusText}`);
+                            // Assuming you want to add an error message to each status in case of an error
+                            const updatedStatus = {...status, "mastodon_instance": "No"};
+                            updatedStatusData.push(updatedStatus);
+                        }
+                    } catch (error) {
+                        console.error('Error during API request:', error);
                         // Assuming you want to add an error message to each status in case of an error
-                        const updatedStatus = { ...status, "mastodon_instance": "No" };
+                        const updatedStatus = {...status, "mastodon_instance": "No"};
                         updatedStatusData.push(updatedStatus);
                     }
-                } catch (error) {
-                    console.error('Error during API request:', error);
-                    // Assuming you want to add an error message to each status in case of an error
-                    const updatedStatus = { ...status, "mastodon_instance": "No" };
-                    updatedStatusData.push(updatedStatus);
-                }
             }
             return updatedStatusData;
         },
-        stringifyJSON(stringobject) {
-            return JSON.stringify(stringobject, function (key, value) {
+        async checkEnteredMastodonInstance(enteredMastodonInstance){
+            const apiURL = `https://${enteredMastodonInstance}/api/v1/instance`;
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    return true;
+                }
+                return false
+            } catch (error) {
+                console.error('Error during API request:', error);
+            }
+        },
+        stringifyJSON(stringObject) {
+            return JSON.stringify(stringObject, function (key, value) {
                 return value;
             }, 4);
         },
@@ -417,12 +440,21 @@ export default {
         changeCheckMastodonInstance(){
             this.statusData = []
         },
-        addMastodonInstance (newInstance) {
-            const mastodonInstance = {
-                name: newInstance
+        async addMastodonInstance (newInstance) {
+            if(await this.checkEnteredMastodonInstance(newInstance)) {
+                const mastodonInstance = {
+                    name: newInstance
+                }
+                this.instanceData.push(mastodonInstance)
+                this.selectedMastodonInstances.push(mastodonInstance)
+                this.accessTokenErrorArray.push(mastodonInstance)
+            }else{
+                this.infoModalIsOpen = true;
+                this.info_header_text = "Error"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.isModalError = true;
+                this.infoModalIsOpen = true;
             }
-            this.instanceData.push(mastodonInstance)
-            this.selectedMastodonInstances.push(mastodonInstance)
         },
         removeMastodonInstance(removedItem) {
             // Find the index of the removed item
@@ -453,4 +485,3 @@ export default {
     color: black;
 }
 </style>
-

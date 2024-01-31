@@ -1,7 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
-        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instance</span></h1>
             <div class="col-12">
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div class="alert alert-warning" v-if="statusesArray.length === 0 && this.searched">
-                <fa icon="exclamation-triangle" /> No data available.
+                <i class="fas fa-exclamation"></i> No data available.
             </div>
         </div>
     </main>
@@ -190,7 +190,8 @@ export default {
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
-            info_body_text: ""
+            info_body_text: "",
+            isModalError: false,
         }
     },
     watch: {
@@ -353,12 +354,37 @@ export default {
             this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
             this.infoModalIsOpen = true;
         },
-        addMastodonInstance (newInstance) {
-            const mastodonInstance = {
-                name: newInstance
+        async addMastodonInstance (newInstance) {
+            if(await this.checkEnteredMastodonInstance(newInstance)) {
+                const mastodonInstance = {
+                    name: newInstance
+                }
+                this.instanceData.push(mastodonInstance)
+                this.selectedMastodonInstances.push(mastodonInstance)
+            }else{
+                this.infoModalIsOpen = true;
+                this.info_header_text = "Error"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.isModalError = true;
+                this.infoModalIsOpen = true;
             }
-            this.instanceData.push(mastodonInstance)
-            this.selectedMastodonInstances.push(mastodonInstance)
+        },
+        async checkEnteredMastodonInstance(enteredMastodonInstance){
+            const apiURL = `https://${enteredMastodonInstance}/api/v1/instance`;
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    return true;
+                }
+                return false
+            } catch (error) {
+                console.error('Error during API request:', error);
+            }
         },
     },
     mounted() {

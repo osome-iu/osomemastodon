@@ -10934,6 +10934,7 @@ body {
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
   overflow-y: auto;
   overflow-style: auto;
+  margin-bottom: 40px;
 }
 
 /* For WebKit (Chrome, Safari) */

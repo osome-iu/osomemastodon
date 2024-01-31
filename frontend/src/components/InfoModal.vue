@@ -7,12 +7,19 @@
             </div>
 
             <div class="prompt-modal-body">
-                <div class="row">
+                <div class="row" v-if="!isModalError">
                     <p>{{info}}</p>
+                </div>
+                <div class="row" v-if="isModalError">
+                    <p v-html="info"></p>
                 </div>
                 <div class="row" style="text-align: center; margin-left:10px; margin-right: 10px; margin-top:5px;">
                     <div class="col" >
-                        <button  class="btn btn-success btn-md" @click="$emit('cancel')">Okay</button>
+                        <button
+                            class="btn btn-md"
+                            :class="{ 'btn-success': !isModalError, 'btn-danger': isModalError }"
+                            @click="$emit('cancel')"
+                        >Okay</button>
                     </div>
                 </div>
             </div>
@@ -39,6 +46,10 @@ export default {
         header:{
             type: String,
             default: 'Info',
+        },
+        isModalError:{
+            type: String,
+            default: false
         }
     },
     data() {
@@ -50,7 +61,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .prompt-modal {
     position: fixed;
     top: 0;

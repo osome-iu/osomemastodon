@@ -55,7 +55,7 @@
                         </table>
                     </div>
                     <div class="alert alert-warning" v-if="instanceData.length === 0 & !loading">
-                        <fa icon="exclamation-triangle" /> No data available.
+                        <i class="fas fa-exclamation"></i> No data available.
                     </div>
                 </div>
             </div>

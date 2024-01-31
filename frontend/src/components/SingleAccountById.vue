@@ -1,7 +1,7 @@
 <template>
     <main>
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
-        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text"/>
+        <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by id</span></h1>
             <div class="col-12">
@@ -14,7 +14,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Search accounts by Id - <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">Documentation</router-link>
+                            Search accounts by id - <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -25,14 +25,14 @@
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
-                                        :taggable="false"
+                                        :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
                                         placeholder="Type to search or add"
                                         label="name"
                                         track-by="name"
                                         role="textbox"
-                                        :style="{ width: '100%', height: '40%' }"
+                                        :style="{ width: '100%', height: '50%' }"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
@@ -194,7 +194,8 @@ export default {
             downloadData: [],
             infoModalIsOpen: false,
             info_header_text: "",
-            info_body_text: ""
+            info_body_text: "",
+            isModalError: false,
         }
     },
     watch: {
@@ -337,15 +338,37 @@ export default {
             this.infoModalIsOpen = true;
 
         },
-        addMastodonInstance (newInstance) {
-            this.fetchAllInstanceData();
-            const mastodonInstance = {
-                name: newInstance,
-                active_users: "",
-                all_users: ""
+        async checkEnteredMastodonInstance(enteredMastodonInstance){
+            const apiURL = `https://${enteredMastodonInstance}/api/v1/instance`;
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    return true;
+                }
+                return false
+            } catch (error) {
+                console.error('Error during API request:', error);
             }
-            this.instanceData.push(mastodonInstance);
-            this.selectedMastodonInstances.push(mastodonInstance);
+        },
+        async addMastodonInstance (newInstance) {
+            if(await this.checkEnteredMastodonInstance(newInstance)) {
+                const mastodonInstance = {
+                    name: newInstance
+                }
+                this.instanceData.push(mastodonInstance)
+                this.selectedMastodonInstances.push(mastodonInstance)
+            }else{
+                this.infoModalIsOpen = true;
+                this.info_header_text = "Error"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.isModalError = true;
+                this.infoModalIsOpen = true;
+            }
         },
     },
     mounted() {

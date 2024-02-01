@@ -11,15 +11,11 @@
                     <p>{{info}}</p>
                 </div>
                 <div class="row" v-if="isModalError">
-                    <p v-html="info"></p>
+                    <div v-html="info"></div>
                 </div>
                 <div class="row" style="text-align: center; margin-left:10px; margin-right: 10px; margin-top:5px;">
                     <div class="col" >
-                        <button
-                            class="btn btn-md"
-                            :class="{ 'btn-success': !isModalError, 'btn-danger': isModalError }"
-                            @click="$emit('cancel')"
-                        >Okay</button>
+                        <button  class="btn btn-success btn-md" @click="$emit('cancel')">Okay</button>
                     </div>
                 </div>
             </div>
@@ -49,7 +45,7 @@ export default {
         },
         isModalError:{
             type: String,
-            default: false
+            default: Boolean
         }
     },
     data() {

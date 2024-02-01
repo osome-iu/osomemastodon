@@ -42,43 +42,48 @@ def status_search_by_id(mastodon_instance, status_id):
     return status
 
 
+import requests
+
+
 def mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance):
     """
-    This method is used to get the accounts,statuses and hashtags.
+    This method is used to get the accounts, statuses, and hashtags.
 
-    Parameters passing
-    -----------
+    Parameters:
     - access_tokens - Bearer tokens to retrieve statuses
     - search_keyword - search keyword
 
-    Returns
+    Returns:
     - JSON object
-        "accounts": [
-            ...
-            ],
-            "statuses":[
-            ...
-            ],
-            "hashtags":[
-            ...
-            ],
-    -----------
-    Note: here is the reference : https://docs.joinmastodon.org/methods/search/
-    """
+        "accounts": [...],
+        "statuses": [...],
+        "hashtags": [...]
 
+    Note: Reference - https://docs.joinmastodon.org/methods/search/
+    """
     search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true'
 
     headers = {
         'Authorization': f'Bearer {access_token}'
     }
 
-    response = requests.get(search_endpoint_url, headers=headers)
+    try:
+        response = requests.get(search_endpoint_url, headers=headers)
+        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx or 5xx)
 
-    # Check the response status code
-    if response.status_code == 200:
-        status_data = response.json()
-        searched_status = {"searched_status": status_data}
-        return searched_status
-    else:
-        # Handle the errors occur with API method calling.
-        print(f"Error: {response.status_code} - {response.text}")
+        if response.status_code == 200:
+            status_data = response.json()
+            searched_status = {"searched_status": status_data}
+
+    except requests.exceptions.HTTPError as err:
+        # Handle HTTP errors (4xx or 5xx) here
+        if response.status_code == 400:
+            searched_status = {"error_search_not_allowed_instances": "Bad request (400 error)"}
+        else:
+            searched_status = {"error_search_not_allowed_instances": f"HTTP error: {err}"}
+
+    except Exception as e:
+        # Handle other exceptions here
+        searched_status = {"error_search_access_key_instances": f"An unexpected error occurred: {e}"}
+
+    return searched_status

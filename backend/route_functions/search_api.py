@@ -39,22 +39,33 @@ def search_status_data_by_keyword():
     try:
         data = request.get_json()
         mastodon_instances = data.get('mastodon_instances')
-        search_keyword = data.get('keyword')
         access_tokens = data.get('access_tokens')
+        search_keyword = data.get('keyword')
 
-        mastodon_instance_list = [{'name': instance['name'], 'access_token': access_token} for access_token, instance in
-                         zip(access_tokens, mastodon_instances)]
+        mastodon_instance_list = [{'name': instance['name'], 'access_token': token} for instance, token in
+                                  zip(mastodon_instances, access_tokens)]
 
         statuses_result_set = []
-
+        search_success_array = []
+        search_not_allowed_error_array = []
+        search_access_key_error_array = []
         for mastodon_instance in mastodon_instance_list:
             mastodon_instance_name = mastodon_instance.get('name')
             access_token = mastodon_instance.get('access_token')
-
             if mastodon_instance_name and access_token:
                 status_data = statuses_search.mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance_name)
-                statuses_result_set.append(status_data)
+                #this will extract the error giving mastodon search and store it in
+                if 'error_search_not_allowed' in status_data:
+                    search_not_allowed_error_array.append(mastodon_instance_name)
+                if 'error_search_access_key' in status_data:
+                    search_access_key_error_array.append(mastodon_instance_name)
+                if 'searched_status' in status_data:
+                    search_success_array.append(mastodon_instance_name)
 
+                statuses_result_set.append(status_data)
+                statuses_result_set.append({'searched_status': search_success_array})
+                statuses_result_set.append({'error_search_not_allowed_instances': search_not_allowed_error_array})
+                statuses_result_set.append({'error_search_access_key_instances': search_access_key_error_array})
     except:
         return "Bad request", 400
     else:

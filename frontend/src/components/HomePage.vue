@@ -12,35 +12,35 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="api-section">
-                            <h4><i class="far fa-square"></i> Get Statuses</h4>
+                            <h4>Get Statuses</h4>
                             <ul class="api-list">
-                                <li><router-link to="/searchbykeyword"  class="api-documentation">Search by keyword</router-link> - Search for statuses for a given keyword. This function allows to search across multiple instances with given keyword.</li>
+                                <li><router-link to="/searchbykeyword"  class="api-documentation">Search by keyword</router-link> - Search statuses across multiple instances using a given keyword. <b>An access token is required</b> for each instance being searched.</li>
                                 <li><router-link to="/timelinehashtag"  class="api-documentation">Search by hashtag</router-link> - Retrieve detailed metadata information for hashtags with the given keyword.</li>
                                 <li><router-link to="/timelinestatus"  class="api-documentation">Recent for instance</router-link> - A  list of the most recent statuses. </li>
                                 <li><router-link to="/searchbyid"  class="api-documentation">Single status by id</router-link> - Get information about a status by status id.</li>
                             </ul>
                         </div>
                         <div class="api-section">
-                            <h4><i class="far fa-square"></i> Get Accounts</h4>
+                            <h4>Get Accounts</h4>
                             <ol class="api-list">
                                 <li><router-link to="/searchaccounts" class="api-documentation">Search by keyword</router-link> - Search for accounts that contain a given keyword in the username or display name.</li>
                                 <li><router-link to="/accountsbyId" class="api-documentation">Single account by id</router-link> - Retrieve information about a profile using the account id.</li>
                             </ol>
                         </div>
                         <div class="api-section">
-                            <h4><i class="far fa-square"></i> Get Hashtag Metadata</h4>
+                            <h4> Get Hashtag Metadata</h4>
                             <ol class="api-list">
                                 <li><router-link to="/searchhashtags" class="api-documentation">Hashtag Metadata</router-link> - Search for accounts for the given keyword. Can search across multiple instances at once.</li>
                             </ol>
                         </div>
                         <div class="api-section">
-                            <h4><i class="far fa-square"></i> Instances</h4>
+                            <h4>Instances</h4>
                             <ol class="api-list">
                                 <li><router-link to="/instances" class="api-documentation">Mastodon Instances</router-link> - Retrieves the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the instances.social API to gather the instances.</li>
                             </ol>
                         </div>
                         <div class="api-section">
-                            <h4><i class="far fa-square"></i> Documentation</h4>
+                            <h4> Documentation</h4>
                             <ol class="api-list">
                                 <li><router-link to="/faq" class="api-documentation">FAQ</router-link> - The FAQ section addresses common questions, providing quick insights and information about the Mastodon interface.</li>
                                 <li><router-link to="/apidocumentation" class="api-documentation">API Documentation</router-link> - Guide to interact with Mastodon APIs, presenting key information on endpoints, request formats, and response structures.</li>

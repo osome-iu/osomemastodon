@@ -1,6 +1,6 @@
 <template>
-    <div class="container text-center">
-        <footer class="py-4 bg-light mt-auto">
+    <div>
+        <footer class="py-4 bg-light">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
                     <div class="text-muted" style="color: black">
@@ -17,6 +17,7 @@
         </footer>
     </div>
 </template>
+
 
 <script>
 export default {

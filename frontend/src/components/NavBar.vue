@@ -3,7 +3,7 @@
         <div class="d-flex align-items-center m-0">
             <!-- Use ml-auto to push the button to the right -->
             <button class="btn btn-link btn-sm order-10 order-sm-10 order-lg-0 ml-auto me-9 me-lg-0" id="sidebarToggle" href="#!" aria-label="navigate-button" style="font-size:1.2rem">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars" style="color:white"></i>
             </button>
             <a href="https://osome.iu.edu/" target="_blank" class="navigation-link">
                 <!-- Add 'small' class to make the text smaller on smaller screens -->

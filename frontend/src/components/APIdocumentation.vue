@@ -191,7 +191,7 @@
                 <h3 class="mt-4">3. Status - Search by hashtag API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
+                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">
@@ -459,7 +459,7 @@
                 <h3 class="mt-4">7. Accounts - Single Account by id</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official documentation <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">

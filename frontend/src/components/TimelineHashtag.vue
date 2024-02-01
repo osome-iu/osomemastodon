@@ -6,14 +6,13 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>View public/local statuses containing the given hashtag. This allows you to fetch statuses on the hashtag you are searching.</p>
+                    <p>Search statuses across multiple instances using a given hashtag.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-search"></i>
                             Search statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
@@ -393,9 +392,9 @@ export default {
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                      \nIn the dropdown box, you'll find a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. You can to enter any Mastodon instance in the search box or explore further insights on Mastodon instances
-                      <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
-                    `;
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. Explore further insights on Mastodon instances
+                          <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                        `;
                 this.infoModalIsOpen = true;
             }
         },

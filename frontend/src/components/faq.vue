@@ -5,8 +5,8 @@
             <ul class= "list-item-main">
                 <li class= "list-item" v-scroll-to="'#q-1'"><span><i class="fa-solid fa-long-arrow-right" ></i></span> Mastodon instances</li>
                 <li class= "list-item" v-scroll-to="'#q-2'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token</li>
-                <li class= "list-item" v-scroll-to="'#q-3'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How are the Mastodon Status ids made</li>
-                <li class= "list-item" v-scroll-to="'#q-4'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the Local and Federated timelines</li>
+                <li class= "list-item" v-scroll-to="'#q-3'"><span><i class="fa-solid fa-long-arrow-right"></i></span> How are the Mastodon status ids made</li>
+                <li class= "list-item" v-scroll-to="'#q-4'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Difference between the local and federated timelines</li>
                 <li class= "list-item" v-scroll-to="'#q-5'"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
             </ul>
             <div id="q-1">
@@ -30,15 +30,15 @@
                 <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>
             </div>
             <div id="q-3">
-                <h3 class="mt-4">How are the Mastodon Status ids made</h3>
+                <h3 class="mt-4">How are the Mastodon status ids made</h3>
                 <p>
                     In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker id that represents the name of the server (instance) to which the posting user belongs, prevents collisions between ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker id, and sequence number allows Mastodon to create globally unique post ids, facilitating efficient organization and retrieval of posts across its decentralized network.
                 </p>
             </div>
             <div id="q-4">
-                <h4 class="mt-4">Difference between the Local and Federated timelines</h4>
+                <h4 class="mt-4">Difference between the local and federated timelines</h4>
                 <p>
-                    The Local timeline displays posts from all users on a specified server, while the Federated timeline includes public posts from users across the Mastodon network who are followed by users on the specified server.
+                    The local timeline displays posts from all users on a specified server, while the federated timeline includes public posts from users across the Mastodon network who are followed by users on the specified server.
                 </p>
             </div>
             <div id="q-5">

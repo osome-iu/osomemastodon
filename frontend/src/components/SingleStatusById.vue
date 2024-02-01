@@ -288,12 +288,12 @@ export default {
                         this.instanceName = this.extractURLtoGetInstanceName(res.data.url);
                         let message = "Data retrieved successfully."
                         this.successShowToast(message)
-                        this.loading = false;
                     }).catch(error => {
                     console.log(error);
                     this.singleStatusData = []
                     this.errorShowToast();
                 });
+                this.loading = false;
             }
         },
         stringifyJSON(stringobject) {

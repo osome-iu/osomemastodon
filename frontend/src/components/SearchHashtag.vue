@@ -235,9 +235,6 @@ export default {
                         }
 
                         this.downloadData = this.hashtagData;
-                        this.loading = false;
-
-
                         let message = this.hashtagData.length + " data retrieved";
                         this.successShowToast(message);
                     })
@@ -245,6 +242,7 @@ export default {
                         this.errorShowToast();
                         console.log(error);
                     });
+                    this.loading = false;
             }
         },
         stringifyJSON(stringobject) {

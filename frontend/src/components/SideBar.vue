@@ -29,7 +29,7 @@
                                         <div class="sb-nav-link-icon"><i class="fa fa-list-alt"></i></div>Recent for instance
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" exact-active-class="active-link" >
-                                        <div class="sb-nav-link-icon"><i class="fa fa-clipboard-check"></i></div>Single Status by id
+                                        <div class="sb-nav-link-icon"><i class="fa fa-clipboard-check"></i></div>Single status by id
                                     </router-link>
                                 </nav>
                             </div>

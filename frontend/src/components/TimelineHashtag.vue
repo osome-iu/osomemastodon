@@ -386,8 +386,8 @@ export default {
                 this.info_body_text = "In Mastodon statuses - most recent by hashtag, you can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search."
                 this.infoModalIsOpen = true;
             }else if(type == 'data'){
-                this.info_header_text = "Difference between the Local and Federated timelines"
-                this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
+                this.info_header_text = "Difference between the local and federated timelines"
+                this.info_body_text = "The local timeline displays statuses from all users on a specified server, while the federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

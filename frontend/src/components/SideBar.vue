@@ -23,7 +23,7 @@
                                         <div class="sb-nav-link-icon"><i class="fa fa-search"></i></div>Search by keyword
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}"  exact-active-class="active-link">
-                                        <div class="sb-nav-link-icon"><i class="fa fa-refresh"></i></div>Most recent by hashtag
+                                        <div class="sb-nav-link-icon"><i class="fa fa-refresh"></i></div>Search by hashtag
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" exact-active-class="active-link" >
                                         <div class="sb-nav-link-icon"><i class="fa fa-list-alt"></i></div>Recent for instance

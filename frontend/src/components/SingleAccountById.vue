@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-5">
-                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instance</label>
+                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instance <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -37,7 +37,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword" @click="showInfoModal">Account Id <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" @click="showInfoModal('keyword')">Account Id <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         v-model="accountId"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchAccountIdError !== ''}"
@@ -332,11 +332,20 @@ export default {
         closeInfoModal() {
             this.infoModalIsOpen = false;
         },
-        showInfoModal() {
-            this.info_header_text = "What can I use as an account id?"
-            this.info_body_text = "In Mastodon single account search, you can use numbers, letters, or a mix of both for the account id. These ids are unique for each account."
-            this.infoModalIsOpen = true;
-
+        showInfoModal(type) {
+            if(type == 'keyword'){
+                this.info_header_text = "What can I use as an account id?"
+                this.info_body_text = "In Mastodon single account search, you can use numbers, letters, or a mix of both for the account id. These ids are unique for each account."
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "What Mastodon instances are featured in the dropdown?"
+                this.isModalError = true;
+                this.info_body_text = `
+                      \nIn the dropdown box, you'll find a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. You can to enter any Mastodon instance in the search box or explore further insights on Mastodon instances
+                      <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                    `;
+                this.infoModalIsOpen = true;
+            }
         },
         async checkEnteredMastodonInstance(enteredMastodonInstance){
             const apiURL = `https://${enteredMastodonInstance}/api/v1/instance`;
@@ -364,8 +373,8 @@ export default {
                 this.selectedMastodonInstances.push(mastodonInstance)
             }else{
                 this.infoModalIsOpen = true;
-                this.info_header_text = "Error"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.info_header_text = "Error in adding Mastodon instance"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid Mastodon instance. Please add a valid Mastodon instance."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }

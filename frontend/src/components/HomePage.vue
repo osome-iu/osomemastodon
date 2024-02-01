@@ -15,8 +15,8 @@
                             <h4><i class="far fa-square"></i> Get Statuses</h4>
                             <ul class="api-list">
                                 <li><router-link to="/searchbykeyword"  class="api-documentation">Search by keyword</router-link> - Search for statuses for a given keyword. This function allows to search across multiple instances with given keyword.</li>
-                                <li><router-link to="/timelinehashtag"  class="api-documentation">Most recent by hashtag</router-link> - Retrieve detailed metadata information for hashtags with the given keyword.</li>
-                                <li><router-link to="/timelinestatus"  class="api-documentation">Recent for instance</router-link> - A chronological list of the most recent statuses. </li>
+                                <li><router-link to="/timelinehashtag"  class="api-documentation">Search by hashtag</router-link> - Retrieve detailed metadata information for hashtags with the given keyword.</li>
+                                <li><router-link to="/timelinestatus"  class="api-documentation">Recent for instance</router-link> - A  list of the most recent statuses. </li>
                                 <li><router-link to="/searchbyid"  class="api-documentation">Single status by id</router-link> - Get information about a status by status id.</li>
                             </ul>
                         </div>

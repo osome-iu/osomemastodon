@@ -7,7 +7,7 @@
                 <ol>
                     <li class= "list-item" v-scroll-to="'#api-1'" >Instance - Get Mastodon Instances API</li>
                     <li class= "list-item" v-scroll-to="'#api-2'">Status - Search by keyword API</li>
-                    <li class= "list-item" v-scroll-to="'#api-3'">Status - Most recent by hashtag API</li>
+                    <li class= "list-item" v-scroll-to="'#api-3'">Status - Search by hashtag API</li>
                     <li class= "list-item" v-scroll-to="'#api-4'">Status - Most recent for instance API</li>
                     <li class= "list-item" v-scroll-to="'#api-5'">Status - Single status by id API</li>
                     <li class= "list-item" v-scroll-to="'#api-6'" >Accounts - Search by keyword</li>
@@ -188,7 +188,7 @@
 
 <!--            3. Status - Most recent by hashtag API            -->
             <div id="api-3">
-                <h3 class="mt-4">3. Status - Most recent by hashtag API</h3>
+                <h3 class="mt-4">3. Status - Search by hashtag API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>

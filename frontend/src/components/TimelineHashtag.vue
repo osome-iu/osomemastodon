@@ -3,10 +3,10 @@
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :officialURL="this.officialURL" :osomeURL="this.osomeURL" :header="this.header_text"/>
         <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Statuses <span class="subtitle">- Most recent by hashtag</span></h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>View public/local statuses containing the given hashtag. This allows you to fetch statuses in chronological order based on the hashtag you are searching.</p>
+                    <p>View public/local statuses containing the given hashtag. This allows you to fetch statuses on the hashtag you are searching.</p>
                 </div>
             </div>
             <div class="row">
@@ -14,12 +14,12 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-search"></i>
-                            Most recent statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
+                            Search statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instances</label>
+                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instances <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -151,9 +151,6 @@
                     </div>
                 </div>
             </div>
-            <div class="alert alert-warning" v-if="hashtagArray.length === 0 && this.searched">
-                <i class="fas fa-exclamation"></i> No data available.
-            </div>
         </div>
     </main>
 </template>
@@ -199,7 +196,6 @@ export default {
             osomeURL: "",
             officialURL: "",
             header_text: "",
-            searched: false,
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
@@ -222,6 +218,9 @@ export default {
         hashtagInputChanged(e){
             let valueReceived = e.target.value;
             if(valueReceived){
+                if (valueReceived.charAt(0) === '#') {
+                    this.hashtagSearch = valueReceived.slice(1);
+                }
                 this.hashtagKeywordError = ""
                 this.hashtagSearchBlurred = false;
             }
@@ -386,9 +385,17 @@ export default {
                 this.info_header_text = "What can I type in the search box?"
                 this.info_body_text = "In Mastodon statuses - most recent by hashtag, you can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search."
                 this.infoModalIsOpen = true;
-            }else{
+            }else if(type == 'data'){
                 this.info_header_text = "Difference between the Local and Federated timelines"
                 this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "What Mastodon instances are featured in the dropdown?"
+                this.isModalError = true;
+                this.info_body_text = `
+                      \nIn the dropdown box, you'll find a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. You can to enter any Mastodon instance in the search box or explore further insights on Mastodon instances
+                      <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                    `;
                 this.infoModalIsOpen = true;
             }
         },
@@ -401,8 +408,8 @@ export default {
                 this.selectedMastodonInstances.push(mastodonInstance)
             }else{
                 this.infoModalIsOpen = true;
-                this.info_header_text = "Error"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.info_header_text = "Error in adding Mastodon instance"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid Mastodon instance. Please add a valid Mastodon instance."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }

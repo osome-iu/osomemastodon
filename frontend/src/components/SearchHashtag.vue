@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-6">
-                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instances</label>
+                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instances <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -89,9 +89,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="alert alert-warning" v-if="!hashtagData.length && this.searched">
-                <i class="fas fa-exclamation"></i> No data available.
-            </div>
         </div>
     </main>
 </template>
@@ -136,7 +133,6 @@ export default {
             osomeURL: "",
             officialURL: "",
             header_text: "",
-            searched: false,
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
@@ -186,6 +182,9 @@ export default {
         keywordInputChanged(e){
             let valueReceived = e.target.value;
             if(valueReceived){
+                if (valueReceived.charAt(0) === '#') {
+                    this.searchKeyword = valueReceived.slice(1);
+                }
                 this.searchKeywordError = ""
                 this.searchKeywordBlurred = false;
             }
@@ -321,8 +320,8 @@ export default {
                 this.selectedMastodonInstances.push(mastodonInstance)
             }else{
                 this.infoModalIsOpen = true;
-                this.info_header_text = "Error"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.info_header_text = "Error in adding Mastodon instance"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid Mastodon instance. Please add a valid Mastodon instance."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }

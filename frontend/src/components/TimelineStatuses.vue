@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instance</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>A chronological list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
+                    <p>A list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
                 </div>
             </div>
             <div class="row">
@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instances</label>
+                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instances <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -142,9 +142,6 @@
                     </div>
                 </div>
             </div>
-            <div class="alert alert-warning" v-if="statusesArray.length === 0 && this.searched">
-                <i class="fas fa-exclamation"></i> No data available.
-            </div>
         </div>
     </main>
 </template>
@@ -186,7 +183,6 @@ export default {
             osomeURL: "",
             officialURL: "",
             header_text: "",
-            searched: false,
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
@@ -349,10 +345,20 @@ export default {
         closeInfoModal() {
             this.infoModalIsOpen = false;
         },
-        showInfoModal() {
-            this.info_header_text = "Difference between the Local and Federated timelines"
-            this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
-            this.infoModalIsOpen = true;
+        showInfoModal(type) {
+            if(type == 'data') {
+                this.info_header_text = "Difference between the Local and Federated timelines"
+                this.info_body_text = "The Local timeline displays statuses from all users on a specified server, while the Federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "What Mastodon instances are featured in the dropdown?"
+                this.isModalError = true;
+                this.info_body_text = `
+                    \nIn the dropdown box, you'll find a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. You can to enter any Mastodon instance in the search box or explore further insights on Mastodon instances
+                     <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                      `;
+                this.infoModalIsOpen = true;
+            }
         },
         async addMastodonInstance (newInstance) {
             if(await this.checkEnteredMastodonInstance(newInstance)) {
@@ -363,8 +369,8 @@ export default {
                 this.selectedMastodonInstances.push(mastodonInstance)
             }else{
                 this.infoModalIsOpen = true;
-                this.info_header_text = "Error"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.info_header_text = "Error in adding Mastodon instance"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a Mastodon valid instance. Please add a valid Mastodon instance."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }

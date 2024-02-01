@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instances</label>
+                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instances <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -69,21 +69,23 @@
                                 <div class="row" style="margin-top: 20px; font-weight: bold;">
                                     <p style="text-decoration: underline;" >Access Tokens <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></p>
                                 </div>
-                                <div class="row" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index" style="margin-top:10px;">
-                                    <div class="col-md-2" style="margin-top:5px;">
+                                <div class="row" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index" style="margin-top: 10px;">
+                                    <div class="col-md-1 col-xl-2 col-md-4 col-sm-6" style="margin-top: 5px;">
                                         <p>{{ mastodonInstance.name }}</p>
                                     </div>
-                                    <div class="col-xl-4">
+                                    <div class="col-md-1 col-xl-5 col-md-4 col-sm-6">
                                         <input
                                             v-model="accessTokenArray[index]"
-                                            v-bind:class="{'form-control': true,}"
-                                            placeholder="Access Token"
-                                            @input="accessTokenInputChangedArray(index)"
+                                            v-bind:class="{'form-control': true, 'is-invalid': formSubmit && !accessTokenArray[index]}"
+                                            class="form-control"
+                                            placeholder="access token"
                                         />
-                                        <div v-if="accessTokenErrorArray[index] !== ''" class="invalid-feedback">{{ accessTokenErrorArray[index] }}</div>
+                                        <div class="invalid-feedback" v-if="formSubmit">
+                                            {{ accessTokenArray[index] ? "" : "Please enter an access token" }}
+                                        </div>
                                     </div>
-                                    <div class="col-xl-5">
-                                        <button type="button" class="btn btn-danger" @click="removeMastodonInstanceFromBtn(index)" >Remove</button>
+                                    <div class="col-md-1 col-xl-4 col-md-4 col-sm-12 mt-md-0 mt-2" style="margin-top: 30px;">
+                                        <button type="button" class="btn btn-danger" @click="removeMastodonInstanceFromBtn(index)">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -145,9 +147,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="alert alert-warning" v-if="statusData.length === 0 && this.searched">
-                <i class="fas fa-exclamation"></i> No data available.
-            </div>
         </div>
     </main>
 </template>
@@ -192,15 +191,17 @@ export default {
             officialURL: "",
             osomeURL: "",
             header_text: "",
-            searched: false,
             checkMastodonInstance : false,
             selectedMastodonInstances: [],
             accessTokenArray: [], // Array to store access tokens
-            accessTokenErrorArray: [], // Array to store access token errors
             infoModalIsOpen: false,
             info_header_text: "",
             info_body_text: "",
             isModalError: false,
+            formSubmit: false,
+            success_searched_array: [],
+            error_access_key_searched_array: [],
+            error_search_not_allowed_array: []
         }
     },
     watch: {
@@ -209,6 +210,7 @@ export default {
             if (newInstances.length > 0) {
                 this.instanceIdError = '';
             }
+            this.formSubmit = false;
         },
     },
     methods: {
@@ -246,15 +248,6 @@ export default {
                 this.searchKeywordBlurred = false;
             }
         },
-        accessTokenInputChangedArray(index){
-            const accessToken = this.accessTokenArray[index];
-            // Check if the access token is empty
-            if (!accessToken.trim()) {
-                this.accessTokenErrorArray[index] = 'invalid'; // Clear the error if not empty
-            } else {
-                this.accessTokenErrorArray[index] = 'valid';
-            }
-        },
         viewAccountInfo(accountId){
             this.$router.push({
                 name: 'Accounts',  // Assuming you have a route name
@@ -270,11 +263,19 @@ export default {
                 console.log(error);
             });
         },
+        isValidAccessTokens(){
+            if(this.selectedMastodonInstances.length == this.accessTokenArray.length){
+                return !this.accessTokenArray.some(token => token.trim() === '');
+            }else{
+                return false;
+            }
+        },
         submitStatusSearch(){
             this.searchKeywordError = "";
             this.instanceIdError = "";
             this.accessTokenError = "";
-            this.searched = false;
+            this.formSubmit =true;
+
             if (!this.isValidInstance(this.selectedMastodonInstances)) {
                 this.instanceIdError = "Please add one or more Mastodon instances";
             }
@@ -282,20 +283,17 @@ export default {
             if (!this.isValidKeyword(this.searchKeyword)) {
                 this.searchKeywordError = "Keyword is required";
             }
-
-            if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances)) {
+            if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances) && this.isValidAccessTokens()) {
                 this.statusData = [];
                 this.downloadData = [];
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
-
                 let dataUrl = constants.url + '/api/search-status-by-keyword';
                 let requestData = {
                     mastodon_instances: this.selectedMastodonInstances,
                     keyword: this.searchKeyword,
                     access_tokens: this.accessTokenArray
                 };
-
                 let jsonData = JSON.stringify(requestData);
 
                 this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/search-status-by-keyword"`;
@@ -303,35 +301,47 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(async res => {
                         let data_received = res.data;
-                        if(data_received.length) {
-                            if (this.checkMastodonInstance) {
-                                //Assuming res.data is an array containing hashtag data
-                                for (let data of data_received) {
-                                    const mastodonInstanceResult = await this.checkIfMastodonInstance(data.searched_status)
-                                    this.statusData = this.statusData.concat(mastodonInstanceResult);
-                                }
-                            } else {
-                                for (let data of data_received) {
-                                    for (let j = 0; j < data.searched_status.statuses.length; j++) {
-                                        this.statusData.push(data.searched_status.statuses[j]);
+                        this.success_searched_array = res.data[1].searched_status
+                        this.error_search_not_allowed_array = res.data[2].error_search_not_allowed_instances
+                        this.error_access_key_searched_array = res.data[3].error_search_access_key_instances
+                            if(this.success_searched_array) {
+                                if (this.checkMastodonInstance) {
+                                    //Assuming res.data is an array containing hashtag data
+                                    for (let data of data_received) {
+                                        const mastodonInstanceResult = await this.checkIfMastodonInstance(data.searched_status)
+                                        this.statusData = this.statusData.concat(mastodonInstanceResult);
+                                    }
+                                } else {
+                                    for (let data of data_received) {
+                                        for (let j = 0; j < data.searched_status.statuses.length; j++) {
+                                            this.statusData.push(data.searched_status.statuses[j]);
+                                        }
                                     }
                                 }
+                                this.downloadData = this.statusData;
+                                this.loading = false;
+                                let message = this.statusData.length + " data retrieved";
+                                this.successShowToast(message);
                             }
-                            this.downloadData = this.statusData;
-                            this.loading = false;
-                            let message = this.statusData.length + " data retrieved";
-                            this.successShowToast(message);
-                        }else{
-                            this.loading = false;
-                            this.modalIsOpen = true;
-                            this.info_header_text = "What does \"Check instance validity\" mean?"
-                            this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance."
+                        this.loading = false;
+                        if(this.this.error_access_key_searched_array.length >= 1)
+                        {
+                            this.infoModalIsOpen = true;
+                            this.info_header_text = "Error in Mastodon search"
+                            this.isModalError = true;
+                            this.info_body_text = "The access tokens provided for the Mastodon instances - <b>" + this.error_search_not_allowed_array.join(', ') + "</b> are incorrect. Please enter valid access tokens.";
                         }
                     })
                     .catch(error => {
-                        this.errorShowToast();
                         this.loading = false;
                         console.log(error);
+                        if(this.error_search_not_allowed_array.length >= 1)
+                        {
+                            this.infoModalIsOpen = true;
+                            this.isModalError = true;
+                            this.info_header_text = "Error in Mastodon search"
+                            this.info_body_text = "The access tokens provided for the Mastodon instances - <b>" + this.error_access_key_searched_array.join(', ') + "</b> are incorrect. Please enter valid access tokens.";
+                        }
                     });
             }
         },
@@ -431,9 +441,19 @@ export default {
                 this.info_header_text = "What can I type in the search box?"
                 this.info_body_text = "In Mastodon status keyword search, you can use numbers, letters, or a mix of both to find topics you're interested in as the search keyword."
                 this.infoModalIsOpen = true;
-            }else{
+            }
+            else if(type == 'validity'){
                 this.info_header_text = "What does \"Check instance validity\" mean?"
                 this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance."
+                this.infoModalIsOpen = true;
+            }
+            else{
+                this.info_header_text = "What Mastodon instances are featured in the dropdown?"
+                this.isModalError = true;
+                this.info_body_text = `
+                      \nIn the dropdown box, you'll find a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. You can to enter any Mastodon instance in the search box or explore further insights on Mastodon instances
+                      <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                    `;
                 this.infoModalIsOpen = true;
             }
         },
@@ -447,11 +467,10 @@ export default {
                 }
                 this.instanceData.push(mastodonInstance)
                 this.selectedMastodonInstances.push(mastodonInstance)
-                this.accessTokenErrorArray.push(mastodonInstance)
             }else{
                 this.infoModalIsOpen = true;
-                this.info_header_text = "Error"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.info_header_text = "Error in adding Mastodon instance"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid Mastodon instance. Please add a valid Mastodon instance."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }
@@ -460,15 +479,15 @@ export default {
             // Find the index of the removed item
             const index = this.selectedMastodonInstances.findIndex(item => item === removedItem);
 
-            // Remove the corresponding elements from accessTokenArray and accessTokenErrorArray
+            // Remove the corresponding elements from accessTokenArray
             this.accessTokenArray.splice(index, 1);
-            this.accessTokenErrorArray.splice(index, 1);
+            this.statusData = []
         },
         removeMastodonInstanceFromBtn(index){
             // Remove the element at the specified index from both arrays
             this.selectedMastodonInstances.splice(index, 1);
             this.accessTokenArray.splice(index, 1);
-            this.accessTokenErrorArray.splice(index, 1);
+            this.statusData = []
         }
     },
     mounted() {

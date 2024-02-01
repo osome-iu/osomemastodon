@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <div a class="row">
                                 <div class="col-xl-6">
-                                    <label for="mastodonInstance" id="mastodonInstance">Mastodon Instances</label>
+                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instances <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -39,7 +39,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-4">
-                                    <label for="keyword" @click="showInfoModal">Keyword <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" @click="showInfoModal('keyword')">Keyword <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
@@ -99,9 +99,6 @@
                         </tbody>
                 </table>
             </div>
-            <div class="alert alert-warning" v-if="!accountsData.length && this.searched">
-                <fa icon="exclamation-triangle" /> No data available.
-            </div>
         </div>
     </main>
 </template>
@@ -153,7 +150,6 @@ export default {
             officialURL: "",
             selectedItem: null,
             header_text: "",
-            searched: false,
             selectedMastodonInstances: [],
             infoModalIsOpen: false,
             info_header_text: "",
@@ -211,8 +207,6 @@ export default {
         submitAccountSearch(){
             this.searchKeywordError = "";
             this.instanceIdError = "";
-            this.searched = false;
-
 
             if (!this.isValidInstance(this.selectedMastodonInstances)) {
                 this.instanceIdError = "Please add one or more Mastodon instances";
@@ -320,10 +314,21 @@ export default {
         closeInfoModal() {
             this.infoModalIsOpen = false;
         },
-        showInfoModal() {
-            this.info_header_text = "What can I type in the search box?"
-            this.info_body_text = "In Mastodon account keyword search, you can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
-            this.infoModalIsOpen = true;
+        showInfoModal(type) {
+            if (type == 'keyword') {
+
+                this.info_header_text = "What can I type in the search box?"
+                this.info_body_text = "In Mastodon account keyword search, you can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "What Mastodon instances are featured in the dropdown?"
+                this.isModalError = true;
+                this.info_body_text = `
+                      \nIn the dropdown box, you'll find a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. You can to enter any Mastodon instance in the search box or explore further insights on Mastodon instances
+                      <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                    `;
+                this.infoModalIsOpen = true;
+            }
         },
         async addMastodonInstance (newInstance) {
             if(await this.checkEnteredMastodonInstance(newInstance)) {
@@ -334,8 +339,8 @@ export default {
                 this.selectedMastodonInstances.push(mastodonInstance)
             }else{
                 this.infoModalIsOpen = true;
-                this.info_header_text = "Error"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid instance. Please add a valid Mastodon instance."
+                this.info_header_text = "Error in adding Mastodon instance"
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid Mastodon instance. Please add a valid Mastodon instance."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }

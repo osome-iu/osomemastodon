@@ -13,7 +13,6 @@
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-search"></i>
                             Statuses hashtag metadata - <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
@@ -38,7 +37,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword" @click="showInfoModal">Hashtag <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" @click="showInfoModal('keyword')">Hashtag <i class="fas fa-info-circle" style="color: #0a53be"/></label>
                                     <input
                                         id="keyword"
                                         v-model="searchKeyword"
@@ -305,11 +304,20 @@ export default {
         closeInfoModal() {
             this.infoModalIsOpen = false;
         },
-        showInfoModal() {
-            this.info_header_text = "What can I type in the search box?"
-            this.info_body_text = "In Mastodon hashtag metadata search, you can use numbers, letters, or a mix of both for the hashtag to find topics you're interested in."
-            this.infoModalIsOpen = true;
-
+        showInfoModal(type) {
+            if(type == 'keyword'){
+                this.info_header_text = "What can I type in the search box?"
+                this.info_body_text = "In Mastodon hashtag metadata search, you can use numbers, letters, or a mix of both for the hashtag to find topics you're interested in."
+                this.infoModalIsOpen = true;
+            }else{
+                this.info_header_text = "What Mastodon instances are featured in the dropdown?"
+                this.isModalError = true;
+                this.info_body_text = `
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. Explore further insights on Mastodon instances
+                          <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
+                        `;
+                this.infoModalIsOpen = true;
+            }
         },
         async addMastodonInstance (newInstance) {
             if(await this.checkEnteredMastodonInstance(newInstance)) {

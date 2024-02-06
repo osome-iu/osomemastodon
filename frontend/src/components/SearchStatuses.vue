@@ -207,7 +207,6 @@ export default {
             isModalError: false,
             formSubmit: false,
             success_searched_array: [],
-            error_access_key_searched_array: [],
             error_search_not_allowed_array: []
         }
     },

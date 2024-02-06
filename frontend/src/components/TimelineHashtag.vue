@@ -261,7 +261,7 @@ export default {
             this.limitNo = e.target.value;
         },
         isValidInput(inputValue) {
-            return inputValue.trim() !== '';
+            return inputValue !== '';
         },
         fetchAllInstanceData(){
             let dataUrl = constants.url + '/api/get-instance-data-saved'

@@ -35,7 +35,6 @@ def get_statuses_timeline_data():
     except:
         return "Bad request", 400
     else:
-        print(statuses_timeline_result_set)
         return jsonify(statuses_timeline_result_set)
 
 @blueprint.route('/hashtag-search', methods= ['POST'])

@@ -218,7 +218,7 @@ export default {
             this.instanceId = e.target.value;
         },
         isValidInput(inputValue) {
-            return inputValue.trim() !== '';
+            return inputValue !== '';
         },
         limitNoInputChanged(e){
             let valueReceived = e.target.value;

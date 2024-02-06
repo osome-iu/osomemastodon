@@ -1,5 +1,6 @@
 <template>
     <div v-if="isOpen" class="prompt-modal">
+        <div class="prompt-modal-overlay" @click="$emit('cancel')"></div>
         <div class="prompt-modal-content">
             <div class="prompt-modal-header">
                 <h5>{{ header }}</h5>
@@ -33,7 +34,7 @@
                     </div>
                 <div class="row" style="text-align: center; margin-left:10px; margin-right: 10px; margin-top:20px;">
                     <div class="col" >
-                        <button  class="btn btn-secondary btn-md" @click="$emit('cancel')">Cancel</button>
+                        <button  class="btn btn-secondary btn-md" @click="$emit('cancel')">Close</button>
                     </div>
                 </div>
             </div>

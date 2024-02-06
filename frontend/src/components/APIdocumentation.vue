@@ -2,8 +2,8 @@
     <main>
         <div class="container-fluid px-4">
             <h2 class="page-title">API Documentation</h2>
-            <div style="margin-left:50px">
-                <h3 style="margin-top:20px">API Endpoints</h3>
+            <div style="margin-left:30px">
+                <h3 style="margin-top:20px">Our custom Mastodon search endpoints</h3>
                 <ol>
                     <li class= "list-item" v-scroll-to="'#api-1'" >Instance - Get Mastodon Instances API</li>
                     <li class= "list-item" v-scroll-to="'#api-2'">Status - Search by keyword API</li>
@@ -76,7 +76,7 @@
                 <h3 class="mt-4">2. Status - Search by keyword API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results as a json format. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results in a json format. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                     <p><b>Official API Endpoint</b></p>
                     <div class="code-box">
                         <div class="code-content">

@@ -377,7 +377,7 @@ export default {
             }else{
                 this.infoModalIsOpen = true;
                 this.info_header_text = "Error in adding Mastodon instance"
-                this.info_body_text = "<strong>" + newInstance + "</strong> is not a Mastodon valid instance. Please add a valid Mastodon instance."
+                this.info_body_text = "<strong>" + newInstance + "</strong> is not a valid Mastodon instance. Please add a valid instance name."
                 this.isModalError = true;
                 this.infoModalIsOpen = true;
             }

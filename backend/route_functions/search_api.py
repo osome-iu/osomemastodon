@@ -73,7 +73,6 @@ def search_status_data_by_keyword():
     except:
         return "Bad request", 400
     else:
-        print(statuses_result_set)
         return jsonify(statuses_result_set)
 
 

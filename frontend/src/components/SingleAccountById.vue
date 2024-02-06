@@ -18,7 +18,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-5">
-                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instance <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="mastodonInstance">Mastodon Instances
+                                        <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                            <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
+                                        </button>
+                                    </label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -36,11 +40,15 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword" @click="showInfoModal('keyword')">Account Id <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" >Account id
+                                        <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                            <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
+                                        </button>
+                                    </label>
                                     <input
                                         v-model="accountId"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchAccountIdError !== ''}"
-                                        placeholder="Account Id"
+                                        placeholder="account id"
                                         v-on:blur="searchAccountIdBlurred = true"
                                         @input="keywordInputChanged"
                                     />
@@ -340,7 +348,7 @@ export default {
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. Explore further insights on Mastodon instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

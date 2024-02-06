@@ -27,7 +27,7 @@
                     <li>Choose &lt;/&gt; Development &lt;/&gt; from the menu.</li>
                 </ol>
                 <p>Or, just go to mastodon application <a href="https://mastodon.social/settings/applications" target="_blank" class="black-link">settings</a>.</p>
-                <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes.</p>
+                <p>Name your application something like "OSoMe Search Tool". Use "https://osome.iu.edu/tools/mastodon/" for the Application Website. Add "https://osome.iu.edu/tools/mastodon/" to the Redirect URI list. You should only need "Read" permissions, so make sure that "read" is selected under Scopes. You will need to do this for each Mastodon instance you'd like to search.</p>
             </div>
             <div id="q-3">
                 <h3 class="mt-4">How are the Mastodon status ids made</h3>
@@ -36,7 +36,7 @@
                 </p>
             </div>
             <div id="q-4">
-                <h4 class="mt-4">Difference between the local and federated timelines</h4>
+                <h3 class="mt-4">Difference between the local and federated timelines</h3>
                 <p>
                     The local timeline displays posts from all users on a specified server, while the federated timeline includes public posts from users across the Mastodon network who are followed by users on the specified server.
                 </p>

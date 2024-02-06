@@ -18,7 +18,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label for="mastodonInstance" @click="showInfoModal('instance')">Mastodon Instances <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="mastodonInstance">Mastodon Instances
+                                        <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                            <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
+                                        </button>
+                                    </label>
                                     <VueMultiselect
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
@@ -37,7 +41,11 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="keyword" @click="showInfoModal('keyword')">Hashtag <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" >Hashtag
+                                        <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                            <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
+                                        </button>
+                                    </label>
                                     <input
                                         v-model="hashtagSearch"
                                         v-bind:class="{'form-control': true, 'is-invalid': hashtagKeywordError !== ''}"
@@ -48,7 +56,11 @@
                                     <div v-if="hashtagKeywordError !== ''" class="invalid-feedback">{{ hashtagKeywordError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="keyword" @click="showInfoModal('data')">Data <i class="fas fa-info-circle" style="color: #0a53be"/></label>
+                                    <label for="keyword" >Data
+                                        <button @click="showInfoModal('data')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                            <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
+                                        </button>
+                                    </label>
                                     <select v-model="dataType"
                                             id="datatype"
                                             label="Choose Data"
@@ -73,14 +85,14 @@
                                             v-on:blur="limitNoBlurred = true"
                                             @input="limitNoInputChanged">
                                         <option disabled value="">Limit</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
-                                        <option value="30">30</option>
-                                        <option value="35">35</option>
-                                        <option value="40">40</option>
+                                        <option value="5">5 Statuses</option>
+                                        <option value="10">10 Statuses</option>
+                                        <option value="15">15 Statuses</option>
+                                        <option value="20">20 Statuses</option>
+                                        <option value="25">25 Statuses</option>
+                                        <option value="30">30 Statuses</option>
+                                        <option value="35">35 Statuses</option>
+                                        <option value="40">40 Statuses</option>
                                     </select>
                                     <div v-if="limitNoError !== ''" class="invalid-feedback">{{ limitNoError }}</div>
                                 </div>
@@ -178,8 +190,8 @@ export default {
             clientKey: null,
             clientSecret: null,
             instanceData:[],
-            limitNo: "",
-            dataType: "",
+            limitNo: 40,
+            dataType: false,
             hashtagSearch: "",
             hashtagArray: [],
             loading: false,
@@ -392,7 +404,7 @@ export default {
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. Explore further insights on Mastodon instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

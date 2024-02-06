@@ -312,7 +312,7 @@ export default {
         showInfoModal(type) {
             if(type == 'keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "In Mastodon hashtag metadata search, you can use numbers, letters, or a mix of both for the hashtag to find topics you're interested in."
+                this.info_body_text = "You can use numbers, letters, or a mix of both for the hashtag to find topics you're interested in."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

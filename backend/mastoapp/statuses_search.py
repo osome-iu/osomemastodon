@@ -72,8 +72,8 @@ def mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance):
         response.raise_for_status()  # Raise an HTTPError for bad responses (4xx or 5xx)
 
         if response.status_code == 200:
-            status_data = response.json()
-            searched_status = {"searched_status": status_data}
+            results_array = response.json()
+            searched_status = {"results": results_array}
 
     except requests.exceptions.HTTPError as err:
         # Handle HTTP errors (4xx or 5xx) here
@@ -81,6 +81,6 @@ def mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance):
 
     except Exception as e:
         # Handle other exceptions here
-        searched_status = {"error_search_access_key_instances": f"An unexpected error occurred: {e}"}
+        searched_status = {"error_search_access_key": f"An unexpected error occurred: {e}"}
 
     return searched_status

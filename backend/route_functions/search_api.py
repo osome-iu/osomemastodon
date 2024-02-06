@@ -31,7 +31,7 @@ def search_status_data_by_id():
     else:
         return status
 
-@blueprint.route('/search-status-by-keyword', methods= ['POST'])
+@blueprint.route('/search-status-by-keyword', methods=['POST'])
 def search_status_data_by_keyword():
     """
     Search the status through the status keyword.
@@ -49,28 +49,34 @@ def search_status_data_by_keyword():
         search_success_array = []
         search_not_allowed_error_array = []
         search_access_key_error_array = []
+
+        combined_status_data = []  # Initialize here
+
         for mastodon_instance in mastodon_instance_list:
             mastodon_instance_name = mastodon_instance.get('name')
             access_token = mastodon_instance.get('access_token')
             if mastodon_instance_name and access_token:
                 status_data = statuses_search.mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance_name)
-                #this will extract the error giving mastodon search and store it in
+                if 'results' in status_data:
+                    combined_status_data.extend(status_data['results']['statuses'])
                 if 'error_search_not_allowed' in status_data:
                     search_not_allowed_error_array.append(mastodon_instance_name)
                 if 'error_search_access_key' in status_data:
                     search_access_key_error_array.append(mastodon_instance_name)
-                if 'searched_status' in status_data:
+                if 'searched_status_array' in status_data:
                     search_success_array.append(mastodon_instance_name)
 
-                statuses_result_set.append(status_data)
-                statuses_result_set.append({'searched_status_array': search_success_array})
-                statuses_result_set.append({'error_search_not_allowed': search_not_allowed_error_array})
-                statuses_result_set.append({'error_search_access_key': search_access_key_error_array})
+        statuses_result_set.append({"searched_status": combined_status_data})
+        statuses_result_set.append({'searched_status_array': search_success_array})
+        statuses_result_set.append({'error_search_not_allowed': search_not_allowed_error_array})
+        statuses_result_set.append({'error_search_access_key': search_access_key_error_array})
     except:
         return "Bad request", 400
     else:
         print(statuses_result_set)
         return jsonify(statuses_result_set)
+
+
 
 
 @blueprint.route('/search-hashtag-by-keyword', methods= ['POST'])

@@ -70,14 +70,14 @@
                                             v-on:blur="limitNoBlurred = true"
                                             @input="limitNoInputChanged">
                                         <option disabled value="">Limit</option>
-                                        <option value="5">5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
-                                        <option value="30">30</option>
-                                        <option value="35">35</option>
-                                        <option value="40">40</option>
+                                        <option value="5">5 Statuses</option>
+                                        <option value="10">10 Statuses</option>
+                                        <option value="15">15 Statuses</option>
+                                        <option value="20">20 Statuses</option>
+                                        <option value="25">25 Statuses</option>
+                                        <option value="30">30 Statuses</option>
+                                        <option value="35">35 Statuses</option>
+                                        <option value="40">40 Statuses</option>
                                     </select>
                                     <div v-if="limitNoError !== ''" class="invalid-feedback">{{ limitNoError }}</div>
                                 </div>

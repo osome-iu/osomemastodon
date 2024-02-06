@@ -63,12 +63,13 @@ def search_status_data_by_keyword():
                     search_success_array.append(mastodon_instance_name)
 
                 statuses_result_set.append(status_data)
-                statuses_result_set.append({'searched_status': search_success_array})
-                statuses_result_set.append({'error_search_not_allowed_instances': search_not_allowed_error_array})
-                statuses_result_set.append({'error_search_access_key_instances': search_access_key_error_array})
+                statuses_result_set.append({'searched_status_array': search_success_array})
+                statuses_result_set.append({'error_search_not_allowed': search_not_allowed_error_array})
+                statuses_result_set.append({'error_search_access_key': search_access_key_error_array})
     except:
         return "Bad request", 400
     else:
+        print(statuses_result_set)
         return jsonify(statuses_result_set)
 
 

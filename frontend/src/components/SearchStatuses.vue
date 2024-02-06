@@ -307,6 +307,7 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(async res => {
                         let data_received = res.data;
+                        console.log(data_received)
                         this.success_searched_array = data_received[0].searched_status
                         this.searched_status_array = data_received[1].searched_status_array
                         this.error_search_not_allowed_array = data_received[2].error_search_not_allowed
@@ -314,27 +315,30 @@ export default {
                         if(this.success_searched_array) {
                             if (this.checkMastodonInstance) {
                                 // Assuming res.data is an array containing statuses data, validating each mastodon instances.
-                                for (let data of this.success_searched_array.statuses) {
+                                for (let data of this.success_searched_array) {
                                     const mastodonInstanceResult = await this.checkIfMastodonInstance(data)
                                     this.statusData = this.statusData.concat(mastodonInstanceResult);
                                 }
                             } else {
                                 //Assuming res.data is an array containing statuses data, not checking the wheather it is a valid mastodon instance or not.
-                                for (let data of this.success_searched_array.statuses) {
+                                for (let data of this.success_searched_array) {
                                     this.statusData.push(data);
                                 }
                             }
-                            this.downloadData = this.statusData;
-                            let message = this.statusData.length + " data retrieved";
-                            this.successShowToast(message);
+                            this.loading = false;
+                            if(this.error_search_access_key_array.length >= 1 || this.error_search_not_allowed_array.length >=1){
+                                this.infoModalIsOpen = true;
+                                this.isModalError = true;
+                                let error_instance_array = this.error_search_access_key_array.concat(this.error_search_not_allowed_array);
+                                this.info_header_text = "Mastodon search error"
+                                this.info_body_text = "There is an error with these instance(s): <b>" +error_instance_array+"</b>. Please re-check the access token(s) and their documentation for further insight. ";
+                            }else{
+                                this.downloadData = this.statusData;
+                                let message = this.statusData.length + " data retrieved";
+                                this.successShowToast(message);
+                            }
                         }
-                        this.loading = false;
-                        if(this.error_search_access_key_array.length >= 1 || this.error_search_not_allowed_array.length >=1){
-                            this.infoModalIsOpen = true;
-                            this.isModalError = true;
-                            this.info_header_text = "Mastodon search error for following instances"
-                            this.info_body_text = "Mastodon search not allowed instances - <b>" + this.error_search_not_allowed_array.join(', ') + "</b> and Mastodon access token invalid instances - <b>" + this.error_search_access_key_array.join(', ') + "</b> ";
-                        }
+
                     })
                     .catch(error => {
                         this.loading = false;

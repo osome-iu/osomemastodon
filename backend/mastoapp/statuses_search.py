@@ -77,10 +77,7 @@ def mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance):
 
     except requests.exceptions.HTTPError as err:
         # Handle HTTP errors (4xx or 5xx) here
-        if response.status_code == 400:
-            searched_status = {"error_search_not_allowed_instances": "Bad request (400 error)"}
-        else:
-            searched_status = {"error_search_not_allowed_instances": f"HTTP error: {err}"}
+        searched_status = {"error_search_not_allowed": "Bad request (400 error)"}
 
     except Exception as e:
         # Handle other exceptions here

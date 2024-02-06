@@ -308,80 +308,67 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(async res => {
                         let data_received = res.data;
-                        this.success_searched_array = res.data[1].searched_status
-                        this.error_search_not_allowed_array = res.data[2].error_search_not_allowed_instances
-                        this.error_access_key_searched_array = res.data[3].error_search_access_key_instances
-                            if(this.success_searched_array) {
-                                if (this.checkMastodonInstance) {
-                                    //Assuming res.data is an array containing hashtag data
-                                    for (let data of data_received) {
-                                        const mastodonInstanceResult = await this.checkIfMastodonInstance(data.searched_status)
-                                        this.statusData = this.statusData.concat(mastodonInstanceResult);
-                                    }
-                                } else {
-                                    for (let data of data_received) {
-                                        for (let j = 0; j < data.searched_status.statuses.length; j++) {
-                                            this.statusData.push(data.searched_status.statuses[j]);
-                                        }
-                                    }
+                        this.success_searched_array = data_received[0].searched_status
+                        this.searched_status_array = data_received[1].searched_status_array
+                        this.error_search_not_allowed_array = data_received[2].error_search_not_allowed
+                        this.error_search_access_key_array = data_received[3].error_search_access_key
+                        if(this.success_searched_array) {
+                            if (this.checkMastodonInstance) {
+                                // Assuming res.data is an array containing statuses data, validating each mastodon instances.
+                                for (let data of this.success_searched_array.statuses) {
+                                    const mastodonInstanceResult = await this.checkIfMastodonInstance(data)
+                                    this.statusData = this.statusData.concat(mastodonInstanceResult);
                                 }
-                                this.downloadData = this.statusData;
-                                this.loading = false;
-                                let message = this.statusData.length + " data retrieved";
-                                this.successShowToast(message);
+                            } else {
+                                //Assuming res.data is an array containing statuses data, not checking the wheather it is a valid mastodon instance or not.
+                                for (let data of this.success_searched_array.statuses) {
+                                    this.statusData.push(data);
+                                }
                             }
+                            this.downloadData = this.statusData;
+                            let message = this.statusData.length + " data retrieved";
+                            this.successShowToast(message);
+                        }
                         this.loading = false;
-                        if(this.this.error_access_key_searched_array.length >= 1)
-                        {
+                        if(this.error_search_access_key_array.length >= 1 || this.error_search_not_allowed_array.length >=1){
                             this.infoModalIsOpen = true;
-                            this.info_header_text = "Error in Mastodon search"
                             this.isModalError = true;
-                            this.info_body_text = "The access tokens provided for the Mastodon instances - <b>" + this.error_search_not_allowed_array.join(', ') + "</b> are incorrect. Please enter valid access tokens.";
+                            this.info_header_text = "Mastodon search error for following instances"
+                            this.info_body_text = "Mastodon search not allowed instances - <b>" + this.error_search_not_allowed_array.join(', ') + "</b> and Mastodon access token invalid instances - <b>" + this.error_search_access_key_array.join(', ') + "</b> ";
                         }
                     })
                     .catch(error => {
                         this.loading = false;
                         console.log(error);
-                        if(this.error_search_not_allowed_array.length >= 1)
-                        {
-                            this.infoModalIsOpen = true;
-                            this.isModalError = true;
-                            this.info_header_text = "Error in Mastodon search"
-                            this.info_body_text = "The access tokens provided for the Mastodon instances - <b>" + this.error_access_key_searched_array.join(', ') + "</b> are incorrect. Please enter valid access tokens.";
-                        }
                     });
             }
         },
         async checkIfMastodonInstance(statusData) {
             const updatedStatusData = [];
-
-            for (let status of statusData.statuses) {
-                    let serverName = this.extractURLtoGetInstanceName(status.url);
-                    const apiURL = `https://${serverName}/api/v1/instance`;
-                    try {
-                        const response = await fetch(apiURL, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                        });
-
-                        if (response.ok) {
-                            // Assuming you want to add the API response data to each status
-                            const updatedStatus = {...status, "mastodon_instance": "Yes"};
-                            updatedStatusData.push(updatedStatus);
-                        } else {
-                            console.error(`Error: ${response.status} - ${response.statusText}`);
-                            // Assuming you want to add an error message to each status in case of an error
-                            const updatedStatus = {...status, "mastodon_instance": "No"};
-                            updatedStatusData.push(updatedStatus);
-                        }
-                    } catch (error) {
-                        console.error('Error during API request:', error);
-                        // Assuming you want to add an error message to each status in case of an error
-                        const updatedStatus = {...status, "mastodon_instance": "No"};
-                        updatedStatusData.push(updatedStatus);
-                    }
+            let serverName = this.extractURLtoGetInstanceName(statusData.url);
+            const apiURL = `https://${serverName}/api/v1/instance`;
+            try {
+                const response = await fetch(apiURL, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    // Assuming you want to add the API response data to each status
+                    const updatedStatus = {...statusData, "mastodon_instance": "Yes"};
+                    updatedStatusData.push(updatedStatus);
+                } else {
+                    console.error(`Error: ${response.status} - ${response.statusText}`);
+                    // Assuming you want to add an error message to each status in case of an error
+                    const updatedStatus = {...statusData, "mastodon_instance": "No"};
+                    updatedStatusData.push(updatedStatus);
+                }
+            } catch (error) {
+                console.error('Error during API request:', error);
+                // Assuming you want to add an error message to each status in case of an error
+                const updatedStatus = {...statusData, "mastodon_instance": "No"};
+                updatedStatusData.push(updatedStatus);
             }
             return updatedStatusData;
         },

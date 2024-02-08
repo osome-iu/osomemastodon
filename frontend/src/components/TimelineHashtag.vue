@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search statuses across multiple instances using a given hashtag.</p>
+                    <p>Get the most recent statuses that contain the given hashtag.</p>
                 </div>
             </div>
             <div class="row">
@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-4">
-                                    <label for="mastodonInstance">Mastodon Instances
+                                    <label for="mastodonInstance">Mastodon instances
                                         <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -229,9 +229,6 @@ export default {
         hashtagInputChanged(e){
             let valueReceived = e.target.value;
             if(valueReceived){
-                if (valueReceived.charAt(0) === '#') {
-                    this.hashtagSearch = valueReceived.slice(1);
-                }
                 this.hashtagKeywordError = ""
                 this.hashtagSearchBlurred = false;
             }
@@ -306,8 +303,11 @@ export default {
                 this.loading = true;
                 this.hashtagArray = [];
                 let dataUrl = constants.url + '/api/hashtag-search';
+
+                let searched_hashtag = this.hashtagSearch.charAt(0) === '#' ? this.hashtagSearch.slice(1) : this.hashtagSearch;
+
                 let requestData = {
-                    hashtag: this.hashtagSearch,
+                    hashtag: searched_hashtag,
                     mastodon_instances: this.selectedMastodonInstances,
                     data_type: this.dataType,
                     limit_no: this.limitNo
@@ -316,7 +316,7 @@ export default {
                 let jsonData = JSON.stringify(requestData);
 
                 this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/hashtag-search"`;
-                this.officialURL = "https://"+this.selectedMastodonInstances[0].name+ "/api/v1/timelines/tag/"+ this.hashtagSearch+ "?limit="+this.limitNo+"&local="+ this.dataType;
+                this.officialURL = "https://"+this.selectedMastodonInstances[0].name+ "/api/v1/timelines/tag/"+ searched_hashtag+ "?limit="+this.limitNo+"&local="+ this.dataType;
 
                 axios.post(dataUrl, requestData)
                     .then(res => {

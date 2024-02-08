@@ -15,7 +15,7 @@
                             <h4>Get Statuses</h4>
                             <ul class="api-list">
                                 <li><router-link to="/searchbykeyword"  class="home-sub-header">Search by keyword</router-link> - Search statuses across multiple instances using a given keyword. <b>An access token is required</b> for each instance being searched.</li>
-                                <li><router-link to="/timelinehashtag"  class="home-sub-header">Search by hashtag</router-link> - Retrieve detailed metadata information for hashtags with the given keyword.</li>
+                                <li><router-link to="/timelinehashtag"  class="home-sub-header">Search by hashtag</router-link> - Get the most recent statuses that contain the given hashtag.</li>
                                 <li><router-link to="/timelinestatus"  class="home-sub-header">Recent for instance</router-link> - A  list of the most recent statuses. </li>
                                 <li><router-link to="/searchbyid"  class="home-sub-header">Single status by id</router-link> - Get information about a status by status id.</li>
                             </ul>
@@ -30,7 +30,7 @@
                         <div class="api-section">
                             <h4> Get Hashtag Metadata</h4>
                             <ol class="api-list">
-                                <li><router-link to="/searchhashtags" class="home-sub-header">Hashtag Metadata</router-link> - Search for accounts for the given keyword. Can search across multiple instances at once.</li>
+                                <li><router-link to="/searchhashtags" class="home-sub-header">Hashtag Metadata</router-link> - Get a list of hashtags that include a given search term and links to statuses including those hashtags.</li>
                             </ol>
                         </div>
                         <div class="api-section">

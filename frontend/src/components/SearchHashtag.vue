@@ -6,7 +6,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve detailed metadata information for a given hashtag.</p>
+                    <p>Get a list of hashtags that include a given search term and links to statuses including those hashtags.</p>
                 </div>
             </div>
             <div class="row">
@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-6">
-                                    <label for="mastodonInstance">Mastodon Instances
+                                    <label for="mastodonInstance">Mastodon instances
                                         <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -41,7 +41,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword" >Hashtag
+                                    <label for="keyword" >Search term
                                         <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -50,8 +50,8 @@
                                         id="keyword"
                                         v-model="searchKeyword"
                                         :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
-                                        @blur="searchKeywordBlurred = true"
-                                        placeholder="hashtag"
+                                        @blur="x = true"
+                                        placeholder="search term"
                                         @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
@@ -188,9 +188,6 @@ export default {
         keywordInputChanged(e){
             let valueReceived = e.target.value;
             if(valueReceived){
-                if (valueReceived.charAt(0) === '#') {
-                    this.searchKeyword = valueReceived.slice(1);
-                }
                 this.searchKeywordError = ""
                 this.searchKeywordBlurred = false;
             }
@@ -217,17 +214,19 @@ export default {
             }
 
             if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances)) {
+                this.hashtagData = []
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
 
+                let searched_hashtag = this.searchKeyword.charAt(0) === '#' ? this.searchKeyword.slice(1) : this.searchKeyword;
                 let dataUrl = constants.url + '/api/search-hashtag-by-keyword';
                 let requestData = {
-                    keyword: this.searchKeyword,
+                    keyword: searched_hashtag,
                     instances: this.selectedMastodonInstances,
                 };
 
                 let jsonData = JSON.stringify(requestData);
-                this.officialURL = "https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+this.searchKeyword+"&type=hashtags"
+                this.officialURL = "https://"+this.selectedMastodonInstances[0].name+"/api/v2/search?q="+searched_hashtag+"&type=hashtags"
                 this.osomeURL = `curl -X POST -H "Content-Type: application/json" -d '${jsonData}' "https://osome.iu.edu/tools/mastodon/api/search-hashtag-by-keyword"`;
 
                 axios.post(dataUrl, requestData)

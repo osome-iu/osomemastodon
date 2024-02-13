@@ -259,7 +259,7 @@ export default {
                 this.accountData = []
                 this.clearAllFields();
                 this.officialURL = 'https://'+this.selectedMastodonInstances.name+'/api/v1/accounts/'+this.accountId;
-                this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
+                this.osomeURL = constants.url + '/api/account-search-by-id?account_id=' + this.accountId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
                 let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.selectedMastodonInstances.name + '&account_id=' + this.accountId;
                 axios.get(dataUrl)
                     .then(res => {

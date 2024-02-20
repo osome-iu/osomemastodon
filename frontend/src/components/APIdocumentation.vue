@@ -21,33 +21,8 @@
                 <h3 class="mt-4">1. Instance - Get Mastodon Instances API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://instances.social/api/1.0/instances/list
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                             <div style="margin-left:20px">
-                                 <ul>
-                                     <li><b>Method</b>: GET</li>
-                                     <li><b>URL</b>: https://instances.social/api/1.0/instances/list</li>
-                                     <li><b>Headers</b>: </li>
-                                    <ul>
-                                        <li>Authorization: Bearer api_token</li>
-                                    </ul>
-                                 </ul>
-                             </div>
-                        <p><b>Note</b></p>
-                        <ul>
-                            <li>You can get the API token from instances.social <a href="https://instances.social/api/token" target="_blank" class="navigation-link" aria-label="here"> here</a>.</li>
-                        </ul>
-                    </div>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official Mastodon documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -76,83 +51,8 @@
                 <h3 class="mt-4">2. Status - Search by keyword API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results in a json format. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true
-                            </code>
-                        </div>
-                    </div>
-                    <div class="table-responsive" style="font-size: 12px; width:100%; margin-top:20px;">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>access_token</td>
-                                <td>string</td>
-                                <td>(Required) Bearer token for retrieving statuses.</td>
-                            </tr>
-                            <tr>
-                                <td>search_keyword</td>
-                                <td>string</td>
-                                <td>(Required) The search keyword.</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Headers</b></li>
-                                <ul>
-                                    <li>Content-Type: application/json</li>
-                                </ul>
-                                <li><b>Parameters</b></li>
-                                <ul>
-                                    <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>search_keyword</b> (string): (Required) The search keyword.</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Headers</b></p>
-                        <p>The following header must be included in the request:</p>
-                        <ul>
-                            <li><b>Authorization</b>:Bearer token for authentication</li>
-                        </ul>
-                        <div class="code-box">
-                            <div class="code-content">
-                                <code>
-                                    Authorization: Bearer {access_token}
-                                </code>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <p style="padding-top: 10px;">Request Example with Postman(GET request)</p>
-                        <div class="code-box">
-                            <div class="code-content">
-                                <code>
-                                    curl --location 'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses' --header 'Authorization: Bearer 'ACCESS_KEY'
-                                </code>
-                            </div>
-                        </div>
-                    </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Ensure the provided access_key is a valid Bearer key.</li>
-                    </ul>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results in a json format. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <p>The API endpoint facilitates the search for statuses across multiple Mastodon instances using a specified keyword. </p>
                     <div class="code-box">
                         <div class="code-content">
@@ -191,34 +91,8 @@
                 <h3 class="mt-4">3. Status - Search by hashtag API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v1/timelines/tag/{hashtag}?limit={limit}&local={data_type}
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Headers</b></li>
-                                <ul>
-                                    <li>Content-Type: application/json</li>
-                                </ul>
-                                <li><b>Parameters</b></li>
-                                <ul>
-                                    <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>hashtag</b> (string): The hashtag to fetch data for.</li>
-                                    <li><b>data_type</b> (boolean): Indicates whether to include local data (true/false).</li>
-                                    <li><b>limit</b> (integer): The maximum number of statuses to retrieve.</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <p>This API endpoint allows you to search public hashtag information through multiple Mastodon instances.</p>
                     <div class="code-box">
                         <div class="code-content">
@@ -257,33 +131,8 @@
                 <h3 class="mt-4">4. Most recent for instance API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves public timeline statuses from a Mastodon instance. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v1/timelines/public?limit={limit}&local={data_type}
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Headers</b></li>
-                                <ul>
-                                    <li>Content-Type: application/json</li>
-                                </ul>
-                                <li><b>Parameters</b></li>
-                                <ul>
-                                    <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>limit</b> (integer): The maximum number of statuses to retrieve.</li>
-                                    <li><b>data_type</b> (boolean): Indicates whether to include local data (true/false). [true - Local data, false - Federated data]</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>This API endpoint retrieves public timeline statuses from a Mastodon instance. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <p>This API endpoint retrieves public timeline statuses across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
                     <p style="font-weight:bold">(POST Request)</p>
                     <div class="code-box">
@@ -322,32 +171,10 @@
                 <h3 class="mt-4">5. Status - Single status by id API</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API method is used to search for statuses from a Mastodon instance based on a specific status id. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v1/statuses/{status_id}
-                            </code>
-                        </div>
-                    </div>
+                    <p>This API method is used to search for statuses from a Mastodon instance based on a specific status id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
                 </div>
                 <div style="margin-left:15px">
-                    <p style="padding-top: 10px;"><b>Request</b></p>
-                    <div style="margin-left:20px">
-                        <ul>
-                            <li><b>Headers</b></li>
-                            <ul>
-                                <li>Content-Type: application/json</li>
-                            </ul>
-                            <li><b>Parameters</b></li>
-                            <ul>
-                                <li><b>mastodon_instance</b>: This should be replaced with the domain of the Mastodon instance you are working with (e.g., mastodon.social)</li>
-                                <li><b>status_id</b> (string): This should be replaced with the id of the specific status you want to retrieve</li>
-                            </ul>
-                        </ul>
-                    </div>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -383,46 +210,8 @@
                 <h3 class="mt-4">6. Accounts - Search by keyword</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=accounts&resolve=true
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Headers</b></li>
-                                <ul>
-                                    <li>Content-Type: application/json</li>
-                                </ul>
-                                <li><b>Parameters</b></li>
-                                <ul>
-                                    <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>account_id</b> (string): The unique identifier for the Mastodon account.</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                    <div>
-                        <p style="padding-top: 10px;"><b>Request Example (POST request)</b></p>
-                        <div class="code-box">
-                            <div class="code-content">
-                                <code>
-                                    curl --location 'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=accounts' --header 'Authorization: Bearer 'TOKEN'
-                                </code>
-                            </div>
-                        </div>
-                    </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Ensure the provided access_token is a valid Bearer token.</li>
-                    </ul>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <p>The API endpoint facilitates the search for accounts across multiple Mastodon instances using a specified keyword. </p>
                     <div class="code-box">
                         <div class="code-content">
@@ -459,32 +248,8 @@
                 <h3 class="mt-4">7. Accounts - Single Account by id</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official documentation <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v1/accounts/{account_id}
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Headers</b></li>
-                                <ul>
-                                    <li>Content-Type: application/json</li>
-                                </ul>
-                                <li><b>Parameters</b></li>
-                                <ul>
-                                    <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>account_id</b> (string): The unique identifier for the Mastodon account.</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -521,32 +286,8 @@
                 <h3 class="mt-4">8. Get Hashtag metadata</h3>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>Official API Endpoint</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=hashtags
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Headers</b></li>
-                                <ul>
-                                    <li>Content-Type: application/json</li>
-                                </ul>
-                                <li><b>Parameters</b></li>
-                                <ul>
-                                    <li><b>mastodon_instance</b> (string): The Mastodon instance name.</li>
-                                    <li><b>search_keyword</b> (string): (Required) The search keyword.</li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                    <p><b>OSoMe API Endpoint</b></p>
+                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
                     <p>This API endpoint searches hashtag data for a given keyword across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
                     <p style="font-weight:bold">(POST Request)</p>
                     <div class="code-content">

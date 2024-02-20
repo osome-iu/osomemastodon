@@ -4,7 +4,7 @@
             <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
                 <div>
-                    <p>OSoMe Mastodon interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
+                    <p>The OSoMe Mastodon Search interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
                 </div>
             </div>
             <hr>
@@ -30,20 +30,20 @@
                         <div class="api-section">
                             <h4> Get Hashtag Metadata</h4>
                             <ol class="api-list">
-                                <li><router-link to="/searchhashtags" class="home-sub-header">Hashtag Metadata</router-link> - Get a list of hashtags that include a given search term and links to statuses including those hashtags.</li>
+                                <li><router-link to="/searchhashtags" class="home-sub-header">Hashtag Metadata</router-link> - Get a list of hashtags that include a given search term.</li>
                             </ol>
                         </div>
                         <div class="api-section">
                             <h4>Instances</h4>
                             <ol class="api-list">
-                                <li><router-link to="/instances" class="home-sub-header">Mastodon Instances</router-link> - Retrieves the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the instances.social API to gather the instances.</li>
+                                <li><router-link to="/instances" class="home-sub-header">Mastodon Instances</router-link> - Retrieves the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;"> instances.social </a> API to gather the instances.</li>
                             </ol>
                         </div>
                         <div class="api-section">
                             <h4> Documentation</h4>
                             <ol class="api-list">
                                 <li><router-link to="/faq" class="home-sub-header">FAQ</router-link> - The FAQ section addresses common questions, providing quick insights and information about the Mastodon interface.</li>
-                                <li><router-link to="/apidocumentation" class="home-sub-header">API Documentation</router-link> - Guide to interact with Mastodon APIs, presenting key information on endpoints, request formats, and response structures.</li>
+                                <li><router-link to="/apidocumentation" class="home-sub-header">API Documentation</router-link> - Guide to interact with OSoMe Search APIs for Mastodon, presenting key information on endpoints, request formats, and response structures.</li>
                             </ol>
                         </div>
                     </div>
@@ -98,3 +98,5 @@
     color: blue
 }
 </style>
+<script setup>
+</script>

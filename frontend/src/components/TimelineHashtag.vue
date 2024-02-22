@@ -13,7 +13,7 @@
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Search statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
+                            Search most recent statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">

@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts that contain a given keyword in the username or display name. Multiple instances may be searched at once.</p>
+                    <p>Search for accounts that contain a given keyword in the username or display name.</p>
                 </div>
             </div>
             <div class="row">

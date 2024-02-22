@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search statuses across multiple instances using a given keyword. <b>An access token is required</b> for each instance being searched.</p>
+                    <p>Search statuses using a given keyword. <b>An access token is required</b> for each instance being searched.</p>
                 </div>
             </div>
             <div class="row">

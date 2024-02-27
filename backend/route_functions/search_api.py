@@ -81,6 +81,7 @@ def search_status_data_by_keyword():
 @blueprint.route('/search-hashtag-by-keyword', methods= ['POST'])
 def search_hashtag_data_by_keyword():
     """
+    Hashtags - metadata
     Search the hashtag data through hashtag keyword.
     """
     try:
@@ -88,11 +89,18 @@ def search_hashtag_data_by_keyword():
         mastodon_instances = data.get('instances')
         search_keyword = data.get('keyword')
         hashtag_result_set = []
+        error_in_results = []
+        success_results = []
         for mastodon_instance in mastodon_instances:
-            for key, value in mastodon_instance.items():
-                if key == 'name':
-                    hashtag_data = hashtag_search.get_hashtag_data_from_keyword(value, search_keyword)
-                    hashtag_result_set.append(hashtag_data)
+            mastodon_instance_name = mastodon_instance.get('name')
+            if mastodon_instance_name:
+                hashtag_data = hashtag_search.get_hashtag_data_from_keyword(mastodon_instance_name, search_keyword)
+                if 'results' in hashtag_data:
+                    success_results.extend(hashtag_data['results']['hashtags'])
+                if 'error_search_not_allowed' in hashtag_data:
+                    error_in_results.append(mastodon_instance_name)
+        hashtag_result_set.append({"searched_status": success_results})
+        hashtag_result_set.append({"error_search_not_allowed": error_in_results})
     except:
         return "Bad request", 400
     else:

@@ -41,12 +41,18 @@ def search_account_data_by_keyword():
         mastodon_instances = data.get('instances')
         search_keyword = data.get('keyword')
         account_result_set = []
+        error_in_results = []
+        success_results = []
         for mastodon_instance in mastodon_instances:
-            for key, instance_name in mastodon_instance.items():
-                if key == 'name':
-                    account_data = account_search.get_account_data_from_keyword(instance_name, search_keyword)
-                    account_result_set.append(account_data)
+            mastodon_instance_name = mastodon_instance.get('name')
+            if mastodon_instance_name:
+                hashtag_data = account_search.get_account_data_from_keyword(mastodon_instance_name, search_keyword)
+                if 'results' in hashtag_data:
+                    success_results.extend(hashtag_data['results']['accounts'])
+                if 'error_search_not_allowed' in hashtag_data:
+                    error_in_results.append(mastodon_instance_name)
+        account_result_set.append({"searched_accounts": success_results})
+        account_result_set.append({"error_search_not_allowed": error_in_results})
     except:
         return "Bad request", 400
-    else:
-        return jsonify(account_result_set)
+    return jsonify(account_result_set)

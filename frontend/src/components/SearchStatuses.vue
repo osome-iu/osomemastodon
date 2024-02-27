@@ -307,7 +307,6 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(async res => {
                         let data_received = res.data;
-                        console.log(data_received)
                         this.success_searched_array = data_received[0].searched_status
                         this.searched_status_array = data_received[1].searched_status_array
                         this.error_search_not_allowed_array = data_received[2].error_search_not_allowed
@@ -331,7 +330,7 @@ export default {
                                 this.isModalError = true;
                                 let error_instance_array = this.error_search_access_key_array.concat(this.error_search_not_allowed_array);
                                 this.info_header_text = "Mastodon search error"
-                                this.info_body_text = "There is an error with these instance(s): <b>" +error_instance_array+"</b>. Please re-check the access token(s) and their documentation for further insight. ";
+                                this.info_body_text = "There is an error with these instance(s): <b>" +error_instance_array+"</b>. Please re-check the access token(s) and their documentation for further insight. Total <b>"+this.statusData.length+"</b> statuses retrieved from other instance(s) searched.";
                             }else{
                                 this.downloadData = this.statusData;
                                 let message = this.statusData.length + " data retrieved";

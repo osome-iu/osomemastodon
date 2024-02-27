@@ -297,9 +297,10 @@ export default {
                         let message = "Data retrieved successfully."
                         this.successShowToast(message)
                     }).catch(error => {
-                    console.log(error);
-                    this.singleStatusData = []
-                    this.errorShowToast();
+                        this.infoModalIsOpen = true;
+                        this.isModalError = true;
+                        this.info_header_text = "Mastodon search error"
+                        this.info_body_text = "Please check the accuracy of the status id you're using, and be aware that Mastodon users can set privacy settings for their posts. As a result, you might not be able to retrieve the desired status data.";
                 });
                 this.loading = false;
             }

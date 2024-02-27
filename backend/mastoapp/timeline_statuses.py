@@ -33,14 +33,18 @@ def fetch_timeline_status_data(mastodon_instance, data_type, limit):
     - Json object which contains the statuses
     -----------
     """
-    timeline_statuses_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/public?limit={limit}&local={data_type}'
-    response = requests.get(timeline_statuses_endpoint_url)
+    try:
+        timeline_statuses_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/public?limit={limit}&local={data_type}'
+        response = requests.get(timeline_statuses_endpoint_url)
 
-    # Check the response status code
-    if response.status_code == 200:
-        timeline_data = response.json()
-        timeline_status = {"timeline_status": timeline_data}
-        return timeline_status
-    else:
-        # Handle the errors occur with API method calling.
-        logger.error(f"Error: {response.status_code} - {response.text}")
+        # Check the response status code
+        if response.status_code == 200:
+            timeline_data = response.json()
+            timeline_status = {"statuses_timeline": timeline_data}
+        else:
+            timeline_status = {"error_search_not_allowed": "Bad request (400 error)"}
+
+    except (requests.exceptions.HTTPError, Exception) as err:
+        # Handle HTTP errors (4xx or 5xx) here
+        timeline_status = {"error_search_not_allowed": "Bad request (400 error)"}
+    return timeline_status

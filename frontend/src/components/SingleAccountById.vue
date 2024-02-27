@@ -13,7 +13,7 @@
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Search accounts by id - <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">Documentation</router-link>
+                            Account search by id - <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -272,16 +272,16 @@ export default {
                         this.bot = this.accountData.bot;
                         this.avatarLink = this.accountData.avatar;
                         this.note = this.accountData.note;
-                        this.loading = false;
                         this.downloadData = res.data;
                         let message = "Account data retrieved successfully!"
                         this.successShowToast(message)
                     }).catch(error => {
-                        this.loading = false;
-                        console.log(error);
-                        let message = "No data found or error in retrieving data!";
-                        this.errorShowToast(message)
+                        this.infoModalIsOpen = true;
+                        this.isModalError = true;
+                        this.info_header_text = "Mastodon search error"
+                        this.info_body_text = "Please check the accuracy of the account id you're using, and be aware that Mastodon users can set privacy settings for their accounts. As a result, you might not be able to retrieve the desired account data.";
                 });
+                this.loading = false;
             }
         },
         stringifyJSON(stringobject) {

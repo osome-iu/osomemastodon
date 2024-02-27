@@ -3,57 +3,29 @@
         <div class="container-fluid px-4">
             <h2 class="page-title">API Documentation</h2>
             <div style="margin-left:30px">
-                <h3 style="margin-top:20px">Our custom Mastodon search endpoints</h3>
+                <h4 style="margin-top:20px">Our custom Mastodon search endpoints</h4>
                 <ol>
-                    <li class= "list-item" v-scroll-to="'#api-1'" >Instance - Get Mastodon Instances API</li>
-                    <li class= "list-item" v-scroll-to="'#api-2'">Status - Search by keyword API</li>
-                    <li class= "list-item" v-scroll-to="'#api-3'">Status - Search by hashtag API</li>
-                    <li class= "list-item" v-scroll-to="'#api-4'">Status - Most recent for instance API</li>
-                    <li class= "list-item" v-scroll-to="'#api-5'">Status - Single status by id API</li>
-                    <li class= "list-item" v-scroll-to="'#api-6'" >Accounts - Search by keyword</li>
-                    <li class= "list-item" v-scroll-to="'#api-7'">Accounts - Single Account by id</li>
-                    <li class= "list-item" v-scroll-to="'#api-8'">Get Hashtag metadata</li>
+                    <li class= "list-item" v-scroll-to="'#api-1'">Statuses - Search by keyword API</li>
+                    <li class= "list-item" v-scroll-to="'#api-2'">Statuses - Search by hashtag API</li>
+                    <li class= "list-item" v-scroll-to="'#api-3'">Statuses - Most recent for instances API</li>
+                    <li class= "list-item" v-scroll-to="'#api-4'">Status - Single status by id API</li>
+                    <li class= "list-item" v-scroll-to="'#api-5'" >Accounts - Search by keyword</li>
+                    <li class= "list-item" v-scroll-to="'#api-6'">Account - Single Account by id</li>
+                    <li class= "list-item" v-scroll-to="'#api-7'">Get hashtag metadata</li>
+                    <li class= "list-item" v-scroll-to="'#api-8'" >Mastodon instances - Get Mastodon instances API</li>
                 </ol>
             </div>
 
-<!--            1. Instance - Get Mastodon Instances API-->
-            <div id="api-1">
-                <h3 class="mt-4">1. Instance - Get Mastodon Instances API</h3>
-                <div style="margin-left:20px">
-                    <p><b>Overview</b></p>
-                    <p>The Mastodon Instances API provides a list of Mastodon instances based on specified criteria, including minimum active users, count, sorting, and authorization. You can access the official Mastodon documentation <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
-                    <div class="code-box">
-                        <div class="code-content">
-                            <code>
-                                GET https://osome.iu.edu/tools/mastodon/api/get-instance-data
-                            </code>
-                        </div>
-                    </div>
-                    <div style="margin-left:15px">
-                        <p style="padding-top: 10px;"><b>Request</b></p>
-                        <div style="margin-left:20px">
-                            <ul>
-                                <li><b>Method</b>: GET</li>
-                                <li><b>URL</b>: https://osome.iu.edu/tools/mastodon/api/get-instance-data</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
-                </div>
-            </div>
 
-<!--            2. Status - Search by keyword API-->
-            <div id="api-2">
-                <h3 class="mt-4">2. Status - Search by keyword API</h3>
+
+<!--            1. Status - Search by keyword API-->
+            <div id="api-1">
+                <h4 class="mt-4">1. Statuses - Search by keyword API</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The Search API provides a method to retrieve accounts, statuses, and hashtags based on a specified search keyword. In this API, we get the statuses results in a json format. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
-                    <p>The API endpoint facilitates the search for statuses across multiple Mastodon instances using a specified keyword. </p>
+                    <p>The OSoMe Mastodon Search API for statuses search by keyword, facilitates the search for statuses across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here">here</a> for further insight. </p>
+
+                    <p><b>The OSoMe API endpoint to retrieve statuses search by keyword</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -77,23 +49,22 @@
                                 </ul>
                             </ul>
                         </div>
+                        <p><b>Note</b></p>
+                        <ul>
+                            <li>Data is returned in JSON format.</li>
+                        </ul>
                     </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
                 </div>
             </div>
 
 
-<!--            3. Status - Most recent by hashtag API            -->
-            <div id="api-3">
-                <h3 class="mt-4">3. Status - Search by hashtag API</h3>
+<!--            2. Status - Most recent by hashtag API            -->
+            <div id="api-2">
+                <h4 class="mt-4">2. Statuses - Search by hashtag API</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint allows users to retrieve public hashtag information from a Mastodon instance. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a>.</p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
-                    <p>This API endpoint allows you to search public hashtag information through multiple Mastodon instances.</p>
+                    <p>The OSoMe Mastodon Search API for statuses search by hashtag, allows users to retrieve most recent statuses that contain a given hashtag across multiple Mastodon instances. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight.</p>
+                    <p><b>The OSoMe API endpoint for statuses search by hashtag</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -118,23 +89,21 @@
                                 </ul>
                             </ul>
                         </div>
+                        <p><b>Note</b></p>
+                        <ul>
+                            <li>Data is returned in JSON format.</li>
+                        </ul>
                     </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
                 </div>
             </div>
 
-<!--            4. Status - Most recent for instance API-->
-            <div id="api-4">
-                <h3 class="mt-4">4. Most recent for instance API</h3>
+<!--            3. Status - Most recent for instance API-->
+            <div id="api-3">
+                <h4 class="mt-4">3. Statuses - Most recent for instances API</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves public timeline statuses from a Mastodon instance. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
-                    <p>This API endpoint retrieves public timeline statuses across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
-                    <p style="font-weight:bold">(POST Request)</p>
+                    <p>The OSoMe Mastodon Search API for the most recent statuses for instances, allows you to retrieve a list of public statuses that users on the platform have shared across multiple Mastodon instances. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
+                    <p><b>The OSoMe API endpoint for the most recent statuses for instance(s)</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -158,23 +127,23 @@
                                 </ul>
                             </ul>
                         </div>
+                        <p><b>Note</b></p>
+                        <ul>
+                            <li>Data is returned in JSON format.</li>
+                        </ul>
                     </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
                 </div>
             </div>
 
-            <!--            5. Status - Single status by Id API            -->
-            <div id="api-5">
-                <h3 class="mt-4">5. Status - Single status by id API</h3>
+            <!--            4. Status - Single status by Id API            -->
+            <div id="api-4">
+                <h4 class="mt-4">4. Status - Single status by id API</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API method is used to search for statuses from a Mastodon instance based on a specific status id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
+                    <p>The OSoMe Mastodon Search API for status search by status by id, facilitates searching for a status from a Mastodon instance using a given status id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
                 </div>
-                <div style="margin-left:15px">
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
+                <div style="margin-left:20px">
+                    <p><b>The OSoMe API endpoint for retrieve single status by id</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -197,22 +166,21 @@
                                 </ul>
                             </ul>
                         </div>
+                        <p><b>Note</b></p>
+                        <ul>
+                            <li>Data is returned in JSON format.</li>
+                        </ul>
                     </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
                 </div>
             </div>
 
-            <!--            6. Accounts - Search by keyword            -->
-            <div id="api-6">
-                <h3 class="mt-4">6. Accounts - Search by keyword</h3>
+            <!--            5. Accounts - Search by keyword            -->
+            <div id="api-5">
+                <h4 class="mt-4">5. Accounts - Search by keyword</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API retrieves account data from a Mastodon instance based on a search keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
-                    <p>The API endpoint facilitates the search for accounts across multiple Mastodon instances using a specified keyword. </p>
+                    <p>The OSoMe Mastodon Search API for accounts search by keyword, facilitates to retrieve accounts across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for futher insight.</p>
+                    <p><b>The OSoMe API endpoint for accounts search by given keyword</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -220,7 +188,7 @@
                             </code>
                         </div>
                     </div>
-                    <div style="margin-left:15px">
+                    <div style="margin-left:20px">
                         <p style="padding-top: 10px;"><b>Request</b></p>
                         <div style="margin-left:20px">
                             <ul>
@@ -235,21 +203,21 @@
                                 </ul>
                             </ul>
                         </div>
+                        <p><b>Note</b></p>
+                        <ul>
+                            <li>Data is returned in JSON format.</li>
+                        </ul>
                     </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
                 </div>
             </div>
 
-            <!--            7. Accounts - Single Account by Id           -->
-            <div id="api-7">
-                <h3 class="mt-4">7. Accounts - Single Account by id</h3>
+            <!--            6. Accounts - Single Account by Id           -->
+            <div id="api-6">
+                <h4 class="mt-4">6. Account - Single Account by id</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
+                    <p>The OSoMe Mastodon Search API for account search by account id, allows you to retrieve account information from a Mastodon instance for the given account id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
+                    <p><b>The OSoMe API endpoint for search single account by id</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -272,24 +240,22 @@
                                 </ul>
                             </ul>
                         </div>
+                        <p><b>Note</b></p>
+                        <ul>
+                            <li>When retrieving some of the account information, there may be instances where certain data is not available or not returned by the Mastodon API because of their privacy policies.</li>
+                            <li>Data is returned in JSON format.</li>
+                        </ul>
                     </div>
-                    <p><b>Note</b></p>
-                    <ul>
-                        <li>When retrieving some of the account information, there may be instances where certain data is not available or not returned by the Mastodon API.</li>
-                        <li>Data is returned in JSON format.</li>
-                    </ul>
                 </div>
             </div>
 
-            <!--            8. Get Hashtag metadata          -->
-            <div id="api-8">
-                <h3 class="mt-4">8. Get Hashtag metadata</h3>
+            <!--            7. Get Hashtag metadata          -->
+            <div id="api-7">
+                <h4 class="mt-4">7. Get hashtag metadata</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>This API endpoint retrieves account information from the Mastodon API based on the account id and Mastodon instance name.  You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a>. </p>
-                    <p><b>OSoMe API endpoint for Mastodon Search</b></p>
-                    <p>This API endpoint searches hashtag data for a given keyword across multiple Mastodon instances. It accepts a JSON payload containing Mastodon instances and a search keyword.</p>
-                    <p style="font-weight:bold">(POST Request)</p>
+                    <p>The OSoMe Mastodon Search API for get hashtag metadata, facilitates to get a list of hashtags that include a given search term and links to statuses including those hashtags.  You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
+                    <p><b>The OSoMe API endpoint to get hashtag metadata</b></p>
                     <div class="code-content">
                         <code>
                             curl -X POST -H "Content-Type: application/json" -d '{"keyword":"SEARCH_KEYWORD","instances":[{"name":"MASTODON_INSTANCE}}' "https://osome.iu.edu/tools/mastodon/api/search-hashtag-by-keyword"
@@ -311,11 +277,45 @@
                             </ul>
                         </div>
                     </div>
+                    <p><b>Note</b></p>
+                    <ul>
+                        <li>Data is returned in JSON format.</li>
+                    </ul>
                 </div>
-                <p><b>Note</b></p>
-                <ul>
-                    <li>Data is returned in JSON format.</li>
-                </ul>
+            </div>
+
+
+
+            <!--            8. Instance - Get Mastodon Instances API-->
+            <div id="api-8">
+                <h4 class="mt-4">8. Mastodon Instances - Get Mastodon instances API</h4>
+                <div style="margin-left:20px">
+                    <p><b>Overview</b></p>
+                    <p>The OSoMe Mastodon Search API to retrieve Mastodon instances, allows to grab the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. Please visit <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here">instances.social</a> for further insight.</p>
+                    <p><b>The OSoMe API endpoint to get Mastodon instances</b></p>
+                    <div class="code-box">
+                        <div class="code-content">
+                            <code>
+                                GET https://osome.iu.edu/tools/mastodon/api/get-instance-data
+                            </code>
+                        </div>
+                    </div>
+                    <div style="margin-left:15px">
+                        <p style="padding-top: 10px;"><b>Request</b></p>
+                        <div style="margin-left:20px">
+                            <ul>
+                                <li><b>Headers</b></li>
+                                <ul>
+                                    <li>Content-Type: application/json</li>
+                                </ul>
+                            </ul>
+                            <p><b>Note</b></p>
+                            <ul>
+                                <li>Data is returned in JSON format.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -364,6 +364,7 @@ export default {
     transition: text-decoration 0.3s;
 }
 .navigation-link:hover {
+    color: blue;
     text-decoration: none;
 }
 

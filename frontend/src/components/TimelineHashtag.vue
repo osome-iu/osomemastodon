@@ -13,7 +13,7 @@
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Search statuses by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
+                            Statuses search by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -212,6 +212,8 @@ export default {
             info_header_text: "",
             info_body_text: "",
             isModalError: false,
+            success_searched_array: [],
+            error_search_not_allowed_array: []
         }
     },
     watch: {
@@ -321,15 +323,24 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(res => {
                         let data_received = res.data;
-                        //Assuming res.data is an array containing hashtag data
-                        for (let data of data_received) {
-                            for (let j=0;j<data.hashtag.length; j++){
-                                this.hashtagArray.push(data.hashtag[j]);
+                        this.success_searched_array = data_received[0].timeline_status
+                        this.error_search_not_allowed_array = data_received[1].error_search_not_allowed
+                        this.loading = false;
+                        for (let statuses_array of this.success_searched_array){
+                            for (let single_status of statuses_array.statuses_timeline){
+                                this.hashtagArray.push(single_status)
                             }
                         }
-                        this.loading = false;
-                        let message = this.hashtagArray.length + " data retrieved";
-                        this.successShowToast(message);
+                        if(this.error_search_not_allowed_array.length >=1){
+                            this.infoModalIsOpen = true;
+                            this.isModalError = true;
+                            this.info_header_text = "Mastodon search error"
+                            this.info_body_text = "There was an error while retrieving data from the following instance(s): <b>" +this.error_search_not_allowed_array+"</b>. Please review its/their instance policies for further insight. Total <b>"+this.hashtagArray.length+"</b> statuses retrieved from other instance(s) searched. ";
+                        }else{
+                            this.downloadData = this.hashtagArray;
+                            let message = this.hashtagArray.length + " data retrieved";
+                            this.successShowToast(message);
+                        }
                     })
                     .catch(error => {
                         this.errorShowToast();

@@ -6,14 +6,14 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts that contain a given keyword in the username or display name. Multiple instances may be searched at once.</p>
+                    <p>Search for accounts that contain a given keyword in the username or display name.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Search accounts by keyword - <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">Documentation</router-link>
+                            Accounts search by keyword - <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">Documentation</router-link>
                         </div>
                         <div class="card-body">
                             <div a class="row">
@@ -240,19 +240,28 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(res => {
                         let data_received = res.data;
+                        console.log(data_received)
+                        // // Assuming res.data is an array containing hashtag data
+                        // for (let data of data_received) {
+                        //     for (let j=0;j<data.accounts.length; j++){
+                        //         this.accountsData.push(data.accounts[j]);
+                        //     }
+                        // }
+                        //
 
-                        // Assuming res.data is an array containing hashtag data
-                        for (let data of data_received) {
-                            for (let j=0;j<data.accounts.length; j++){
-                                this.accountsData.push(data.accounts[j]);
-                            }
-                        }
-
-                        this.downloadData = this.accountsData;
+                        this.accountsData = data_received[0].searched_accounts
+                        this.error_search_not_allowed_array = data_received[1].error_search_not_allowed
                         this.loading = false;
-
-                        let message = this.accountsData.length + " data retrieved";
-                        this.successShowToast(message);
+                        if(this.error_search_not_allowed_array.length >=1){
+                            this.infoModalIsOpen = true;
+                            this.isModalError = true;
+                            this.info_header_text = "Mastodon search error"
+                            this.info_body_text = "There is an error with these instance(s): <b>" +this.error_search_not_allowed_array+"</b>. Please go through the instance's policy for further insight. Total <b>"+this.accountsData.length+"</b> accounts retrieved from other instance(s) searched.";
+                        }else{
+                            this.downloadData = this.accountsData;
+                            let message = this.accountsData.length + " data retrieved";
+                            this.successShowToast(message);
+                        }
                     })
                     .catch(error => {
                         this.loading = false;

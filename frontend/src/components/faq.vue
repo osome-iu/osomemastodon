@@ -19,7 +19,7 @@
                 <h3 class="mt-4">How to get the access token</h3>
                 <p>
                     To obtain an access token for a Mastodon instance, you typically need to follow a few steps. Mastodon uses OAuth 2.0 for authentication, which involves registering your application with the Mastodon instance and then obtaining an access token for user authentication.
-                    The exact location for acquiring an API token may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social:</a>.
+                    The exact location for acquiring an API token may be different depending on the software version installed on an instance. As an example, on the desktop version of <a href="https://mastodon.social/" target="_blank" class="black-link">mastodon.social:</a>
                 </p>
                 <ol>
                     <li>Log in to your account.</li>
@@ -32,7 +32,7 @@
             <div id="q-3">
                 <h3 class="mt-4">How are the Mastodon status ids made</h3>
                 <p>
-                    In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker id that represents the name of the server (instance) to which the posting user belongs, prevents collisions between ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker id, and sequence number allows Mastodon to create globally unique post ids, facilitating efficient organization and retrieval of posts across its decentralized network.
+                    In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker id that represents the name of the server(instance) to which the posting user belongs, prevents collisions between ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker id, and sequence number allows Mastodon to create globally unique post ids, facilitating efficient organization and retrieval of posts across its decentralized network.
                 </p>
             </div>
             <div id="q-5">

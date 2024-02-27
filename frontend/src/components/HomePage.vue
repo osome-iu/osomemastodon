@@ -4,10 +4,14 @@
             <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
                 <div>
-                    <p>The OSoMe Mastodon Search interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
+                    <p>OSoMe Mastodon Search interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
                 </div>
             </div>
-            <hr>
+            <div class="col-12">
+                <div>
+                    <p>As Mastodon is a federated social network, the 'OSoMe Mastodon Search' interface allows users to search for keywords/hashtags <b>across multiple Mastodon instances</b>, with the exception of the <router-link to="/searchbyid"  class="home-sub-header">Single status by id</router-link> and <router-link to="/accountsbyId" class="home-sub-header">Single account by id</router-link> interfaces.</p>
+                </div>
+            </div>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12">
@@ -42,8 +46,8 @@
                         <div class="api-section">
                             <h4> Documentation</h4>
                             <ol class="api-list">
-                                <li><router-link to="/faq" class="home-sub-header">FAQ</router-link> - The FAQ section addresses common questions, providing quick insights and information about the Mastodon interface.</li>
-                                <li><router-link to="/apidocumentation" class="home-sub-header">API Documentation</router-link> - Guide to interact with OSoMe Search APIs for Mastodon, presenting key information on endpoints, request formats, and response structures.</li>
+                                <li><router-link to="/faq" class="home-sub-header">FAQ</router-link> - The FAQ section addresses common questions, providing quick insights and information about the OSoMe Mastodon Search interface.</li>
+                                <li><router-link to="/apidocumentation" class="home-sub-header">API Documentation</router-link> - Guide to interact with OSoMe Mastodon Search interface API's, presenting key information on endpoints, request formats, and response structures.</li>
                             </ol>
                         </div>
                     </div>

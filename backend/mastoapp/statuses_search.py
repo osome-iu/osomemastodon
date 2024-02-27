@@ -42,9 +42,6 @@ def status_search_by_id(mastodon_instance, status_id):
     return status
 
 
-import requests
-
-
 def mastodon_search_by_keyword(access_token, search_keyword, mastodon_instance):
     """
     This method is used to get the accounts, statuses, and hashtags.

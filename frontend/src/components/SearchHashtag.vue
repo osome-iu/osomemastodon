@@ -144,6 +144,7 @@ export default {
             info_header_text: "",
             info_body_text: "",
             isModalError: false,
+            error_search_not_allowed_array: [],
         }
     },
     watch: {
@@ -214,7 +215,6 @@ export default {
             }
 
             if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances)) {
-                this.hashtagData = []
                 this.header_text = "Search Statuses URL"
                 this.loading = true;
 
@@ -231,18 +231,21 @@ export default {
 
                 axios.post(dataUrl, requestData)
                     .then(res => {
+                        this.hashtagData = []
                         let data_received = res.data;
-
-                        // Assuming res.data is an array containing hashtag data
-                        for (let data of data_received) {
-                            for (let j=0;j<data.hashtags.length; j++){
-                                this.hashtagData.push(data.hashtags[j]);
-                            }
+                        this.hashtagData = data_received[0].searched_status
+                        this.error_search_not_allowed_array = data_received[1].error_search_not_allowed
+                        this.loading = false;
+                        if(this.error_search_not_allowed_array.length >=1){
+                            this.infoModalIsOpen = true;
+                            this.isModalError = true;
+                            this.info_header_text = "Mastodon search error"
+                            this.info_body_text = "There is an error with these instance(s): <b>" +this.error_search_not_allowed_array+"</b>. Please go through the instance's policy for further insight. Total "+this.hashtagData.length+" statuses retrieved from other instance(s).";
+                        }else{
+                            this.downloadData = this.hashtagData;
+                            let message = this.hashtagData.length + " data retrieved";
+                            this.successShowToast(message);
                         }
-
-                        this.downloadData = this.hashtagData;
-                        let message = this.hashtagData.length + " data retrieved";
-                        this.successShowToast(message);
                     })
                     .catch(error => {
                         this.errorShowToast();

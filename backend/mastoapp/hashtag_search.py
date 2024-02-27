@@ -23,6 +23,7 @@ logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, al
 
 def fetch_hashtag_data(mastodon_instance, hashtag, data_type, limit):
     """
+    This is for the timeline hashtag data.
     Get the public hashtag information from the mastodon API.
     Documentation - https://docs.joinmastodon.org/methods/timelines/#public
     Parameters
@@ -33,21 +34,28 @@ def fetch_hashtag_data(mastodon_instance, hashtag, data_type, limit):
     - Json object which contains the account information.
     -----------
     """
-    hashtag_search_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/tag/{hashtag}?limit={limit}&local={data_type}'
-    response = requests.get(hashtag_search_endpoint_url)
+    try:
+        hashtag_search_endpoint_url = f'https://{mastodon_instance}/api/v1/timelines/tag/{hashtag}?limit={limit}&local={data_type}'
 
-    # Check the response status code
-    if response.status_code == 200:
-        hashtag_data = response.json()
-        hashtag_dict = {"hashtag": hashtag_data}
-        return hashtag_dict
-    else:
-        # Handle the errors occur with API method calling.
-        logger.error(f"Error: {response.status_code} - {response.text}")
+        response = requests.get(hashtag_search_endpoint_url)
+
+        # Check the response status code
+        if response.status_code == 200:
+            results_array = response.json()
+            hashtag_data = {"statuses_timeline": results_array}
+        else:
+            hashtag_data = {"error_search_not_allowed": "Bad request (400 error)"}
+
+    except (requests.exceptions.HTTPError, Exception) as err:
+        # Handle HTTP errors (4xx or 5xx) here
+        hashtag_data = {"error_search_not_allowed": "Bad request (400 error)"}
+
+    return hashtag_data
 
 
 def get_hashtag_data_from_keyword(mastodon_instance, search_keyword):
     """
+    Hashtag metadata
     Get the hashtag data from the keyword.
     Parameters
     -----------
@@ -58,14 +66,20 @@ def get_hashtag_data_from_keyword(mastodon_instance, search_keyword):
     -----------
     Note: here is the reference : https://docs.joinmastodon.org/methods/search/
     """
-    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=hashtags'
+    try:
+        search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=hashtags'
 
-    response = requests.get(search_endpoint_url)
+        response = requests.get(search_endpoint_url)
 
-    # Check the response status code
-    if response.status_code == 200:
-        hashtag_data = response.json()
-        return hashtag_data
-    else:
-        # Handle the errors occur with API method calling.
-        print(f"Error: {response.status_code} - {response.text}")
+        # Check the response status code
+        if response.status_code == 200:
+            results_array = response.json()
+            hashtag_data = {"statuses_timeline": results_array}
+        else:
+            hashtag_data = {"error_search_not_allowed": "Bad request (400 error)"}
+
+    except (requests.exceptions.HTTPError, Exception) as err:
+        # Handle HTTP errors (4xx or 5xx) here
+        hashtag_data = {"error_search_not_allowed": "Bad request (400 error)"}
+
+    return hashtag_data

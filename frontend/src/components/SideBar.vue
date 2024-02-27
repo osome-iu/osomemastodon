@@ -26,7 +26,7 @@
                                         <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>Search by hashtag
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'TimelineStatus'}" exact-active-class="active-link" >
-                                        <div class="sb-nav-link-icon"><i class="fa fa-list-alt"></i></div>Recent for instance
+                                        <div class="sb-nav-link-icon"><i class="fa fa-list-alt"></i></div>Most recent for instance
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'SearchByIdStatus'}" exact-active-class="active-link" >
                                         <div class="sb-nav-link-icon"><i class="fa fa-clipboard-check"></i></div>Single status by id

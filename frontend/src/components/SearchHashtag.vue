@@ -215,7 +215,7 @@ export default {
             }
 
             if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances)) {
-                this.header_text = "Search Statuses URL"
+                this.header_text = "Hashtags - Metadata"
                 this.loading = true;
 
                 let searched_hashtag = this.searchKeyword.charAt(0) === '#' ? this.searchKeyword.slice(1) : this.searchKeyword;

@@ -292,7 +292,7 @@ export default {
             if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances) && this.isValidAccessTokens()) {
                 this.statusData = [];
                 this.downloadData = [];
-                this.header_text = "Search Statuses URL"
+                this.header_text = "Statuses - Search by keyword"
                 this.loading = true;
                 let dataUrl = constants.url + '/api/search-status-by-keyword';
                 let requestData = {

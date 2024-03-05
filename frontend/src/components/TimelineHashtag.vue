@@ -301,7 +301,7 @@ export default {
 
             if(this.isValidInstance(this.selectedMastodonInstances) && this.isValidInput(this.hashtagSearch) && this.isValidInput(this.dataType) && this.isValidInput(this.limitNo)) {
 
-                this.header_text = "Search Statuses URL"
+                this.header_text = "Statuses - Search by hashtag"
                 this.loading = true;
                 this.hashtagArray = [];
                 let dataUrl = constants.url + '/api/hashtag-search';

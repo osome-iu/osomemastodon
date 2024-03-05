@@ -224,7 +224,7 @@ export default {
             }
 
             if(this.isValidKeyword(this.searchKeyword) && this.isValidInstance(this.selectedMastodonInstances) ) {
-                this.header_text = "Search Account URL"
+                this.header_text = "Accounts - Search by keyword"
                 this.loading = true;
 
                 let dataUrl = constants.url + '/api/search-accounts-by-keyword';
@@ -240,15 +240,6 @@ export default {
                 axios.post(dataUrl, requestData)
                     .then(res => {
                         let data_received = res.data;
-                        console.log(data_received)
-                        // // Assuming res.data is an array containing hashtag data
-                        // for (let data of data_received) {
-                        //     for (let j=0;j<data.accounts.length; j++){
-                        //         this.accountsData.push(data.accounts[j]);
-                        //     }
-                        // }
-                        //
-
                         this.accountsData = data_received[0].searched_accounts
                         this.error_search_not_allowed_array = data_received[1].error_search_not_allowed
                         this.loading = false;

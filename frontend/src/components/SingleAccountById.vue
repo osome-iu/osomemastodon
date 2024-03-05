@@ -193,7 +193,7 @@ export default {
             modalIsOpen: false,
             modalTitle: 'Info',
             api_call: "",
-            header_text: "Search Account by Id",
+            header_text: "Accounts - Single Account by id",
             selectedMastodonInstances: [],
             loading: false,
             officialURL: "",

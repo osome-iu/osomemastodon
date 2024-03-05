@@ -3,7 +3,7 @@
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
         <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instance</span></h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instances</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>A list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
@@ -256,7 +256,7 @@ export default {
             }
 
             if(this.isValidInput(this.limitNo) && this.isValidInput(this.dataType) && this.isValidInstance(this.selectedMastodonInstances)) {
-                this.header_text = "Search Statuses URL"
+                this.header_text = "Statuses - Most recent for instance"
                 this.loading = true;
                 this.statusesArray = [];
                 let dataUrl = constants.url + '/api/timeline-statuses';

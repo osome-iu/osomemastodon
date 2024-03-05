@@ -74,7 +74,7 @@ def get_hashtag_data_from_keyword(mastodon_instance, search_keyword):
         # Check the response status code
         if response.status_code == 200:
             results_array = response.json()
-            hashtag_data = {"statuses_timeline": results_array}
+            hashtag_data = {"results": results_array}
         else:
             hashtag_data = {"error_search_not_allowed": "Bad request (400 error)"}
 

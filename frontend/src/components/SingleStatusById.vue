@@ -3,7 +3,7 @@
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text"/>
         <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Statuses <span class="subtitle">- Single Status by id</span></h1>
+            <h1 class="page-title">Statuses <span class="subtitle">- Single status by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>Get information about a status by status id.</p>
@@ -278,7 +278,7 @@ export default {
                 this.loading = true;
                 this.officialURL = "https://"+this.selectedMastodonInstances.name+"/api/v1/statuses/"+this.statusId;
                 this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
-                this.header_text = "Search Account URL"
+                this.header_text = "Statuses - Single status by id"
                 let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
                 axios.get(dataUrl)
                     .then(res => {

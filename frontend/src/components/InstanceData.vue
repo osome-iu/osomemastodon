@@ -1,10 +1,10 @@
 <template>
     <main>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Mastodon Instances</h1>
+            <h1 class="page-title">Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieves the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;">instances.social</a> API to gather the instances.</p>
+                    <p>Retrieves the top 20 instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;">instances.social</a> API to gather the instances.</p>
                 </div>
             </div>
 

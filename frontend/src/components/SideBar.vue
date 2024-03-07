@@ -12,7 +12,7 @@
                             <div class="sb-sidenav-menu-heading">SEARCH</div>
                             <a class="nav-link collapsed" href="#" @click="toggleCollapse_one" aria-expanded="false" aria-controls="collapsePages1">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Get statuses
+                                Statuses
                                 <div :class="arrowIconClassesOne" :click="toggleCollapse_one">
                                     <i class="fas fa-angle-down" :click="toggleCollapse_one"></i>
                                 </div>
@@ -36,7 +36,7 @@
 
                             <a class="nav-link collapsed" href="#" @click="toggleCollapse_two" aria-expanded="false" aria-controls="collapsePages2">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Get accounts
+                                Accounts
                                 <div :class="arrowIconClassesTwo" :click="toggleCollapse_two">
                                     <i class="fas fa-angle-down" :click="toggleCollapse_two"></i>
                                 </div>
@@ -56,12 +56,11 @@
 
                             <router-link class="nav-item nav-link" :to="{name: 'SearchHashtags'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-tags"></i></div>
-                                Get hashtag metadata
+                                Hashtag metadata
                             </router-link>
 
-                            <div class="sb-sidenav-menu-heading">INSTANCES</div>
                             <router-link class="nav-item nav-link" :to="{name: 'MastodonInstances'}" exact-active-class="active-link" >
-                                <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>Mastodon Instances
+                                <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>Instances
                             </router-link>
 
                             <div class="sb-sidenav-menu-heading">DOCUMENTATION</div>

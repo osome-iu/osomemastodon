@@ -4,53 +4,46 @@
             <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
                 <div>
-                    <p>OSoMe Mastodon Search interface provides diverse functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover Mastodon instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
+                    <p>OSoMe Mastodon provides an interface to various functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
                 </div>
             </div>
             <div class="col-12">
                 <div>
-                    <p>As Mastodon is a federated social network, the 'OSoMe Mastodon Search' interface allows users to search for keywords/hashtags <b>across multiple Mastodon instances</b>, with the exception of the <router-link to="/searchbyid"  class="home-sub-header">Single status by id</router-link> and <router-link to="/accountsbyId" class="home-sub-header">Single account by id</router-link> interfaces.</p>
+                    <p>As Mastodon is a federated social network, the 'OSoMe Mastodon Search' interface allows users to search for keywords/hashtags <b>across multiple Mastodon instances</b>.</p>
                 </div>
             </div>
-            <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="api-section">
-                            <h4>Get Statuses</h4>
-                            <ul class="api-list">
-                                <li><router-link to="/searchbykeyword"  class="home-sub-header">Search by keyword</router-link> - Search statuses across multiple instances using a given keyword. <b>An access token is required</b> for each instance being searched.</li>
-                                <li><router-link to="/timelinehashtag"  class="home-sub-header">Search by hashtag</router-link> - Get the most recent statuses that contain the given hashtag.</li>
-                                <li><router-link to="/timelinestatus"  class="home-sub-header">Recent for instance</router-link> - A  list of the most recent statuses. </li>
-                                <li><router-link to="/searchbyid"  class="home-sub-header">Single status by id</router-link> - Get information about a status by status id.</li>
-                            </ul>
+                        <div class="search-section">
+                            <h4>Statuses</h4>
+                            <div class="sub-text">
+                                <p> For statuses, you can retrieve statuses using a keyword, find recent statuses by a hashtag, view recent statuses from a specific instance, and obtain information about a status using status id.</p>
+                            </div>
                         </div>
-                        <div class="api-section">
-                            <h4>Get Accounts</h4>
-                            <ol class="api-list">
-                                <li><router-link to="/searchaccounts" class="home-sub-header">Search by keyword</router-link> - Search for accounts that contain a given keyword in the username or display name.</li>
-                                <li><router-link to="/accountsbyId" class="home-sub-header">Single account by id</router-link> - Retrieve information about a profile using the account id.</li>
-                            </ol>
+                        <div class="search-section">
+                            <h4>Accounts</h4>
+                            <div class="sub-text">
+                                <p> For accounts, you can search for accounts using a keyword, and retrieve detailed information about a specific profile using account id.</p>
+                            </div>
                         </div>
-                        <div class="api-section">
-                            <h4> Get Hashtag Metadata</h4>
-                            <ol class="api-list">
-                                <li><router-link to="/searchhashtags" class="home-sub-header">Hashtag Metadata</router-link> - Get a list of hashtags that include a given search term.</li>
-                            </ol>
+                        <div class="search-section">
+                            <h4> Hashtag Metadata</h4>
+                            <div class="sub-text">
+                                <p> For hashtag metadata, you can retrieve a list of hashtags containing a specific search term.</p>
+                            </div>
                         </div>
-                        <div class="api-section">
+                        <div class="search-section">
                             <h4>Instances</h4>
-                            <ol class="api-list">
-                                <li><router-link to="/instances" class="home-sub-header">Mastodon Instances</router-link> - Retrieves the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;"> instances.social </a> API to gather the instances.</li>
-                            </ol>
+                            <div class="sub-text">
+                                <p> Users can see the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;"> instances.social </a> API to gather the instances.</p>
+                            </div>
                         </div>
-                        <div class="api-section">
+                        <div class="search-section">
                             <h4> Documentation</h4>
-                            <ol class="api-list">
-                                <li><router-link to="/faq" class="home-sub-header">FAQ</router-link> - The FAQ section addresses common questions, providing quick insights and information about the OSoMe Mastodon Search interface.</li>
-                                <li><router-link to="/apidocumentation" class="home-sub-header">API Documentation</router-link> - Guide to interact with OSoMe Mastodon Search interface API's, presenting key information on endpoints, request formats, and response structures.</li>
-                            </ol>
+                            <div class="sub-text">
+                                <p>  The FAQ section offers quick insights and answers to common questions about the OSoMe Mastodon Search interface, while the API Documentation provides a comprehensive guide for interacting with its APIs, covering endpoints, request formats and response structures.</p>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -100,6 +93,14 @@
 .home-sub-header:hover{
     text-decoration: underline;
     color: blue
+}
+.search-section{
+    margin-left: 20px;
+    margin-top:8px;
+    margin-bottom:20px;
+}
+.sub-text{
+    margin-left: 20px;
 }
 </style>
 <script setup>

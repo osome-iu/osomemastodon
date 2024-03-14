@@ -19,11 +19,12 @@
                             <div class="row">
                                 <div class="col-xl-4">
                                     <label for="mastodonInstance">Mastodon instances
-                                        <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                        <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open Mastodon instances modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
                                     </label>
                                     <VueMultiselect
+                                        id="mastodonInstance"
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
@@ -45,7 +46,7 @@
                                 </div>
                                 <div class="col-xl-2">
                                     <label for="keyword" >Keyword
-                                        <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                        <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open keyword info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
                                     </label>
@@ -61,9 +62,9 @@
                                 </div>
                                 <div class="col-md-3 col-12" style="margin-top: 20px; margin-left: 20px; display: flex; align-items: center;">
                                     <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
-                                    <label class="col-12 d-flex align-items-center" style="white-space: nowrap; pointer-events: none;">
+                                    <label for="checkbox" class="col-12 d-flex align-items-center" style="white-space: nowrap; pointer-events: none;">
                                         <span>&nbsp;Check instance validity</span>&nbsp;
-                                        <button @click="showInfoModal('validity')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                        <button @click="showInfoModal('validity')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open check validity info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
                                     </label>

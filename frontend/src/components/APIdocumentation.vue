@@ -291,7 +291,7 @@
                 <h4 class="mt-4">8. Mastodon Instances - Get Mastodon instances API</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The OSoMe Mastodon Search API to retrieve Mastodon instances, allows to grab the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. Please visit <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="here">instances.social</a> for further insight.</p>
+                    <p>The OSoMe Mastodon Search API to retrieve Mastodon instances, allows to grab the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. Please visit <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="instances.social">instances.social</a> for further insight.</p>
                     <p><b>The OSoMe API endpoint to get Mastodon instances</b></p>
                     <div class="code-box">
                         <div class="code-content">

@@ -19,11 +19,12 @@
                             <div a class="row">
                                 <div class="col-xl-6">
                                     <label for="mastodonInstance">Mastodon instances
-                                        <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                        <button @click="showInfoModal('instance')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open Mastodon instances modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
                                     </label>
                                     <VueMultiselect
+                                        id="mastodonInstance"
                                         aria-labelledby="mastodonInstance"
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
@@ -43,7 +44,7 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <label for="keyword" >Keyword
-                                        <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;">
+                                        <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open keyword info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
                                     </label>

@@ -17,19 +17,19 @@
                         <div class="search-section">
                             <h4>Statuses</h4>
                             <div class="sub-text">
-                                <p> For statuses, you can retrieve statuses using a keyword, find recent statuses by a hashtag, view recent statuses from a specific instance, and obtain information about a status using status id.</p>
+                                <p> Retrieve statuses using a keyword, find recent statuses by a hashtag, view recent statuses from a specific instance, and obtain information about a status using status id.</p>
                             </div>
                         </div>
                         <div class="search-section">
                             <h4>Accounts</h4>
                             <div class="sub-text">
-                                <p> For accounts, you can search for accounts using a keyword, and retrieve detailed information about a specific profile using account id.</p>
+                                <p> Search for accounts using a keyword, and retrieve detailed information about a specific profile using account id.</p>
                             </div>
                         </div>
                         <div class="search-section">
                             <h4> Hashtag Metadata</h4>
                             <div class="sub-text">
-                                <p> For hashtag metadata, you can retrieve a list of hashtags containing a specific search term.</p>
+                                <p> Retrieve a list of hashtags containing a specific search term.</p>
                             </div>
                         </div>
                         <div class="search-section">

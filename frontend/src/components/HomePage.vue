@@ -4,12 +4,12 @@
             <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
                 <div>
-                    <p>OSoMe Mastodon provides an interface to various functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
+                    <p>OSoMe Mastodon Search provides an interface to various functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
                 </div>
             </div>
             <div class="col-12">
                 <div>
-                    <p>As Mastodon is a federated social network, the 'OSoMe Mastodon Search' interface allows users to search for keywords/hashtags <b>across multiple Mastodon instances</b>.</p>
+                    <p>As Mastodon is a federated social network, the OSoMe Mastodon Search interface allows users to search for keywords and hashtags <b>across multiple Mastodon instances</b>.</p>
                 </div>
             </div>
                 <div class="row">
@@ -23,7 +23,7 @@
                         <div class="search-section">
                             <h4>Accounts</h4>
                             <div class="sub-text">
-                                <p> Search for accounts using a keyword, and retrieve detailed information about a specific profile using account id.</p>
+                                <p> Search for accounts using a keyword and retrieve detailed information about a specific profile using account id.</p>
                             </div>
                         </div>
                         <div class="search-section">
@@ -35,7 +35,7 @@
                         <div class="search-section">
                             <h4>Instances</h4>
                             <div class="sub-text">
-                                <p> Users can see the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social" style="color: #2c3e50;"> instances.social </a> API to gather the instances.</p>
+                                <p> Users can see the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social API" style="color: #2c3e50;"> instances.social API </a> to gather the instances.</p>
                             </div>
                         </div>
                         <div class="search-section">

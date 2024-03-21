@@ -35,7 +35,7 @@
                         <div class="search-section">
                             <h4>Instances</h4>
                             <div class="sub-text">
-                                <p> Users can see the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social API" style="color: #2c3e50;"> instances.social API </a> to gather the instances.</p>
+                                <p> Users can see the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social API" style="color: #2c3e50;"> instances.social API</a> to gather the instances.</p>
                             </div>
                         </div>
                         <div class="search-section">

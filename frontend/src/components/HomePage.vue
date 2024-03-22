@@ -41,7 +41,7 @@
                         <div class="search-section">
                             <h4> Documentation</h4>
                             <div class="sub-text">
-                                <p>  The FAQ section offers quick insights and answers to common questions about the OSoMe Mastodon Search interface, while the API Documentation provides a comprehensive guide for interacting with its APIs, covering endpoints, request formats and response structures.</p>
+                                <p>  The FAQ section offers quick insights and answers to common questions about the OSoMe Mastodon Search interface, while the API documentation provides a comprehensive guide for interacting with its APIs, covering endpoints, request formats and response structures.</p>
                             </div>
                         </div>
                 </div>

@@ -35,13 +35,13 @@
                         <div class="search-section">
                             <h4>Instances</h4>
                             <div class="sub-text">
-                                <p> Users can see the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social API" style="color: #2c3e50;"> instances.social API</a> to gather the instances.</p>
+                                <p> View the top 20 Mastodon instances with a minimum of 5000 active users listed in descending order. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social API" style="color: #2c3e50;"> instances.social API</a> to gather the instances.</p>
                             </div>
                         </div>
                         <div class="search-section">
                             <h4> Documentation</h4>
                             <div class="sub-text">
-                                <p>  The FAQ section offers quick insights and answers to common questions about the OSoMe Mastodon Search interface, while the API documentation provides a comprehensive guide for interacting with its APIs, covering endpoints, request formats and response structures.</p>
+                                <p>  The FAQ section offers quick insights and answers to common questions about the OSoMe Mastodon Search interface, while the API documentation provides a comprehensive guide for interacting with its APIs, covering endpoints, request formats, and response structures.</p>
                             </div>
                         </div>
                 </div>

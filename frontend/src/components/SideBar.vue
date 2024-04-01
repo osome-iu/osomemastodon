@@ -20,7 +20,7 @@
                             <div :class="{ 'collapse': true, 'show': isCollapsedOne }" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionLayouts">
                                     <router-link class="nav-item nav-link" :to="{name: 'SearchByKeyword'}" exact-active-class="active-link" >
-                                        <div class="sb-nav-link-icon"><i class="fa fa-search"></i></div>Search by keyword
+                                        <div class="sb-nav-link-icon"><i class="fa fa-search"></i></div>Search by keywords
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'TimelineHashtag'}"  exact-active-class="active-link">
                                         <div class="sb-nav-link-icon"><i class="fas fa-hashtag"></i></div>Search by hashtag

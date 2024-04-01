@@ -436,7 +436,7 @@ export default {
         showInfoModal(type) {
             if(type =='keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keyword."
+                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces."
                 this.infoModalIsOpen = true;
             }
             else if(type == 'validity'){

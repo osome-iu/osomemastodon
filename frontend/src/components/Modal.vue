@@ -22,7 +22,7 @@
                     </div>
                     <div class="row align-items-end">
                         <div class="col-8 col-md-9">
-                            <label for="osomeURL" style="font-size: 15px;" >OSoME - Mastodon Search interface API <b>(POST Request)</b></label>
+                            <label for="osomeURL" style="font-size: 15px;" >OSoMe - Mastodon Search interface API <b>(POST Request)</b></label>
                             <input v-model="this.osomeURL" ref="osomeURL" class="form-control"/>
                         </div>
                         <div class="col-4 col-md-2 mt-0 mt-md-1" style="margin-bottom: 5px;">

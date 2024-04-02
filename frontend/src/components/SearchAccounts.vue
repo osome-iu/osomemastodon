@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts that contain a given keyword in the username or display name. You can access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link> </p>
+                    <p>Search for accounts that contain a given keyword in the username or display name. You can access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link>.</p>
             </div>
             <div class="row">
                 <div class="col-xl-12">

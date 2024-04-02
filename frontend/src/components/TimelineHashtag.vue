@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">here</router-link> </p>
+                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -318,7 +318,7 @@ export default {
                 let searched_hashtag = this.hashtagSearch.charAt(0) === '#' ? this.hashtagSearch.slice(1) : this.hashtagSearch;
 
                 let requestData = {
-                    hashtag: searched_hashtag,
+                    hashtag: searched_hashtag.trim(),
                     mastodon_instances: this.selectedMastodonInstances,
                     data_type: this.dataType,
                     limit_no: this.limitNo
@@ -414,7 +414,7 @@ export default {
         showInfoModal(type) {
             if(type === 'keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search."
+                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search. Spaces between words will be ignored and treated as one word."
                 this.infoModalIsOpen = true;
             }else if(type == 'data'){
                 this.info_header_text = "Difference between the local and federated timelines"

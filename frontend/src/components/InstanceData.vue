@@ -4,13 +4,13 @@
             <h1 class="page-title">Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieves the top 20 instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;">instances.social</a> API to gather the instances.</p>
+                    <p>Retrieves the top 20 instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;">instances.social</a> API to gather the instances. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
 
             <div class="card mb-4">
                 <div class="card-header">
-                    Mastodon instances - <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">Documentation</router-link>
+                    Results
                 </div>
                 <div class="card-body">
                     <div style="display: flex; justify-content: center; align-items: center; margin-top: 100px" v-if="loading">
@@ -101,3 +101,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.api-documentation{
+    text-decoration : underline;
+}
+</style>

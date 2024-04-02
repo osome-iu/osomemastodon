@@ -6,14 +6,13 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts that contain a given keyword in the username or display name.</p>
-                </div>
+                    <p>Search for accounts that contain a given keyword in the username or display name. You can access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link> </p>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Accounts search by keyword - <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">Documentation</router-link>
+                            Query
                         </div>
                         <div class="card-body">
                             <div a class="row">
@@ -79,33 +78,41 @@
                     color="#ff1d5e"
                 />
             </div>
-            <div class="table-responsive" v-if="!loading && accountsData.length>0" style="font-size: 12px;">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Display Name</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Instance</th>
-                            <th scope="col">Followers Count</th>
-                            <th scope="col">Following Count</th>
-                            <th scope="col">Status Count </th>
-                            <th scope="col">Profile Info </th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                            <tr v-for="account in accountsData" :key="key">
-                                <td>{{account.id}}</td>
-                                <td>{{account.display_name}}</td>
-                                <td>{{account.username}}</td>
-                                <td>{{this.extractInstanceName(account.acct)}}</td>
-                                <td>{{account.followers_count}}</td>
-                                <td>{{account.following_count}}</td>
-                                <td>{{account.statuses_count}}</td>
-                                <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id,this.extractInstanceName(account.acct) )">view</button></td>
-                            </tr>
-                        </tbody>
-                </table>
+            <div class="col-xl-12" v-if="!loading && accountsData.length>0">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Results
+                    </div>
+                    <div class="table-responsive"  style="font-size: 12px;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Display Name</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Instance</th>
+                                    <th scope="col">Followers Count</th>
+                                    <th scope="col">Following Count</th>
+                                    <th scope="col">Status Count </th>
+                                    <th scope="col">Profile Info </th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    <tr v-for="account in accountsData" :key="key">
+                                        <td>{{account.id}}</td>
+                                        <td>{{account.display_name}}</td>
+                                        <td>{{account.username}}</td>
+                                        <td>{{this.extractInstanceName(account.acct)}}</td>
+                                        <td>{{account.followers_count}}</td>
+                                        <td>{{account.following_count}}</td>
+                                        <td>{{account.statuses_count}}</td>
+                                        <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(account.id,this.extractInstanceName(account.acct) )">view</button></td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </main>

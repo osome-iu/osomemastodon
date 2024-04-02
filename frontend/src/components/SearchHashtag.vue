@@ -6,14 +6,14 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get a list of hashtags that include a given search term and links to statuses including those hashtags.</p>
+                    <p>Get a list of hashtags that include a given search term and links to statuses including those hashtags. You can access the documentation <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Statuses hashtag metadata - <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">Documentation</router-link>
+                            Query
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -79,23 +79,30 @@
                     color="#ff1d5e"
                 />
             </div>
-            <div class="table-responsive" v-if="!loading && hashtagData.length>0" style="font-size: 10px;">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Hashtag Name</th>
-                            <th scope="col">Instance Name</th>
-                            <th scope="col">URL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="hashtag in hashtagData" :key="key">
-                        <td>{{hashtag.name}}</td>
-                        <td>{{ getDomain(hashtag.url) }}</td>
-                        <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Link</a></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-xl-12" v-if="!loading && hashtagData.length>0">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Results
+                    </div>
+                    <div class="table-responsive" style="font-size: 10px;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Hashtag Name</th>
+                                    <th scope="col">Instance Name</th>
+                                    <th scope="col">URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="hashtag in hashtagData" :key="key">
+                                <td>{{hashtag.name}}</td>
+                                <td>{{ getDomain(hashtag.url) }}</td>
+                                <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Link</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

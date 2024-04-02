@@ -6,14 +6,14 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Single status by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get information about a status by status id.</p>
+                    <p>Get information about a status by status id. You can access the documentation <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Search a single status by id - <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">Documentation</router-link>
+                            Query
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -78,7 +78,7 @@
                     <div class="card mb-4" v-if="this.statusReceivedId">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Status Data
+                            Result
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center" style="margin-top: 10px">
@@ -413,5 +413,8 @@ export default {
     padding: 8px;             /* Some padding for better appearance */
     font-size: 14px;          /* Adjust font size */
     color: #333;              /* Text color */
+}
+.api-documentation{
+     text-decoration : underline;
 }
 </style>

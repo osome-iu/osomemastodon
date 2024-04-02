@@ -25,7 +25,6 @@
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for statuses search by keyword, facilitates the search for statuses across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here">here</a> for further insight. </p>
 
-                    <p><b>The OSoMe API endpoint to retrieve statuses search by keyword</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -64,7 +63,6 @@
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for statuses search by hashtag, allows users to retrieve most recent statuses that contain a given hashtag across multiple Mastodon instances. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight.</p>
-                    <p><b>The OSoMe API endpoint for statuses search by hashtag</b></p>
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -103,7 +101,7 @@
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for the most recent statuses for instances, allows you to retrieve a list of public statuses that users on the platform have shared across multiple Mastodon instances. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
-                    <p><b>The OSoMe API endpoint for the most recent statuses for instance(s)</b></p>
+
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -143,7 +141,7 @@
                     <p>The OSoMe Mastodon Search API for status search by status by id, facilitates searching for a status from a Mastodon instance using a given status id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
                 </div>
                 <div style="margin-left:20px">
-                    <p><b>The OSoMe API endpoint for retrieve single status by id</b></p>
+
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -180,7 +178,7 @@
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for accounts search by keyword, facilitates to retrieve accounts across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for futher insight.</p>
-                    <p><b>The OSoMe API endpoint for accounts search by given keyword</b></p>
+
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -217,7 +215,7 @@
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for account search by account id, allows you to retrieve account information from a Mastodon instance for the given account id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/accounts/#get" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
-                    <p><b>The OSoMe API endpoint for search single account by id</b></p>
+
                     <div class="code-box">
                         <div class="code-content">
                             <code>
@@ -255,7 +253,7 @@
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for get hashtag metadata, facilitates to get a list of hashtags that include a given search term and links to statuses including those hashtags.  You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
-                    <p><b>The OSoMe API endpoint to get hashtag metadata</b></p>
+
                     <div class="code-content">
                         <code>
                             curl -X POST -H "Content-Type: application/json" -d '{"keyword":"SEARCH_KEYWORD","instances":[{"name":"MASTODON_INSTANCE}}' "https://osome.iu.edu/tools/mastodon/api/search-hashtag-by-keyword"
@@ -292,7 +290,7 @@
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API to retrieve Mastodon instances, allows to grab the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. Please visit <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="instances.social">instances.social</a> for further insight.</p>
-                    <p><b>The OSoMe API endpoint to get Mastodon instances</b></p>
+
                     <div class="code-box">
                         <div class="code-content">
                             <code>

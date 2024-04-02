@@ -6,14 +6,14 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve information about a profile using the account id.</p>
+                    <p>Retrieve information about a profile using the account id. You can access the documentation <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Account search by id - <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">Documentation</router-link>
+                            Query
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -78,7 +78,7 @@
                     <div class="card mb-4" v-if="!loading && username">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Account Information
+                            Result
                         </div>
                         <div class="card-body">
                             <div class="row justify-content-center" style="margin-top: 10px">

@@ -3,47 +3,13 @@
         <div class="container-fluid px-4">
             <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
             <div class="col-12">
-                <div>
+                <div class="paragraph-text">
                     <p>OSoMe Mastodon Search provides an interface to various functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights.</p>
                 </div>
             </div>
             <div class="col-12">
-                <div>
+                <div class="paragraph-text">
                     <p>As Mastodon is a federated social network, the OSoMe Mastodon Search interface allows users to search for keywords and hashtags <b>across multiple Mastodon instances</b>.</p>
-                </div>
-            </div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="search-section">
-                            <h4>Statuses</h4>
-                            <div class="sub-text">
-                                <p> Retrieve statuses using a keyword, find recent statuses by a hashtag, view recent statuses from a specific instance, and obtain information about a status using status id.</p>
-                            </div>
-                        </div>
-                        <div class="search-section">
-                            <h4>Accounts</h4>
-                            <div class="sub-text">
-                                <p> Search for accounts using a keyword and retrieve detailed information about a specific profile using account id.</p>
-                            </div>
-                        </div>
-                        <div class="search-section">
-                            <h4> Hashtag Metadata</h4>
-                            <div class="sub-text">
-                                <p> Retrieve a list of hashtags containing a specific search term.</p>
-                            </div>
-                        </div>
-                        <div class="search-section">
-                            <h4>Instances</h4>
-                            <div class="sub-text">
-                                <p> View the top 20 Mastodon instances with a minimum of 5000 active users listed in descending order. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social API" style="color: #2c3e50;"> instances.social API</a> to gather the instances.</p>
-                            </div>
-                        </div>
-                        <div class="search-section">
-                            <h4> Documentation</h4>
-                            <div class="sub-text">
-                                <p>  The FAQ section offers quick insights and answers to common questions about the OSoMe Mastodon Search interface, while the API documentation provides a comprehensive guide for interacting with its APIs, covering endpoints, request formats, and response structures.</p>
-                            </div>
-                        </div>
                 </div>
             </div>
         </div>
@@ -60,7 +26,7 @@
 
 /* Page Description */
 .page-description {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #555;
     margin-bottom: 20px;
 }
@@ -101,6 +67,12 @@
 }
 .sub-text{
     margin-left: 20px;
+}
+.paragraph-text{
+    font-size: 1.5rem;
+}
+.api-documentation{
+    text-decoration : underline;
 }
 </style>
 <script setup>

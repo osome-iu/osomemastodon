@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve information about a profile using the account id. You can access the documentation <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Retrieve information about a profile using the account id. You can access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -411,5 +411,8 @@ export default {
     padding: 8px;             /* Some padding for better appearance */
     font-size: 14px;          /* Adjust font size */
     color: #333;              /* Text color */
+}
+.api-documentation{
+    text-decoration : underline;
 }
 </style>

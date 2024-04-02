@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <router-link to="/apidocumentation#api-2" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">

@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search statuses using keywords. <b>An access token is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-2" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Search statuses using keywords. <b>An access token is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">

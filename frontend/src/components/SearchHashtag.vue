@@ -6,7 +6,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get a list of hashtags that include given search terms and links to statuses including those hashtags. You can access the documentation <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Get a list of hashtags that include given search terms and links to statuses including those hashtags. You can access the documentation <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -365,3 +365,9 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
+
+<style scoped>
+.api-documentation{
+    text-decoration : underline;
+}
+</style>

@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Single status by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get information about a status by status id. You can access the documentation <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Get information about a status by status id. You can access the documentation <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">

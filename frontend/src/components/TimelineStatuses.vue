@@ -6,14 +6,14 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instances</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>A list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. </p>
+                    <p>A list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. You can access the documentation <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Most recent statuses for the instances - <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">Documentation</router-link>
+                            Query
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -102,50 +102,57 @@
                             color="#ff1d5e"
                         />
                     </div>
-                    <div class="table-responsive" v-if="!loading && this.statusesArray.length" style="font-size: 8px;">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Instance</th>
-                                <th scope="col" style="width: 10px;">Content</th>
-                                <th scope="col">In reply</th>
-                                <th scope="col">In reply Id </th>
-                                <th scope="col">Created At </th>
-                                <th scope="col">Mentions </th>
-                                <th scope="col">Tags </th>
-                                <th scope="col">View Status </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="status in statusesArray" :key="key">
-                                <td>{{status.id}}</td>
-                                <td>{{extractURLtoGetInstanceName(status.url)}}</td>
-                                <td><div v-html="status.content" style="font-size: 10px;"></div></td>
-                                <td>{{status.in_reply_to_account_id}}</td>
-                                <td>{{status.in_reply_to_id}}</td>
-                                <td>{{status.created_at}}</td>
-                                <td>
-                                    <div style="font-size: 8px;">
-                                                <span v-for="(mention, index) in status.mentions" :key="index">
-                                                      <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
-                                                      <span v-if="index < status.mentions.length - 1">, </span>
-                                                </span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span v-for="(extractedURL, index) in status.tags" :key="index">
-                                        <a :href="extractedURL.url" target="_blank" style="text-underline: #0a53be">{{extractedURL.name}}</a>
-                                        <span v-if="index < status.tags.length - 1">, </span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <a :href="status.url" target="_blank" style="text-underline: #0a53be">Status</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="col-xl-12" v-if="!loading && this.statusesArray.length">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Results
+                            </div>
+                            <div class="table-responsive"  style="font-size: 8px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Instance</th>
+                                        <th scope="col" style="width: 10px;">Content</th>
+                                        <th scope="col">In reply</th>
+                                        <th scope="col">In reply Id </th>
+                                        <th scope="col">Created At </th>
+                                        <th scope="col">Mentions </th>
+                                        <th scope="col">Tags </th>
+                                        <th scope="col">View Status </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="status in statusesArray" :key="key">
+                                        <td>{{status.id}}</td>
+                                        <td>{{extractURLtoGetInstanceName(status.url)}}</td>
+                                        <td><div v-html="status.content" style="font-size: 10px;"></div></td>
+                                        <td>{{status.in_reply_to_account_id}}</td>
+                                        <td>{{status.in_reply_to_id}}</td>
+                                        <td>{{status.created_at}}</td>
+                                        <td>
+                                            <div style="font-size: 8px;">
+                                                        <span v-for="(mention, index) in status.mentions" :key="index">
+                                                              <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
+                                                              <span v-if="index < status.mentions.length - 1">, </span>
+                                                        </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span v-for="(extractedURL, index) in status.tags" :key="index">
+                                                <a :href="extractedURL.url" target="_blank" style="text-underline: #0a53be">{{extractedURL.name}}</a>
+                                                <span v-if="index < status.tags.length - 1">, </span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a :href="status.url" target="_blank" style="text-underline: #0a53be">Status</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -425,3 +432,9 @@ export default {
 }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
+
+<style scoped>
+.api-documentation{
+    text-decoration : underline;
+}
+</style>

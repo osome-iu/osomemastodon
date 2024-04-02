@@ -6,14 +6,14 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get the most recent statuses that contain the given hashtag.</p>
+                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-4">
                         <div class="card-header">
-                            Statuses search by hashtag - <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">Documentation</router-link>
+                            Query
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -118,49 +118,56 @@
                             color="#ff1d5e"
                         />
                     </div>
-                    <div class="table-responsive" v-if="!loading && hashtagArray.length" style="font-size: 8px;">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Instance</th>
-                                <th scope="col" style="width: 10px;">Content</th>
-                                <th scope="col">In reply</th>
-                                <th scope="col">In reply Id </th>
-                                <th scope="col">Created At </th>
-                                <th scope="col">Mentions </th>
-                                <th scope="col">Tags </th>
-                                <th scope="col">View Status </th>
-                                <th scope="col">Profile </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="hashtag in hashtagArray" :key="key">
-                                <td>{{hashtag.id}}</td>
-                                <td>{{extractURLtoGetInstanceName(hashtag.url)}}</td>
-                                <td><div v-html="hashtag.content" style="font-size: 10px;"></div></td>
-                                <td>{{hashtag.in_reply_to_account_id}}</td>
-                                <td>{{hashtag.in_reply_to_id}}</td>
-                                <td>{{hashtag.created_at}}</td>
-                                <td>
-                                    <div style="font-size: 8px;">
-                                                <span v-for="(mention, index) in hashtag.mentions" :key="index">
-                                                      <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
-                                                      <span v-if="index < hashtag.mentions.length - 1">, </span>
-                                                </span>
-                                    </div>
-                                </td>
-                                <td>
-                                          <span v-for="(extractedURL, index) in hashtag.tags" :key="index">
-                                              <a :href="extractedURL.url" target="_blank" style="text-underline: #0a53be">{{extractedURL.name}}</a>
-                                              <span v-if="index < hashtag.tags.length - 1">, </span>
-                                          </span>
-                                </td>
-                                <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Status</a></td>
-                                <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(hashtag.id)">view</button></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-xl-12" v-if="!loading && hashtagArray.length">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Results
+                            </div>
+                            <div class="table-responsive" style="font-size: 8px;">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Instance</th>
+                                        <th scope="col" style="width: 10px;">Content</th>
+                                        <th scope="col">In reply</th>
+                                        <th scope="col">In reply Id </th>
+                                        <th scope="col">Created At </th>
+                                        <th scope="col">Mentions </th>
+                                        <th scope="col">Tags </th>
+                                        <th scope="col">View Status </th>
+                                        <th scope="col">Profile </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="hashtag in hashtagArray" :key="key">
+                                        <td>{{hashtag.id}}</td>
+                                        <td>{{extractURLtoGetInstanceName(hashtag.url)}}</td>
+                                        <td><div v-html="hashtag.content" style="font-size: 10px;"></div></td>
+                                        <td>{{hashtag.in_reply_to_account_id}}</td>
+                                        <td>{{hashtag.in_reply_to_id}}</td>
+                                        <td>{{hashtag.created_at}}</td>
+                                        <td>
+                                            <div style="font-size: 8px;">
+                                                        <span v-for="(mention, index) in hashtag.mentions" :key="index">
+                                                              <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
+                                                              <span v-if="index < hashtag.mentions.length - 1">, </span>
+                                                        </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                                  <span v-for="(extractedURL, index) in hashtag.tags" :key="index">
+                                                      <a :href="extractedURL.url" target="_blank" style="text-underline: #0a53be">{{extractedURL.name}}</a>
+                                                      <span v-if="index < hashtag.tags.length - 1">, </span>
+                                                  </span>
+                                        </td>
+                                        <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Status</a></td>
+                                        <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(hashtag.id)">view</button></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -473,4 +480,10 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
+
+<style scoped>
+.api-documentation{
+    text-decoration : underline;
+}
+</style>
 

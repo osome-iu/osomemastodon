@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search statuses using keywords. <b>An access token is required</b> for each instance being searched. <router-link to="/apidocumentation#api-2" target="_blank" class="api-documentation">Documentation</router-link> </p>
+                    <p>Search statuses using keywords. <b>An access token is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-2" target="_blank" class="api-documentation">here</router-link> </p>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +45,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="keyword" >Keyword
+                                    <label for="keyword" >Keywords
                                         <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open keyword info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -115,45 +115,52 @@
                     color="#ff1d5e"
                 />
             </div>
-            <div class="table-responsive" v-if="!loading && statusData.length>0" style="font-size: 12px;">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Instance Name</th>
-                        <th scope="col">Content</th>
-                        <th scope="col">In reply to Acc Id</th>
-                        <th scope="col">In reply to Id</th>
-                        <th scope="col">Created At </th>
-                        <th scope="col">Mentions </th>
-                        <th scope="col">Tags </th>
-                        <th scope="col" v-if="checkMastodonInstance">Instance? </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="status in statusData">
-                        <td>{{status.id}}</td>
-                        <td>{{extractURLtoGetInstanceName(status.url)}}</td>
-                        <td><div v-html="this.sanitizeHtml(status.content)" ></div></td>
-                        <td>{{status.in_reply_to_account_id}}</td>
-                        <td>{{status.in_reply_to_id}}</td>
-                        <td>{{status.created_at}}</td>
-                        <td>
-                            <span v-for="(mention, index) in status.mentions">
-                                <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
-                                <span v-if="index < status.mentions.length - 1">, </span>
-                            </span>
-                        </td>
-                        <td>
-                            <span v-for="(tag, index) in status.tags">
-                                <a :href="tag.url" target="_blank" style="text-underline: #0a53be">{{tag.name}}</a>
-                                <span v-if="index < status.tags.length - 1">, </span>
-                            </span>
-                        </td>
-                        <td v-if="checkMastodonInstance">{{ status.mastodon_instance }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-xl-12" v-if="!loading && statusData.length>0">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Results
+                    </div>
+                    <div class="table-responsive" style="font-size: 12px;">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Instance Name</th>
+                                <th scope="col">Content</th>
+                                <th scope="col">In reply to Acc Id</th>
+                                <th scope="col">In reply to Id</th>
+                                <th scope="col">Created At </th>
+                                <th scope="col">Mentions </th>
+                                <th scope="col">Tags </th>
+                                <th scope="col" v-if="checkMastodonInstance">Instance? </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="status in statusData">
+                                <td>{{status.id}}</td>
+                                <td>{{extractURLtoGetInstanceName(status.url)}}</td>
+                                <td><div v-html="this.sanitizeHtml(status.content)" ></div></td>
+                                <td>{{status.in_reply_to_account_id}}</td>
+                                <td>{{status.in_reply_to_id}}</td>
+                                <td>{{status.created_at}}</td>
+                                <td>
+                                    <span v-for="(mention, index) in status.mentions">
+                                        <a :href="mention.url" target="_blank" style="text-underline: #0a53be">{{mention.username}}</a>
+                                        <span v-if="index < status.mentions.length - 1">, </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span v-for="(tag, index) in status.tags">
+                                        <a :href="tag.url" target="_blank" style="text-underline: #0a53be">{{tag.name}}</a>
+                                        <span v-if="index < status.tags.length - 1">, </span>
+                                    </span>
+                                </td>
+                                <td v-if="checkMastodonInstance">{{ status.mastodon_instance }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -499,5 +506,8 @@ export default {
 <style scoped>
 .custom-input-class::placeholder {
     color: black;
+}
+.api-documentation{
+    text-decoration : underline;
 }
 </style>

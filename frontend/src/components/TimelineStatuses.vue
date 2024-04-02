@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent for instances</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>A list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. You can access the documentation <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">here</router-link> </p>
+                    <p>A list of public statuses that users on the platform have shared. This timeline is visible to all users and provides a way to explore and discover content that is openly shared by others. You can access the documentation <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">

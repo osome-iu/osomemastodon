@@ -6,7 +6,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get a list of hashtags that include a given search term and links to statuses including those hashtags. You can access the documentation <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">here</router-link> </p>
+                    <p>Get a list of hashtags that include a given search term and links to statuses including those hashtags. You can access the documentation <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">

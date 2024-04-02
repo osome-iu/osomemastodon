@@ -46,7 +46,7 @@
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <!-- Your nested navigation links -->
                                     <router-link class="nav-item nav-link" :to="{name: 'SearchAccounts'}"  exact-active-class="active-link">
-                                        <div class="sb-nav-link-icon"><i class="fa fa-search-plus"></i></div>Search by keyword
+                                        <div class="sb-nav-link-icon"><i class="fa fa-search-plus"></i></div>Search by keywords
                                     </router-link>
                                     <router-link class="nav-item nav-link" :to="{name: 'singleAccountById'}" exact-active-class="active-link">
                                         <div class="sb-nav-link-icon"><i class="fa fa-user-circle"></i></div>Single account by id

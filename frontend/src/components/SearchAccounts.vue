@@ -3,7 +3,7 @@
         <Modal :isOpen="modalIsOpen" @cancel="closeModal" :osomeURL="this.osomeURL" :officialURL="this.officialURL" :header="this.header_text" />
         <InfoModal :isOpen="infoModalIsOpen" @cancel="closeInfoModal" :header="this.info_header_text" :info="this.info_body_text" :isModalError="this.isModalError"/>
         <div class="container-fluid px-4">
-            <h1 class="page-title">Accounts <span class="subtitle">- Search by keyword</span></h1>
+            <h1 class="page-title">Accounts <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
                     <p>Search for accounts that contain a given keyword in the username or display name. You can access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link>.</p>
@@ -42,7 +42,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-4">
-                                    <label for="keyword" >Keyword
+                                    <label for="keyword" >Keywords
                                         <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open keyword info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -333,7 +333,7 @@ export default {
             if (type == 'keyword') {
 
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers."
+                this.info_body_text = "You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers. Keywords are separated by spaces."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

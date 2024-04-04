@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-center">
-                <img src="../assets/homepage.jpg" alt="Italian Trulli" class="img-fluid" style="max-width: 70%; max-height: 600px;">
+                <img src="../assets/homepage.jpg" alt="Italian Trulli" class="img-fluid" style="max-width: 70%; height: 700px;">
             </div>
         </div>
     </main>

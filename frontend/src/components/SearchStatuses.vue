@@ -53,7 +53,7 @@
                                     <input
                                         v-model="searchKeyword"
                                         v-bind:class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
-                                        placeholder="keyword"
+                                        placeholder="keywords"
                                         v-on:blur="searchKeywordBlurred = true"
                                         @input="keywordInputChanged"
                                         id="keyword"

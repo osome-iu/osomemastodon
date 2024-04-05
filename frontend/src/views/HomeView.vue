@@ -39,7 +39,6 @@ body, html, #app {
     color: #2c3e50;
     background-color: #fff;
     margin-top: 10px;
-    margin-bottom: 20px;
 }
 
 #layoutSidenav_content{

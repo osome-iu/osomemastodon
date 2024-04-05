@@ -7,14 +7,12 @@
                     <p>OSoMe Mastodon Search provides an interface to various functionalities, allowing users to retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This empowers researchers to experiment with Mastodon data, enabling in-depth exploration and analysis for valuable insights. As Mastodon is a federated social network, the OSoMe Mastodon Search interface allows users to search for keywords and hashtags <b>across multiple Mastodon instances</b>.</p>
                 </div>
             </div>
-            </div>
-            <div class="col-12 d-flex justify-content-center">
-                <img src="../assets/homepage.jpg" alt="Italian Trulli" class="img-fluid" style="max-width: 70%; height: 700px;">
-            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 5px;">
+            <img src="../assets/homepage.jpg" alt="Mastodon Image" style="max-width: 100%; max-height: 700px;" />
         </div>
     </main>
 </template>
-
 
 
 <style scoped>

@@ -61,9 +61,9 @@
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
                                 </div>
                                 <div class="col-md-3 col-12" style="margin-top: 20px; margin-left: 20px; display: flex; align-items: center;">
-                                    <input type="checkbox" id="checkbox" v-model="checkMastodonInstance" @input="changeCheckMastodonInstance"/>
+                                    <input type="checkbox" id="checkbox" v-model="checkMastodonInstance"/>
                                     <label for="checkbox" class="col-12 d-flex align-items-center" style="white-space: nowrap; pointer-events: none;">
-                                        <span>&nbsp;Check instance validity</span>&nbsp;
+                                        <span>&nbsp;Check valid instance</span>&nbsp;
                                         <button @click="showInfoModal('validity')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open check validity info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -132,7 +132,7 @@
                                 <th scope="col">Created At </th>
                                 <th scope="col">Mentions </th>
                                 <th scope="col">Tags </th>
-                                <th scope="col" v-if="checkMastodonInstance">Instance? </th>
+                                <th scope="col" v-if="checkMastodonInstance"> Check valid instance </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -443,26 +443,23 @@ export default {
         showInfoModal(type) {
             if(type =='keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces."
+                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces and search will return statuses containing those keywords."
                 this.infoModalIsOpen = true;
             }
             else if(type == 'validity'){
-                this.info_header_text = "What does \"Check instance validity\" mean?"
-                this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon Instance."
+                this.info_header_text = "What does \"Check valid instance\" mean?"
+                this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon instance. This will add extra time to search. "
                 this.infoModalIsOpen = true;
             }
             else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;
             }
-        },
-        changeCheckMastodonInstance(){
-            this.statusData = []
         },
         async addMastodonInstance (newInstance) {
             if(await this.checkEnteredMastodonInstance(newInstance)) {

@@ -349,7 +349,7 @@ export default {
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

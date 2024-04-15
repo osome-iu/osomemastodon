@@ -78,7 +78,7 @@
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
                                 <div class="col-xl-2">
-                                    <label for="limit"> Limit</label>
+                                    <label for="limit"> Limit per instance</label>
                                     <select v-model="limitNo"
                                             id="limit"
                                             label="Limit"
@@ -86,7 +86,7 @@
                                             v-bind:class="{'is-invalid': limitNoError !== ''}"
                                             v-on:blur="limitNoBlurred = true"
                                             @input="limitNoInputChanged">
-                                        <option disabled value="">Limit</option>
+                                        <option disabled value="">Limit per instance</option>
                                         <option value="5">5 Statuses</option>
                                         <option value="10">10 Statuses</option>
                                         <option value="15">15 Statuses</option>
@@ -414,17 +414,17 @@ export default {
         showInfoModal(type) {
             if(type === 'keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search. Spaces between words will be ignored and treated as one word."
+                this.info_body_text = "You can enter a single hashtag and can use numbers, letters, or a mix of both to find topics you're interested in as the hashtag to search. Spaces between words will be ignored."
                 this.infoModalIsOpen = true;
             }else if(type == 'data'){
                 this.info_header_text = "Difference between the local and federated timelines"
-                this.info_body_text = "The local timeline displays statuses from all users on a specified server, while the federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specified server."
+                this.info_body_text = "The local timeline displays statuses from all users on a specified server, while the federated timeline includes public statuses from users across the Mastodon network who are followed by users on the specific servers."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000+ active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

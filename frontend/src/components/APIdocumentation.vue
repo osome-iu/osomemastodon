@@ -5,14 +5,14 @@
             <div style="margin-left:30px">
                 <h4 style="margin-top:20px">Our custom Mastodon search endpoints</h4>
                 <ol>
-                    <li class= "list-item" v-scroll-to="'#api-1'">Statuses - Search by keyword API</li>
-                    <li class= "list-item" v-scroll-to="'#api-2'">Statuses - Search by hashtag API</li>
-                    <li class= "list-item" v-scroll-to="'#api-3'">Statuses - Most recent for instances API</li>
-                    <li class= "list-item" v-scroll-to="'#api-4'">Status - Single status by id API</li>
+                    <li class= "list-item" v-scroll-to="'#api-1'">Statuses - Search by keyword</li>
+                    <li class= "list-item" v-scroll-to="'#api-2'">Statuses - Search by hashtag</li>
+                    <li class= "list-item" v-scroll-to="'#api-3'">Statuses - Most recent</li>
+                    <li class= "list-item" v-scroll-to="'#api-4'">Status - Single status by id</li>
                     <li class= "list-item" v-scroll-to="'#api-5'" >Accounts - Search by keyword</li>
                     <li class= "list-item" v-scroll-to="'#api-6'">Account - Single Account by id</li>
                     <li class= "list-item" v-scroll-to="'#api-7'">Get hashtag metadata</li>
-                    <li class= "list-item" v-scroll-to="'#api-8'" >Mastodon instances - Get Mastodon instances API</li>
+                    <li class= "list-item" v-scroll-to="'#api-8'" >Mastodon instances - Get Mastodon instances</li>
                 </ol>
             </div>
 
@@ -20,7 +20,7 @@
 
 <!--            1. Status - Search by keyword API-->
             <div id="api-1">
-                <h4 class="mt-4">1. Statuses - Search by keyword API</h4>
+                <h4 class="mt-4">1. Statuses - Search by keyword</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for statuses search by keyword, facilitates the search for statuses across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here">here</a> for further insight. </p>
@@ -59,7 +59,7 @@
 
 <!--            2. Status - Most recent by hashtag API            -->
             <div id="api-2">
-                <h4 class="mt-4">2. Statuses - Search by hashtag API</h4>
+                <h4 class="mt-4">2. Statuses - Search by hashtag</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for statuses search by hashtag, allows users to retrieve most recent statuses that contain a given hashtag across multiple Mastodon instances. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#tag" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight.</p>
@@ -97,7 +97,7 @@
 
 <!--            3. Status - Most recent for instance API-->
             <div id="api-3">
-                <h4 class="mt-4">3. Statuses - Most recent for instances API</h4>
+                <h4 class="mt-4">3. Statuses - Most recent</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for the most recent statuses for instances, allows you to retrieve a list of public statuses that users on the platform have shared across multiple Mastodon instances. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/timelines/#public" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
@@ -135,7 +135,7 @@
 
             <!--            4. Status - Single status by Id API            -->
             <div id="api-4">
-                <h4 class="mt-4">4. Status - Single status by id API</h4>
+                <h4 class="mt-4">4. Status - Single status by id</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for status search by status by id, facilitates searching for a status from a Mastodon instance using a given status id. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/statuses/#get" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight. </p>
@@ -286,7 +286,7 @@
 
             <!--            8. Instance - Get Mastodon Instances API-->
             <div id="api-8">
-                <h4 class="mt-4">8. Mastodon Instances - Get Mastodon instances API</h4>
+                <h4 class="mt-4">8. Mastodon Instances - Get Mastodon instances</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API to retrieve Mastodon instances, allows to grab the top 20 Mastodon instances with a minimum of 5000 active users and lists them in descending order by active users. Please visit <a href="https://instances.social/api/doc/" target="_blank" class="navigation-link" aria-label="instances.social">instances.social</a> for further insight.</p>

@@ -343,7 +343,7 @@ export default {
         showInfoModal(type) {
             if(type == 'keyword'){
                 this.info_header_text = "What can I use as an account id?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both for the account id. Each account has a unique id."
+                this.info_body_text = "You can use numbers, letters, or a mix of both for the account id. Each account has an unique id."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

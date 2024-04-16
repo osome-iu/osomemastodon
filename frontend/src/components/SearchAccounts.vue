@@ -333,7 +333,7 @@ export default {
             if (type == 'keyword') {
 
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers. Keywords are separated by spaces and search will return accounts containing those keywords."
+                this.info_body_text = "You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers. Keywords are separated by spaces and the search will return accounts containing those keywords."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

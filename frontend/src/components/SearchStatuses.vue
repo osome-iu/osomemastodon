@@ -443,12 +443,12 @@ export default {
         showInfoModal(type) {
             if(type =='keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces and search will return statuses containing those keywords."
+                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces and the search will return statuses containing those keywords."
                 this.infoModalIsOpen = true;
             }
             else if(type == 'validity'){
                 this.info_header_text = "What does \"Check valid instance\" mean?"
-                this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon instance. This will add extra time to search. "
+                this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon instance. This will take extra time to search. "
                 this.infoModalIsOpen = true;
             }
             else{

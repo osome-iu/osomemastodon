@@ -250,8 +250,11 @@ export default {
         },
         isValidInstance(instanceName) {
             // Check if instanceName exists and has a truthy name property
-            const isValid = instanceName && instanceName.name && instanceName.name.trim() !== '';
-            this.instanceIdError = isValid ? '' : '';
+            const isValid = typeof instanceName === 'string' && instanceName.trim() !== '';
+
+            // Set error message based on validity
+            this.instanceIdError = isValid ? '' : 'Invalid instance name';
+
             return isValid;
         },
         fetchAllInstanceData(){
@@ -267,7 +270,13 @@ export default {
             this.searchStatusIdError = "";
             this.instanceIdError = "";
 
-            if (!this.isValidInstance(this.selectedMastodonInstances)) {
+            let mastodon_instance_name = this.selectedMastodonInstances
+                ? (Array.isArray(this.selectedMastodonInstances)
+                    ? (this.selectedMastodonInstances[0] ? this.selectedMastodonInstances[0].name : null)
+                    : this.selectedMastodonInstances.name)
+                : null;
+
+            if (!this.isValidInstance(mastodon_instance_name)) {
                 this.instanceIdError = "Please add a Mastodon instance";
             }
 
@@ -275,12 +284,12 @@ export default {
                 this.searchStatusIdError = "A keyword is required";
             }
 
-            if(this.isValidStatusId(this.statusId) && this.isValidInstance(this.selectedMastodonInstances)) {
+            if(this.isValidStatusId(this.statusId) && this.isValidInstance(mastodon_instance_name)) {
                 this.loading = true;
-                this.officialURL = "https://"+this.selectedMastodonInstances.name+"/api/v1/statuses/"+this.statusId;
-                this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
+                this.officialURL = "https://"+mastodon_instance_name+"/api/v1/statuses/"+this.statusId;
+                this.osomeURL = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + mastodon_instance_name;
                 this.header_text = "Statuses - Single status by id"
-                let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
+                let dataUrl = constants.url + '/api/search-status-by-id?status_id=' + this.statusId + '&mastodon_instance=' + mastodon_instance_name;
                 axios.get(dataUrl)
                     .then(res => {
                         this.singleStatusData = res;

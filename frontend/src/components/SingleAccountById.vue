@@ -29,6 +29,7 @@
                                         v-model="selectedMastodonInstances"
                                         v-bind:class="{'is-invalid': instanceIdError !== ''}"
                                         :options="instanceData"
+                                        :multiple="false"
                                         :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
@@ -230,8 +231,11 @@ export default {
         },
         isValidInstance(instanceName) {
             // Check if instanceName exists and has a truthy name property
-            const isValid = instanceName && instanceName.name && instanceName.name.trim() !== '';
-            this.instanceIdError = isValid ? '' : '';
+            const isValid = typeof instanceName === 'string' && instanceName.trim() !== '';
+
+            // Set error message based on validity
+            this.instanceIdError = isValid ? '' : 'Invalid instance name';
+
             return isValid;
         },
         fetchAllInstanceData(){
@@ -246,22 +250,27 @@ export default {
         submitAccountSearch(){
             this.searchAccountIdError = "";
             this.instanceIdError = "";
+            let mastodon_instance_name = this.selectedMastodonInstances
+                ? (Array.isArray(this.selectedMastodonInstances)
+                    ? (this.selectedMastodonInstances[0] ? this.selectedMastodonInstances[0].name : null)
+                    : this.selectedMastodonInstances.name)
+                : null;
+
+            if (!this.isValidInstance(mastodon_instance_name)) {
+                this.instanceIdError = "Please add one or more Mastodon instances";
+            }
 
             if (!this.isValidAccountId(this.accountId)) {
-                this.searchAccountIdError = "Account Id is required.";
+                this.searchAccountIdError = "Account id is required";
             }
 
-            if (!this.isValidInstance(this.selectedMastodonInstances)) {
-                this.instanceIdError = "Please add a Mastodon instance";
-            }
-
-            if(this.isValidAccountId(this.accountId) && this.isValidInstance(this.selectedMastodonInstances)) {
+            if(this.isValidAccountId(this.accountId) && this.isValidInstance(mastodon_instance_name)) {
                 this.loading = true;
                 this.accountData = []
                 this.clearAllFields();
-                this.officialURL = 'https://'+this.selectedMastodonInstances.name+'/api/v1/accounts/'+this.accountId;
-                this.osomeURL = constants.url + '/api/account-search-by-id?account_id=' + this.accountId + '&mastodon_instance=' + this.selectedMastodonInstances.name;
-                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + this.selectedMastodonInstances.name + '&account_id=' + this.accountId;
+                this.officialURL = 'https://'+mastodon_instance_name+'/api/v1/accounts/'+this.accountId;
+                this.osomeURL = constants.url + '/api/account-search-by-id?account_id=' + this.accountId + '&mastodon_instance=' + mastodon_instance_name;
+                let dataUrl = constants.url + '/api/account-search-by-id?mastodon_instance=' + mastodon_instance_name + '&account_id=' + this.accountId;
                 axios.get(dataUrl)
                     .then(res => {
                         this.accountData = res.data;

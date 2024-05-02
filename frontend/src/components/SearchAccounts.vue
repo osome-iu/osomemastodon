@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts that contain a given keyword in the username or display name. You can access the documentation <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Search for accounts that contain the given keywords in the username or display name. You can access the documentation <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">here</router-link>.</p>
             </div>
             <div class="row">
                 <div class="col-xl-12">
@@ -32,7 +32,7 @@
                                         :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
-                                        placeholder="Type to search or add"
+                                        placeholder="Type to search or select"
                                         label="name"
                                         track-by="name"
                                         role="textbox"
@@ -333,7 +333,7 @@ export default {
             if (type == 'keyword') {
 
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find specific users across multiple Mastodon servers. Keywords are separated by spaces and the search will return accounts containing those keywords."
+                this.info_body_text = "You can use any numbers, letters, or a mix of both to find specific users across multiple Mastodon servers. Keywords are separated by spaces and the search will return accounts containing those keywords."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

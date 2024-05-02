@@ -6,7 +6,7 @@
                         <div class="nav">
                             <router-link class="nav-item nav-link" :to="{name: 'LandingView'}"  exact-active-class="active-link">
                                 <div class="sb-nav-link-icon"><i class="fa fa-home"></i></div>
-                                OSoMe Mastodon Search
+                                Home
                             </router-link>
 
                             <div class="sb-sidenav-menu-heading">SEARCH</div>

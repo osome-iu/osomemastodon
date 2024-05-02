@@ -33,7 +33,7 @@
                                         :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
-                                        placeholder="Type to search or add"
+                                        placeholder="Type to search or select"
                                         label="name"
                                         track-by="name"
                                         role="textbox"

@@ -6,7 +6,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get a list of hashtags that include given search terms and links to statuses including those hashtags. You can access the documentation <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Retrieve a list of hashtags that include the given search terms, and each result should have a link to a page containing related statuses. You can access the documentation <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -33,7 +33,7 @@
                                         :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
-                                        placeholder="Type to search or add"
+                                        placeholder="Type to search or select"
                                         label="name"
                                         track-by="name"
                                         role="textbox"
@@ -52,7 +52,7 @@
                                         v-model="searchKeyword"
                                         :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         @blur="x = true"
-                                        placeholder="search term"
+                                        placeholder="search terms"
                                         @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
@@ -322,7 +322,7 @@ export default {
         showInfoModal(type) {
             if(type == 'keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both for the hashtag to find topics you're interested in. Search terms are separated by spaces."
+                this.info_body_text = "You can use any numbers, letters, or a mix of both for the hashtag to find topics you're interested in. Search terms are separated by spaces."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

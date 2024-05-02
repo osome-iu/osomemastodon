@@ -9,7 +9,7 @@
                     <li class= "list-item" v-scroll-to="'#api-2'">Statuses - Search by hashtag</li>
                     <li class= "list-item" v-scroll-to="'#api-3'">Statuses - Most recent</li>
                     <li class= "list-item" v-scroll-to="'#api-4'">Status - Single status by id</li>
-                    <li class= "list-item" v-scroll-to="'#api-5'" >Accounts - Search by keyword</li>
+                    <li class= "list-item" v-scroll-to="'#api-5'" >Accounts - Search by keywords</li>
                     <li class= "list-item" v-scroll-to="'#api-6'">Account - Single Account by id</li>
                     <li class= "list-item" v-scroll-to="'#api-7'">Get hashtag metadata</li>
                     <li class= "list-item" v-scroll-to="'#api-8'" >Mastodon instances - Get Mastodon instances</li>
@@ -174,7 +174,7 @@
 
             <!--            5. Accounts - Search by keyword            -->
             <div id="api-5">
-                <h4 class="mt-4">5. Accounts - Search by keyword</h4>
+                <h4 class="mt-4">5. Accounts - Search by keywords</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
                     <p>The OSoMe Mastodon Search API for accounts search by keyword, facilitates to retrieve accounts across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for futher insight.</p>
@@ -322,7 +322,7 @@
 <script>
 import VueScrollTo from 'vue-scrollto';
 export default {
-    name: "FAQ",
+    name: "APIDocumentation",
     mounted() {
         const id = this.$route.hash.slice(1);
         if (id) {

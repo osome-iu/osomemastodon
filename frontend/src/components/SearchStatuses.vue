@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search statuses using keywords. <b>An access token is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Search statuses using keywords. <b>An <router-link to="/faq/#q-2" target="_blank" class="api-documentation" style="text-decoration: underline;">access token</router-link> is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -34,7 +34,7 @@
                                         @tag="addMastodonInstance"
                                         @remove="removeMastodonInstance"
                                         tag-placeholder="Add as a new instance"
-                                        placeholder="Type to search or add"
+                                        placeholder="Type to search or select"
                                         label="name"
                                         track-by="name"
                                         role="textbox"
@@ -74,8 +74,8 @@
                                 </div>
                             </div>
                             <div v-if="selectedMastodonInstances.length">
-                                <div class="row" style="margin-top: 20px; font-weight: bold;">
-                                    <p style="text-decoration: underline;" >Access Tokens <router-link to="/faq" target="_blank"><i class="fas fa-info-circle"></i></router-link></p>
+                                <div class="row" style="margin-top: 20px;ß">
+                                    <p>Access Tokens <router-link to="/faq/#q-2" target="_blank"><i class="fas fa-info-circle"></i></router-link></p>
                                 </div>
                                 <div class="row" v-for="(mastodonInstance, index) in selectedMastodonInstances" :key="index" style="margin-top: 10px;">
                                     <div class="col-md-1 col-xl-2 col-md-4 col-sm-6" style="margin-top: 5px;">
@@ -443,12 +443,12 @@ export default {
         showInfoModal(type) {
             if(type =='keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces and the search will return statuses containing those keywords."
+                this.info_body_text = "You can use any numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces and the search will return statuses containing those keywords."
                 this.infoModalIsOpen = true;
             }
             else if(type == 'validity'){
                 this.info_header_text = "What does \"Check valid instance\" mean?"
-                this.info_body_text = "This option will list whether or not the status comes from a valid Mastodon Instance. Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon instance. This will take extra time to search. "
+                this.info_body_text = "Mastodon uses the ActivityPub protocol, which allows non-Mastodon applications (such as wordpress plugins) to submit status updates that do not originate from an actual, valid Mastodon instance. Checking this box will add a column to the results indicating whether the status originates from a valid Mastodon instance. This will take extra time to search. "
                 this.infoModalIsOpen = true;
             }
             else{

@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve information about a profile using the account id. You can access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Retrieve information about a profile using the account id. You must select a single Mastodon instance for the search. Please access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -33,7 +33,7 @@
                                         :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
-                                        placeholder="Type to search or add"
+                                        placeholder="Type to search or select"
                                         label="name"
                                         track-by="name"
                                         role="textbox"
@@ -352,7 +352,7 @@ export default {
         showInfoModal(type) {
             if(type == 'keyword'){
                 this.info_header_text = "What can I use as an account id?"
-                this.info_body_text = "You can use numbers, letters, or a mix of both for the account id. Each account has an unique id."
+                this.info_body_text = "You can use any numbers, letters, or a mix of both for the account id. Each account has an unique id."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"

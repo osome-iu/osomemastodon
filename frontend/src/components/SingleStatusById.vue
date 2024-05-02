@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Single status by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get information about a status by status id. You can access the documentation <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Get information about a status by status id. You must select a single Mastodon instance for the search. Please access the documentation <router-link to="/apidocumentation#api-4" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -32,7 +32,7 @@
                                         :taggable="true"
                                         @tag="addMastodonInstance"
                                         tag-placeholder="Add as a new instance"
-                                        placeholder="Type to search or add"
+                                        placeholder="Type to search or select"
                                         label="name"
                                         track-by="name"
                                         role="textbox"

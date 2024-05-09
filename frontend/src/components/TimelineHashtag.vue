@@ -414,7 +414,7 @@ export default {
         showInfoModal(type) {
             if(type === 'keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can enter a single hashtag to search. Spaces between words will be ignored."
+                this.info_body_text = "You can enter a single hashtag to search. Spaces between words will be ignored. Do not include the # symbol."
                 this.infoModalIsOpen = true;
             }else if(type == 'data'){
                 this.info_header_text = "Difference between the local and federated timelines"
@@ -424,7 +424,7 @@ export default {
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. You can also type the url of any other Mastodon instance to add it to the instances list and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

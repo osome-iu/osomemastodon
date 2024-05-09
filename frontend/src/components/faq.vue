@@ -99,7 +99,7 @@ export default {
 }
 
 .highlighted {
-    background-color: #F0FFFF; /* Highlight color */
+    background-color: #A8F1F9; /* Highlight color */
     padding: 2px; /* Padding for highlighted text */
 }
 

@@ -42,7 +42,7 @@
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>
                                 <div class="col-xl-3">
-                                    <label for="keyword" >Search terms
+                                    <label for="keyword" >Keywords
                                         <button @click="showInfoModal('keyword')" style="padding: 0; border: 0; background: none; outline: none; pointer-events: auto;" aria-label="Open keyword info modal">
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
@@ -52,7 +52,7 @@
                                         v-model="searchKeyword"
                                         :class="{'form-control': true, 'is-invalid': searchKeywordError !== ''}"
                                         @blur="x = true"
-                                        placeholder="search terms"
+                                        placeholder="Keywords"
                                         @input="keywordInputChanged"
                                     />
                                     <div v-if="searchKeywordError !== ''" class="invalid-feedback">{{ searchKeywordError }}</div>
@@ -322,13 +322,13 @@ export default {
         showInfoModal(type) {
             if(type == 'keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use any numbers, letters, or a mix of both for the hashtag to find topics you're interested in. Search terms are separated by spaces."
+                this.info_body_text = "You can use any alphanumeric characters. Search terms are separated by spaces."
                 this.infoModalIsOpen = true;
             }else{
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. You can also type the url of any other Mastodon instance to add it to the instances list and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search statuses using keywords. <b>An <router-link to="/faq/#q-2" target="_blank" class="api-documentation" style="text-decoration: underline;">access token</router-link> is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Returned statuses will contain all entered keywords. The keywords may appear in either the status content or the descriptions of attached media. <b>An <router-link to="/faq/#q-2" target="_blank" class="api-documentation" style="text-decoration: underline;">access token</router-link> is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
             <div class="row">
@@ -443,7 +443,7 @@ export default {
         showInfoModal(type) {
             if(type =='keyword'){
                 this.info_header_text = "What can I type in the search box?"
-                this.info_body_text = "You can use any numbers, letters, or a mix of both to find topics you're interested in as the search keywords. Keywords are separated by spaces and the search will return statuses containing those keywords."
+                this.info_body_text = "You can use any alphanumeric characters. Keywords are separated by spaces and the search will return statuses containing all of those keywords."
                 this.infoModalIsOpen = true;
             }
             else if(type == 'validity'){
@@ -455,7 +455,7 @@ export default {
                 this.info_header_text = "What Mastodon instances are featured in the dropdown?"
                 this.isModalError = true;
                 this.info_body_text = `
-                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. Additionally, you can enter any Mastodon instance in the dropdown box and perform a search. View more details about the top 20 instances
+                          \nIn the dropdown box, there is a list of the top 20 Mastodon instances, each with a minimum of 5000 active users. You can also type the url of any other Mastodon instance to add it to the instances list and perform a search. View more details about the top 20 instances
                           <a href="https://osome.iu.edu/tools/mastodon/instances/" target="_blank" class="navigation-link" aria-label="instances">here</a>.
                         `;
                 this.infoModalIsOpen = true;

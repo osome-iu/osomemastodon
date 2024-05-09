@@ -48,6 +48,8 @@ def search_account_data_by_keyword():
             if mastodon_instance_name:
                 hashtag_data = account_search.get_account_data_from_keyword(mastodon_instance_name, search_keyword)
                 if 'results' in hashtag_data:
+                    for account in hashtag_data['results']['accounts']:
+                        account['instance_name'] = mastodon_instance_name  # Add instance name to each account
                     success_results.extend(hashtag_data['results']['accounts'])
                 if 'error_search_not_allowed' in hashtag_data:
                     error_in_results.append(mastodon_instance_name)

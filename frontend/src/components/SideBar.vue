@@ -118,24 +118,24 @@ export default {
 }
 
 .active-link {
-    border-right: 8px solid #0096FF;
-    color:#0073cf;
+    border-right: 8px solid #000000;
+    color:#000000;
     .sb-nav-link-icon{
-        color: #0073cf;
+        color: #000000;
     }
-    background: linear-gradient(to right, #151C62, #0073cf);
+    background: linear-gradient(to right, #990000, #000000);
 }
 
 .active-link:hover {
-    border-right: 8px solid #0096FF;
-    color:#0073cf;
+    border-right: 8px solid #000000;
+    color:#000000;
     .sb-nav-link-icon{
-        color: #0073cf;
+        color: #000000;
     }
     .nav{
-        color: #0073cf;
+        color: #000000;
     }
-    background: linear-gradient(to right, #151C62, #0073cf);
+    background: linear-gradient(to right, #990000, #000000);
 }
 
 </style>

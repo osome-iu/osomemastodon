@@ -38,7 +38,7 @@ body, html, #app {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     background-color: #fff;
-    margin-top: 10px;
+    margin-top: -10px;
 }
 
 #layoutSidenav_content{

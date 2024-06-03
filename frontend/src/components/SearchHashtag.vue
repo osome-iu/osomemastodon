@@ -370,4 +370,13 @@ export default {
 .api-documentation{
     text-decoration : underline;
 }
+.container-fluid.px-4 {
+    padding-top: 0; /* Adjust as needed */
+}
+
+.row {
+    margin-top: 0; /* Adjust as needed */
+    padding-top: 0; /* Adjust as needed */
+}
+
 </style>

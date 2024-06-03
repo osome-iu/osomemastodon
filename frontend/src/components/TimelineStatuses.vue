@@ -47,39 +47,43 @@
                                             <i class="fas fa-info-circle ml-2" style="color: #0a53be; font-size: inherit;"></i>
                                         </button>
                                     </label>
-                                    <select v-model="dataType"
-                                            id="data"
-                                            label="Choose Data"
-                                            class="form-control"
-                                            v-bind:class="{'is-invalid': dataTypeError !== ''}"
-                                            v-on:blur="dataTypeBlurred = true"
-                                            @input="dataTypeInputChanged"
-                                    >
-                                        <option disabled value="">Choose Data</option>
-                                        <option value="false">Federated</option>
-                                        <option value="true">Local</option>
-                                    </select>
+                                    <div class="custom-select">
+                                        <select v-model="dataType"
+                                                id="data"
+                                                label="Choose Data"
+                                                class="form-control"
+                                                v-bind:class="{'is-invalid': dataTypeError !== ''}"
+                                                v-on:blur="dataTypeBlurred = true"
+                                                @input="dataTypeInputChanged"
+                                        >
+                                            <option disabled value="">Choose Data</option>
+                                            <option value="false">Federated</option>
+                                            <option value="true">Local</option>
+                                        </select>
+                                    </div>
                                     <div v-if="dataTypeError !== ''" class="invalid-feedback">{{ dataTypeError }}</div>
                                 </div>
                                 <div class="col-xl-2">
                                     <label for="limit"> Limit per instance</label>
-                                    <select v-model="limitNo"
-                                            id="limit"
-                                            label="Limit"
-                                            class="form-control"
-                                            v-bind:class="{'is-invalid': limitNoError !== ''}"
-                                            v-on:blur="limitNoBlurred = true"
-                                            @input="limitNoInputChanged">
-                                        <option disabled value="">Limit per instance</option>
-                                        <option value="5">5 Statuses</option>
-                                        <option value="10">10 Statuses</option>
-                                        <option value="15">15 Statuses</option>
-                                        <option value="20">20 Statuses</option>
-                                        <option value="25">25 Statuses</option>
-                                        <option value="30">30 Statuses</option>
-                                        <option value="35">35 Statuses</option>
-                                        <option value="40">40 Statuses</option>
-                                    </select>
+                                    <div class="custom-select">
+                                        <select v-model="limitNo"
+                                                id="limit"
+                                                label="Limit"
+                                                class="form-control"
+                                                v-bind:class="{'is-invalid': limitNoError !== ''}"
+                                                v-on:blur="limitNoBlurred = true"
+                                                @input="limitNoInputChanged">
+                                            <option disabled value="">Limit per instance</option>
+                                            <option value="5">5 Statuses</option>
+                                            <option value="10">10 Statuses</option>
+                                            <option value="15">15 Statuses</option>
+                                            <option value="20">20 Statuses</option>
+                                            <option value="25">25 Statuses</option>
+                                            <option value="30">30 Statuses</option>
+                                            <option value="35">35 Statuses</option>
+                                            <option value="40">40 Statuses</option>
+                                        </select>
+                                    </div>
                                     <div v-if="limitNoError !== ''" class="invalid-feedback">{{ limitNoError }}</div>
                                 </div>
                                 <div class="col-xl-4" style="margin-top: 23px;">
@@ -437,4 +441,40 @@ export default {
 .api-documentation{
     text-decoration : underline;
 }
+.container-fluid.px-4 {
+    padding-top: 0; /* Adjust as needed */
+}
+
+.row {
+    margin-top: 0; /* Adjust as needed */
+    padding-top: 0; /* Adjust as needed */
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.custom-select select {
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+    background: white url('data:image/svg+xml;utf8,<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z" fill="%23000"/></svg>') no-repeat right center;
+    background-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.custom-select select.is-invalid {
+    border-color: #dc3545;
+}
+
+.custom-select .invalid-feedback {
+    display: block;
+}
+
 </style>

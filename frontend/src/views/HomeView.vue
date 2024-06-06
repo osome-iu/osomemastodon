@@ -38,11 +38,20 @@ body, html, #app {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     background-color: #fff;
-    margin-top: -10px;
+    height: 100%; /* Ensure the body and html take up the full height */
+}
+
+#app {
+    margin-top: 12px; /* Apply the margin to the #app element */
+    position: absolute; /* Position it absolutely */
+    top: 25px; /* Move it up by the margin amount */
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 #layoutSidenav_content{
-    padding-top: -10px;
+    padding-top: 20px;
 }
 @import'~bootstrap/dist/css/bootstrap.css';
 

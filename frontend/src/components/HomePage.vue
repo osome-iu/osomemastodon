@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 5px;">
-            <img src="../assets/homepage.jpg" alt="Mastodon Image" style="max-width: 100%; max-height: 550px;" />
+            <img src="../assets/homepage.jpg" alt="Mastodon Image" style="max-width: 100%; max-height: 500px;" />
         </div>
     </main>
 </template>
@@ -17,11 +17,6 @@
 
 <style scoped>
 /* Add your custom styling here */
-
-/* General Styles */
-.container-fluid {
-    padding: 20px;
-}
 
 /* Page Description */
 .page-description {

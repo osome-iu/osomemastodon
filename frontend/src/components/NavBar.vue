@@ -1,5 +1,13 @@
 <template>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="top-nav-bar">
+        <a href="https://www.iu.edu" title="Indiana University">
+            <img class ="indiana-university-logo" src="//assets.iu.edu/brand/3.2.x/trident-large.png" alt="Indiana University Logo">
+        </a>
+        <a class="indiana-university-h1" href="https://www.iu.edu" title="Indiana University">
+            <p style="color: black; text-transform: uppercase; font-family: 'Benton Sans Regular', sans-serif;">Indiana University</p>
+        </a>
+    </nav>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 50px;">
         <div class="d-flex align-items-center justify-content-between w-100">
             <div class="d-flex align-items-center">
                 <button class="btn btn-link btn-sm order-10 order-sm-10 order-lg-0 ml-auto me-9 me-lg-0" id="sidebarToggle" href="#!" aria-label="navigate-button" style="font-size:1.2rem">
@@ -18,20 +26,19 @@
                     <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -10px; font-weight: bold;">Search</h1>
                 </router-link>
             </div>
-            <div class="d-flex align-items-center hide-on-small-screen" style="margin-right: 30px;">
-                <a href="https://www.iu.edu" title="Indiana University">
-                    <img class ="indiana-university-logo" src="//assets.iu.edu/brand/3.2.x/trident-large.png" alt="Indiana University Logo">
-                </a>
-                <a class="indiana-university-h1" href="https://www.iu.edu" title="Indiana University">
-                    <p style="color: white; text-transform: uppercase; font-family: 'Benton Sans Regular', sans-serif;">Indiana University</p>
-                </a>
-            </div>
         </div>
     </nav>
 </template>
 
 
 <style scoped>
+#top-nav-bar {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 0; /* Ensure no margin at the bottom */
+    color: black;
+}
+
 
 #nav-bar {
     background-color: #990000;
@@ -56,7 +63,7 @@
 .indiana-university-logo{
     width: 36px;
     height: 40px;
-    margin-right:4px;
+    margin-right:6px;
 }
 
 .indiana-university-h1{

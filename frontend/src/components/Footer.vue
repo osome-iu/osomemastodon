@@ -1,19 +1,22 @@
 <template>
     <div>
         <footer class="py-4 bg-light">
-            <div class="container-fluid px-4">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted" style="color: black">
-                        <a href="https://accessibility.iu.edu/assistance/" target="_blank" class="navigation-link">Accessibility</a> &nbsp;
-                        <a href="https://accessibility.iu.edu/assistance/" target="_blank" class="navigation-link">Privacy Notice</a> &nbsp;
-                        <a href="https://www.iu.edu/copyright/index.html" target="_blank" class="navigation-link">Copyright</a> &copy; {{ getcurrentYear }} the
-                        Trustees of <a href="http://indiana.edu/" target="_blank" class="navigation-link">Indiana University</a>
-                    </div>
-                    <div>
-                        <a href="https://osome.iu.edu/" target="_blank" class="navigation-link">OSoMe</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;
-                        <a href="https://cnets.indiana.edu/" target="_blank" class="navigation-link">CNetS</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;
-                        <a href="https://luddy.indiana.edu/" target="_blank" class="navigation-link">Luddy</a>
-                    </div>
+            <div id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
+                <div class="iu-row pad">
+                    <p class="signature">
+                        <a href="https://www.iu.edu/index.html" class="signature-link signature-img"><img src="//assets.iu.edu/brand/3.3.x/iu-sig-formal.svg" alt="Indiana University"></a>
+                    </p>
+
+                    <p class="copyright">
+                    <span class="line-break">
+                        <a href="https://accessibility.iu.edu/assistance/index.html" id="accessibility-link" title="Having trouble accessing this web page content? Please visit this page for assistance.">Accessibility</a> |
+                        <router-link id="privacy-policy-link" :to="{ path: '/privacy' }">Privacy Notice</router-link>
+                    </span>
+                        <span class="hide-on-mobile"> | </span>
+                        <a href="https://www.iu.edu/copyright/index.html">Copyright</a> © {{ currentYear }} <span class="line-break-small">The Trustees of <a href="https://www.iu.edu/index.html" itemprop="url">
+                            <span itemprop="name">Indiana University</span></a>
+                    </span>
+                    </p>
                 </div>
             </div>
         </footer>

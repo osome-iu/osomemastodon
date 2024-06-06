@@ -57,9 +57,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/SearchHashtag.vue')
   },
   {
+    path: '/privacy',
+    name: 'Privacy',
+    component: () => import(/* webpackChunkName: "about" */ '../components/PrivacyNotice.vue')
+  },
+  {
     path: '/tools/mastodon/:catchAll(.*)',
     redirect: '/tools/mastodon', // Redirect to the default URL
-  },
+  }
 ]
 
 const router = createRouter({

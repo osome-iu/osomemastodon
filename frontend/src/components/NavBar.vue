@@ -54,7 +54,7 @@
 }
 
 .indiana-university-logo{
-    width: 40px;
+    width: 36px;
     height: 40px;
     margin-right:4px;
 }

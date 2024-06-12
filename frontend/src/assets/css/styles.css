@@ -5269,7 +5269,6 @@ textarea.form-control-lg {
   --bs-modal-header-border-width: 1px;
   --bs-modal-title-line-height: 1.5;
   --bs-modal-footer-gap: 0.5rem;
-  --bs-modal-footer-bg: ;
   --bs-modal-footer-border-color: var(--bs-border-color);
   --bs-modal-footer-border-width: 1px;
   position: fixed;
@@ -10858,11 +10857,15 @@ body {
   flex-grow: 1;
 }
 #layoutAuthentication #layoutAuthentication_footer {
-  min-width: 0;
+  min-width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
 #layoutSidenav {
   display: flex;
+  position: relative; /* Ensure it respects the z-index */
+  z-index: 1; /* Lower z-index for the sidebar container */
 }
 #layoutSidenav #layoutSidenav_nav {
   flex-basis: 225px;
@@ -10880,6 +10883,7 @@ body {
   flex-grow: 1;
   min-height: calc(100vh - 56px);
   margin-left: -225px;
+  padding-top: 20px;
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -11049,6 +11053,7 @@ body {
 .sb-sidenav .sb-sidenav-footer {
   padding: 0.75rem;
   flex-shrink: 0;
+  width:100%;
 }
 
 .sb-sidenav-dark {
@@ -11078,6 +11083,7 @@ body {
   color: #E5E4E2;
 }
 .sb-sidenav-dark .sb-sidenav-footer {
+  width:100%;
   background-color: #343a40;
 }
 
@@ -11108,6 +11114,7 @@ body {
 }
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
+  width:100%;
 }
 
 .datatable-wrapper .datatable-container {

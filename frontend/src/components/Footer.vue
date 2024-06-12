@@ -1,6 +1,6 @@
 <template>
     <div>
-        <footer class="py-4 bg-light">
+        <footer class="py-4 bg-light full-width-footer">
             <div id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
                 <div class="iu-row pad">
                     <p class="signature">
@@ -41,18 +41,4 @@ export default {
 </script>
 
 <style scoped>
-
-.navigation-link {
-    text-decoration: none;
-    color: #000000; /* Adjust the color as needed */
-    transition: text-decoration 0.3s;
-}
-
-.navigation-link:hover {
-    text-decoration: underline;
-}
-
-.text-muted{
-    color: #000000 !important; /* Use !important to ensure the rule takes precedence */
-}
 </style>

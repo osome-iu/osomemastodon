@@ -9,7 +9,7 @@ const VueScrollTo = require('vue-scrollto')
 const app = createApp(App);
 app.use(router);
 app.use(VueScrollTo, {
-    offset: -65,
+    offset: -110,
 })
 
 app.mount('#app')

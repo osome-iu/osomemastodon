@@ -4,7 +4,7 @@
             <img class ="indiana-university-logo" src="//assets.iu.edu/brand/3.2.x/trident-large.png" alt="Indiana University Logo">
         </a>
         <a class="indiana-university-h1" href="https://www.iu.edu" title="Indiana University">
-            <p style="color: black; text-transform: uppercase; font-family: 'Benton Sans Regular', sans-serif;">Indiana University</p>
+            <p id="campus-name" class="show-on-desktop" itemprop="name">Indiana University Bloomington</p>
         </a>
     </nav>
     <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 50px;">
@@ -34,8 +34,8 @@
 <style scoped>
 #top-nav-bar {
     background-color: white;
-    padding: 10px;
-    margin-bottom: 0; /* Ensure no margin at the bottom */
+    padding: 6px;
+    margin-top: -1px; /* Ensure no margin at the bottom */
     color: black;
 }
 
@@ -63,18 +63,12 @@
 .indiana-university-logo{
     width: 36px;
     height: 40px;
-    margin-right:6px;
+    margin-right:5px;
 }
 
 .indiana-university-h1{
     text-decoration: none;
-    margin-top: 15px;
-}
-
-/* CSS for hiding the element gradually */
-.hide-on-small-screen {
-    opacity: 1;
-    transition: opacity 0.0s ease;
+    margin-top: 10px;
 }
 
 @media (max-width: 768px) {
@@ -82,8 +76,16 @@
         opacity: 0;
         pointer-events: none; /* Prevents interaction with hidden elements */
     }
+    .indiana-university-h1 #campus-name{
+        font-size: 14px;
+    }
 }
-
+#campus-name{
+    color: #243142;
+    font-size: 18px;
+    margin-top:1px;
+    font-family: "BentonSansBold" ,Arial,serif;
+}
 </style>
 <script setup>
 </script>

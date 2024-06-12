@@ -49,10 +49,6 @@ body, html, #app {
     right: 0;
     bottom: 0;
 }
-
-#layoutSidenav_content{
-    padding-top: 20px;
-}
 @import'~bootstrap/dist/css/bootstrap.css';
 
 </style>

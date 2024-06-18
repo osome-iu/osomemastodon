@@ -37,8 +37,7 @@
                                         label="name"
                                         track-by="name"
                                         role="textbox"
-                                        color = "#333"
-                                        :style="{ width: '100%', height: '50%', color: '#333'}"
+                                        :style="{ width: '100%', height: '50%' }"
                                     />
                                     <div v-if="instanceIdError !== ''" class="invalid-feedback">{{ instanceIdError }}</div>
                                 </div>

@@ -3,7 +3,7 @@
         <div class="container-fluid px-4">
             <h2 class="page-title">API Documentation</h2>
             <div style="margin-left:30px">
-                <h4 style="margin-top:20px">Our custom Mastodon search endpoints</h4>
+                <h3 style="margin-top:20px">Our custom Mastodon search endpoints</h3>
                 <ol>
                     <li class= "list-item" v-scroll-to="'#api-1'">Statuses - Search by keyword</li>
                     <li class= "list-item" v-scroll-to="'#api-2'">Statuses - Search by hashtag</li>

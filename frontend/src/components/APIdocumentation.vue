@@ -342,6 +342,7 @@ export default {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    color:black;
 }
 
 .code-content {
@@ -351,7 +352,12 @@ export default {
     padding: 16px; /* Add padding for spacing */
     border: 1px solid #ddd; /* Add a border for better visibility */
     border-radius: 5px;
-    width: 100%/* Add rounded corners for aesthetics */
+    width: 100%;/* Add rounded corners for aesthetics */
+    color: blue;
+}
+
+.code-content code{
+    color: #333;
 }
 
 

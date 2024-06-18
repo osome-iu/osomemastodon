@@ -4,7 +4,7 @@
             <h1 class="page-title">Instances</h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieves the top 20 instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="here" style="color: #2c3e50;">instances.social</a> API to gather the instances. You can access the documentation <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Retrieves the top 20 instances with a minimum of 5000 active users and lists them in descending order by active users. It utilizes the <a href="https://instances.social/api/doc/" target="_blank"  aria-label="instances.social" style="color: #2c3e50;">instances.social</a> API to gather the instances. You can access the documentation <router-link to="/apidocumentation#api-8" target="_blank" class="api-documentation">here</router-link>.</p>
                 </div>
             </div>
 

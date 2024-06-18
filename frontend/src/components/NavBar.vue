@@ -61,14 +61,15 @@
 }
 
 .indiana-university-logo{
-    width: 36px;
-    height: 40px;
+    width: 44px;
+    height: 48px;
     margin-right:5px;
+    margin-bottom:4px;
 }
 
 .indiana-university-h1{
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 @media (max-width: 768px) {
@@ -77,12 +78,12 @@
         pointer-events: none; /* Prevents interaction with hidden elements */
     }
     .indiana-university-h1 #campus-name{
-        font-size: 14px;
+        font-size: 1em;
     }
 }
 #campus-name{
     color: #243142;
-    font-size: 18px;
+    font-size: 1.2em;
     margin-top:1px;
     font-family: "BentonSansBold" ,Arial,serif;
 }

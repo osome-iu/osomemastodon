@@ -11052,7 +11052,7 @@ body {
 }
 .sb-sidenav .sb-sidenav-footer {
   padding: 0.75rem;
-  flex-shrink: 0;
+  /*flex-shrink: 0;*/
   width:100%;
 }
 
@@ -11061,7 +11061,7 @@ body {
   color: rgba(255, 255, 255, 0.5);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: #C0C0C0;
+  color: #FFFFFF;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
   color: #E5E4E2;
@@ -11092,7 +11092,7 @@ body {
   color: #212529;
 }
 .sb-sidenav-light .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: #adb5bd;
+  color: #FFFFFF;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link {
   color: #212529;

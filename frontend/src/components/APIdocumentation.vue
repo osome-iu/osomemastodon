@@ -177,7 +177,7 @@
                 <h4 class="mt-4">5. Accounts - Search by keywords</h4>
                 <div style="margin-left:20px">
                     <p><b>Overview</b></p>
-                    <p>The OSoMe Mastodon Search API for accounts search by keyword, facilitates to retrieve accounts across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for futher insight.</p>
+                    <p>The OSoMe Mastodon Search API for accounts search by keyword, facilitates to retrieve accounts across multiple Mastodon instances for a given keyword. You can access the official Mastodon documentation <a href="https://docs.joinmastodon.org/methods/search/" target="_blank" class="navigation-link" aria-label="here"> here</a> for further insight.</p>
 
                     <div class="code-box">
                         <div class="code-content">

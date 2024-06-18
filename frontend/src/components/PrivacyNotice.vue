@@ -26,7 +26,7 @@
         <p>For more information on how we use cookies, please review the <a href="https://privacy.iu.edu/privacy/global.html" aria-label="iu privacy statement">IU Privacy statement</a>.</p>
 
         <h4 aria-label="Use of Third Party Services">Use of Third Party Services</h4>
-        <p>Our website does not utilize web analytics services beyond what is noted in the <a href="https://privacy.iu.edu/privacy/global.html" aria-label="iu-privacy-notice-global">IU Privacy statement</a>.</p>
+        <p>Our website does not utilize web analytics services beyond what is noted in the <a href="https://privacy.iu.edu/privacy/global.html" aria-label="iu privacy statement">IU Privacy statement</a>.</p>
 
         <h3 aria-label="Security">Security</h3>
         <p>Due to the rapidly evolving nature of information technologies, no transmission of information over the Internet can be guaranteed to be completely secure. While Indiana University is committed to protecting user privacy, IU cannot guarantee the security of any information users transmit to university sites, and users do so at their own risk.</p>

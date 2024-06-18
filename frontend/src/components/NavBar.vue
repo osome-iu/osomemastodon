@@ -9,7 +9,7 @@
     </nav>
     <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 50px;">
         <div class="d-flex align-items-center justify-content-between w-100">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center" style="min-width: 44px; min-height: 44px;">
                 <button class="btn btn-link btn-sm order-10 order-sm-10 order-lg-0 ml-auto me-9 me-lg-0" id="sidebarToggle" href="#!" aria-label="navigate-button" style="font-size:1.2rem">
                     <i class="fas fa-bars" style="color:white"></i>
                 </button>
@@ -19,7 +19,7 @@
                 </a>
                 <!-- Add 'small' class to make the image smaller on smaller screens -->
                 <router-link to="/">
-                    <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 8px;" class="small" >
+                    <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 6px;" class="small" >
                 </router-link>
                 <!-- Add 'small' class to make the text smaller on smaller screens -->
                 <router-link to="/" style="text-decoration: none;">

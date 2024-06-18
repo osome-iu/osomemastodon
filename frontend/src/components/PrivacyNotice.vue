@@ -1,6 +1,6 @@
 <template>
-    <div class="container-fluid px-4">
-        <h2><b>OSoMe Mastodon Search Privacy Notice</b></h2>
+    <div class="container-fluid px-4" aria-label="Privacy Notice">
+        <h2 id="privacy-notice-header" aria-label="OSoMe Mastodon Search Privacy Notice"><b>OSoMe Mastodon Search Privacy Notice</b></h2>
         <h3>Overview</h3>
         <p>At Indiana University (IU), we are committed to protecting the privacy and confidentiality of personal information entrusted to us. By accessing and using IU's services, you acknowledge and consent to the practices described in our global privacy statement here:
             <a href="https://privacy.iu.edu/privacy/global.html">https://privacy.iu.edu/privacy/global.html</a>.
@@ -61,5 +61,9 @@ h2, h3 {
 }
 h4 {
     font-weight: 400;
+}
+
+a {
+    color: #333;
 }
 </style>

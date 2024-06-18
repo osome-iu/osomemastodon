@@ -7,9 +7,9 @@
             <p id="campus-name" class="show-on-desktop" itemprop="name">Indiana University Bloomington</p>
         </a>
     </nav>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 50px;">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 52px;">
         <div class="d-flex align-items-center justify-content-between w-100">
-            <div class="d-flex align-items-center" style="min-width: 44px; min-height: 44px;">
+            <div class="d-flex align-items-center" style="">
                 <button class="btn btn-link btn-sm order-10 order-sm-10 order-lg-0 ml-auto me-9 me-lg-0" id="sidebarToggle" href="#!" aria-label="navigate-button" style="font-size:1.2rem">
                     <i class="fas fa-bars" style="color:white"></i>
                 </button>
@@ -22,8 +22,8 @@
                     <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 6px;" class="small" >
                 </router-link>
                 <!-- Add 'small' class to make the text smaller on smaller screens -->
-                <router-link to="/" style="text-decoration: none;">
-                    <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -10px; font-weight: bold;">Search</h1>
+                <router-link to="/" style="text-decoration: none; min-width: 44px; min-height: 44px;">
+                    <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -10px; font-weight: bold; ">Search</h1>
                 </router-link>
             </div>
         </div>
@@ -54,6 +54,8 @@
 
 .navigation-link{
     text-decoration: none;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .btn btn-link{
@@ -64,7 +66,7 @@
     width: 44px;
     height: 48px;
     margin-right:5px;
-    margin-bottom:4px;
+    margin-bottom:2px;
 }
 
 .indiana-university-h1{

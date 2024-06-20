@@ -1,73 +1,141 @@
 <template>
-    <main>
-        <div class="container-fluid px-4">
-            <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
-            <div class="col-12">
+    <main class="row custom-margin">
+        <div class="custom-container">
+            <div class="text-container">
+                <h1 class="page-title"><b>OSoMe Mastodon Search</b></h1>
                 <div class="paragraph-text">
-                    <p>OSoMe Mastodon Search provides an interface to Mastodon data: retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This allows researchers to explore and analyze data for valuable insights. As Mastodon is a federated social network, the OSoMe Mastodon Search interface lets you search for keywords and hashtags <b>across multiple Mastodon instances</b>.</p>
+                    <p>OSoMe Mastodon Search provides an interface to Mastodon data: retrieve statuses, explore accounts, access hashtag metadata, discover instances, and access comprehensive documentation. This allows researchers to explore and analyze data for valuable insights. As Mastodon is a federated social network, the OSoMe Mastodon Search interface lets you search for keywords and hashtags <b data-v-595e0590="">across multiple Mastodon instances</b>.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-12 d-flex justify-content-center align-items-center" style="margin-top: 5px;">
-            <img src="../assets/homepage.jpg" alt="Mastodon Image" style="max-width: 100%; max-height: 500px;" />
+            <div class="image-container">
+                <img src="../assets/homepage-icon.png" alt="Mastodon Image" class="custom-image">
+            </div>
         </div>
     </main>
 </template>
 
-
 <style scoped>
-/* Add your custom styling here */
-
-/* Page Description */
-.page-description {
-    font-size: 1.5rem;
-    color: #555;
-    margin-bottom: 20px;
+.page-title {
+    font-size: 2.5rem;
 }
 
-/* Section Title */
-.section-title {
-    color: #0a53be;
-}
-/* API Section */
-.api-section {
-    margin-bottom: 20px;
-}
-/* API List */
-.api-list {
-    list-style-type: disc;
-    padding: 0;
-    margin: 0;
-    margin-left:50px;
-}
-/* API Description */
-.api-description {
-    color: #555;
+.paragraph-text {
+    font-size: 1.8rem;
+    text-align: justify; /* Ensure the text is justified */
 }
 
-.home-sub-header{
-    text-decoration: underline;
-    color: #2c3e50;
+/* Custom margin class */
+.custom-margin {
+    margin: 0 auto;
+    padding: 30px;
 }
 
-.home-sub-header:hover{
-    text-decoration: underline;
-    color: blue
+.custom-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px; /* Space between text and image */
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
-.search-section{
-    margin-left: 20px;
-    margin-top:8px;
-    margin-bottom:20px;
+
+.custom-image {
+    margin-top: -60px;
+    max-width: 60vw;
+    max-height: 700px;
+    flex-shrink: 0; /* Prevent the image from shrinking */
 }
-.sub-text{
-    margin-left: 20px;
+
+.text-container {
+    max-width: 70vw; /* Ensures the maximum width is the full viewport width */
+    margin: 0 auto; /* Optional: centers the container horizontally */
+    padding: 0 20px; /* Optional: adds some padding for better readability */
+    min-width: 30vw;
 }
-.paragraph-text{
-    font-size: 1.5rem;
+
+
+.image-container {
+    margin-left: 40px;
 }
-.api-documentation{
-    text-decoration : underline;
+
+/* Media query for smaller screens */
+@media (max-width: 1024px) {
+    .custom-margin {
+        margin-left: 2px;
+        margin-top: 15px;
+        margin-right: 2px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .paragraph-text {
+        font-size: 1.6rem;
+    }
+
+    .custom-container {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items */
+    }
+
+    .custom-image {
+        margin-top: 20px; /* Add space between text and image */
+        max-width: 50vw;
+        max-height: 600px;
+        flex-shrink: 0; /* Prevent the image from shrinking */
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-margin {
+        margin-left: 2px;
+        margin-top: 20px;
+        margin-right: 2px;
+    }
+
+    .text-container {
+        max-width: 100%; /* Full width on small screens */
+    }
+
+    .page-title {
+        font-size: 5vw; /* Use viewport width for responsiveness */
+    }
+
+    .paragraph-text {
+        font-size: 4vw; /* Adjust font size for better readability on small screens */
+    }
+
+    .custom-image {
+        max-width: 50vw;
+        max-height: 600px;
+        flex-shrink: 0; /* Prevent the image from shrinking */
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-margin {
+        margin-left: 2px;
+        margin-top: 10px;
+        margin-right: 2px;
+    }
+
+    .page-title {
+        font-size: 5.5vw; /* Use viewport width for responsiveness */
+    }
+
+    .paragraph-text {
+        font-size: 4.5vw; /* Adjust font size for better readability on very small screens */
+    }
+
+    .image-container {
+        margin-top: 2px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .custom-image {
+        max-width: 50vw;
+        max-height: 600px;
+        flex-shrink: 0; /* Prevent the image from shrinking */
+    }
 }
 </style>
-<script setup>
-</script>

@@ -5,8 +5,9 @@
             <ul class= "list-item-main">
                 <li class= "list-item" v-scroll-to="'#q-1'" @click="highlightSection('q-1')"><span><i class="fa-solid fa-long-arrow-right" ></i></span> Mastodon instances</li>
                 <li class= "list-item" v-scroll-to="'#q-2'" @click="highlightSection('q-2')"><span><i class="fa-solid fa-long-arrow-right"></i></span> How to get the access token</li>
-                <li class= "list-item" v-scroll-to="'#q-3'" @click="highlightSection('q-3')"><span><i class="fa-solid fa-long-arrow-right"></i></span> How are the Mastodon status ids made</li>
-                <li class= "list-item" v-scroll-to="'#q-4'" @click="highlightSection('q-4')"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
+                <li class= "list-item" v-scroll-to="'#q-3'" @click="highlightSection('q-3')"><span><i class="fa-solid fa-long-arrow-right"></i></span> How are the Mastodon status ids made?</li>
+                <li class= "list-item" v-scroll-to="'#q-4'" @click="highlightSection('q-4')"><span><i class="fa-solid fa-long-arrow-right"></i></span> How is OSoMe Mastodon Search supported?</li>
+                <li class= "list-item" v-scroll-to="'#q-5'" @click="highlightSection('q-5')"><span><i class="fa-solid fa-long-arrow-right"></i></span> Report an issue</li>
             </ul>
             <div id="q-1" class="content-section">
                 <h3 class="mt-4">Mastodon Instances</h3>
@@ -33,7 +34,7 @@
                 </div>
             </div>
             <div id="q-3">
-                <h3 class="mt-4">How are the Mastodon status ids made</h3>
+                <h3 class="mt-4">How are the Mastodon status ids made?</h3>
                 <div :class="{ 'highlighted': highlightedSection === 'q-3' }">
                     <p>
                         In Mastodon, each post is assigned a unique identifier using a modified version of Twitter's Snowflake algorithm. This algorithm incorporates three key components to generate a distinct id for each post. Firstly, a timestamp is included to ensure chronological order. Secondly, a worker id that represents the name of the server(instance) to which the posting user belongs, prevents collisions between ids from different instances. Finally, a sequence number is employed to guarantee uniqueness within the same instance, incrementing with each new post. This combination of timestamp, worker id, and sequence number allows Mastodon to create globally unique post ids, facilitating efficient organization and retrieval of posts across its decentralized network.
@@ -41,8 +42,19 @@
                 </div>
             </div>
             <div id="q-4">
-                <h3 class="mt-4">Report an issue</h3>
+                <h3 class="mt-4">How is OSoMe Mastodon Search supported?</h3>
                 <div :class="{ 'highlighted': highlightedSection === 'q-4' }">
+                    <p>
+                        The development of this tool was funded through the generous support of the 
+                        <a href="https://knightfoundation.org/" target="_blank">Knight Foundation</a>, 
+                        the <a href="https://www.opentech.fund/" target="_blank">Open Technology Fund</a>, and  
+                        <a href="https://craignewmarkphilanthropies.org/" target="_blank">Craig Newmark Philanthropies</a>.
+                    </p>
+                </div>
+            </div>
+            <div id="q-5">
+                <h3 class="mt-4">Report an issue</h3>
+                <div :class="{ 'highlighted': highlightedSection === 'q-5' }">
                     <p>
                         Please feel free to submit any issues, bug reports, or feature requests that you might have by adding new issues to the <a href="https://github.com/osome-iu/osomemastodon/issues" target="_blank" class="black-link">Github repository</a>.
                     </p>

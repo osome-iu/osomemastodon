@@ -32,7 +32,7 @@
                     <div v-if="linkcopiedOsoMEAPI" class="validation-message">
                         Copied to clipboard!
                     </div>
-                <div class="row" style="text-align: center; margin-left:10px;; margin-top:20px;">
+                <div class="row" style="text-align: center;margin-top:20px;">
                     <div class="col" >
                         <button  class="btn btn-secondary btn-md" @click="$emit('cancel')">Close</button>
                     </div>

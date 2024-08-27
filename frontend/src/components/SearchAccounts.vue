@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Search for accounts that contain the given keywords in the username, display name or note. You can access the documentation <router-link to="/apidocumentation#api-5" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Search for accounts that contain the given keywords in the username, display name or note. You can access the documentation <a @click.prevent="scrollToSection('/apidocumentation', '#api-5')" href="#" class="api-documentation">here</a>.</p>
             </div>
             <div class="row">
                 <div class="col-xl-12">
@@ -181,6 +181,11 @@ export default {
         },
     },
     methods: {
+        scrollToSection(route, hash) {
+            this.$router.push(route).then(() => {
+                this.$scrollTo(hash, 500);
+            });
+        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 8000,

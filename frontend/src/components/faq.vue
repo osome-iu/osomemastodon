@@ -46,9 +46,9 @@
                 <div :class="{ 'highlighted': highlightedSection === 'q-4' }">
                     <p>
                         The development of this tool was funded through the generous support of the 
-                        <a href="https://knightfoundation.org/" target="_blank">Knight Foundation</a>, 
-                        the <a href="https://www.opentech.fund/" target="_blank">Open Technology Fund</a>, and  
-                        <a href="https://craignewmarkphilanthropies.org/" target="_blank">Craig Newmark Philanthropies</a>.
+                        <a href="https://knightfoundation.org/" target="_blank" class="black-link">Knight Foundation</a>,
+                        the <a href="https://www.opentech.fund/" target="_blank" class="black-link">Open Technology Fund</a>, and
+                        <a href="https://craignewmarkphilanthropies.org/" target="_blank" class="black-link">Craig Newmark Philanthropies</a>.
                     </p>
                 </div>
             </div>

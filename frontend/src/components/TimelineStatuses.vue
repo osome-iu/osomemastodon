@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Most recent</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>A list of most recent public statuses. You can access the documentation <router-link to="/apidocumentation#api-3" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>A list of most recent public statuses. You can access the documentation <a @click.prevent="scrollToSection('/apidocumentation', '#api-3')" href="#" class="api-documentation">here</a>.</p>
                 </div>
             </div>
             <div class="row">
@@ -217,6 +217,11 @@ export default {
         },
     },
     methods: {
+        scrollToSection(route, hash) {
+            this.$router.push(route).then(() => {
+                this.$scrollTo(hash, 500);
+            });
+        },
         isValidInstance(instanceArray) {
             return instanceArray.length >= 1;
         },

@@ -6,7 +6,7 @@
             <h1 class="page-title">Accounts <span class="subtitle">- Single Account by id</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve information about a profile using the account id. You must select a single Mastodon instance for the search. Please access the documentation <router-link to="/apidocumentation#api-6" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Retrieve information about a profile using the account id. You must select a single Mastodon instance for the search. Please access the documentation <a @click.prevent="scrollToSection('/apidocumentation', '#api-6')" href="#" class="api-documentation">here</a>.</p>
                 </div>
             </div>
             <div class="row">
@@ -216,6 +216,11 @@ export default {
         },
     },
     methods: {
+        scrollToSection(route, hash) {
+            this.$router.push(route).then(() => {
+                this.$scrollTo(hash, 500);
+            });
+        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 8000,

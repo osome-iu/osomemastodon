@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by hashtag</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <router-link to="/apidocumentation#api-2" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Get the most recent statuses that contain the given hashtag. You can access the documentation <a @click.prevent="scrollToSection('/apidocumentation', '#api-2')" href="#" class="api-documentation">here</a>.</p>
                 </div>
             </div>
             <div class="row">
@@ -140,7 +140,6 @@
                                         <th scope="col">Mentions </th>
                                         <th scope="col">Tags </th>
                                         <th scope="col">View Status </th>
-                                        <th scope="col">Profile </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -166,7 +165,6 @@
                                                   </span>
                                         </td>
                                         <td><a :href="hashtag.url" target="_blank" style="text-underline: #0a53be">Status</a></td>
-                                        <td><button type="button" class="btn btn-primary btn-sm" @click="viewAccountInfo(hashtag.id)">view</button></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -238,6 +236,11 @@ export default {
         },
     },
     methods: {
+        scrollToSection(route, hash) {
+            this.$router.push(route).then(() => {
+                this.$scrollTo(hash, 500);
+            });
+        },
         isValidInstance(instanceArray) {
             return instanceArray.length >= 1;
         },
@@ -395,12 +398,6 @@ export default {
                 this.bot = null,
                 this.avatarLink = null,
                 this.displayName = null
-        },
-        viewAccountInfo(accountId){
-            this.$router.push({
-                name: 'Accounts',
-                params: { accountId: accountId, instanceId: this.instanceId},
-            });
         },
         extractURLtoGetInstanceName(acct) {
             const parts = acct.split('/');

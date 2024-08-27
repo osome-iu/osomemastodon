@@ -33,6 +33,7 @@
                         Copied to clipboard!
                     </div>
                 <div class="row">
+
                     <div class="col-auto">
                         <button  class="btn btn-secondary btn-md" @click="$emit('cancel')">Close</button>
                     </div>

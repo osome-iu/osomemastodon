@@ -6,7 +6,7 @@
             <h1 class="mt-4">Hashtags <span class="subtitle">- Metadata</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Retrieve a list of hashtags that include the given search terms, and each result should have a link to a page containing related statuses. You can access the documentation <router-link to="/apidocumentation#api-7" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Retrieve a list of hashtags that include the given search terms, and each result should have a link to a page containing related statuses. You can access the documentation <a @click.prevent="scrollToSection('/apidocumentation', '#api-7')" href="#" class="api-documentation">here</a>.</p>
                 </div>
             </div>
             <div class="row">
@@ -164,6 +164,11 @@ export default {
         },
     },
     methods: {
+        scrollToSection(route, hash) {
+            this.$router.push(route).then(() => {
+                this.$scrollTo(hash, 500);
+            });
+        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 8000,

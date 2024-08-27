@@ -6,7 +6,7 @@
             <h1 class="page-title">Statuses <span class="subtitle">- Search by keywords</span></h1>
             <div class="col-12">
                 <div class="alert alert-info">
-                    <p>Returned statuses will contain all entered keywords. The keywords may appear in either the status content or the descriptions of attached media. <b>An <router-link to="/faq/#q-2" target="_blank" class="api-documentation" style="text-decoration: underline;">access token</router-link> is required</b> for each instance being searched. You can access the documentation <router-link to="/apidocumentation#api-1" target="_blank" class="api-documentation">here</router-link>.</p>
+                    <p>Returned statuses will contain all entered keywords. The keywords may appear in either the status content or the descriptions of attached media. <b>An <a @click.prevent="scrollToSection('/faq', '#q-2')" href="#" style="text-decoration: underline; color: black">access token</a> is required</b> for each instance being searched. You can access the documentation <a @click.prevent="scrollToSection('/apidocumentation', '#api-1')" href="#" class="api-documentation">here</a>.</p>
                 </div>
             </div>
             <div class="row">
@@ -228,6 +228,11 @@ export default {
         },
     },
     methods: {
+        scrollToSection(route, hash) {
+            this.$router.push(route).then(() => {
+                this.$scrollTo(hash, 500);
+            });
+        },
         successShowToast(message){
             toast.success(message, {
                 autoClose: 8000,

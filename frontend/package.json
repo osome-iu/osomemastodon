@@ -18,6 +18,7 @@
     "epic-spinners": "^2.0.0",
     "ip-address": "^10.0.1",
     "loader-utils": "^2.0.4",
+    "postcss": "^8.4.47",
     "primevue": "^3.37.0",
     "tom-select": "^2.3.0",
     "vue": "^3.3.7",

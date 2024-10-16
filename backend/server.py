@@ -15,10 +15,10 @@ from library import backend_util
 from route_functions import instance_data_api, search_api,account_search_api,timeline_api
 
 # Log file location and the file
-LOG_DIR = "/Users/pkamburu/IUNI/mastodon/backup/untitledfolder2/log"
+LOG_DIR = "/home/data/apps/mastodon/log"
 LOG_FNAME = "mastodon_logging.log"
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 #render the frontend

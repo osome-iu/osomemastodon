@@ -12,11 +12,7 @@ from flask import Flask, request, jsonify, Response, render_template
 from flask_cors import CORS, cross_origin
 import os, sys
 from library import backend_util
-from route_functions import instance_data_api, search_api,account_search_api,timeline_api
-
-# Log file location and the file
-LOG_DIR = "/home/data/apps/mastodon/log"
-LOG_FNAME = "mastodon_logging.log"
+from route_functions import instance_data_api, search_api,account_search_api,timeline_api, querynet_api
 
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -39,10 +35,12 @@ app.register_blueprint(instance_data_api.blueprint)
 app.register_blueprint(search_api.blueprint)
 app.register_blueprint(account_search_api.blueprint)
 app.register_blueprint(timeline_api.blueprint)
+app.register_blueprint(querynet_api.blueprint)
+
 
 if __name__ == '__main__':
     script_name = os.path.basename(__file__)
-    logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
+    logger = backend_util.get_logger(script_name=script_name, also_print=True)
     logger.info("-" * 50)
     logger.info(f"Begin script: {__file__}")
     app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()), debug=backend_util.get_flask_debug_mode())

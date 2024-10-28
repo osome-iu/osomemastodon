@@ -2,13 +2,9 @@ import requests
 import json
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-import httplib2
 import urllib.parse
 import os, sys
 from flask import Flask, request, jsonify, Response
-
-app = Flask(__name__)
-
 
 def status_search_by_id(mastodon_instance, status_id):
     """

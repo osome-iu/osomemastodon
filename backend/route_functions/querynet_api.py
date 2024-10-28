@@ -87,26 +87,26 @@ def get_public_timeline_posts_by_hashtag():
         logger.error(f"Error occurred: {e}")
         return "Bad request", 400
 
-@blueprint.route('/get-accounts', methods=['POST'])
-def get_account_followers():
+@blueprint.route('/get-friends-info', methods=['POST'])
+def get_account_friends():
     """
     Search for accounts based on a search keyword and return the results.
     """
     try:
-        all_collected_accounts = []
         data = request.get_json()
 
-        mastodon_instance = data.get("instance")
-        searched_keyword = data.get('searched_keyword')  # Get the hashtag information
-        limit = data.get('limit') or 40  # Default to 40 if not provided
+        mastodon_instance = data.get("instance") # Get the instance
+        searched_keyword = data.get('searched_keyword')  # Get the account search keyword.
+        limit = data.get('limit') or 40  # Default to 40 if not provided access token
         max_limit = data.get('max_limit') or 200  # Default to 200 if not provided for max results
+        friend_info_type = data.get('type') # Friends info type
 
         # Ensure limit is capped at max_limit
         if limit > max_limit:
             limit = max_limit
 
         # Fetch the accounts using the search function
-        all_collected_accounts = querynet_search.get_accounts_by_search_keyword(mastodon_instance, searched_keyword, limit)
+        all_collected_accounts = querynet_search.get_accounts_by_search_keyword(mastodon_instance, searched_keyword, limit, friend_info_type)
 
         # Return the fetched accounts as a JSON response
         return jsonify(all_collected_accounts)

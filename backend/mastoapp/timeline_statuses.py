@@ -14,13 +14,6 @@ import pandas as pd
 import os, json
 from library import backend_util
 
-# Log file location and the file
-LOG_DIR = "/home/data/apps/mastodon/log"
-LOG_FNAME = "mastodon_logging.log"
-
-script_name = os.path.basename(__file__)
-logger = backend_util.get_logger(LOG_DIR, LOG_FNAME, script_name=script_name, also_print=True)
-
 def fetch_timeline_status_data(mastodon_instance, data_type, limit):
     """
     Get the public timeline data from the mastodon instances

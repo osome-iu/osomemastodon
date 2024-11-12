@@ -56,7 +56,7 @@ def public_timeline_search_by_hashtag(mastodon_instance, hashtag, limit, since_i
         logger.error(f"Error occurred retrieving the data - {e}")
 
 
-def get_accounts_by_search_keyword(mastodon_instance, search_keyword, limit, friend_info_type):
+def get_accounts_by_search_keyword(mastodon_instance, search_keyword, limit):
     """
     Get the list of user accounts based on search keyword.
 
@@ -92,7 +92,7 @@ def get_accounts_by_search_keyword(mastodon_instance, search_keyword, limit, fri
         params = {
             'q': search_keyword,
             'type': 'accounts',
-            'limit': 40,
+            'limit': limit,
             'resolve': 'false'
         }
 
@@ -112,16 +112,6 @@ def get_accounts_by_search_keyword(mastodon_instance, search_keyword, limit, fri
         if len(data.get('accounts', [])) == 0:
             break
 
-        for account in accounts:
-            domain, username = get_domain_and_username(account['url'])
-            if domain != mastodon_instance:
-                # Get own friend's account
-                friends_account = account_lookup_api(domain, username)
-                if friends_account:
-                    print(friends_account.get('url'))
-                    # def get_friends_info(mastodon_instance, account_id, friends_info_type='followers'):
-                    print(len(get_friends_info(mastodon_instance, friends_account.get('id'), "followers")))
-
     # Return the accumulated accounts
     return accounts
 
@@ -135,7 +125,6 @@ def get_domain_and_username(user_identifier):
     # Get the last non-empty part of the path as the username
     username = path_parts[-1].strip("@") if path_parts else ""
     return domain, username
-
 
 def account_lookup_api(domain, username):
     """
@@ -169,7 +158,8 @@ def account_lookup_api(domain, username):
 
 
 
-def get_friends_info(mastodon_instance, account_id, friends_info_type):
+
+def get_friends_info(mastodon_instance, account_id, friends_info_type, limit):
     """
     Friends info calling API, this is a common function to grab both Mastodon followings and followers
     for the given account id.
@@ -192,7 +182,7 @@ def get_friends_info(mastodon_instance, account_id, friends_info_type):
 
     # Base URL with required parameters
     get_friends_info_endpoint = f'https://{mastodon_instance}/api/v1/accounts/{account_id}/{friends_info_type}'
-    params = {'limit': 100}
+    params = {'limit': limit}
 
     while True:
         response = requests.get(get_friends_info_endpoint, params=params, headers=headers)
@@ -226,6 +216,27 @@ def get_friends_info(mastodon_instance, account_id, friends_info_type):
             break
 
     return all_friends_info
+
+def check_valid_mastodon_instance(mstd_instance):
+    """
+    Check if the given Mastodon instance is valid by sending a GET request
+    to the /api/v1/instance endpoint.
+
+    inputs:
+        mstd_instance (str): The Mastodon instance URL (without 'https://').
+
+    returns:
+        bool: True if the instance is valid, False otherwise.
+    """
+    api_url = f"https://{mstd_instance}/api/v1/instance"
+    try:
+        response = requests.get(api_url, headers={'Content-Type': 'application/json'})
+        return response.ok
+    except requests.RequestException as error:
+        print('Error during API request:', error)
+        return False
+
+
 
 
 

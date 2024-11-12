@@ -24,9 +24,6 @@ def process_hashtags(all_statuses: List[List[Dict]], searched_hashtag: str) -> D
                 # Remove the searched hashtag to avoid hair loops
                 hashtags = [tag for tag in hashtags if tag != searched_hashtag]
 
-                # Log the unique hashtags in this status
-                # logger.info(f"Unique hashtags in this status: {hashtags}")
-
                 unique_hashtags.update(hashtags)  # Add hashtags to the set
 
                 # Add co-occurrence relationships between hashtags

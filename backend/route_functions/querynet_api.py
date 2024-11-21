@@ -18,8 +18,6 @@ logger = backend_util.get_logger(script_name=os.path.basename(__file__), also_pr
 # Define blueprint
 blueprint = Blueprint('querynet_api', __name__, url_prefix='/api')
 
-test_data_path = '/Users/pkamburu/Mastodon/MastodonInterface/osomemastodon/backend/test/test_data.json'
-
 @blueprint.route('/get-public-timeline-hashtag-data', methods=['POST'])
 def get_public_timeline_posts_by_hashtag():
     """
@@ -74,11 +72,7 @@ def get_public_timeline_posts_by_hashtag():
                 instance_results = instance_results[:max_results]
                 all_collected_data_list.append(instance_results)
 
-        # For testing purposes only
-        # with open(test_data_path, 'r') as f:
-        #     data = json.load(f)
         json_object = network.process_hashtags(all_collected_data_list, searched_hashtag)
-
         return jsonify(json_object)
     except Exception as e:
         logger.error(f"Error occurred: {e}")
@@ -90,7 +84,6 @@ def get_accounts_by_searched_keyword():
     Get accounts by searched keyword.
     """
     try:
-       all_collected_accounts = {}
        data = request.get_json()
        mastodon_instances = data.get('mstdn_instances')
        searched_keyword = data.get('keyword')
@@ -109,9 +102,10 @@ def get_accounts_by_searched_keyword():
        all_collected_accounts = list(unique_accounts.values())
 
     except Exception as e:
-        print(f"{e}")
+        logger.error(f"Error in retrieving accounts for the given hashtag {e}")
         return "Bad request", 400
     else:
+        logger.info(f"Retrieved {len(all_collected_accounts)} for the searched hashtag {searched_keyword}")
         return jsonify(all_collected_accounts)
 
 
@@ -132,13 +126,13 @@ def build_follower_network():
 
         # Check if the Mastodon instance is valid
         if not querynet_search.check_valid_mastodon_instance(acct_domain):
-            print("Invalid Mastodon instance")
+            logger.error(f"Invalid Mastodon instance : {acct_domain}")
             return "Invalid Mastodon instance", 400
 
         # Retrieve account ID based on the domain and username
         account_info = querynet_search.account_lookup_api(acct_domain, acct_username)
         if not account_info:
-            print("Account not found.")
+            logger.error(f"Account not found with the domain : {acct_domain}")
             return "Account not found", 404
 
         # Retrieve friend or follower information
@@ -184,6 +178,7 @@ def build_follower_network():
             }
             follower_network["edges"].append(edge)
 
+        logger.info(f"Successfully retrieved friends follower network for the url {account_url}")
         # Return the network structure as JSON
         return jsonify(follower_network)
 

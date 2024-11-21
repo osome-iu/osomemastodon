@@ -46,10 +46,10 @@ def process_hashtags(all_statuses: List[List[Dict]], searched_hashtag: str) -> D
                 "target": co_tag
             })
 
-    logger.info(f"Total unique hashtags processed: {len(unique_hashtags)}")
-    logger.info(f"Total co-occurrence pairs: {len(co_occurrence)}")
-    logger.info(f"Nodes count: {len(nodes)}")
-    logger.info(f"Edges count: {len(edges)}")
+    logger.info(f"For the searched hashtag {searched_hashtag}, total number of unique hashtags received: {len(unique_hashtags)}")
+    logger.info(f"Total number of co-occurrence paired received: {len(co_occurrence)}")
+    logger.info(f"Number of nodes received: {len(nodes)}")
+    logger.info(f"Number of edges received: {len(edges)}")
 
     return {"nodes": nodes, "edges": edges}
 

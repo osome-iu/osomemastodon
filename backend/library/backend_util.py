@@ -18,8 +18,7 @@ import sys
 import json
 from contextlib import contextmanager
 
-FILE = "/Users/pkamburu/Mastodon/MastodonInterface/osomemastodon/backend/data/mastodon_instance.json"
-logger_file_path = '/Users/pkamburu/Mastodon/MastodonInterface/log/mastodon_logging.log'
+logger_file_path = ''
 
 def get_mastodon_conf():
     """

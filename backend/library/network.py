@@ -82,7 +82,7 @@ def process_hashtags(all_statuses: List[List[Dict]], searched_hashtag: str) -> D
                                 "target": hashtag2,
                                 "type": "co-occurrence",
                                 "url": status.get('url', None),
-                                "indexedAt": status.get('indexedAt', None),
+                                "indexedAt": status.get('created_at', None),
                                 "tags": hashtags,
                                 "domain": domain
                             })

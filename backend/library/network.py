@@ -35,7 +35,7 @@ def parse_domain_and_username(user_identifier):
 
 def process_hashtags(all_statuses: List[List[Dict]], searched_hashtag: str) -> Dict:
     co_occurrence = defaultdict(set)  # Dictionary to hold co-occurrence sets
-    nodes = {}  # Dictionary for nodes with hashtag labels
+    nodes = {}  # Dictionary for nodes with hashtag labels and multiple domains
     edges = []  # List for edges with co-occurrence relationships
     unique_hashtags = set()  # Set to track unique hashtags
     edge_set = set()  # Set to track unique edges
@@ -68,9 +68,21 @@ def process_hashtags(all_statuses: List[List[Dict]], searched_hashtag: str) -> D
 
                         # Ensure the node for each hashtag exists
                         if hashtag1 not in nodes:
-                            nodes[hashtag1] = {"label": hashtag1}
+                            nodes[hashtag1] = {
+                                "label": hashtag1,
+                                "domains": []  # Initialize an empty list for domains
+                            }
                         if hashtag2 not in nodes:
-                            nodes[hashtag2] = {"label": hashtag2}
+                            nodes[hashtag2] = {
+                                "label": hashtag2,
+                                "domains": []  # Initialize an empty list for domains
+                            }
+
+                        # Add the domain to the node if it's not already in the list
+                        if domain and domain not in nodes[hashtag1]["domains"]:
+                            nodes[hashtag1]["domains"].append(domain)
+                        if domain and domain not in nodes[hashtag2]["domains"]:
+                            nodes[hashtag2]["domains"].append(domain)
 
                         # Create a unique edge identifier
                         edge_key = frozenset([hashtag1, hashtag2])
@@ -86,6 +98,7 @@ def process_hashtags(all_statuses: List[List[Dict]], searched_hashtag: str) -> D
                                 "tags": hashtags,
                                 "domain": domain
                             })
+
     # Log the results
     logger.info(f"For the searched hashtag '{searched_hashtag}', total unique hashtags: {len(unique_hashtags)}")
     logger.info(f"Total co-occurrence pairs: {sum(len(v) for v in co_occurrence.values()) // 2}")

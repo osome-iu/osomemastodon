@@ -18,7 +18,7 @@ import sys
 import json
 from contextlib import contextmanager
 
-logger_file_path = ''
+logger_file_path = '/home/data/apps/mastodon/log/mastodon_logging.log'
 
 def get_mastodon_conf():
     """
@@ -93,6 +93,7 @@ def get_instances_social_api_key():
     except Exception as exc:
         traceback.print_tb(exc.__traceback__)
         raise Exception("Unable to find the Mastodon API key")
+
 def get_mastodon_social_server_access_token():
     """
     Get the Mastodon Social Server Access token

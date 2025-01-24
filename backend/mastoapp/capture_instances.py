@@ -13,6 +13,8 @@ import pandas as pd
 import os, json
 from library import backend_util
 
+FILE = "/home/data/apps/mastodon/osomemastodon/backend/data/mastodon_instance.json"
+
 def save_instance_data(data):
     """
     Save the data on txt file and csv file.
@@ -64,12 +66,12 @@ def fetch_instance_data():
 
     if response.status_code == 200:
         data = response.json()
-        with open(FILE, 'w') as json_file:
+        with open(mastodon_instances_files, 'w') as json_file:
             json.dump(data, json_file, indent=2)
         return data
     else:
         print(f"Failed to retrieve data. Status code: {response.status_code}")
-        with open(FILE, 'r') as file:
+        with open(mastodon_instances_files, 'r') as file:
             data = json.load(file)
         json_data = json.dumps(data, indent=2)
         return json_data

@@ -33,6 +33,8 @@ def get_public_timeline_posts_by_hashtag():
         limit = data.get('limit') or 40  # Default limit if not provided
         max_results = data.get('max_limit')  # Use 100 if not provided max results
 
+        logger.info(f"Start collecting data for Mastodon co-occurrence network with hashtag: {searched_hashtag} on {mastodon_instances} with limit {limit}")
+
         for mastodon_instance in mastodon_instances:
             name = mastodon_instance.get('name')
             if name:
@@ -48,9 +50,6 @@ def get_public_timeline_posts_by_hashtag():
 
                     if not hashtag_data:
                         break  # Stop if no more data is returned
-
-                    # Log received statuses
-                    logger.info(f"Received {len(hashtag_data)} statuses from {name}.")
 
                     # Add instance name to the records
                     for record in hashtag_data:
@@ -72,8 +71,9 @@ def get_public_timeline_posts_by_hashtag():
                 instance_results = instance_results[:max_results]
                 all_collected_data_list.append(instance_results)
 
-        json_object = network.process_hashtags(all_collected_data_list, searched_hashtag)
-        return jsonify(json_object)
+        # json_object = network.process_hashtags(all_collected_data_list, searched_hashtag)
+        logger.info(f"End of retrieving Mastodon co-occurence network with given hashtag")
+        return jsonify(all_collected_data_list)
     except Exception as e:
         logger.error(f"Error occurred: {e}")
         return "Bad request", 400
@@ -89,6 +89,7 @@ def get_accounts_by_searched_keyword():
        searched_keyword = data.get('keyword')
        limit = data.get('limit') # This is for the future use.
 
+       logger.info(f"Start collecting accounts for the given keyword : {searched_keyword} on {mastodon_instances}")
        unique_accounts = {}
 
        for mstdn_instance in mastodon_instances:
@@ -120,6 +121,8 @@ def build_follower_network():
         account_url = data.get("acct_url")  # Get the account URL
         limit = data.get('limit') or 40     # Default to 40 if not provided
         friend_info_type = data.get('type') or 'following'  # Default to 'following'
+
+        logger.info(f"Start building the follower network for the account url : {account_url} for the type : {friend_info_type}")
 
         # Get domain and username from account URL
         acct_domain, acct_username = querynet_search.get_domain_and_username(account_url)

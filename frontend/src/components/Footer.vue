@@ -13,7 +13,7 @@
                         <router-link id="privacy-policy-link" :to="{ path: '/privacy' }">Privacy Notice</router-link>
                     </span>
                         <span class="hide-on-mobile"> | </span>
-                        <a href="https://www.iu.edu/copyright/index.html">Copyright</a> © {{ currentYear }} <span class="line-break-small">The Trustees of <a href="https://www.iu.edu/index.html" itemprop="url">
+                        <a href="https://www.iu.edu/copyright/index.html">Copyright</a> © {{ getcurrentYear }} <span class="line-break-small">The Trustees of <a href="https://www.iu.edu/index.html" itemprop="url">
                             <span itemprop="name">Indiana University</span></a>
                     </span>
                     </p>

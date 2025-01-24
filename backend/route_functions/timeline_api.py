@@ -72,5 +72,4 @@ def search_timeline_hashtag_by_statuses():
     except:
         return "Bad request", 400
     else:
-        print(hashtag_timeline_result_set)
         return jsonify(hashtag_timeline_result_set)

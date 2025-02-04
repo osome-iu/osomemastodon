@@ -115,17 +115,6 @@ def get_accounts_by_search_keyword(mastodon_instance, search_keyword, limit):
     # Return the accumulated accounts
     return accounts
 
-def get_domain_and_username(user_identifier):
-
-    # Parse the user identifier
-    parsed_url = urlparse(user_identifier)
-    domain = parsed_url.netloc
-    # Split the path and filter out empty parts
-    path_parts = [part for part in parsed_url.path.split('/') if part]
-    # Get the last non-empty part of the path as the username
-    username = path_parts[-1].strip("@") if path_parts else ""
-    return domain, username
-
 def account_lookup_api(domain, username):
     """
     Quickly lookup a username to see if it is available, skipping WebFinger resolution.
@@ -235,6 +224,53 @@ def check_valid_mastodon_instance(mstd_instance):
     except requests.RequestException as error:
         print('Error during API request:', error)
         return False
+
+def get_domain_and_username(user_identifier):
+    """
+    Extract the domain and username.
+
+    inputs:
+        url (str): The Mastodon instance URL (without 'https://').
+
+    returns:
+        bool: True if the instance is valid, False otherwise.
+    """
+    # Parse the user identifier
+    parsed_url = urlparse(user_identifier)
+    domain = parsed_url.netloc
+    # Split the path and filter out empty parts
+    path_parts = [part for part in parsed_url.path.split('/') if part]
+    # Get the last non-empty part of the path as the username
+    username = path_parts[-1].strip("@") if path_parts else ""
+    return domain, username
+
+
+def get_rebloged_accounts(all_posts_list):
+    """
+    Get the reblogged accounts for the each posts.
+    """
+    all_posts = []
+    for index, sublist in enumerate(all_posts_list, start=1):
+        logger.info(f"Getting the reblogged accounts with batch {index} and no of posts: {len(all_posts_list)}")
+        for post in sublist:
+            if post.get('reblogs_count') > 0:
+                post_id = post.get('id')
+                instance_name = post.get('instance_name')
+                re_blogged_url = f"https://{instance_name}/api/v1/statuses/{post_id}/reblogged_by"
+                try:
+                    headers = {'User-Agent': 'curl/7.68.0'}
+                    response = requests.get(re_blogged_url, headers=headers)
+                    data_received = response.json()
+                    post['reblogged_users'] = data_received
+                except requests.RequestException as error:
+                    logger.error(f"Error -{error} occurred while retrieving the data from domain: {domain} and post Id: {post_id}")
+            all_posts.append(post)
+    return all_posts
+
+
+
+
+
 
 
 

@@ -146,8 +146,6 @@ def account_lookup_api(domain, username):
         logger.error(f"Error in processing account in {domain} with username : {username}")
 
 
-
-
 def get_friends_info(mastodon_instance, account_id, friends_info_type, limit):
     """
     Friends info calling API, this is a common function to grab both Mastodon followings and followers
@@ -245,28 +243,41 @@ def get_domain_and_username(user_identifier):
     return domain, username
 
 
-def get_rebloged_accounts(all_posts_list):
+def fetch_api_data(url, headers, post_id, instance_name, data_key):
+    try:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            logger.error(f"HTTP {response.status_code} error for {url}")
+    except requests.RequestException as error:
+        logger.error(f"Error - {error} occurred while retrieving data from domain: {instance_name} and post Id: {post_id}")
+    return None
+
+def retrieve_replies_and_boosts(all_posts_list):
     """
-    Get the reblogged accounts for the each posts.
+    Get the reblogged accounts and replies for each post - https://docs.joinmastodon.org/methods/statuses/#boost
+    Getting the parent and child context for posts - https://docs.joinmastodon.org/methods/statuses/#context
     """
     all_posts = []
+    headers = {'User-Agent': 'curl/7.68.0'}
+
     for index, sublist in enumerate(all_posts_list, start=1):
-        logger.info(f"Getting the reblogged accounts with batch {index} and no of posts: {len(all_posts_list)}")
+        logger.info(f"Processing batch {index} of {len(all_posts_list)}")
         for post in sublist:
-            if post.get('reblogs_count') > 0:
-                post_id = post.get('id')
-                instance_name = post.get('instance_name')
-                re_blogged_url = f"https://{instance_name}/api/v1/statuses/{post_id}/reblogged_by"
-                try:
-                    headers = {'User-Agent': 'curl/7.68.0'}
-                    response = requests.get(re_blogged_url, headers=headers)
-                    data_received = response.json()
-                    post['reblogged_users'] = data_received
-                except requests.RequestException as error:
-                    logger.error(f"Error -{error} occurred while retrieving the data from domain: {domain} and post Id: {post_id}")
+            post_id = post.get('id')
+            instance_name = post.get('instance_name')
+
+            if post.get('reblogs_count', 0) > 0:
+
+                reblogged_url = f"https://{instance_name}/api/v1/statuses/{post_id}/reblogged_by"
+                post['reblogged_users'] = fetch_api_data(reblogged_url, headers, post_id, instance_name, 'reblogged_users')
+
+            replies_url = f"https://{instance_name}/api/v1/statuses/{post_id}/context"
+            post['replies'] = fetch_api_data(replies_url, headers, post_id, instance_name, 'replies')
+
             all_posts.append(post)
     return all_posts
-
 
 
 

@@ -8,7 +8,7 @@ Outputs:
 Authors: Pasan Kamburugamuwa
 """
 from flask import Blueprint,request,jsonify
-from mastoapp import querynet_search
+from mastoapp import querynet_search, statuses_search
 from library import backend_util, network
 import os,json
 
@@ -31,7 +31,7 @@ def get_public_timeline_posts_by_hashtag():
         mastodon_instances = data.get('mstdn_instances')  # Get all the Mastodon instances
         searched_hashtag = data.get('hashtag')  # Get the hashtag information
         limit = data.get('limit') or 40  # Default limit if not provided
-        max_results = data.get('max_limit')  # Use 100 if not provided max results
+        max_results = data.get('max_limit') # Use 100 if not provided max results
         is_diffusion_network = data.get("is_diffusion_network") or False # Get the diffusion network
 
         logger.info(f"Start collecting data for Mastodon co-occurrence network with hashtag: {searched_hashtag} on {mastodon_instances} with limit {limit}")
@@ -74,8 +74,8 @@ def get_public_timeline_posts_by_hashtag():
                 all_collected_data_list.append(instance_results)
 
         if is_diffusion_network:
-            # To grab the reblogged accounts
-            all_collected_data_list = querynet_search.get_rebloged_accounts(all_collected_data_list)
+            # Grab the replies and re-blogged accounts
+            all_collected_data_list = querynet_search.retrieve_replies_and_boosts(all_collected_data_list)
 
         # json_object = network.process_hashtags(all_collected_data_list, searched_hashtag)
         logger.info(f"End of retrieving Mastodon co-occurrence network with given hashtag")
@@ -83,7 +83,6 @@ def get_public_timeline_posts_by_hashtag():
     except Exception as e:
         logger.error(f"Error occurred: {e}")
         return "Bad request", 400
-
 
 @blueprint.route('/get-accounts-search-by-keyword', methods=['POST'])
 def get_accounts_by_searched_keyword():

@@ -223,9 +223,9 @@ def check_valid_mastodon_instance(mstd_instance):
         print('Error during API request:', error)
         return False
 
-def get_domain_and_username(user_identifier):
+def get_domain_and_post_id(user_identifier):
     """
-    Extract the domain and username.
+    Extract the domain and post id.
 
     inputs:
         url (str): The Mastodon instance URL (without 'https://').
@@ -236,7 +236,11 @@ def get_domain_and_username(user_identifier):
     # Parse the user identifier
     parsed_url = urlparse(user_identifier)
     domain = parsed_url.netloc
-    return domain
+
+    path_parts = parsed_url.path.split('/')
+    post_id = path_parts[-1]
+
+    return domain, post_id
 
 
 def fetch_api_data(url, headers, post_id, instance_name, data_key):
@@ -302,7 +306,7 @@ def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_ins
 
     Note: Reference - https://docs.joinmastodon.org/methods/search/
     """
-    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true&limit={limit}'
+    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true&limit={limit}&local=true'
     headers = {
         'Authorization': f'Bearer {access_token}'
     }
@@ -331,8 +335,7 @@ def retrieve_keyword_search_replies_and_boosts(posts):
     headers = {'User-Agent': 'curl/7.68.0'}
 
     for post in posts:
-        post_id = post.get('id')
-        domain = get_domain_and_username(post.get('account').get('url'))
+        domain, post_id = get_domain_and_post_id(post.get('uri'))
 
         if post.get('reblogs_count', 0) > 0:
 

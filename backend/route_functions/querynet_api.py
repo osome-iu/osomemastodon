@@ -115,5 +115,43 @@ def get_accounts_by_searched_keyword():
         logger.info(f"Retrieved {len(all_collected_accounts)} for the searched hashtag {searched_keyword}")
         return jsonify(all_collected_accounts)
 
+@blueprint.route('/get-posts-by-search-keyword', methods=['POST'])
+def get_mstdn_search_keyword_posts():
+    """
+    Get posts for the searched keyword and return all statuses in a single array.
+    """
+    try:
+        data = request.get_json()
+        mastodon_instances = data.get('mastodon_instances')
+        search_keyword = data.get('keyword')
+        limit = data.get('limit') or 20
+        is_diffusion_network = data.get("is_diffusion_network") or False
+        all_statuses = []
+
+        if not mastodon_instances or not search_keyword:
+            return jsonify({"error": "Missing mastodon_instances or keyword"}), 400
+
+        for instance in mastodon_instances:
+            name = instance.get('name')
+            access_token = instance.get('access_token')
+
+            if not name or not access_token:
+                logger.warning(f"Skipping instance due to missing name or access token: {instance}")
+                continue
+
+            # Perform the search
+            data = querynet_search.querynet_keyword_search(access_token, search_keyword, name, limit)
+            if data and data.get('statuses'):
+                all_statuses.extend(data['statuses'])
+
+        if is_diffusion_network:
+            # Grab the replies and re-blogged accounts
+            all_statuses = querynet_search.retrieve_keyword_search_replies_and_boosts(all_statuses)
+
+        return jsonify(all_statuses)
+
+    except Exception as e:
+        logger.error(f"Error in QueryNet get posts by searched keyword: {e}")
+        return jsonify({"error": str(e)}), 500
 
 

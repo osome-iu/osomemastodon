@@ -236,11 +236,7 @@ def get_domain_and_username(user_identifier):
     # Parse the user identifier
     parsed_url = urlparse(user_identifier)
     domain = parsed_url.netloc
-    # Split the path and filter out empty parts
-    path_parts = [part for part in parsed_url.path.split('/') if part]
-    # Get the last non-empty part of the path as the username
-    username = path_parts[-1].strip("@") if path_parts else ""
-    return domain, username
+    return domain
 
 
 def fetch_api_data(url, headers, post_id, instance_name, data_key):
@@ -277,6 +273,76 @@ def retrieve_replies_and_boosts(all_posts_list):
             post['replies'] = fetch_api_data(replies_url, headers, post_id, instance_name, 'replies')
 
             all_posts.append(post)
+    return all_posts
+
+
+def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_instance: str, limit: str) -> dict:
+    """
+    Searches for statuses on a Mastodon instance using a keyword.
+
+    Parameters:
+    - access_token (str): Bearer token to authenticate the request.
+    - search_keyword (str): The keyword to search for.
+    - mastodon_instance (str): The Mastodon instance URL (e.g., "mastodon.social").
+
+    Returns:
+    - dict: A dictionary containing the search results, including a "statuses" key with an array of status objects.
+
+    Example Return:
+    {
+        "statuses": [
+            {
+                "id": "12345",
+                "content": "This is a post about Python!",
+                "url": "https://mastodon.social/@user/12345"
+                ,,,
+            }
+        ]
+    }
+
+    Note: Reference - https://docs.joinmastodon.org/methods/search/
+    """
+    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true&limit={limit}'
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+
+    try:
+        response = requests.get(search_endpoint_url, headers=headers)
+        response.raise_for_status()
+        results_array = response.json()
+
+    except requests.exceptions.HTTPError as err:
+        logger.error(f"HTTP error occurred: {err} (Status Code: {response.status_code})")
+        results_array = {"statuses": []}  # Return an empty result
+
+    except Exception as e:
+        logger.error(f"An unexpected error occurred: {e}")
+        results_array = {"statuses": []}  # Return an empty result
+
+    return results_array
+
+def retrieve_keyword_search_replies_and_boosts(posts):
+    """
+    Get the reblogged accounts and replies for each post - https://docs.joinmastodon.org/methods/statuses/#boost
+    Getting the parent and child context for posts - https://docs.joinmastodon.org/methods/statuses/#context
+    """
+    all_posts = []
+    headers = {'User-Agent': 'curl/7.68.0'}
+
+    for post in posts:
+        post_id = post.get('id')
+        domain = get_domain_and_username(post.get('account').get('url'))
+
+        if post.get('reblogs_count', 0) > 0:
+
+            reblogged_url = f"https://{domain}/api/v1/statuses/{post_id}/reblogged_by"
+            post['reblogged_users'] = fetch_api_data(reblogged_url, headers, post_id, domain, 'reblogged_users')
+
+        replies_url = f"https://{domain}/api/v1/statuses/{post_id}/context"
+        post['replies'] = fetch_api_data(replies_url, headers, post_id, domain, 'replies')
+
+        all_posts.append(post)
     return all_posts
 
 

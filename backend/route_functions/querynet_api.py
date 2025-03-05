@@ -43,7 +43,6 @@ def get_public_timeline_posts_by_hashtag():
                 instance_results = []
 
                 while total_results < max_results:
-                while total_results < max_results:
                     # Fetch the hashtag data with pagination
                     hashtag_data = querynet_search.public_timeline_search_by_hashtag(
                         mastodon_instance, searched_hashtag, limit, since_id

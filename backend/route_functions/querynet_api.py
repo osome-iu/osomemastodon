@@ -71,7 +71,7 @@ def get_public_timeline_posts_by_hashtag():
 
                 # Trim the results to get the exact number of results.
                 instance_results = instance_results[:max_results]
-                all_collected_data_list.append(instance_results)
+                all_collected_data_list.extend(instance_results)
 
         if is_diffusion_network:
             # Grab the replies and re-blogged accounts

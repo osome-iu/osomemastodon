@@ -254,32 +254,6 @@ def fetch_api_data(url, headers, post_id, instance_name, data_key):
         logger.error(f"Error - {error} occurred while retrieving data from domain: {instance_name} and post Id: {post_id}")
     return None
 
-def retrieve_replies_and_boosts(all_posts_list):
-    """
-    Get the reblogged accounts and replies for each post - https://docs.joinmastodon.org/methods/statuses/#boost
-    Getting the parent and child context for posts - https://docs.joinmastodon.org/methods/statuses/#context
-    """
-    all_posts = []
-    headers = {'User-Agent': 'curl/7.68.0'}
-
-    for index, sublist in enumerate(all_posts_list, start=1):
-        logger.info(f"Processing batch {index} of {len(all_posts_list)}")
-        for post in sublist:
-            post_id = post.get('id')
-            instance_name = post.get('instance_name')
-
-            if post.get('reblogs_count', 0) > 0:
-
-                reblogged_url = f"https://{instance_name}/api/v1/statuses/{post_id}/reblogged_by"
-                post['reblogged_users'] = fetch_api_data(reblogged_url, headers, post_id, instance_name, 'reblogged_users')
-
-            replies_url = f"https://{instance_name}/api/v1/statuses/{post_id}/context"
-            post['replies'] = fetch_api_data(replies_url, headers, post_id, instance_name, 'replies')
-
-            all_posts.append(post)
-    return all_posts
-
-
 def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_instance: str, limit: str) -> dict:
     """
     Searches for statuses on a Mastodon instance using a keyword.
@@ -326,7 +300,7 @@ def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_ins
 
     return results_array
 
-def retrieve_keyword_search_replies_and_boosts(posts):
+def retrieve_posts_replies_and_boosts(posts):
     """
     Get the reblogged accounts and replies for each post - https://docs.joinmastodon.org/methods/statuses/#boost
     Getting the parent and child context for posts - https://docs.joinmastodon.org/methods/statuses/#context

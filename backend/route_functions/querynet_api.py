@@ -74,7 +74,7 @@ def get_public_timeline_posts_by_hashtag():
 
         if is_diffusion_network:
             # Grab the replies and re-blogged accounts
-            all_collected_data_list = querynet_search.retrieve_replies_and_boosts(all_collected_data_list)
+            all_collected_data_list = querynet_search.retrieve_posts_replies_and_boosts(all_collected_data_list)
 
         # json_object = network.process_hashtags(all_collected_data_list, searched_hashtag)
         logger.info(f"End of retrieving Mastodon co-occurrence network with given hashtag")
@@ -145,7 +145,7 @@ def get_mstdn_search_keyword_posts():
 
         if is_diffusion_network:
             # Grab the replies and re-blogged accounts
-            all_statuses = querynet_search.retrieve_keyword_search_replies_and_boosts(all_statuses)
+            all_statuses = querynet_search.retrieve_posts_replies_and_boosts(all_statuses)
 
         return jsonify(all_statuses)
 

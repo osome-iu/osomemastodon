@@ -37,16 +37,16 @@ def get_public_timeline_posts_by_hashtag():
         logger.info(f"Start collecting data for Mastodon co-occurrence network with hashtag: {searched_hashtag} on {mastodon_instances} with limit {limit}")
 
         for mastodon_instance in mastodon_instances:
-            name = mastodon_instance.get('name')
-            if name:
+            if mastodon_instance:
                 since_id = None
                 total_results = 0
                 instance_results = []
 
                 while total_results < max_results:
+                while total_results < max_results:
                     # Fetch the hashtag data with pagination
                     hashtag_data = querynet_search.public_timeline_search_by_hashtag(
-                        name, searched_hashtag, limit, since_id
+                        mastodon_instance, searched_hashtag, limit, since_id
                     )
 
                     if not hashtag_data:
@@ -54,7 +54,7 @@ def get_public_timeline_posts_by_hashtag():
 
                     # Add instance name to the records
                     for record in hashtag_data:
-                        record['instance_name'] = name
+                        record['instance_name'] = mastodon_instance
 
                     instance_results.extend(hashtag_data)
                     total_results += len(hashtag_data)
@@ -67,7 +67,7 @@ def get_public_timeline_posts_by_hashtag():
                         break
 
 
-                logger.info(f"Total number of results received from {name} for the hashtag: {searched_hashtag} is: {total_results}")
+                logger.info(f"Total number of results received from {mastodon_instance} for the hashtag: {searched_hashtag} is: {total_results}")
 
                 # Trim the results to get the exact number of results.
                 instance_results = instance_results[:max_results]

@@ -3,7 +3,7 @@
         <div id="maintenance-notice">
             🚨 Notice: This website may experience periodic outages on March 26th due to scheduled maintenance. 🚨
         </div>
-        <div style="margin-top:90px; display: flex; align-items: center;">
+        <div id="header">
             <a href="https://www.iu.edu" title="Indiana University">
                 <img class="indiana-university-logo" src="//assets.iu.edu/brand/3.2.x/trident-large.png" alt="Indiana University Logo">
             </a>
@@ -19,16 +19,13 @@
                     <i class="fas fa-bars" style="color:white"></i>
                 </button>
                 <a href="https://osome.iu.edu/" target="_blank" class="navigation-link">
-                    <!-- Add 'small' class to make the text smaller on smaller screens -->
                     <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; font-weight: bold; margin-right: -138px; margin-left: 18px;">OSoMe</h1>
                 </a>
-                <!-- Add 'small' class to make the image smaller on smaller screens -->
                 <router-link to="/">
-                    <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 6px;" class="small" >
+                    <img src="../assets/mastodon_png.png" alt="OSoMe Logo" style="width: 120px; margin-right: 20px; margin-top: 6px;" class="small">
                 </router-link>
-                <!-- Add 'small' class to make the text smaller on smaller screens -->
                 <router-link to="/" style="text-decoration: none; min-width: 44px; min-height: 44px;">
-                    <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -10px; font-weight: bold; ">Search</h1>
+                    <h1 class="navbar-brand mb-0 small" style="letter-spacing: -1px; font-size: 1.5rem; margin-left: -10px; font-weight: bold;">Search</h1>
                 </router-link>
             </div>
         </div>
@@ -102,6 +99,14 @@
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
+}
+
+#header{
+    margin-top: 90px;
+    display: flex;
+    align-items: center;
+    background: white;
+    width: 100%;
 }
 </style>
 <script setup>

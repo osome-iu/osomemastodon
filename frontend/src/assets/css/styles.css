@@ -639,6 +639,7 @@ progress {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+  margin-top: 100px;
 }
 
 @media (min-width: 576px) {
@@ -10928,7 +10929,8 @@ body {
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
   width: 225px;
   height: 100vh;
-  z-index: 1038;
+  z-index: 1050;
+  margin-top: 100px;
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {

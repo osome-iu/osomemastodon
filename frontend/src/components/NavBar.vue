@@ -1,13 +1,18 @@
 <template>
     <nav class="sb-topnav navbar navbar-expand navbar-dark" id="top-nav-bar">
-        <a href="https://www.iu.edu" title="Indiana University">
-            <img class ="indiana-university-logo" src="//assets.iu.edu/brand/3.2.x/trident-large.png" alt="Indiana University Logo">
-        </a>
-        <a class="indiana-university-h1" href="https://www.iu.edu" title="Indiana University">
-            <p id="campus-name" class="show-on-desktop" itemprop="name">Indiana University Bloomington</p>
-        </a>
+        <div id="maintenance-notice">
+            🚨 Notice: This website may experience periodic outages on March 26th due to scheduled maintenance. 🚨
+        </div>
+        <div style="margin-top:90px; display: flex; align-items: center;">
+            <a href="https://www.iu.edu" title="Indiana University">
+                <img class="indiana-university-logo" src="//assets.iu.edu/brand/3.2.x/trident-large.png" alt="Indiana University Logo">
+            </a>
+            <a class="indiana-university-h1" href="https://www.iu.edu" title="Indiana University">
+                <p id="campus-name" class="show-on-desktop" itemprop="name">Indiana University Bloomington</p>
+            </a>
+        </div>
     </nav>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 52px;">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" id="nav-bar" style="margin-top: 100px;">
         <div class="d-flex align-items-center justify-content-between w-100">
             <div class="d-flex align-items-center" style="">
                 <button class="btn btn-link btn-sm order-10 order-sm-10 order-lg-0 ml-auto me-9 me-lg-0" id="sidebarToggle" href="#!" aria-label="navigate-button" style="font-size:1.2rem">
@@ -38,8 +43,6 @@
     margin-top: -1px; /* Ensure no margin at the bottom */
     color: black;
 }
-
-
 #nav-bar {
     background-color: #990000;
     padding: 10px;
@@ -88,6 +91,17 @@
     font-size: 1.2em;
     margin-top:1px;
     font-family: "BentonSansBold" ,Arial,serif;
+}
+
+#maintenance-notice {
+    background: #ffffe0;
+    position: fixed;
+    padding: 10px;
+    color: black;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
 }
 </style>
 <script setup>

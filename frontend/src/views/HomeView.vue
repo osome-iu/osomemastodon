@@ -49,6 +49,16 @@ body, html, #app {
     right: 0;
     bottom: 0;
 }
+
+#maintenance-notice {
+    background: #ffffe0;
+    position: fixed;
+    padding: 10px;
+    color: black;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
 @import'~bootstrap/dist/css/bootstrap.css';
 
 </style>

@@ -1,7 +1,7 @@
 <template>
     <nav class="sb-topnav navbar navbar-expand navbar-dark" id="top-nav-bar">
         <div id="maintenance-notice">
-            🚨 Notice: This website may experience periodic outages on March 26th due to scheduled maintenance. 🚨
+            🚨 Notice: This website may experience periodic outages from March 26th to March 28th due to scheduled maintenance. 🚨
         </div>
         <div id="header">
             <a href="https://www.iu.edu" title="Indiana University">

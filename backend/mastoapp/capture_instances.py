@@ -57,22 +57,21 @@ def fetch_instance_data():
     - active_users - no of activate users
     -----------
     """
-    url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc"
-    payload={}
-    headers = {
-        'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()
-    }
-    response = requests.request("GET", url, headers=headers, data=payload)
+    # url = "https://instances.social/api/1.0/instances/list?min_active_users=5000&count=20&sort_by=statuses&sort_order=asc"
+    # payload={}
+    # headers = {
+    #     'Authorization': 'Bearer ' + backend_util.get_instances_social_api_key()
+    # }
+    # response = requests.request("GET", url, headers=headers, data=payload)
 
-    if response.status_code == 200:
-        data = response.json()
-        with open(mastodon_instances_files, 'w') as json_file:
-            json.dump(data, json_file, indent=2)
-        return data
-    else:
-        print(f"Failed to retrieve data. Status code: {response.status_code}")
-        with open(mastodon_instances_files, 'r') as file:
-            data = json.load(file)
+    # if response.status_code == 200:
+    #     data = response.json()
+    #     with open(mastodon_instances_files, 'w') as json_file:
+    #         json.dump(data, json_file, indent=2)
+    #     return data
+    # else:
+    with open(FILE, 'r') as file:
+        data = json.load(file)
         json_data = json.dumps(data, indent=2)
         return json_data
 

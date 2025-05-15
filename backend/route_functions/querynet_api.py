@@ -99,7 +99,7 @@ def get_mstdn_search_keyword_posts():
             logger.error("Missing mastodon instance or keyword")
             return jsonify({"error": "Missing mastodon_instances or keyword"}), 400
 
-        logger.info(f"Start collecting data for Mastodon diffusion network for the keyword : {search_keyword} on {mastodon_instances} with limit {limit} and maximum limit {max_results}")
+        logger.info(f"Start collecting data for Mastodon diffusion network for the keyword : {search_keyword} on {mastodon_instances} with limit {limit} and maximum limit {max_limit}")
 
         for instance in mastodon_instances:
             name = instance.get('name')

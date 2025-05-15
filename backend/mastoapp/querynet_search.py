@@ -44,7 +44,7 @@ def public_timeline_search_by_hashtag(mastodon_instance, hashtag, limit, since_i
             public_hashtag_endpoint += f'&since_id={since_id}'
 
         response = requests.get(public_hashtag_endpoint, headers=header)
-
+        
         if response.status_code == 200:
             statuses = response.json()
             logger.info(f"Get public timeline posts of {mastodon_instance} by the hashtag: {hashtag}, statuses received: {len(statuses)}")
@@ -254,51 +254,77 @@ def fetch_api_data(url, headers, post_id, instance_name, data_key):
         logger.error(f"Error - {error} occurred while retrieving data from domain: {instance_name} and post Id: {post_id}")
     return None
 
-def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_instance: str, limit: str) -> dict:
+
+def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_instance: str,
+                            limit: int = 20, max_limit: int = None) -> dict:
     """
     Searches for statuses on a Mastodon instance using a keyword.
 
     Parameters:
-    - access_token (str): Bearer token to authenticate the request.
-    - search_keyword (str): The keyword to search for.
-    - mastodon_instance (str): The Mastodon instance URL (e.g., "mastodon.social").
+    - access_token: Bearer token to authenticate (None for public access)
+    - search_keyword: Term to search for
+    - mastodon_instance: Instance domain (e.g., "mastodon.social")
+    - limit: Per-request limit (default 20, max 40 when authenticated)
+    - max_limit: Total maximum results to return (optional)
 
-    Returns:
-    - dict: A dictionary containing the search results, including a "statuses" key with an array of status objects.
-
-    Example Return:
-    {
-        "statuses": [
-            {
-                "id": "12345",
-                "content": "This is a post about Python!",
-                "url": "https://mastodon.social/@user/12345"
-                ,,,
-            }
-        ]
-    }
-
-    Note: Reference - https://docs.joinmastodon.org/methods/search/
+    Returns dict with 'statuses' array and metadata
     """
-    search_endpoint_url = f'https://{mastodon_instance}/api/v2/search?q={search_keyword}&type=statuses&resolve=true&limit={limit}&local=true'
-    headers = {
-        'Authorization': f'Bearer {access_token}'
+    base_url = f'https://{mastodon_instance}/api/v2/search'
+    headers = {'Authorization': f'Bearer {access_token}'} if access_token else {}
+    all_statuses = []
+
+    params = {
+        'q': search_keyword,
+        'type': 'statuses',
+        'limit': min(int(limit), 40) if access_token else min(int(limit), 5),
     }
+
+    if access_token:
+        params.update({
+            'resolve': 'true',
+            'offset': 0,
+        })
 
     try:
-        response = requests.get(search_endpoint_url, headers=headers)
-        response.raise_for_status()
-        results_array = response.json()
+        while True:
+            response = requests.get(base_url, headers=headers, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+
+            statuses = data.get('statuses', [])
+            if not statuses:
+                break
+
+            all_statuses.extend(statuses)
+
+            # Check max limit
+            if max_limit and len(all_statuses) >= max_limit:
+                all_statuses = all_statuses[:max_limit]
+                break
+
+            # Pagination handling
+            if access_token:
+                if len(statuses) < params['limit']:
+                    break
+                params['offset'] += params['limit']
+            else:
+                break
 
     except requests.exceptions.HTTPError as err:
-        logger.error(f"HTTP error occurred: {err} (Status Code: {response.status_code})")
-        results_array = {"statuses": []}  # Return an empty result
-
+        logger.error(f"HTTP error in search: {err}")
+        return {'error': str(err), 'status_code': getattr(err.response, 'status_code', None)}
     except Exception as e:
-        logger.error(f"An unexpected error occurred: {e}")
-        results_array = {"statuses": []}  # Return an empty result
+        logger.error(f"Search error: {e}")
+        return {'error': str(e)}
 
-    return results_array
+    return {
+        'statuses': all_statuses,
+        'metadata': {
+            'count': len(all_statuses),
+            'instance': mastodon_instance,
+            'authenticated': bool(access_token)
+        }
+    }
 
 def retrieve_posts_replies_and_boosts(posts):
     """

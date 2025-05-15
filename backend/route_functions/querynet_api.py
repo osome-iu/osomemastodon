@@ -65,7 +65,6 @@ def get_public_timeline_posts_by_hashtag():
                     if total_results >= max_results:
                         break
 
-
                 logger.info(f"Total number of results received from {mastodon_instance} for the hashtag: {searched_hashtag} is: {total_results}")
 
                 # Trim the results to get the exact number of results.
@@ -76,43 +75,11 @@ def get_public_timeline_posts_by_hashtag():
             # Grab the replies and re-blogged accounts
             all_collected_data_list = querynet_search.retrieve_posts_replies_and_boosts(all_collected_data_list)
 
-        # json_object = network.process_hashtags(all_collected_data_list, searched_hashtag)
         logger.info(f"End of retrieving Mastodon co-occurrence network with given hashtag")
         return jsonify(all_collected_data_list)
     except Exception as e:
         logger.error(f"Error occurred: {e}")
         return "Bad request", 400
-
-@blueprint.route('/get-accounts-search-by-keyword', methods=['POST'])
-def get_accounts_by_searched_keyword():
-    """
-    Get accounts by searched keyword.
-    """
-    try:
-       data = request.get_json()
-       mastodon_instances = data.get('mstdn_instances')
-       searched_keyword = data.get('keyword')
-       limit = data.get('limit') # This is for the future use.
-
-       logger.info(f"Start collecting accounts for the given keyword : {searched_keyword} on {mastodon_instances}")
-       unique_accounts = {}
-
-       for mstdn_instance in mastodon_instances:
-           instance_results = querynet_search.get_accounts_by_search_keyword(mstdn_instance.get("name"), searched_keyword, limit)
-
-           for account in instance_results:
-               acct = account.get("acct")
-               if acct and acct not in unique_accounts:
-                   unique_accounts[acct] = account
-       # Unique accounts
-       all_collected_accounts = list(unique_accounts.values())
-
-    except Exception as e:
-        logger.error(f"Error in retrieving accounts for the given hashtag {e}")
-        return "Bad request", 400
-    else:
-        logger.info(f"Retrieved {len(all_collected_accounts)} for the searched hashtag {searched_keyword}")
-        return jsonify(all_collected_accounts)
 
 @blueprint.route('/get-posts-by-search-keyword', methods=['POST'])
 def get_mstdn_search_keyword_posts():
@@ -123,7 +90,8 @@ def get_mstdn_search_keyword_posts():
         data = request.get_json()
         mastodon_instances = data.get('mastodon_instances')
         search_keyword = data.get('keyword')
-        limit = data.get('limit') or 20
+        limit = data.get('limit') or 40
+        max_limit = data.get('max_limit') # Use 100 if not provided max results
         is_diffusion_network = data.get("is_diffusion_network") or False
         all_statuses = []
 
@@ -139,7 +107,7 @@ def get_mstdn_search_keyword_posts():
                 continue
 
             # Perform the search
-            data = querynet_search.querynet_keyword_search(access_token, search_keyword, name, limit)
+            data = querynet_search.querynet_keyword_search(access_token, search_keyword, name, limit, int(max_limit))
             if data and data.get('statuses'):
                 all_statuses.extend(data['statuses'])
 

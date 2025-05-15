@@ -34,7 +34,7 @@ def get_public_timeline_posts_by_hashtag():
         max_results = data.get('max_limit') or 100 # Use 100 if not provided max results
         is_diffusion_network = data.get("is_diffusion_network") or False # Get the diffusion network
 
-        logger.info(f"Start collecting data for Mastodon co-occurrence network with hashtag: {searched_hashtag} on {mastodon_instances} with limit {limit}")
+        logger.info(f"Start collecting data for Mastodon co-occurrence network with hashtag: {searched_hashtag} on {mastodon_instances} with limit {limit} and maximum limit {max_results}")
 
         for mastodon_instance in mastodon_instances:
             if mastodon_instance:
@@ -96,7 +96,10 @@ def get_mstdn_search_keyword_posts():
         all_statuses = []
 
         if not mastodon_instances or not search_keyword:
+            logger.error("Missing mastodon instance or keyword")
             return jsonify({"error": "Missing mastodon_instances or keyword"}), 400
+
+        logger.info(f"Start collecting data for Mastodon diffusion network for the keyword : {search_keyword} on {mastodon_instances} with limit {limit} and maximum limit {max_results}")
 
         for instance in mastodon_instances:
             name = instance.get('name')
@@ -115,6 +118,7 @@ def get_mstdn_search_keyword_posts():
             # Grab the replies and re-blogged accounts
             all_statuses = querynet_search.retrieve_posts_replies_and_boosts(all_statuses)
 
+        logger.info(f"End of retrieving Mastodon co-occurrence network with given hashtag")
         return jsonify(all_statuses)
 
     except Exception as e:

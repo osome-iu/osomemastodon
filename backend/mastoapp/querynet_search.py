@@ -292,6 +292,8 @@ def querynet_keyword_search(access_token: str, search_keyword: str, mastodon_ins
             data = response.json()
 
             statuses = data.get('statuses', [])
+
+            logger.info(f"Posts received for the {mastodon_instance} by the keyword: {search_keyword}, statuses received: {len(statuses)}")
             if not statuses:
                 break
 

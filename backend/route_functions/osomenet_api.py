@@ -30,8 +30,8 @@ def get_public_timeline_posts_by_hashtag():
         data = request.get_json()
         mastodon_instances = data.get('mstdn_instances', [])
         searched_hashtag = data.get('hashtag', '')
-        limit = min(int(data.get('limit', 40)), 40)
-        max_results = min(int(data.get('max_limit', 100)), 1000)
+        limit = data.get('limit', 40)
+        max_results = data.get('max_limit', 200)
         is_diffusion_network = data.get("is_diffusion_network", False)
 
         logger.info(f"Collecting data for hashtag: {searched_hashtag} on instances: {mastodon_instances}")
@@ -88,7 +88,7 @@ def get_mstdn_search_keyword_posts():
         mastodon_instances = data.get('mastodon_instances')
         search_keyword = data.get('keyword')
         limit = data.get('limit') or 40
-        max_limit = data.get('max_limit') or 100 # Use 100 if not provided max results
+        max_limit = data.get('max_limit') or 200 # Use 100 if not provided max results
         is_diffusion_network = data.get("is_diffusion_network") or False
         all_statuses = []
 

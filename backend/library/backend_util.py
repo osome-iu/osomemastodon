@@ -12,20 +12,17 @@ Author: Pasan Kamburugamuwa
 import configparser
 import logging
 import traceback
-import argparse
 import os
 import sys
-import json
-from contextlib import contextmanager
 
-logger_file_path = '/home/data/apps/mastodon/log/mastodon_logging.log'
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+config_file_path = os.path.join(project_root, "mastodon.config")
 
 def get_mastodon_conf():
     """
     Get the mastodon configuration file.
     """
     try:
-        config_file_path = "./config/mastodon.config"
         config_parser = configparser.ConfigParser()
         config_parser.read(config_file_path)
         return config_parser
@@ -69,61 +66,25 @@ def get_flask_debug_mode():
         traceback.print_tb(exc.__traceback__)
         raise Exception('Unable to find the mastodon debug mode')
 
-def get_instances_social_api_key():
+def get_instances_file():
     """
-    Get the Mastodon API key.
-    :return: Mastodon API key.
-
-    Info - The API key is from the https://instances.social/ and it is used to get instances.
+    Get the top Mastodon instances
     """
     try:
-        api_key_file_path = "./config/keys.json"
-        if not os.path.exists(api_key_file_path):
-            raise Exception("API key file not found")
-
-        with open(api_key_file_path) as file:
-            credentials = json.load(file)
-
-        #Get the instance social API key from the json file.
-        mastodon_api_key = credentials.get("InstancesSocialAPIKey")
-        if mastodon_api_key:
-            return mastodon_api_key
-        else:
-            raise Exception("Mastodon API key not found in the JSON file")
+        config = get_mastodon_conf()
+        instances_file = config["DEFAULT"]["Instances"]
+        return instances_file
     except Exception as exc:
         traceback.print_tb(exc.__traceback__)
-        raise Exception("Unable to find the Mastodon API key")
-
-def get_mastodon_social_server_access_token():
-    """
-    Get the Mastodon Social Server Access token
-    :return: Mastodon Social Server Access Token.
-
-    Info - The access token is from the https://mastodon.social/settings/applications/ and it is used to get the posts
-    Drawback : This token is used to get only the posts for the specific server. Not all the server data.
-    """
-    try:
-        mastodon_server_access_file_path = "./config/keys.json"
-        if not os.path.exists(mastodon_server_access_file_path):
-            raise Exception("Mastodon server access file not found")
-
-        with open(mastodon_server_access_file_path) as file:
-            credentials = json.load(file)
-
-        #Get the instance social API key from the json file.
-        mastodon_social_access_token = credentials.get("mastodonOneServerAPIKey")
-        if mastodon_social_access_token:
-            return mastodon_social_access_token
-        else:
-            raise Exception("Mastodon social access key is not found in the JSON file")
-    except Exception as exc:
-        traceback.print_tb(exc.__traceback__)
-        raise Exception("Unable to find the Mastodon social access key!")
+        raise Exception('Unable to find the instance file')
 
 def get_logger(script_name=None, also_print=True):
     """
     Create logger for the project.
     """
+    config = get_mastodon_conf()
+    logger_file = config["DEFAULT"]["LoggerFile"]
+
     # Create logger and set level
     logger = logging.getLogger(script_name)
     logger.setLevel(level=logging.INFO)
@@ -131,7 +92,7 @@ def get_logger(script_name=None, also_print=True):
     # Create formatter
     formatter = logging.Formatter(fmt="%(asctime)s-%(name)s-%(levelname)s - %(message)s", datefmt="%Y-%m-%d_%H:%M:%S")
 
-    fh = logging.FileHandler(f"{logger_file_path}")
+    fh = logging.FileHandler(f"{logger_file}")
     fh.setFormatter(formatter)
     fh.setLevel(level=logging.INFO)
 

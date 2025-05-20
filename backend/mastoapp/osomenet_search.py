@@ -11,7 +11,6 @@ import os
 import requests
 from urllib.parse import urlparse
 from library import backend_util
-from flask import jsonify
 
 # Define the logger
 logger = backend_util.get_logger(script_name=os.path.basename(__file__), also_print=True)
@@ -44,7 +43,7 @@ def public_timeline_search_by_hashtag(mastodon_instance, hashtag, limit, since_i
             public_hashtag_endpoint += f'&since_id={since_id}'
 
         response = requests.get(public_hashtag_endpoint, headers=header)
-        
+
         if response.status_code == 200:
             statuses = response.json()
             logger.info(f"Get public timeline posts of {mastodon_instance} by the hashtag: {hashtag}, statuses received: {len(statuses)}")
@@ -114,95 +113,6 @@ def get_accounts_by_search_keyword(mastodon_instance, search_keyword, limit):
 
     # Return the accumulated accounts
     return accounts
-
-def account_lookup_api(domain, username):
-    """
-    Quickly lookup a username to see if it is available, skipping WebFinger resolution.
-
-    Reference - https://docs.joinmastodon.org/methods/accounts/#lookup
-    Parameters
-    -----------
-    - domain: The Mastodon domain in query
-    - username: Unique username in the particular Mastodon instance.
-
-    Returns
-    - List of JSON objects representing statuses.
-    """
-
-    # Header for the request
-    headers = {
-        'User-Agent': 'curl/7.68.0',  # Mimic curl's User-Agent
-    }
-
-    account_lookup_endpoint = f'https://{domain}/api/v1/accounts/lookup'
-    params = {"acct": username}
-
-    try:
-        response = requests.get(account_lookup_endpoint, params = params, headers = headers)
-        return response.json() # Return the data
-    except requests.exceptions.RequestException as e:
-        logger.error(f"HTTP error occurred while processing account lookup in {domain} with username {username}: {e}")
-    except Exception as e:
-        logger.error(f"Error in processing account in {domain} with username : {username}")
-
-
-def get_friends_info(mastodon_instance, account_id, friends_info_type, limit):
-    """
-    Friends info calling API, this is a common function to grab both Mastodon followings and followers
-    for the given account id.
-
-    Reference - https://docs.joinmastodon.org/methods/accounts/#followers
-    Parameters
-    -----------
-    - mastodon_instance: The Mastodon instance to query.
-    - id: Unique post id.
-
-    Returns
-    - List of JSON objects representing statuses.
-    """
-    all_friends_info = []
-
-    # Header for the request
-    headers = {
-        'User-Agent': 'curl/7.68.0',  # Mimic curl's User-Agent
-    }
-
-    # Base URL with required parameters
-    get_friends_info_endpoint = f'https://{mastodon_instance}/api/v1/accounts/{account_id}/{friends_info_type}'
-    params = {'limit': limit}
-
-    while True:
-        response = requests.get(get_friends_info_endpoint, params=params, headers=headers)
-
-        if response.status_code != 200:
-            logger.error(f"Failed to retrieve friends information for the instance {mastodon_instance} with account id : {account_id}")
-            break
-
-        try:
-            # receive the friends information
-            friends_info = response.json()
-
-        except JSONDecodeError:
-            logging.error(f"JSON decode error: {response.text}")
-            break
-
-        if not friends_info:
-            break
-
-        all_friends_info.extend(friends_info)
-
-        links = response.headers.get('Link', '')
-        next_link = None
-        for link in links.split(','):
-            if 'rel="next"' in link:
-                next_link = link.split(';')[0].strip('<>')
-                break
-        if next_link:
-            params = {param.split('=')[0]: param.split('=')[1] for param in next_link.split('?')[1].split('&')}
-        else:
-            break
-
-    return all_friends_info
 
 def check_valid_mastodon_instance(mstd_instance):
     """

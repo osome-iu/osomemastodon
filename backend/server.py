@@ -1,46 +1,37 @@
 """
-Purpose:
-    This script used to add API endpoints to get the mastodon instances and search the posts.
-Inputs:
-    - end points - /instances -> this will fetch the instances.
-                 - /search -> search by a name. this will fetch all the posts related to this.
-Outputs:
-    - JSON object
-Authors: Rishab Ravi and Pasan Kamburugamuwa
+Flask API server for Mastodon data with two main endpoints:
+1. /api/instances - Get Mastodon instances data
+2. /api/search - Search Mastodon posts
+
+Also serves a frontend Vue/React app.
+Authors: Rishab Ravi, Pasan Kamburugamuwa
 """
-from flask import Flask, request, jsonify, Response, render_template
+
+import os
+from flask import Flask, render_template
 from flask_cors import CORS, cross_origin
-import os, sys
 from library import backend_util
-from route_functions import instance_data_api, search_api,account_search_api,timeline_api, querynet_api
+from route_functions import interface_api, osomenet_api
 
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-#render the frontend
+# Frontend routes
 @app.route('/')
-@cross_origin()
-def index():
-    resp = render_template("/index.html")
-    return resp
-
 @app.route('/<path:fallback>')
 @cross_origin()
-def index_fallback(fallback):
-    resp = render_template("/index.html")
-    return resp
+def index(fallback=None):
+    return render_template("/index.html")
 
-# register blueprints
-app.register_blueprint(instance_data_api.blueprint)
-app.register_blueprint(search_api.blueprint)
-app.register_blueprint(account_search_api.blueprint)
-app.register_blueprint(timeline_api.blueprint)
-app.register_blueprint(querynet_api.blueprint)
-
+# Register API blueprints
+app.register_blueprint(interface_api.blueprint)
+app.register_blueprint(osomenet_api.blueprint)
 
 if __name__ == '__main__':
-    script_name = os.path.basename(__file__)
-    logger = backend_util.get_logger(script_name=script_name, also_print=True)
-    logger.info("-" * 50)
-    logger.info(f"Begin script: {__file__}")
-    app.run(host=backend_util.get_flask_host(), port=int(backend_util.get_flask_port()), debug=backend_util.get_flask_debug_mode())
+    logger = backend_util.get_logger(script_name=os.path.basename(__file__), also_print=True)
+    logger.info(f"Starting server on {backend_util.get_flask_host()}:{backend_util.get_flask_port()}")
+    app.run(
+        host=backend_util.get_flask_host(),
+        port=int(backend_util.get_flask_port()),
+        debug=backend_util.get_flask_debug_mode()
+    )

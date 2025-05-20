@@ -72,7 +72,7 @@ def get_instances_file():
     """
     try:
         config = get_mastodon_conf()
-        instances_file = config["DEFAULT"]["Instances"]
+        instances_file = config["DEFAULT"]["InstancesFile"]
         return instances_file
     except Exception as exc:
         traceback.print_tb(exc.__traceback__)

@@ -10,7 +10,7 @@ from library import backend_util
 # Define the logger
 logger = backend_util.get_logger(script_name=os.path.basename(__file__), also_print=True)
 
-def get_all_instance_from_saved_file():
+def get_all_instance_from_saved_file(is_interface: bool) -> json:
     """
     This will grab all the instances from the saved json file.
 
@@ -27,13 +27,14 @@ def get_all_instance_from_saved_file():
     -----------
     """
     with open(backend_util.get_instances_file(), 'r') as file:
-        data = json.load(file)
+        instance_list = json.load(file)
 
-    # Exact the name only
-    names_list = [{"name": item['name']} for item in data['instances']]
+    if not is_interface:
+        # Exact the name only
+        instance_list = [{"name": item['name']} for item in instance_list['instances']]
 
     # Convert the list of names to a JSON array with indentation
-    json_data = json.dumps(names_list, indent=2)
+    json_data = json.dumps(instance_list, indent=2)
     return json_data
 
 #########################################################

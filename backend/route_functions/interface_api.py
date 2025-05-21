@@ -18,7 +18,7 @@ def get_instance_data():
         Tuple: Error message and 400 status code if request fails
     """
     try:
-        mastodon_instances = interface_search.fetch_instance_data()
+        mastodon_instances = interface_search.get_all_instance_from_saved_file(True)
         return mastodon_instances
     except Exception as e:
         return f"Bad request: {str(e)}", 400
@@ -34,7 +34,7 @@ def read_instance_data_saved():
         Tuple: Error message and 400 status code if request fails
     """
     try:
-        mastodon_instances = interface_search.get_all_instance_from_saved_file()
+        mastodon_instances = interface_search.get_all_instance_from_saved_file(False)
         return mastodon_instances
     except Exception as e:
         return f"Bad request: {str(e)}", 400

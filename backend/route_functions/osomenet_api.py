@@ -40,7 +40,7 @@ def get_public_timeline_posts_by_hashtag():
 
         # If the selected Mastodon instances are more than 3, then total 400 divide by the number of Mastodon instances.
         if len(mastodon_instances) > 3:
-            max_results = 400 // len(mastodon_instances)
+            max_results = min(100, 400 // len(mastodon_instances))
 
         for mastodon_instance in mastodon_instances:
             if not mastodon_instance:
@@ -99,7 +99,7 @@ def get_mstdn_search_keyword_posts():
 
         # If the selected Mastodon instances are more than 3, then total 400 divide by the number of Mastodon instances.
         if len(mastodon_instances) > 3:
-            max_limit = 400 // len(mastodon_instances)
+            max_limit = min(100, 400 // len(mastodon_instances))
 
         if not mastodon_instances or not search_keyword:
             logger.error("Missing mastodon instance or keyword")

@@ -64,7 +64,12 @@ def get_public_timeline_posts_by_hashtag():
 
                 instance_results.extend(hashtag_data)
                 total_results += len(hashtag_data)
-                since_id = hashtag_data[-1]['id']
+
+                # Defensive: check last element has an ID
+                if 'id' in hashtag_data[-1]:
+                    since_id = hashtag_data[-1]['id']
+                else:
+                    break
 
                 if len(hashtag_data) < limit or total_results >= max_results:
                     break

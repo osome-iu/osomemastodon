@@ -15,6 +15,8 @@ from library import backend_util
 # Define the logger
 logger = backend_util.get_logger(script_name=os.path.basename(__file__), also_print=True)
 
+DOMAINS_TO_IGNORE = {"bsky.brid.gy", "www.uoxide.space", "web.brid.gy", "pixelfed.social"}
+
 def public_timeline_search_by_hashtag(mastodon_instance, hashtag, limit, since_id=None):
     """
     This API call is used to get public timeline posts by hashtag with optional pagination support.
@@ -249,13 +251,19 @@ def retrieve_posts_replies_and_boosts(posts):
     for post in posts:
         domain, post_id = get_domain_and_post_id(post.get('uri'))
 
-        if post.get('reblogs_count', 0) > 0:
+        domains_to_ignore = [
+            "bsky.brid.gy",
+            "www.uoxide.space",
+            "web.brid.gy"
+        ]
+        if domain not in DOMAINS_TO_IGNORE:
+            if post.get('reblogs_count', 0) > 0:
 
-            reblogged_url = f"https://{domain}/api/v1/statuses/{post_id}/reblogged_by"
-            post['reblogged_users'] = fetch_api_data(reblogged_url, headers, post_id, domain, 'reblogged_users')
+                reblogged_url = f"https://{domain}/api/v1/statuses/{post_id}/reblogged_by"
+                post['reblogged_users'] = fetch_api_data(reblogged_url, headers, post_id, domain, 'reblogged_users')
 
-        replies_url = f"https://{domain}/api/v1/statuses/{post_id}/context"
-        post['replies'] = fetch_api_data(replies_url, headers, post_id, domain, 'replies')
+            replies_url = f"https://{domain}/api/v1/statuses/{post_id}/context"
+            post['replies'] = fetch_api_data(replies_url, headers, post_id, domain, 'replies')
 
         all_posts.append(post)
     return all_posts

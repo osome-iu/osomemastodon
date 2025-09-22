@@ -97,6 +97,10 @@ def get_mstdn_search_keyword_posts():
         is_diffusion_network = data.get("is_diffusion_network") or False
         all_statuses = []
 
+        # If the selected Mastodon instances are more than 3, then total 400 divide by the number of Mastodon instances.
+        if len(mastodon_instances) > 3:
+            max_limit = 400 // len(mastodon_instances)
+
         if not mastodon_instances or not search_keyword:
             logger.error("Missing mastodon instance or keyword")
             return jsonify({"error": "Missing mastodon_instances or keyword"}), 400

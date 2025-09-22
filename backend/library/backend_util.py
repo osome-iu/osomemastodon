@@ -1,3 +1,4 @@
+
 """
 Purpose:
     This script used to read the data from mastodon.config file
@@ -14,6 +15,7 @@ import logging
 import traceback
 import os
 import sys
+from logging.handlers import RotatingFileHandler
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config_file_path = os.path.join(project_root, "mastodon.config")
@@ -92,7 +94,12 @@ def get_logger(script_name=None, also_print=True):
     # Create formatter
     formatter = logging.Formatter(fmt="%(asctime)s-%(name)s-%(levelname)s - %(message)s", datefmt="%Y-%m-%d_%H:%M:%S")
 
-    fh = logging.FileHandler(f"{logger_file}")
+    # File handler with rotation
+    fh = RotatingFileHandler(
+        filename=logger_file,
+        maxBytes=5 * 1024 * 1024,  # 5 MB
+        backupCount=5               # keep 5 rotated logs
+    )
     fh.setFormatter(formatter)
     fh.setLevel(level=logging.INFO)
 

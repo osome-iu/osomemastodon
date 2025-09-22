@@ -37,6 +37,11 @@ def get_public_timeline_posts_by_hashtag():
         logger.info(f"Collecting data for hashtag: {searched_hashtag} on instances: {mastodon_instances}")
 
         all_collected_data_list = []
+
+        # If the selected Mastodon instances are more than 3, then total 400 divide by the number of Mastodon instances.
+        if len(mastodon_instances) > 3:
+            max_results = 400 // len(mastodon_instances)
+
         for mastodon_instance in mastodon_instances:
             if not mastodon_instance:
                 continue

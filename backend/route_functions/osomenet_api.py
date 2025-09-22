@@ -39,7 +39,7 @@ def get_public_timeline_posts_by_hashtag():
         all_collected_data_list = []
 
         # If the selected Mastodon instances are more than 3, then total 400 divide by the number of Mastodon instances.
-        if len(mastodon_instances) > 3:
+        if len(mastodon_instances) >= 3:
             max_results = min(80, 400 // len(mastodon_instances))
 
         for mastodon_instance in mastodon_instances:
@@ -98,7 +98,7 @@ def get_mstdn_search_keyword_posts():
         all_statuses = []
 
         # If the selected Mastodon instances are more than 3, then total 400 divide by the number of Mastodon instances.
-        if len(mastodon_instances) > 3:
+        if len(mastodon_instances) >= 3:
             max_limit = min(80, 400 // len(mastodon_instances))
 
         if not mastodon_instances or not search_keyword:

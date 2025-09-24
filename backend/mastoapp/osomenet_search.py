@@ -8,6 +8,7 @@ Outputs:
 Authors: Pasan Kamburugamuwa
 """
 import os
+import json
 import requests
 from urllib.parse import urlparse
 from library import backend_util
@@ -15,7 +16,10 @@ from library import backend_util
 # Define the logger
 logger = backend_util.get_logger(script_name=os.path.basename(__file__), also_print=True)
 
-DOMAINS_TO_IGNORE = {"bsky.brid.gy", "www.uoxide.space", "web.brid.gy", "pixelfed.social"}
+domains_to_ignore = []
+
+with open(backend_util.get_domain_to_ignore_file(), 'r') as file:
+    domains_to_ignore = json.load(file)
 
 def public_timeline_search_by_hashtag(mastodon_instance, hashtag, limit, since_id=None):
     """
@@ -251,12 +255,7 @@ def retrieve_posts_replies_and_boosts(posts):
     for post in posts:
         domain, post_id = get_domain_and_post_id(post.get('uri'))
 
-        domains_to_ignore = [
-            "bsky.brid.gy",
-            "www.uoxide.space",
-            "web.brid.gy"
-        ]
-        if domain not in DOMAINS_TO_IGNORE:
+        if domain not in domains_to_ignore:
             if post.get('reblogs_count', 0) > 0:
 
                 reblogged_url = f"https://{domain}/api/v1/statuses/{post_id}/reblogged_by"

@@ -2,4 +2,6 @@
 DebugMode = True
 FlaskPort = 8323
 FlaskHost = 0.0.0.0
-LoggerDir = /PATH
+LoggerFile = /PATH
+InstancesFile = /PATH
+DomainToIgnore = /PATH

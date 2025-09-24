@@ -80,6 +80,18 @@ def get_instances_file():
         traceback.print_tb(exc.__traceback__)
         raise Exception('Unable to find the instance file')
 
+def get_domain_to_ignore_file():
+    """
+    Get the Domains to ignore file
+    """
+    try:
+        config = get_mastodon_conf()
+        instances_file = config["DEFAULT"]["DomainToIgnore"]
+        return instances_file
+    except Exception as exc:
+        traceback.print_tb(exc.__traceback__)
+        raise Exception('Unable to find the domains to ignore file')
+
 def get_logger(script_name=None, also_print=True):
     """
     Create logger for the project.

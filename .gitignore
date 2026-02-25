@@ -132,4 +132,5 @@ dmypy.json
 
 logs/
 .idea
-**mastodon.config
+mastodon.config
+

@@ -5,6 +5,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/assets/css/IU_brand.css';
 import VueScrollTo from 'vue-scrollto';
+import UsageTracker from './utils/usageTracker';
 
 const app = createApp(App);
 app.use(router);
@@ -13,3 +14,7 @@ app.use(VueScrollTo, {
 })
 
 app.mount('#app')
+
+// Track the usage
+UsageTracker.init('osomemastodon');
+

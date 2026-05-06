@@ -67,6 +67,18 @@
     "brace-expansion": ">=2.0.2",
     "picomatch": ">=4.0.2",
     "yaml": ">=2.0.0",
+    "html-webpack-plugin": {
+      "lodash": ">=4.17.21"
+    },
+    "pretty-error": {
+      "lodash": ">=4.17.21"
+    },
+    "jest-environment-jsdom": {
+      "lodash": ">=4.17.21"
+    },
+    "whatwg-url": {
+      "lodash": ">=4.17.21"
+    },
     "copy-webpack-plugin": {
       "serialize-javascript": ">=7.0.3"
     },

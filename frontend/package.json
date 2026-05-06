@@ -18,7 +18,7 @@
     "epic-spinners": "^2.0.0",
     "form-data": "^2.5.5",
     "glob": "^13.0.0",
-    "ip-address": "^10.0.1",
+    "ip-address": "^10.1.1",
     "js-yaml": "^4.1.1",
     "loader-utils": "^2.0.4",
     "node-forge": "^1.4.0",
@@ -32,7 +32,8 @@
     "vue-select": "^4.0.0-beta.6",
     "vue3-toastify": "^0.1.14",
     "vuelidate": "^0.7.7",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "path-to-regexp": ">=0.1.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^5.0.8",
@@ -45,7 +46,7 @@
     "@vue/vue3-jest": "^27.0.0-alpha.1",
     "babel-jest": "^27.0.6",
     "jest": "^27.0.5",
-    "postcss": ">=8.4.31",
+    "postcss": ">=8.5.10",
     "sass": "^1.89.2",
     "sass-loader": "^13.3.2",
     "vue-loader": "^17.4.2",
@@ -56,17 +57,18 @@
   },
   "overrides": {
     "immutable": ">=5.1.5",
-    "serialize-javascript": ">=7.0.3",
+    "serialize-javascript": ">=7.0.5",
     "minimatch": ">=9.0.5",
     "svgo": ">=2.8.1",
     "webpack-dev-server": ">=5.2.1",
-    "postcss": ">=8.4.31",
+    "postcss": ">=8.5.10",
     "@tootallnate/once": ">=3.0.1",
     "lodash": ">=4.17.21",
-    "follow-redirects": ">=1.15.9",
-    "brace-expansion": ">=2.0.2",
+    "follow-redirects": ">=1.15.12",
+    "brace-expansion": ">=5.0.5",
     "picomatch": ">=4.0.2",
     "yaml": ">=2.0.0",
+    "path-to-regexp": ">=0.1.13",
     "html-webpack-plugin": {
       "lodash": ">=4.17.21"
     },
@@ -80,13 +82,13 @@
       "lodash": ">=4.17.21"
     },
     "copy-webpack-plugin": {
-      "serialize-javascript": ">=7.0.3"
+      "serialize-javascript": ">=7.0.5"
     },
     "css-minimizer-webpack-plugin": {
-      "serialize-javascript": ">=7.0.3"
+      "serialize-javascript": ">=7.0.5"
     },
     "terser-webpack-plugin": {
-      "serialize-javascript": ">=7.0.3"
+      "serialize-javascript": ">=7.0.5"
     }
   },
   "browserslist": [
